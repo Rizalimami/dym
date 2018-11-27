@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_ahass_deposit_tree_view">
+            <field name="name">dym.ahass.deposit.tree</field>
+            <field name="model">dym.ahass.deposit</field>
+            <field name="arch" type="xml">
+                <tree string="Titipan AHASS">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="branch_parent_id" />
+                    <field name="branch_ahass_id" />
+                    <field name="amount" />
+                    <field name="withdrawal_ids" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_ahass_deposit_form_view">
+            <field name="name">dym.ahass.deposit.form</field>
+            <field name="model">dym.ahass.deposit</field>
+            <field name="arch" type="xml">
+                <form string="Titipan AHASS">
+                    <sheet string="Titipan AHASS">
+                        <h1>
+                            <field name="name" placeholder="Name..."/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="date" />
+                                <field name="amount" />
+                            </group>
+                            <group>
+                                <field name="branch_parent_id" />
+                                <field name="branch_ahass_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Withdrawals">
+                                <group string="All Withdrawals">
+                                    <field name="withdrawal_ids" nolabel="1">
+                                        <tree string="All Withdrawals">
+                                            <field name="withdrawal_id" string='Number' />
+                                            <field name="withdraw_date" />
+                                            <field name="withdraw_journal_id" />
+                                            <field name="withdraw_payment_method" />
+                                            <field name="withdraw_amount" />
+                                            <field name="state" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_ahass_deposit_search_view">
+            <field name="name">dym.ahass.deposit.search</field>
+            <field name="model">dym.ahass.deposit</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="branch_parent_id" />
+                    <field name="branch_ahass_id" />
+                    <field name="amount" />
+                    <group string="Group By...">
+                        <filter string="Parent" icon="terp-personal" context="{'group_by':'branch_parent_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_ahass_deposit_action">
+            <field name="name">Titipan AHASS</field>
+            <field name="res_model">dym.ahass.deposit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="dym_ahass_deposit_menu" name="Titipan AHASS" sequence="60" parent="dym_dealer_menu.backoffice_nontrade_menu" action="dym_ahass_deposit_action" />
+    </data>
+</openerp>

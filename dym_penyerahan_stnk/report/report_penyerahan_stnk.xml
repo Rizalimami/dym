@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_penyerahan_stnk_template">
+    <style type="text/css">
+        .tag_container{
+            margin: auto;
+            margin-bottom:50px;
+            border: 1px solid black;
+        }
+        .no_border{
+            border: 0px !important;
+            line-height: 0.7 !important;
+        }
+        .margin_bottom{
+            margin-top: 5px !important;
+            margin-bottom: 5px !important;
+        }
+        .border_top{
+            border-top: 1px solid black !important;
+        }
+        .border_bottom{
+            border-bottom: 1px solid black !important;
+        }
+        .line_height{
+        }
+	    .page,
+	    .header,
+	    .footer,
+	    .table {
+	        font-size: 12px !important;
+	    }
+	    .hr {
+	        border-top: 1px solid black !important;
+	    }
+	    .text_up{
+	        text-transform: uppercase;
+	    }
+	    .text_bold{
+	        font-weight: bold;
+	    }
+	    .text_head{
+	        font-size: 16px;
+	    }
+	    .table_titikdua{
+	        text-align:center;
+	        width:20px
+	    }
+	    .table_margintop{
+	        margin-top: 20px !important;
+	    }
+    </style>
+    <t t-call="report.html_container">    
+		<t t-foreach="docs" t-as="o">
+        	<t t-if="o and 'company_id' in o">
+		        <t t-set="company" t-value="o.company_id"></t>
+		    </t>
+		    <t t-if="not o or not 'company_id' in o">
+		        <t t-set="company" t-value="res_company"></t>
+		    </t>
+            <t t-foreach="o.penyerahan_line" t-as="line">
+	            <div class="header">
+	        		<div class="row">
+					    <div class="col-xs-6">
+	                        <h4><t t-esc="company.name"/></h4>
+	                        <t t-if="company.jenis_npwp=='terpusat'">
+	                            <t t-if="company.street">
+	                                <span t-field="company.street"/>
+	                            </t>
+	                            <t t-if="not company.street">
+	                                <span t-field="company.partner_id.street"/>
+	                            </t>
+	                            <br/>
+	                            <t t-if="company.state_id">
+	                                <span t-field="company.state_id.name"/>
+	                            </t>
+	                            <t t-if="not company.state_id">
+	                                <span t-field="company.partner_id.state_id.name"/>
+	                            </t>                        
+	                            <t t-if="company.phone">
+	                                <span> - </span><span t-field="company.phone"/>
+	                            </t>
+	                            <t t-if="not company.phone">
+	                                <span> - </span><span t-field="company.partner_id.phone"/>
+	                            </t>
+	                        </t>
+	                        <t t-if="company.jenis_npwp=='percabang'">
+	                            <span t-field="o.branch_id.npwp_street"/>
+	                        </t>
+	                        <br/>
+	                        <t t-if="o.branch_id.npwp">
+	                            NPWP: <span t-field="o.branch_id.npwp"/>                    
+	                        </t>
+	                    </div>
+	                    <div class="col-xs-6">
+	                    	<div class="pull-right">
+		                        <h4><t t-esc="o.branch_id.name"/></h4>
+		                        <t t-if="o.branch_id.street">
+		                        	<span t-field="o.branch_id.street"/>
+		                        </t>
+		                        <t t-if="not o.branch_id.street">
+		                        	<span t-field="o.branch_id.partner_id.street"/>
+		                        </t>
+		                        <br/>
+		                        <t t-if="o.branch_id.state_id">
+		                        	<span t-field="o.branch_id.state_id.name"/>
+		                        </t>
+		                        <t t-if="not o.branch_id.state_id">
+		                        	<span t-field="o.branch_id.partner_id.state_id.name"/>
+		                        </t>                        
+		                        <t t-if="o.branch_id.phone">
+		                        	<span> - </span><span t-field="o.branch_id.phone"/>
+		                        </t>
+		                        <t t-if="not o.branch_id.phone">
+		                        	<span> - </span><span t-field="o.branch_id.partner_id.phone"/>
+		                        </t>
+	                            <br/>
+	                            No<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>: <span t-field="o.name"/><br/>                
+	                            Tanggal : <span t-field="o.tanggal"/>
+		                    </div>
+	                    </div>
+	                </div>
+	            	<hr style="margin-top:0px !important; border-color:black !important;"/>
+	            </div>
+	            <div class="page">
+	        		<div class="row">
+	        			<div class="col-xs-12 text-center">
+							<h4><u>TANDA TERIMA PENYERAHAN SURAT KENDARAAN</u></h4>
+						</div>
+	        			<div class="col-xs-12">
+							Sudah terima dari <t t-esc="o.branch_id.company_id.name"/> berupa surat kendaraan sepada motor dengan data sbb :
+						</div>
+	        			<div class="col-xs-6">
+	    					<table>
+	                            <tr>
+	                                <td>No. Mesin</td>
+	                                <td class="table_titikdua">:</td>
+	                                <td><t t-esc="line.name.name"/></td>
+	                            </tr>
+	                            <tr>
+	                                <td>No. Rangka</td>
+	                                <td class="table_titikdua">:</td>
+	                                <td><t t-esc="line.name.chassis_no"/></td>
+	                            </tr>
+	                            <tr>
+	                                <td>Tipe</td>
+	                                <td class="table_titikdua">:</td>
+	                                <td><span t-field="line.name.product_id.description"/></td>
+	                            </tr>
+	                            <tr>
+	                                <td>Warna</td>
+	                                <td class="table_titikdua">:</td>
+	                                <td><t t-esc="o.branch_id.get_attribute_name(line.name.product_id)"/></td>
+	                            </tr>
+	                            <tr>
+	                                <td>Tahun</td>
+	                                <td class="table_titikdua">:</td>
+	                                <td><span t-field="line.name.tahun"/></td>
+	                            </tr>
+		                        <tr><td class="table_titikdua" colspan="2"/></tr>
+		                        <tr><td class="table_titikdua" colspan="2"/></tr>
+		                        <tr><td class="table_titikdua" colspan="2"/></tr>
+	                            <tr>
+	                                <td>Nama</td>
+	                                <td class="table_titikdua">:</td>
+	                                <td><span t-field="o.partner_id.name"/></td>
+	                            </tr>	
+	                            <tr>
+	                                <td>Alamat</td>
+	                                <td class="table_titikdua">:</td>
+	                                <td class="text_up"><span t-field="o.partner_id.street"/> - <span t-field="o.partner_id.state_id.name"/></td>
+	                            </tr>
+								<tr>
+	                                <td>Nama STNK</td>
+	                                <td class="table_titikdua">:</td>
+	                                <td class="text_up"><span t-field="line.customer_stnk.name"/></td>
+	                            </tr>
+								<tr>
+	                                <td>Alamat STNK</td>
+	                                <td class="table_titikdua">:</td>
+	                                <td class="text_up"><span t-field="line.customer_stnk.street"/> - <span t-field="line.customer_stnk.state_id.name"/></td>
+	                            </tr>
+		                    </table>
+	                	</div>
+	    				<div class="col-xs-6 pull-right">
+	        				<table>
+	                            <tr>
+	                                <td>
+										<t t-if="line.tgl_ambil_notice">
+            								<img src="/web/static/src/img/icons/terp-camera_test.png" width="16" height="16"/>
+		                            	</t>
+		                            	<t t-if="not line.tgl_ambil_notice">
+		                                	<img src="/web/static/src/img/icons/STOCK_CLOSE.png" width="16" height="16"/>
+		                            	</t> No. Notice	                                	
+	                                </td>
+	                                <td class="table_titikdua">:</td>
+	                                <td><span t-field="line.no_notice"/></td>
+	                            </tr>		                        	        					
+	                            <tr>
+	                                <td>
+										<t t-if="line.tgl_ambil_stnk">
+		                                	<img src="/web/static/src/img/icons/terp-camera_test.png" width="16" height="16"/>
+		                            	</t>
+		                            	<t t-if="not line.tgl_ambil_stnk">
+		                                	<img src="/web/static/src/img/icons/STOCK_CLOSE.png" width="16" height="16"/>
+		                            	</t> No. STNK	                                	
+	                                </td>
+	                                <td class="table_titikdua">:</td>
+	                                <td><span t-field="line.no_stnk"/></td>
+	                            </tr>		                        	        					
+	                            <tr>
+	                                <td>
+										<t t-if="line.tgl_ambil_polisi">
+		                                	<img src="/web/static/src/img/icons/terp-camera_test.png" width="16" height="16"/>
+		                            	</t>
+		                            	<t t-if="not line.tgl_ambil_polisi">
+		                                	<img src="/web/static/src/img/icons/STOCK_CLOSE.png" width="16" height="16"/>
+		                            	</t> No. Polisi	                                	
+	                                </td>
+	                                <td class="table_titikdua">:</td>
+	                                <td><span t-field="line.no_polisi"/></td>
+	                            </tr>		                        	        					
+		                    </table>
+	        			</div>
+	                </div>
+	            	<hr style="border-color:black !important;"/>
+	                <div class="row">
+	                	<div class="col-xs-6" style="margin-bottom:10px;">
+		                   	Diterima di <span t-field="o.branch_id.state_id.name"/>, Tgl _____________<br/>
+	                		Diterima Oleh,<br/><br/><br/><br/><br/><span t-field="o.penerima"/>
+	                	</div>
+                    <div class="col-xs-6 text-center" style="margin-bottom:10px;">
+                        <br/>
+                        Diserahkan Oleh,<br/><br/><br/><br/><br/>(____________________)
+                    </div>
+	                </div>
+		        </div>
+        	</t>
+	    </t>
+	</t>
+</template>
+</data>
+</openerp>

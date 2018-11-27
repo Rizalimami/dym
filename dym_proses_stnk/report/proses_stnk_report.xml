@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paper_format_proses_stnk" model="report.paperformat">
+            <field name="name">Pengurusan STNK dan BPKB Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">45</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_proses_stnk_report"
+            string="Pengurusan STNK dan BPKB"
+            model="dym.proses.stnk"
+            report_type="qweb-pdf"
+            name="dym_proses_stnk.report_proses_stnk_template"
+            file="dym_proses_stnk.report_proses_stnk_template"
+        />
+
+        <record id="dym_proses_stnk_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_proses_stnk.paper_format_proses_stnk"/>
+        </record>
+
+        <record id="paper_format_proses_birojasa" model="report.paperformat">
+            <field name="name">Tagihan Biro Jasa Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Landscape</field>
+            <field name="format">A4</field>
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">45</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_proses_birojasa_report"
+            string="Tagihan Biro Jasa"
+            model="dym.proses.birojasa"
+            report_type="qweb-pdf"
+            name="dym_proses_stnk.report_proses_birojasa_template"
+            file="dym_proses_stnk.report_proses_birojasa_template"
+        />
+
+        <record id="dym_proses_birojasa_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_proses_stnk.paper_format_proses_birojasa"/>
+        </record>
+
+        <record id="paper_format_penerimaan_stnk_bpkb" model="report.paperformat">
+            <field name="name">Penerimaan STNK BPKB Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">40</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_penerimaan_stnk_report"
+            string="Penerimaan STNK"
+            model="dym.penerimaan.stnk"
+            report_type="qweb-pdf"
+            name="dym_proses_stnk.report_penerimaan_stnk_template"
+            file="dym_proses_stnk.report_penerimaan_stnk_template"
+        />
+
+        <record id="dym_penerimaan_stnk_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_proses_stnk.paper_format_penerimaan_stnk_bpkb"/>
+        </record>
+
+        <report
+            id="dym_penerimaan_bpkb_report"
+            string="Penerimaan BPKB"
+            model="dym.penerimaan.bpkb"
+            report_type="qweb-pdf"
+            name="dym_proses_stnk.report_penerimaan_bpkb_template"
+            file="dym_proses_stnk.report_penerimaan_bpkb_template"
+        />
+
+        <record id="dym_penerimaan_bpkb_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_proses_stnk.paper_format_penerimaan_stnk_bpkb"/>
+        </record>
+    </data>
+</openerp>

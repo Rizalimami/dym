@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_opname_line,access_dym_opname_line,model_dym_opname_line,,1,0,0,0
+access_dym_opname_line_blank,access_dym_opname_line_blank,model_dym_opname_line_blank,,1,0,0,0
+access_dym_inventory_tag,access_dym_inventory_tag,model_dym_inventory_tag,,1,0,0,0
+access_dym_stock_opname,access_dym_stock_opname,model_dym_stock_opname,,1,0,0,0
+access_dym_inventory_summary,access_dym_inventory_summary,model_dym_inventory_summary,,1,0,0,0
+access_dym_inventory_line,access_dym_inventory_line,model_dym_inventory_line,,1,0,0,0
+access_dym_inventory_line_second,access_dym_inventory_line_second,model_dym_inventory_line_second,,1,0,0,0
+access_dym_inventory_snapshot,access_dym_inventory_snapshot,model_dym_inventory_snapshot,,1,0,0,0

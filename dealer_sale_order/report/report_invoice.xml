@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_invoice_dso_template">
+    <style type="text/css">
+        .tag_container {
+            margin: auto;
+            margin-bottom: 50px;
+            border: 1px solid black;
+        }
+        
+        .no_border {
+            border: 0px !important;
+        }
+        
+        .margin_bottom {
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+        }
+        
+        .border_top {
+			border-top: 1px solid black !important;
+			margin-top: 5px !important;
+			margin-bottom: 5px !important;
+		}
+        
+        .border_bottom {
+            border-bottom: 1px solid black !important;
+        }
+                        
+        .page,
+        .header,
+        .footer,
+        .table {
+            font-size: 12px !important;
+        }
+
+        .hr {
+            border-top: 1px solid black !important;
+        }
+
+        .text_up{
+            text-transform: uppercase;
+        }
+
+        .text_bold{
+            font-weight: bold;
+        }
+
+        .text_head{
+            font-size: 14px;
+        }
+
+        .table_titikdua{
+            text-align:center;
+            width:20px;
+        }
+
+        .table_margintop{
+            margin-top: 20px !important;
+        }
+
+        .tableap td, .tableap th {
+            padding: 0px !important;
+        }
+    </style>
+    <t t-call="report.html_container">    
+		<t t-foreach="docs" t-as="o">
+        	<t t-if="o and 'company_id' in o"><t t-set="company" t-value="o.company_id"></t></t>
+		    <t t-if="not o or not 'company_id' in o"><t t-set="company" t-value="res_company"></t></t>
+
+            <div class="page">
+				<div class="row">
+                    <div class="col-xs-7">
+                        <span class="text_up text_head"><t t-esc="company.name"/></span><br/>
+                        <span class="text_up">
+							<t t-if="company.jenis_npwp=='terpusat'">
+								<t t-if="company.street">
+									<span t-field="company.street"/>
+								</t>
+								<t t-if="not company.street">
+									<span t-field="company.partner_id.street"/>
+								</t>
+								<t t-if="company.state_id">
+									<span t-field="company.state_id.name"/>
+								</t>
+								<t t-if="not company.state_id">
+									<span t-field="company.partner_id.state_id.name"/>
+								</t>                        
+								<t t-if="company.phone">
+									<span> - </span><span t-field="company.phone"/>
+								</t>
+								<t t-if="not company.phone">
+									<span> - </span><span t-field="company.partner_id.phone"/>
+								</t>
+							</t>
+							<t t-if="company.jenis_npwp=='percabang'">
+								<span t-field="o.branch_id.npwp_street"/>
+							</t>
+						</span><br/>
+						NPWP : <span t-field="company.vat" />
+                    </div>
+
+                    <div class="col-xs-5">
+						<span class="text_up text_head"><t t-esc="o.branch_id.name"/></span><br/>
+                        <span class="text_up">
+							<t t-if="o.branch_id.street">
+	                        	<span t-field="o.branch_id.street"/>
+	                        </t>
+	                        <t t-if="not o.branch_id.street">
+	                        	<span t-field="o.branch_id.partner_id.street"/>
+	                        </t>
+	                        <t t-if="o.branch_id.state_id">
+	                        	<span t-field="o.branch_id.state_id.name"/>
+	                        </t>
+	                        <t t-if="not o.branch_id.state_id">
+	                        	<span t-field="o.branch_id.partner_id.state_id.name"/>
+	                        </t>                        
+	                        <t t-if="o.branch_id.phone">
+	                        	<span> - </span><span t-field="o.branch_id.phone"/>
+	                        </t>
+	                        <t t-if="not o.branch_id.phone">
+	                        	<span> - </span><span t-field="o.branch_id.partner_id.phone"/>
+	                        </t>
+						</span>
+                    </div>
+                </div>
+
+				<hr class="border_top"/>
+
+				<div class="row">
+        			<div class="col-xs-12 text-center">
+						<span class="text_head text_bold">INVOICE</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-7">
+						<table>
+							<tr>
+								<td width="70">No. Faktur</td>
+								<td class="table_titikdua">:</td>
+								<td><span t-esc="o.get_no_invoice(o)"/></td>
+							</tr>
+							<tr>
+								<td width="70">Tanggal</td>
+								<td class="table_titikdua">:</td>
+								<td><span t-esc="o.get_tanggal_invoice(o)"/></td>
+							</tr>
+							<tr>
+								<td width="70">No. SM</td>
+								<td class="table_titikdua">:</td>
+								<td><span t-field="o.name"/></td>
+							</tr>
+							<tr>
+								<td width="70">Jenis SM</td>
+								<td class="table_titikdua">:</td>
+								<td>
+									<t t-if="o.is_credit">CREDIT</t>
+	                            	<t t-if="not o.is_credit">CASH</t>
+								</td>
+							</tr>
+							<tr t-if="o.is_credit">
+								<td width="70">Leasing</td>
+								<td class="table_titikdua">:</td>
+								<td><span t-field="o.finco_id.default_code"/> <span t-field="o.finco_id.name"/></td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="col-xs-5">
+						<table>
+							<tr>
+								<td width="70">Kepada</td>
+								<td class="table_titikdua">:</td>
+								<td>
+									<span t-field="o.partner_id.name"/>
+	                                <t t-if="o.partner_cabang">
+	                                	<br/><span t-field="o.partner_cabang"/>
+		                            </t>
+								</td>
+							</tr>
+							<tr>
+								<td width="70">NPWP</td>
+								<td class="table_titikdua">:</td>
+								<td><span t-if="o.partner_id.npwp" t-field="o.partner_id.npwp"/><span t-if="not o.partner_id.npwp">00.000.000.0-000.000</span></td>
+							</tr>
+							<tr>
+								<td width="70">Alamat</td>
+								<td class="table_titikdua">:</td>
+								<td><span t-field="o.partner_id.street"/> RT <span t-field="o.partner_id.rt"/>/<span t-field="o.partner_id.rw"/> - <span t-field="o.partner_id.state_id.name"/></td>
+							</tr>
+							<tr>
+								<td width="70">QQ</td>
+								<td class="table_titikdua">:</td>
+								<td><t t-esc="o.get_invoice_qq(o)"/></td>
+							</tr>
+							<tr t-if="o.is_credit">
+								<td width="70">Alamat QQ</td>
+								<td class="table_titikdua">:</td>
+								<td>
+									<t t-if="len(o.cddb_id) > 1"><span>Silakan Buka Lampiran !</span></t> 
+									<t t-if="len(o.cddb_id) == 1"><span t-field="o.cddb_id.street"/> RT <span t-field="o.cddb_id.rt"/>/<span t-field="o.cddb_id.rw"/> - <span t-field="o.cddb_id.state_id.name"/></t>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+                <div class="row">
+        			<div class="col-xs-12">
+	                	<table class="table tableap table_margintop">
+		                    <thead>
+		                        <tr>
+		                            <td><strong>Kode</strong></td>
+		                            <td><strong>Nama Barang</strong></td>
+		                            <td><strong>Warna</strong></td>
+		                            <td><strong>No. Mesin</strong></td>
+		                            <td><strong>Th. Rakit</strong></td>
+		                            <td><strong>Qty</strong></td>
+		                            <td class="text-right"><strong>Harga</strong></td>
+		                            <td class="text-right"><strong>Subtotal</strong></td>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                    	<t t-set="jumlah_harga" t-value="0"/>
+			                    <t t-foreach="o.dealer_sale_order_line" t-as="line">
+			                    	<tr>
+				                    	<td><span t-field="line.product_id.name"/></td>
+				                    	<td><span t-field="line.product_id.product_tmpl_id.default_code"/></td>
+				                    	<td><t t-esc="o.branch_id.get_attribute_name(line.product_id)"/></td>
+				                    	<td><span t-field="line.lot_id.name"/></td>
+				                    	<td><span t-field="line.lot_id.tahun"/></td>
+				                    	<td class="text-center"><span t-field="line.product_qty"/></td>
+				                    	<td class="text-right">
+				                    		<span t-field="line.price_unit" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+				                    	</td>
+				                    	<td class="text-right">
+				                    		<t t-esc="line.product_qty*line.price_unit" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+				                    	</td>
+				                    	<t t-set="jumlah_harga" t-value="jumlah_harga+(line.product_qty*line.price_unit)"/>
+				                    </tr>
+				                </t>
+		                    	<tr>
+			                    	<td class="text-right" colspan="7">Jumlah</td>
+			                    	<td class="text-right">
+			                    		<t t-esc="jumlah_harga" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+			                    	</td>
+			                    </tr>
+		                    	<tr>
+			                    	<td class="text-right" colspan="7">Potongan Harga</td>
+			                    	<td class="text-right">
+			                    		<span t-field="o.amount_total_disc" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+			                    	</td>
+			                    </tr>
+		                    	<tr>
+			                    	<td class="text-right" colspan="7">DPP</td>
+			                    	<td class="text-right">
+			                    		<span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/></td>
+			                    </tr>
+		                    	<tr>
+			                    	<td class="text-right" colspan="7">PPN</td>
+			                    	<td class="text-right">
+			                    		<span t-field="o.amount_tax" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/></td>
+			                    </tr>
+		                    	<tr>
+			                    	<td class="text-right" colspan="7">Total Harga Motor</td>
+			                    	<td class="text-right">
+			                    		<t t-esc="jumlah_harga-o.amount_total_disc" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+			                    	</td>
+			                    </tr>
+		                    	<tr t-if="o.amount_bbn>0">
+			                    	<td class="text-right" colspan="7">Biaya Surat</td>
+			                    	<td class="text-right">
+			                    		<span t-field="o.amount_bbn" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+			                    	</td>
+			                    </tr>
+		                    	<tr>
+			                    	<td class="text-right" colspan="7">Total Harga Motor &amp; Surat</td>
+			                    	<td class="text-right">
+			                    		<span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+									</td>
+			                    </tr>
+			            	</tbody>
+		                </table>
+		            </div>
+	            </div>
+
+				<div class="row">
+        			<div class="col-xs-12">
+						Terbilang : 
+	                    <strong>
+	                    	 ## <t t-esc="o.get_terbilang(o.amount_total)"/> ##
+	                    </strong>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-7">
+                       	Faktur ini bukan merupakan bukti pembayaran<br/>
+                		Faktur ini berlaku sebagai Faktur Pajak Pedagang Eceran (PKP PE) sesuai dengan PER - 58/PJ/2010
+                    </div>
+                    <div class="col-xs-5">
+						<span t-field="o.branch_id.state_id.name"/> <span t-field="o.date_order"/><br/>
+                       	<span>Hormat Kami,</span><br/><br/><br/><br/>
+                       	<span><b>(____________________)</b></span>
+                    </div>
+                </div>
+
+				<div class="row">
+        			<div class="col-xs-12">
+						<span><t t-esc="user.name"/> <t t-esc="o.branch_id.get_waktu_local()"/></span>
+					</div>
+				</div>
+
+	        </div>
+	    </t>
+	</t>
+</template>
+</data>
+</openerp>

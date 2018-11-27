@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_start_stop_wo_form_view">
+            <field name="name">dym.start.stop.wo.form</field>
+            <field name="model">dym.start.stop.wo</field>
+            <field name="arch" type="xml">
+                <form string="Start Stop WO">
+                    <group col="4">
+                        <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="onchange_branch_id(branch_id)" />
+                        <field name="mekanik_id" required="True" on_change="onchange_mekanik_id(mekanik_id, work_order_id)" domain="[('branch_id','=',branch_id),('active','=',True),('job_id.mekanik','=',True)]" />
+                        <field name="work_order_id" on_change="onchange_wo(work_order_id)" />
+                        <!-- <field name="start"/>
+                        <field name="end_break"/>
+                        <field name="date_break"/>
+                        <field name="finish"/> -->
+                        <field name="state_wo" invisible="1" />
+                    </group>
+                    <group></group>
+                    <group></group>
+                    <group col="4">
+                        <!-- Yordan
+                        <button name="btn_start" type="object" string="Start" class="oe_highlight" attrs="{'invisible': [('state_wo','in',('in_progress','break','finish'))]}" />
+                        <button name="btn_break" type="object" string="Break" class="oe_highlight" attrs="{'invisible': [('state_wo','!=','in_progress')]}" />
+                        <button name="btn_end_break" type="object" string="End Break" class="oe_highlight" attrs="{'invisible': [('state_wo','!=','break')]}" />
+                        <button name="btn_finish" type="object" string="Finish" class="oe_highlight" attrs="{'invisible': [('state_wo','!=','in_progress')]}" />
+                        -->
+                        <button name="btn_start" type="object" string="Start" class="oe_highlight" attrs="{'invisible': [('state_wo','in',('in_progress','break','finish'))]}" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23" />
+                        <button name="btn_break" type="object" string="Break" class="oe_highlight" attrs="{'invisible': [('state_wo','!=','in_progress')]}" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23" />
+                        <button name="btn_end_break" type="object" string="End Break" class="oe_highlight" attrs="{'invisible': [('state_wo','!=','break')]}" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23" />
+                        <button name="btn_finish" type="object" string="Finish" class="oe_highlight" attrs="{'invisible': [('state_wo','!=','in_progress')]}" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23" />
+                    </group>
+                    <notebook>
+                        <page string="Time Line">
+                            <field name="wo_time_line" nolabel="1" widget="one2many_list" readonly="1">
+                                <tree string="">
+                                    <field name="state_time_line" readonly='1' />
+                                    <field name="time" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_action_start_stop_wo_form">
+            <field name="name">Start Stop WO</field>
+            <field name="res_model">dym.start.stop.wo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+        <menuitem name="Start Stop Work Order" parent="dym_dealer_menu.workshop_sales_menu" sequence="3" id="dym_menu_start_stop_wo_form" action="dym_action_start_stop_wo_form" />
+        <record model="ir.ui.view" id="dym_work_order_form_view">
+            <field name="name">work.order.form</field>
+            <field name="model">dym.work.order</field>
+            <field name="inherit_id" ref="dym_work_order.view_dym_work_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="state_wo" widget="statusbar" statusbar_visible="in_progress,break,finish" statusbar_colors='{"in_progress":"red","break":"blue"}' />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_sale_order_form_view">
+            <field name="name">dym.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit" />
+            <field name="arch" type="xml">
+                <field name="currency_id" position="after">
+                    <field name="tipe_konsumen" class="oe_inline" required="1" attrs="{'readonly':[('state','not in','draft')]}" domain="[('so','=',True)]" />
+                    <field name="tipe_transaksi" class="oe_inline" required="1" attrs="{'readonly':[('state','not in','draft')]}" widget="radio" />
+                </field>
+                <label string="Quotation " position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </label>
+                <label string="Sales Order " position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                </label>
+                <button name="print_quotation" states="draft" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <button name="print_quotation" states="sent,progress,manual" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <xpath expr="//button[@name='print_quotation']" position="after">
+                    <button name="%(sale_order_report)d" type="action" string="Print Invoice" class="oe_highlight" icon="gtk-print" />
+                </xpath>
+                <xpath expr="/form/sheet/group" position="before">
+                    <group>
+                        <group>
+                            <field name="branch_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly': ['|',('state','not in','draft'),('name','!=','/')]}" on_change="onchange_branch(branch_id)" />
+                        </group>
+                        <group>
+                            <field name="division" attrs="{'readonly': ['|',('state','not in','draft'),('name','!=','/')]}" />
+                        </group>
+                    </group>
+                </xpath>
+                <field name="partner_id" position="replace">
+                    <field name="partner_id" on_change="onchange_partner_id_new(partner_id, division, branch_id, context)" context="{'search_default_customer':1, 'show_address': 1,'form_view_ref':'dym_work_order.dym_customer_form_wizard_view'}" attrs="{'no_open':True,'no_create_edit':True}" />
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="member" readonly="1" />
+                    <field name="credit_limit_unit" readonly="True" attrs="{'invisible': [('division','!=','Unit')]}" />
+                    <field name="credit_limit_sparepart" readonly="True" attrs="{'invisible': [('division','!=','Sparepart')]}" />
+                    <field name="total_invoiced_show" readonly="True" />
+                    <field name="total_invoiced" invisible="1" />
+                </field>
+                <field name="pricelist_id" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+                <field name="amount_untaxed" position="after">
+                    <field name="discount_cash" groups="sale.group_discount_per_so_line" string="Discount Cash" invisible="1" />
+                    <field name="discount_program" groups="sale.group_discount_per_so_line" attrs="{'readonly':[('state','not in','draft')]}" invisible="1" />
+                    <field name="discount_lain" groups="sale.group_discount_per_so_line" attrs="{'readonly':[('state','not in','draft')]}" invisible="1" />
+                </field>
+                <xpath expr="//field[@name='sequence']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sequence']" position="after">
+                    <field name="categ_id" on_change="category_change(categ_id,parent.branch_id,parent.division,parent.pricelist_id,parent.partner_id)" domain="[('parent_id.name','=',parent.division)]" options="{'no_open':True,'no_create':True}" />
+                </xpath>
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <!-- <attribute name="readonly">{'readonly': [('name','!=','/')]}</attribute> -->
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                    <attribute name="editable" />
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_open':True,'no_create_edit':True}</attribute>
+                </xpath>
+                <field name="incoterm" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="client_order_ref" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="picking_policy" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="order_policy" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="fiscal_position" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="company_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="user_id" position="replace">
+                </field>
+                <field name="section_id" position="replace">
+                </field>
+                <field name="origin" position="replace">
+                </field>
+                <field name="payment_term" position="replace">
+                </field>
+                <field name="invoiced" position="replace">
+                </field>
+                <field name="shipped" position="replace">
+                </field>
+                <field name="incoterm" position="before">
+                    <field name="user_id" context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'account.group_account_invoice', 'base.group_sale_salesman_all_leads']}" options="{'no_create': True,'no_open':True}" invisible="1" domain="[('branch_ids','=',branch_id)]" />
+                    <field name="origin" placeholder="PO PIC" />
+                    <field name="invoiced" />
+                    <field name="shipped" />
+                </field>
+                <field name="currency_id" position="after">
+                    <field name="employee_id" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('state','not in','draft')]}" on_change="onchange_sales(employee_id)" domain="[('branch_id','=',branch_id),('active','=',True),('job_id.salesman','=',True)]" />
+                    <field name="section_id" options="{'no_create': True}" groups="base.group_multi_salesteams" domain="[('active','=',True),'|',('user_id','=',employee_id),('member_ids','=',employee_id)]" />
+                    <field name="payment_term" options="{'no_create': True}" attrs="{'readonly': [('state','not in',['draft','approved'])]}" />
+                </field>
+                <xpath expr="//button[@name='action_button_confirm']" position="after">
+                    <button name="renew_price" string="Renew Price" type="object" class="oe_highlight" states="draft" />
+                </xpath>
+                <xpath expr="//page[@string='Other Information']" position="after">
+                    <page string='Faktur Pajak'>
+                        <group>
+                            <field name="is_pedagang_eceran" invisible="1" />
+                            <field name="pajak_gunggung" on_change="onchange_gabungan_gunggung('pajak_gunggung',pajak_gabungan,pajak_gunggung,pajak_generate)" attrs="{'readonly': [('is_pedagang_eceran','=',False)],'required': [('pajak_gabungan','=',False),('pajak_generate','=',False)]}" />
+                            <field name="pajak_generate" on_change="onchange_gabungan_gunggung('pajak_generate',pajak_gabungan,pajak_gunggung,pajak_generate)" attrs="{'required': ['|',('is_pedagang_eceran','=',False),'&amp;',('pajak_gabungan','=',False),('pajak_gunggung','=',False)]}" />
+                            <field name="pajak_gabungan" on_change="onchange_gabungan_gunggung('pajak_gabungan',pajak_gabungan,pajak_gunggung,pajak_generate)" attrs="{'readonly': [('is_pedagang_eceran','=',False)],'required': [('pajak_generate','=',False),('pajak_gunggung','=',False)]}" />
+                            <field name='faktur_pajak_id' readonly='1' attrs="{'invisible': ['|',('pajak_generate','=',False),('faktur_pajak_id','=',False)]}"></field>
+                        </group>
+                    </page>
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                                <field name="approve_uid" readonly="1"></field>
+                                <field name="approve_date" readonly="1"></field>
+                                <field name="confirm_uid" readonly="1"></field>
+                                <field name="confirm_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                                <field name="cancel_uid" readonly="1"></field>
+                                <field name="cancel_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//tree[@string='Sales Order Lines']/field[@name='product_id']" position="attributes">
+                    <attribute name="context">{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'branch_id': parent.branch_id, 'division': parent.division}</attribute>
+                </xpath>
+                <xpath expr="//tree[@string='Sales Order Lines']/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="context">{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'branch_id': parent.branch_id, 'division': parent.division}</attribute>
+                </xpath>
+                <xpath expr="//form[@string='Sales Order Lines']" position="replace">
+                    <form string="Sales Order Lines">
+                        <header groups="base.group_user">
+                            <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors='{"exception":"red","cancel":"red"}' />
+                        </header>
+                        <group>
+                            <group>
+                                <field name="categ_id" on_change="category_change(categ_id,parent.branch_id,parent.division,parent.pricelist_id,parent.partner_id)" domain="[('parent_id.name','=',parent.division)]" options="{'no_open':True,'no_create':True}" />
+                                <field name="product_id" context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'branch_id': parent.branch_id, 'division': parent.division}" groups="base.group_user" on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, tax_id, discount_show, discount_line, discount_lain, discount_cash, discount_cash_persen, parent.tipe_transaksi, discount, discount_pcs, discount_lain_pcs, discount_cash_pcs, disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum, context)" options="{'no_open':True,'no_create_edit':True}" domain="[('categ_id','child_of',categ_id),('sale_ok','=',True),('product_tmpl_id.is_bundle','=',False)]" />
+                                <label for="product_uom_qty" />
+                                <div>
+                                    <field context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'branch_id': parent.branch_id, 'division': parent.division}" name="product_uom_qty" class="oe_inline" on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, False, parent.fiscal_position, True, tax_id, discount_show, discount_line, discount_lain, discount_cash, discount_cash_persen, parent.tipe_transaksi, discount, discount_pcs, discount_lain_pcs, discount_cash_pcs, disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum, context)" />
+                                    <field name="product_uom" invisible="1" groups="product.group_uom" class="oe_inline oe_no_button" on_change="product_uom_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, context)" />
+                                    <field name="product_uom_show" readonly="1" class="oe_inline oe_no_button" />
+                                </div>
+                                <!-- <label for="product_uos_qty" groups="product.group_uos"/> -->
+                                <!-- <div groups="product.group_uos"> -->
+                                <field name="product_uos_qty" class="oe_inline" invisible="1" />
+                                <field name="product_uos" options='{"no_open": True}' class="oe_inline" invisible="1" />
+                                <!-- </div> -->
+                                <field name="qty_available_show" readonly='1' />
+                                <field name="qty_available" invisible='1' on_change="create_qty_available(qty_available)" />
+                                <field name="price_unit" invisible="1" on_change="calculate_sub_total(parent.partner_id, product_id, product_uom_qty,price_unit,tax_id,discount,discount_pcs,discount_show,discount_lain_pcs,discount_lain,discount_cash_persen,discount_cash_pcs,discount_cash,discount_line,disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum)" />
+                                <field name="price_unit_show" readonly='1' />
+                            </group>
+                            <group>
+                                <label string="" />
+                                <div name="discount_label">
+                                    <table style='width:100%;' border='0'>
+                                        <tr>
+                                            <th style="width:33%;"><b><label string="Per Pcs (%)"/></b></th>
+                                            <th style="width:33%;"><b><label string="Per Pcs (Amount)"/></b></th>
+                                            <th style="width:33%;"><b><label string="Sum"/></b></th>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <label for="discount" string="Discount" groups="sale.group_discount_per_so_line" />
+                                <div groups="sale.group_discount_per_so_line">
+                                    <table style='width:100%;' border='0'>
+                                        <tr>
+                                            <td style="width:5%;">
+                                                <field name="disc_persen" on_change="change_check(disc_persen,'disc_persen',['disc_amount','disc_sum'],['discount','discount_pcs','discount_show','discount_2','discount_pcs_2','discount_show_2'])" />
+                                            </td>
+                                            <td style="width:28%;">
+                                                <field name="discount" on_change="calculate_sub_total(parent.partner_id, product_id, product_uom_qty,price_unit,tax_id,discount,discount_pcs,discount_show,discount_lain_pcs,discount_lain,discount_cash_persen,discount_cash_pcs,discount_cash,discount_line,disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum)" attrs="{'invisible':[('disc_persen','=',False)]}" />
+                                                <field name="discount_2" attrs="{'invisible':[('disc_persen','=',True)]}" />
+                                            </td>
+                                            <td style="width:5%;">
+                                                <field name="disc_amount" class="oe_inline" on_change="change_check(disc_amount,'disc_amount',['disc_persen','disc_sum'],['discount','discount_pcs','discount_show','discount_2','discount_pcs_2','discount_show_2'])" />
+                                            </td>
+                                            <td style="width:28%;">
+                                                <field name="discount_pcs" on_change="calculate_sub_total(parent.partner_id, product_id, product_uom_qty,price_unit,tax_id,discount,discount_pcs,discount_show,discount_lain_pcs,discount_lain,discount_cash_persen,discount_cash_pcs,discount_cash,discount_line,disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum)" class="oe_inline" attrs="{'invisible':[('disc_amount','=',False)]}" />
+                                                <field name="discount_pcs_2" attrs="{'invisible':[('disc_amount','=',True)]}" />
+                                            </td>
+                                            <td style="width:5%;">
+                                                <field name="disc_sum" class="oe_inline" on_change="change_check(disc_sum,'disc_sum',['disc_amount','disc_persen'],['discount','discount_pcs','discount_show','discount_2','discount_pcs_2','discount_show_2'])" />
+                                            </td>
+                                            <td style="width:28%;">
+                                                <field name="discount_show" on_change="calculate_sub_total(parent.partner_id, product_id, product_uom_qty,price_unit,tax_id,discount,discount_pcs,discount_show,discount_lain_pcs,discount_lain,discount_cash_persen,discount_cash_pcs,discount_cash,discount_line,disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum)" class="oe_inline" attrs="{'invisible':[('disc_sum','=',False)]}" />
+                                                <field name="discount_show_2" attrs="{'invisible':[('disc_sum','=',True)]}" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <label for="discount_lain" string="Discount Lain" groups="sale.group_discount_per_so_line" />
+                                <div groups="sale.group_discount_per_so_line">
+                                    <table style='width:100%;' border='0'>
+                                        <tr>
+                                            <td style="width:33%;"></td>
+                                            <td style="width:5%;">
+                                                <field name="lain_amount" class="oe_inline" on_change="change_check(lain_amount,'lain_amount',['lain_sum'],['discount_lain_pcs','discount_lain','discount_lain_pcs_2','discount_lain_2'])" />
+                                            </td>
+                                            <td style="width:28%;">
+                                                <field name="discount_lain_pcs" on_change="calculate_sub_total(parent.partner_id, product_id, product_uom_qty,price_unit,tax_id,discount,discount_pcs,discount_show,discount_lain_pcs,discount_lain,discount_cash_persen,discount_cash_pcs,discount_cash,discount_line,disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum)" class="oe_inline" attrs="{'invisible':[('lain_amount','=',False)]}" />
+                                                <field name="discount_lain_pcs_2" attrs="{'invisible':[('lain_amount','=',True)]}" />
+                                            </td>
+                                            <td style="width:5%;">
+                                                <field name="lain_sum" class="oe_inline" on_change="change_check(lain_sum,'lain_sum',['lain_amount'],['discount_lain_pcs','discount_lain','discount_lain_pcs_2','discount_lain_2'])" />
+                                            </td>
+                                            <td style="width:28%;">
+                                                <field name="discount_lain" groups="sale.group_discount_per_so_line" on_change="calculate_sub_total(parent.partner_id, product_id, product_uom_qty,price_unit,tax_id,discount,discount_pcs,discount_show,discount_lain_pcs,discount_lain,discount_cash_persen,discount_cash_pcs,discount_cash,discount_line,disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum)" class="oe_inline" attrs="{'invisible':[('lain_sum','=',False)]}" />
+                                                <field name="discount_lain_2" attrs="{'invisible':[('lain_sum','=',True)]}" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <label for="discount_cash" string="Discount Cash" groups="sale.group_discount_per_so_line" />
+                                <div groups="sale.group_discount_per_so_line">
+                                    <table style='width:100%;' border='0'>
+                                        <tr>
+                                            <td style="width:5%;">
+                                                <field name="cash_persen" class="oe_inline" on_change="change_check(cash_persen,'cash_persen',['cash_sum','cash_amount'],['discount_cash_persen','discount_cash_pcs','discount_cash','discount_cash_persen_2','discount_cash_pcs_2','discount_cash_2'])" />
+                                            </td>
+                                            <td style="width:28%;">
+                                                <field name="discount_cash_persen" class="oe_inline" groups="sale.group_discount_per_so_line" on_change="calculate_sub_total(parent.partner_id, product_id, product_uom_qty,price_unit,tax_id,discount,discount_pcs,discount_show,discount_lain_pcs,discount_lain,discount_cash_persen,discount_cash_pcs,discount_cash,discount_line,disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum)" attrs="{'invisible':[('cash_persen','=',False)]}" />
+                                                <field name="discount_cash_persen_2" attrs="{'invisible':[('cash_persen','=',True)]}" />
+                                            </td>
+                                            <td style="width:5%;">
+                                                <field name="cash_amount" class="oe_inline" on_change="change_check(cash_amount,'cash_amount',['cash_sum','cash_persen'],['discount_cash_persen','discount_cash_pcs','discount_cash','discount_cash_persen_2','discount_cash_pcs_2','discount_cash_2'])" />
+                                            </td>
+                                            <td style="width:28%;">
+                                                <field name="discount_cash_pcs" class="oe_inline" groups="sale.group_discount_per_so_line" on_change="calculate_sub_total(parent.partner_id, product_id, product_uom_qty,price_unit,tax_id,discount,discount_pcs,discount_show,discount_lain_pcs,discount_lain,discount_cash_persen,discount_cash_pcs,discount_cash,discount_line,disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum)" attrs="{'invisible':[('cash_amount','=',False)]}" />
+                                                <field name="discount_cash_pcs_2" attrs="{'invisible':[('cash_amount','=',True)]}" />
+                                            </td>
+                                            <td style="width:5%;">
+                                                <field name="cash_sum" class="oe_inline" on_change="change_check(cash_sum,'cash_sum',['cash_amount','cash_persen'],['discount_cash_persen','discount_cash_pcs','discount_cash','discount_cash_persen_2','discount_cash_pcs_2','discount_cash_2'])" />
+                                            </td>
+                                            <td style="width:28%;">
+                                                <field name="discount_cash" class="oe_inline" string="Discount Cash" groups="sale.group_discount_per_so_line" on_change="calculate_sub_total(parent.partner_id, product_id, product_uom_qty,price_unit,tax_id,discount,discount_pcs,discount_show,discount_lain_pcs,discount_lain,discount_cash_persen,discount_cash_pcs,discount_cash,discount_line,disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum)" attrs="{'invisible':[('cash_sum','=',False)]}" />
+                                                <field name="discount_cash_2" attrs="{'invisible':[('cash_sum','=',True)]}" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <label for="discount_program" string="Discount Program" groups="sale.group_discount_per_so_line" />
+                                <div>
+                                    <field name="discount_program" class="oe_inline" readonly="1" /> /
+                                    <field name="discount_dealer" class="oe_inline" readonly="1" /> Dealer
+                                </div>
+                                <field name="tax_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','purchase')]" on_change="calculate_sub_total(parent.partner_id, product_id, product_uom_qty,price_unit,tax_id,discount,discount_pcs,discount_show,discount_lain_pcs,discount_lain,discount_cash_persen,discount_cash_pcs,discount_cash,discount_line,disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum)" />
+                                <field name="price_subtotal" />
+                            </group>
+                            <group>
+                                <label for="lost_order_qty" />
+                                <div>
+                                    <field name="lost_order_qty" class="oe_inline" />
+                                    <field name="save_lost_order" class="oe_inline" on_change="change_save_lost_order(parent.branch_id,product_id,lost_order_qty,qty_available,product_uom_qty, price_unit)" />
+                                    <label string=" (check to save)" class="oe_inline" />
+                                </div>
+                            </group>
+                        </group>
+                        <field name="branch_dummy" invisible='1' />
+                        <field name="division_dummy" invisible='1' />
+                        <field name="customer_dummy" invisible='1' />
+                        <notebook>
+                            <page string="Discount Line">
+                                <field name="discount_line" on_change="calculate_sub_total(parent.partner_id, product_id, product_uom_qty,price_unit,tax_id,discount,discount_pcs,discount_show,discount_lain_pcs,discount_lain,discount_cash_persen,discount_cash_pcs,discount_cash,discount_line,disc_persen, disc_amount, disc_sum, cash_persen, cash_amount, cash_sum, lain_amount, lain_sum)">
+                                    <tree editable="top">
+                                        <field name="program_subsidi" options="{'no_create': True}" domain="[('product_ids','=',parent.product_id),('area_id.branch_ids','=',parent.branch_dummy),('division','=',parent.division_dummy),('state','=','approved'),('active','=',True),('date_start','&lt;=',time.strftime('%Y-%m-%d %H:%M:%S')),('date_end','&gt;=',time.strftime('%Y-%m-%d %H:%M:%S')),('is_program_depo','=',False),('is_member_only','=',False)]" on_change="program_subsidi_change(parent.product_id,program_subsidi,0,0,parent.branch_dummy,parent.division_dummy,True,parent.customer_dummy)" />
+                                        <field name="tipe_subsidi" invisible="1" />
+                                        <field name="tipe_diskon" invisible="1" on_change="onchange_tipe_diskon(tipe_diskon)" />
+                                        <field name="tipe_diskon_copy" readonly="1" />
+                                        <field name="discount" on_change="program_subsidi_change(parent.product_id,program_subsidi,0,0,parent.branch_dummy,parent.division_dummy,True,parent.customer_dummy)" invisible="1" />
+                                        <field name="discount_copy" readonly="1" />
+                                        <field name="discount_pelanggan" on_change="onchange_discount_pelanggan(program_subsidi,tipe_subsidi,discount,discount_pelanggan)" sum="Total Discount" />
+                                        <field name="ps_ahm" invisible="1" />
+                                        <field name="ps_md" invisible="1" />
+                                        <field name="ps_finco" invisible="1" />
+                                        <field name="ps_dealer" invisible="1" />
+                                        <field name="ps_others" invisible="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Barang Bonus Line">
+                                <field name="barang_bonus_line">
+                                    <tree editable="top">
+                                        <field name="barang_subsidi_id" domain="[('area_id.branch_ids','=',parent.branch_dummy) ,('division','=',parent.division_dummy),('state','=','approved'),('active','=',True),('date_start','&lt;=',time.strftime('%Y-%m-%d %H:%M:%S')),('date_end','&gt;=',time.strftime('%Y-%m-%d %H:%M:%S'))]" options="{'no_create': True}" on_change="barang_bonus_change(parent.product_id,barang_subsidi_id)" />
+                                        <field name="product_subsidi_id" on_change="barang_bonus_change(parent.product_id,barang_subsidi_id)" options="{'no_create': True}" />
+                                        <field name="barang_qty" on_change="barang_bonus_change(parent.product_id,barang_subsidi_id)" />
+                                        <field name="price_barang" on_change="barang_bonus_change(parent.product_id,barang_subsidi_id)" />
+                                        <field name="bb_ahm" invisible="1" />
+                                        <field name="bb_md" invisible="1" />
+                                        <field name="bb_finco" invisible="1" />
+                                        <field name="bb_dealer" invisible="1" />
+                                        <field name="bb_others" invisible="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <label for="name" />
+                        <field name="name" />
+                        <div groups="base.group_no_one">
+                            <label for="invoice_lines" />
+                            <field name="invoice_lines">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="account_id" />
+                                    <field name="quantity" />
+                                    <field name="uos_id" />
+                                    <field name="price_unit" />
+                                    <field name="sale_discount" />
+                                    <field name="invoice_line_tax_id" />
+                                    <field name="sale_amount" sums="Total" />
+                                </tree>
+                            </field>
+                        </div>
+                    </form>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree//field[@name='discount']" position="replace" />
+                <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="after">
+                    <field name="discount_show" />
+                    <field name="discount_program" />
+                    <field name="discount_lain" />
+                    <field name="discount_cash" string="Discount Cash" />
+                </xpath>
+                <xpath expr="//field[@name='order_line']" position="before">
+                    <button name="%(dym_eksport_import.action_export_import)d" type="action" help="Import Sales Memo" string="Import Sales Memo" class="oe_highlight" context="{'model': 'sale_order_sparepart','order_id': active_id}" attrs="{'invisible':[('state','!=','draft')]}" />
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_sale_order_tree_view">
+            <field name="name">dym.sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree" />
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="division" />
+                </field>
+            </field>
+        </record>
+        <record id="action_orders_unit" model="ir.actions.act_window">
+            <field name="name">Sales Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter" />
+            <field name="context">{ 'search_default_my_sale_orders_filter': 1,'menu':'showroom' }
+            </field>
+            <!-- <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')),('division', '=', 'Unit')]</field> -->
+            <field name="domain">[('division', '=', 'Unit')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation that can be converted into a sales order.
+                </p>
+                <p>
+                    Odoo will help you efficiently handle the complete sales flow: quotation, sales order, delivery, invoicing and payment.
+                </p>
+            </field>
+        </record>
+        <record id="action_orders_sparepart" model="ir.actions.act_window">
+            <field name="name">Sales Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter" />
+            <field name="context">{ 'search_default_my_sale_orders_filter': 1,'menu':'workshop' }
+            </field>
+            <!-- <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')),('division', '=', 'Sparepart')]</field> -->
+            <field name="domain">[('division', '=', 'Sparepart')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation that can be converted into a sales order.
+                </p>
+                <p>
+                    Odoo will help you efficiently handle the complete sales flow: quotation, sales order, delivery, invoicing and payment.
+                </p>
+            </field>
+        </record>
+        <!-- <record id="action_quotations_unit" model="ir.actions.act_window">
+            <field name="name">Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_my_sale_orders_filter': 1}</field>
+            <field name="domain">[('state','in',('draft','sent','cancel')),('division', '=', 'Unit')]</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation, the first step of a new sale.
+              </p><p>
+                Odoo will help you handle efficiently the complete sale flow:
+                from the quotation to the sales order, the
+                delivery, the invoicing and the payment collection.
+              </p><p>
+                The social feature helps you organize discussions on each sales
+                order, and allow your customers to keep track of the evolution
+                of the sales order.
+              </p>
+            </field>
+        </record>
+
+		<record id="action_quotations_sparepart" model="ir.actions.act_window">
+            <field name="name">Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_my_sale_orders_filter': 1}</field>
+            <field name="domain">[('state','in',('draft','sent','cancel')),('division', '=', 'Sparepart')]</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation, the first step of a new sale.
+              </p><p>
+                Odoo will help you handle efficiently the complete sale flow:
+                from the quotation to the sales order, the
+                delivery, the invoicing and the payment collection.
+              </p><p>
+                The social feature helps you organize discussions on each sales
+                order, and allow your customers to keep track of the evolution
+                of the sales order.
+              </p>
+            </field>
+        </record> -->
+        <!-- <menuitem action="action_orders_unit" id="menu_sale_order_showroom" parent="dym_dealer_menu.showroom_sales_menu" sequence="4"/> -->
+        <menuitem action="action_orders_sparepart" id="menu_sale_order_workshop" parent="dym_dealer_menu.workshop_sales_menu" sequence="4" />
+        <!-- <menuitem action="action_quotations_unit" id="menu_quotation_workshop" parent="dym_dealer_menu.showroom_sales_menu" sequence="4"/>
+        <menuitem action="action_quotations_sparepart" id="menu_quotation_showroom" parent="dym_dealer_menu.workshop_sales_menu" sequence="3"/> -->
+        <record id="view_tipe_konsumen_tree" model="ir.ui.view">
+            <field name="name">tipe.konsumen.tree</field>
+            <field name="model">tipe.konsumen</field>
+            <field eval="1" name="priority" />
+            <field name="arch" type="xml">
+                <tree string="Tipe Konsumen" create="true" editable="top">
+                    <field name="name" />
+                    <field name="default" />
+                    <field name="sequence" />
+                    <field name="so" />
+                    <field name="wo" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_tipe_konsumen_form">
+            <field name="name">tipe.konsumen.form</field>
+            <field name="model">tipe.konsumen</field>
+            <field name="arch" type="xml">
+                <form string="Tipe Konsumen">
+                    <group>
+                        <field name="name" />
+                        <field name="sequence" />
+                        <field name="default" />
+                        <field name="so" />
+                        <field name="wo" />
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="view_tipe_konsumen_search" model="ir.ui.view">
+            <field name="name">tipe.konsumen.search</field>
+            <field name="model">tipe.konsumen</field>
+            <field name="arch" type="xml">
+                <search string="Search Tipe Konsumen">
+                    <field name='name' />
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="tipe_konsumen_action">
+            <field name="name">Tipe Konsumen</field>
+            <field name="res_model">tipe.konsumen</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="tipe_konsumen_action" id="menu_tipe_konsumen" parent="dym_dealer_menu.workshop_configuration_menu" />
+    </data>
+</openerp>

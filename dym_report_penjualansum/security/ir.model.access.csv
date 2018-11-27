@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_report_penjualansum_report,access_dym_report_penjualansum_report,model_dym_report_penjualansum_report,,1,0,0,0

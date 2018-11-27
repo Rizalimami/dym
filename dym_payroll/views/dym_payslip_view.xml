@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_dym_payslip_tree" model="ir.ui.view">
+            <field name="name">dym.payslip.tree</field>
+            <field name="model">dym.payslip</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state in ('confirm','hr_check','accont_check')" decoration-muted="state == 'cancel'" string="Payslips">
+                    <field name="branch_id" />
+                    <field name="division" />
+                    <field name="number"/>
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="state"/>
+                    <field name="journal_id" />
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                    <field name="payslip_run_id" invisible="1"/>
+                    <field name="amount" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_dym_payslip_form" model="ir.ui.view">
+            <field name="name">dym.payslip.form</field>
+            <field name="model">dym.payslip</field>
+            <field name="arch" type="xml">
+                <form string="Payslip">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div class="oe_title">
+                        <label for="number" class="oe_edit_only"/>
+                        <h1><field name="number" placeholder="number"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="payslip_run_id" invisible="1"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                            <label for="date_from" string="Period"/>
+                            <div>
+                                <field name="date_from" class="oe_inline"/> - <field name="date_to" class="oe_inline"/>
+                            </div>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="branch_id" options="{'no_create': True}" />
+                            <field name="division" />
+                            <field name="journal_id" />
+                            <field name="amount" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Salary Computation" >
+                            <field name="line_ids" colspan="4" nolabel="1"/>
+                        </page>
+                        <page string="Journal Entries" >
+                            <field name="move_line_ids" colspan="4" nolabel="1">
+                                <tree string="Journal Items">
+                                    <field name="move_id" />
+                                    <field name="branch_id" />
+                                    <field name="ref" />
+                                    <field name="date" />
+                                    <field name="statement_id" />
+                                    <field name="partner_id" />
+                                    <field name="account_id" />
+                                    <field name="name" />
+                                    <field name="debit" />
+                                    <field name="credit" />
+                                    <field name="state" />
+                                    <field name="reconcile_id" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_dym_payslip_filter" model="ir.ui.view">
+            <field name="name">dym.payslip.select</field>
+            <field name="model">dym.payslip</field>
+            <field name="arch" type="xml">
+                <search string="Search Payslips">
+                    <field name="name" string="Payslips" filter_domain="['|',('name','ilike',self),('number','ilike',self)]"/>
+                    <field name="date_from"/>
+                    <filter string="Draft" domain="[('state','=','draft')]" help="Draft Slip"/>
+                    <filter string="Done" domain="[('state','=','done')]" help="Done Slip"/>
+                    <field name="payslip_run_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Companies" name="company_id" groups="base.group_multi_company" context="{'group_by':'company_id'}"/>
+                        <filter string="States" name="state" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_view_dym_payslip_form" model="ir.actions.act_window">
+            <field name="name">Employee Payslips</field>
+            <field name="res_model">dym.payslip</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_dym_payslip_tree"/>
+            <field name="search_view_id" ref="view_dym_payslip_filter"/>
+        </record>
+        <menuitem action="action_view_dym_payslip_form" id="menu_department_tree" parent="dym_payroll_sub_menu" />
+    </data>
+</openerp>

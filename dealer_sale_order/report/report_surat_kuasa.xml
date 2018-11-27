@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_surat_kuasa_template">
+    <style type="text/css">
+        .tag_container{
+            margin: auto;
+            margin-bottom:50px;
+            border: 1px solid black;
+        }
+        .no_border{
+            border: 0px !important;
+            line-height: 0.7 !important;
+        }
+        .margin_bottom{
+            margin-bottom: 5px !important;
+        }
+        .border_top{
+            border-top: 1px solid black !important;
+        }
+        .border_bottom{
+            border-bottom: 1px solid black !important;
+        }
+        .line_height{
+        }
+        .page, .header, .footer{
+            font-size:14px;
+            text-align: justify !important;
+        }
+    </style>
+    <t t-call="report.html_container">    
+		<t t-foreach="docs" t-as="o">
+            <t t-foreach="o.dealer_sale_order_line" t-as="line">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <h3>SURAT KUASA STNK</h3>
+                        </div>
+            			<div class="col-xs-12">
+                            Yang Bertanda tangan di bawah ini
+                            <table class="table table-condensed margin_bottom" style="margin-left:1cm !important">
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Nama </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="o.partner_id.name"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Tempat/Tgl Lahir </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="o.partner_id.birthday" t-field-options='{"format": "d MMMM y"}'/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Alamat </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="o.partner_id.street"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>No KTP </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="o.partner_id.no_ktp"/></strong></td>
+                                </tr>           
+                            </table>
+                            Dalam hal ini bertindak untuk dan atas nama diri sendiri.<br/>
+                            Selanjutnya disebut pula <strong>"Pemberi Kuasa"</strong><br/>
+                            <br/>
+                            Dengan ini Memberikan kuasa kepada :
+                            <table class="table table-condensed margin_bottom" style="margin-left:1cm !important">
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Nama </strong></td>
+                                    <td class="no_border"><strong> : </strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Tempat/Tgl Lahir </strong></td>
+                                    <td class="no_border"><strong> : </strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Alamat </strong></td>
+                                    <td class="no_border"><strong> : </strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>No KTP </strong></td>
+                                    <td class="no_border"><strong> : </strong></td>
+                                </tr>           
+                            </table>
+                            Selanjutnya disebut pula <strong>"Penerima Kuasa"</strong><br/>
+                            <br/>
+                            <strong>----------------------------------------------------------- KHUSUS -----------------------------------------------------------</strong><br/>
+                            <br/>
+                            Untuk dan atas nama Pemberi kuasa ditunjuk untuk mewakili segala kepentingan Pemberi Kuasa dalam hal pengambilan dokumen kendaraan bermotor milik Pemberi Kuasa sbb :<br/>
+                            <table class="table table-condensed margin_bottom" style="margin-left:1cm !important">
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Nama STNK</strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.partner_stnk_id.name"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Type Motor </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.template_id.name"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>No Polisi </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.lot_id.no_polisi"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>No Mesin </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.lot_id.name"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>No Rangka </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.lot_id.chassis_code"/><span t-field="line.lot_id.chassis_no"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Tahun Rakit </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.lot_id.tahun"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>No BPKB </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.lot_id.no_bpkb"/></strong></td>
+                                </tr>           
+                            </table>
+                            <br/>
+                            Oleh karenanya, Penerima Kuasa berhak dan berwenang untuk menghadap dimanapun dan dihadapan siapapun juga memberikan keterangan-keterangan, membuat serta menandatangani segala surat-surat serta dokumen-dokumen lainnya yang diperlukan, atau melakukan segala tindakan yang dianggap baik dan perlu serta berguna untuk tercapainya maksud tersebut di atas.<br/>
+                            <br/>
+                            Demikian Surat Kuasa Penunjukan ini diberikan dengan sebenarnya untuk dapat dipergunakan sebagaimana mestinya dengan syarat-syarat dan ketentuan-ketentuan yang dianggap baik oleh Pemberi Kuasa sesuai dengan peraturan hukum yang berlaku.<br/>
+                            <br/>
+                            <div class="col-xs-6" style="margin:0px !important; padding:0px !important">
+                                <span t-field="o.branch_id.state_id.name"/>, <t t-esc="o.branch_id.get_waktu_local(True)"/><br/>
+                                Pemberi Kuasa,<br/><br/><br/><br/><br/><br/><br/><span t-field="o.partner_id.name"/>
+                            </div>
+                            <div class="col-xs-6" style="margin:0px !important; padding:0px !important">
+                                <br/>Penerima Kuasa,<br/><br/><br/><br/><br/><br/><br/>(____________________)
+                            </div>
+    		            </div>
+    	            </div>
+    	        </div>
+            </t>
+	    </t>
+	</t>
+</template>
+
+
+<template id="report_surat_kuasa_bpkb_template">
+    <style type="text/css">
+        .tag_container{
+            margin: auto;
+            margin-bottom:50px;
+            border: 1px solid black;
+        }
+        .no_border{
+            border: 0px !important;
+            line-height: 0.7 !important;
+        }
+        .margin_bottom{
+            margin-bottom: 5px !important;
+        }
+        .border_top{
+            border-top: 1px solid black !important;
+        }
+        .border_bottom{
+            border-bottom: 1px solid black !important;
+        }
+        .line_height{
+        }
+        .page, .header, .footer{
+            font-size:14px;
+            text-align: justify !important;
+        }
+    </style>
+    <t t-call="report.html_container">    
+        <t t-foreach="docs" t-as="o">
+            <t t-foreach="o.dealer_sale_order_line" t-as="line">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <h3>SURAT KUASA BPKB</h3>
+                        </div>
+                        <div class="col-xs-12">
+                            Yang Bertanda tangan di bawah ini
+                            <table class="table table-condensed margin_bottom" style="margin-left:1cm !important">
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Nama </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="o.partner_id.name"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Tempat/Tgl Lahir </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="o.partner_id.birthday" t-field-options='{"format": "d MMMM y"}'/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Alamat </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="o.partner_id.street"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>No KTP </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="o.partner_id.no_ktp"/></strong></td>
+                                </tr>           
+                            </table>
+                            Dalam hal ini bertindak untuk dan atas nama diri sendiri.<br/>
+                            Selanjutnya disebut pula <strong>"Pemberi Kuasa"</strong><br/>
+                            <br/>
+                            Dengan ini Memberikan kuasa kepada :
+                            <table class="table table-condensed margin_bottom" style="margin-left:1cm !important">
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Nama </strong></td>
+                                    <td class="no_border"><strong> : </strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Tempat/Tgl Lahir </strong></td>
+                                    <td class="no_border"><strong> : </strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Alamat </strong></td>
+                                    <td class="no_border"><strong> : </strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>No KTP </strong></td>
+                                    <td class="no_border"><strong> : </strong></td>
+                                </tr>           
+                            </table>
+                            Selanjutnya disebut pula <strong>"Penerima Kuasa"</strong><br/>
+                            <br/>
+                            <strong>----------------------------------------------------------- KHUSUS -----------------------------------------------------------</strong><br/>
+                            <br/>
+                            Untuk dan atas nama Pemberi kuasa ditunjuk untuk mewakili segala kepentingan Pemberi Kuasa dalam hal pengambilan dokumen kendaraan bermotor milik Pemberi Kuasa sbb :<br/>
+                            <table class="table table-condensed margin_bottom" style="margin-left:1cm !important">
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Nama STNK</strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.partner_stnk_id.name"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Type Motor </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.template_id.name"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>No Polisi </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.lot_id.no_polisi"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>No Mesin </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.lot_id.name"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>No Rangka </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.lot_id.chassis_code"/><span t-field="line.lot_id.chassis_no"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>Tahun Rakit </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.lot_id.tahun"/></strong></td>
+                                </tr>           
+                                <tr>
+                                    <td class="no_border" style="width:4cm !important"><strong>No BPKB </strong></td>
+                                    <td class="no_border"><strong> : <span t-field="line.lot_id.no_bpkb"/></strong></td>
+                                </tr>           
+                            </table>
+                            <br/>
+                            Oleh karenanya, Penerima Kuasa berhak dan berwenang untuk menghadap dimanapun dan dihadapan siapapun juga memberikan keterangan-keterangan, membuat serta menandatangani segala surat-surat serta dokumen-dokumen lainnya yang diperlukan, atau melakukan segala tindakan yang dianggap baik dan perlu serta berguna untuk tercapainya maksud tersebut di atas.<br/>
+                            <br/>
+                            Demikian Surat Kuasa Penunjukan ini diberikan dengan sebenarnya untuk dapat dipergunakan sebagaimana mestinya dengan syarat-syarat dan ketentuan-ketentuan yang dianggap baik oleh Pemberi Kuasa sesuai dengan peraturan hukum yang berlaku.<br/>
+                            <br/>
+                            <div class="col-xs-6" style="margin:0px !important; padding:0px !important">
+                                <span t-field="o.branch_id.state_id.name"/>, <t t-esc="o.branch_id.get_waktu_local(True)"/><br/>
+                                Pemberi Kuasa,<br/><br/><br/>   Materai<br/><br/><br/><br/><span t-field="o.partner_id.name"/>
+                            </div>
+                            <div class="col-xs-6" style="margin:0px !important; padding:0px !important">
+                                <br/>Penerima Kuasa,<br/><br/><br/><br/><br/><br/><br/>(____________________)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+
+</data>
+</openerp>

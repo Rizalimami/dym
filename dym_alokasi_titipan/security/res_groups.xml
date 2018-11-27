@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Pinjaman 2 Arah -->
+        <record id="group_dym_alokasi_titipan_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Alokasi Customer Deposit Read</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_alokasi_titipan_menu'))
+                                            ]" />
+        </record>
+        <record id="access_dym_alokasi_titipan_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_alokasi_titipan" />
+            <field name="name">dym_alokasi_titipan read</field>
+            <field name="group_id" ref="group_dym_alokasi_titipan_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_dym_alokasi_titipan_line_all" model="ir.model.access">
+            <field name="model_id" ref="model_dym_alokasi_titipan_line" />
+            <field name="name">dym_alokasi_titipan all</field>
+            <field name="group_id" ref="group_dym_alokasi_titipan_read" />
+            <field name="perm_read">1</field>
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+            <field name="perm_unlink">1</field>
+        </record>
+        <record id="access_move_line_read" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line" />
+            <field name="name">account_move_line read</field>
+            <field name="group_id" ref="group_dym_alokasi_titipan_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_dym_alokasi_titipan_approval_line_read" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line" />
+            <field name="name">dym_alokasi_titipan_approval_line read</field>
+            <field name="group_id" ref="group_dym_alokasi_titipan_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="group_dym_alokasi_titipan_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Alokasi Customer Deposit Update</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_alokasi_titipan_menu'))
+                                            ]" />
+            <field name="implied_ids" eval="[(4, ref('group_dym_alokasi_titipan_read'))]" />
+        </record>
+        <record id="access_dym_alokasi_titipan_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_alokasi_titipan" />
+            <field name="name">dym_alokasi_titipan update</field>
+            <field name="group_id" ref="group_dym_alokasi_titipan_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="access_move_line_update" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line" />
+            <field name="name">account_move_line update</field>
+            <field name="group_id" ref="group_dym_alokasi_titipan_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="access_dym_alokasi_titipan_approval_line_update" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line" />
+            <field name="name">dym_alokasi_titipan_approval_line update</field>
+            <field name="group_id" ref="group_dym_alokasi_titipan_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="group_dym_alokasi_titipan_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Alokasi Customer Deposit Delete</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_alokasi_titipan_menu'))
+                                            ]" />
+            <field name="implied_ids" eval="[(4, ref('group_dym_alokasi_titipan_read'))]" />
+        </record>
+        <record id="access_dym_alokasi_titipan_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_alokasi_titipan" />
+            <field name="name">dym_alokasi_titipan delete</field>
+            <field name="group_id" ref="group_dym_alokasi_titipan_delete" />
+            <field name="perm_unlink">1</field>
+        </record>
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+            <field name="implied_ids" eval="[(4,ref('group_dym_alokasi_titipan_read')),
+                                            (4,ref('group_dym_alokasi_titipan_update')),
+                                            (4,ref('group_dym_alokasi_titipan_delete'))]" />
+        </record>
+    </data>
+</openerp>

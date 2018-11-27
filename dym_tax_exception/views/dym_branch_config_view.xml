@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_branch_config_form_view">
+            <field name="name">dym.branch.config.form.view</field>
+            <field name="model">dym.branch.config</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_config_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <group string="Taxation">
+                        <field name="free_tax" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

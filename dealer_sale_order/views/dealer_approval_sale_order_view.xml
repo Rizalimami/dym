@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_reason_reject_wizard_dso_form_view">
+            <field name="name">dym_reason.reject.wizard.dso.form</field>
+            <field name="model">dealer.sale.order.reason.reject.approval.so</field>
+            <field name="arch" type="xml">
+                <form string="REASON">
+                    <group>
+                        <field name="reason" />
+                    </group>
+                    <footer>
+                        <button name="dym_reject_approval" string="Revise" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_reason_reject_wizard_dso_action">
+            <field name="name">Reason Reject Sales Order</field>
+            <field name="res_model">dealer.sale.order.reason.reject.approval.so</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="dym_approval_dso_form_view" model="ir.ui.view">
+            <field name="name">dym.approval.dso.form</field>
+            <field name="model">dealer.sale.order</field>
+            <field name="inherit_id" ref="dealer_sale_order.sale_order_dealer_form" />
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <!--
+                    <button name="approval_request" states="draft" string="RFA" type="workflow" class="oe_highlight" groups="dym_base_security.group_dym_adh"/>
+                    <button name="approval_approve" string="Approve Diskon" type="workflow" class="oe_highlight" context="{'diskon':True}" attrs="{'invisible': ['|',('state','!=','waiting_for_approval'), ('approval_line_diskon','=',False)]}" />
+                    <button name="approval_approve_pic" string="Approve Is PIC" type="workflow" class="oe_highlight" context="{'pic':True}" attrs="{'invisible': ['|',('state','!=','waiting_for_approval'), ('approval_line_pic','=',False)]}"/>
+                    <button name="approval_approve_offtr" string="Approve Off The Road" type="workflow" class="oe_highlight" context="{'offtr':True}" attrs="{'invisible': ['|','|',('state','!=','waiting_for_approval'), ('approval_line_offtr','=',False), ('is_pic','=',True)]}"/>
+                    <button name="approval_approve_cod" string="Approve COD" type="workflow" class="oe_highlight" context="{'cod':True}" attrs="{'invisible': ['|',('state','!=','waiting_for_approval'), ('approval_line_cod','=',False)]}" />
+                    <button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action" context="{'model_name':'dealer.sale.order','next_workflow':'approval_reject'}" />
+                    <button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'dealer.sale.order','next_workflow':'approval_cancel'}" />
+                    -->
+                    <button name="approval_request" states="draft" string="RFA" type="workflow" class="oe_highlight" groups="dym_base_security.group_dym_adh"/>
+                    <button name="approval_approve" string="Approve Diskon" type="workflow" class="oe_highlight" context="{'diskon':True}" attrs="{'invisible': ['|',('state','!=','waiting_for_approval'), ('approval_line_diskon','=',False)]}" groups="dym_base_security.group_dym_kepala_cabang,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_operation_sub_div_head"/>
+                    <button name="approval_approve_pic" string="Approve Is PIC" type="workflow" class="oe_highlight" context="{'pic':True}" attrs="{'invisible': ['|',('state','!=','waiting_for_approval'), ('approval_line_pic','=',False)]}" groups="dym_base_security.group_dym_area_manager,dym_base_security.group_dym_kepala_cabang"/>
+                    <button name="approval_approve_offtr" string="Approve Off The Road" type="workflow" class="oe_highlight" context="{'offtr':True}" attrs="{'invisible': ['|','|',('state','!=','waiting_for_approval'), ('approval_line_offtr','=',False), ('is_pic','=',True)]}" groups="dym_base_security.group_dym_area_manager,dym_base_security.group_dym_kepala_cabang"/>
+                    <button name="approval_approve_cod" string="Approve COD" type="workflow" class="oe_highlight" context="{'cod':True}" attrs="{'invisible': ['|',('state','!=','waiting_for_approval'), ('approval_line_cod','=',False)]}" groups="dym_base_security.group_dym_area_manager,dym_base_security.group_dym_kepala_cabang"/>
+                    <button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action" context="{'model_name':'dealer.sale.order','next_workflow':'approval_reject'}" groups="dym_base_security.group_dym_kepala_cabang,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_operation_sub_div_head"/>
+                    <button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'dealer.sale.order','next_workflow':'approval_cancel'}" groups="dym_base_security.group_dym_kepala_cabang,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_operation_sub_div_head"/>
+                </field>
+                <field name="tanda_jadi" position="after">
+                    <field name="approval_state" />
+                    <field name="approve_diskon" invisible="1" />
+                    <field name="approve_cod" invisible="1" />
+                    <field name="approve_offtr" invisible="1" />
+                    <field name="approve_pic" invisible="1" />
+                    <field name="approval_line_diskon" invisible="1" />
+                    <field name="approval_line_offtr" invisible="1" />
+                    <field name="approval_line_pic" invisible="1" />
+                    <field name="approval_line_cod" invisible="1" />
+                </field>
+                <xpath expr="//page[@string='Summary Diskon']" position="after">
+                    <page string="Approval Diskon / TOP">
+                        <field name="approval_ids">
+                            <tree string="Approval" editable="bottom" create="false" edit="false" delete="false">
+                                <field name="group_id" />
+                                <field name="approval_config_id" />
+                                <field name="branch_id" />
+                                <field name="division" />
+                                <field name="product_template_id" />
+                                <field name="limit" />
+                                <field name="sts" />
+                                <field name="reason" />
+                                <field name="pelaksana_id" />
+                                <field name="tanggal" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                                <field name="confirm_uid" readonly="1"></field>
+                                <field name="confirm_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

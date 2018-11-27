@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="banktransfer_submenu" name="Bank Transfer" parent="dym_dealer_menu.backoffice_bankandcash_menu" sequence="5" />
+        <record model="ir.ui.view" id="banktransfer_tree_view">
+            <field name="name">dym.bank.transfer.tree.view</field>
+            <field name="model">dym.bank.transfer</field>
+            <field name="inherit_id" ref="dym_bank_transfer.banktransfer_tree_view" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="bank_trf_advice_id" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="banktransfer_form_view">
+            <field name="name">dym.bank.transfer.form.view</field>
+            <field name="model">dym.bank.transfer</field>
+            <field name="inherit_id" ref="dym_bank_transfer.banktransfer_form_view" />
+            <field name="arch" type="xml">
+                <field name="description" position="after">
+                    <field name="bank_trf_advice_id" attrs="{'invisible':[('transaction_type','in',['deposit','withdraw'])]}" />
+                </field>
+                <xpath expr="//page[@name='vouchers']" position="after">
+                    <page string="Details" name="details">
+                        <field name="bank_trf_request_ids">
+                            <tree string="Details">
+                                <field name="branch_id" />
+                                <field name="partner_id" />
+                                <field name="name" />
+                                <field name="notes" />
+                                <field name="date_request" />
+                                <field name="date_due" />
+                                <field name="amount" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

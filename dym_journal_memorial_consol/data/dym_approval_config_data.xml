@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <record id="config_approval_jm_consol" model="dym.approval.config">
+            <field name="name">Journal Memorial Consolidation</field>        	        	
+            <field name="form_id" ref="dym_journal_memorial_consol.model_dym_journal_memorial_consol"/> 
+            <field name="code"> </field>
+            <field name="type">biaya</field>
+        </record>      
+        
+        <record id="config_approval_cancel_jm_consol" model="dym.approval.config">
+            <field name="name">Cancel Journal Memorial Consolidation</field>        	        	
+            <field name="form_id" ref="dym_journal_memorial_consol.model_dym_journal_memorial_consol"/> 
+            <field name="code">cancel</field>
+            <field name="type">biaya</field>
+        </record>                                                                                                              
+    </data>
+</openerp>
+            

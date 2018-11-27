@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_asset_disposal,access_dym_asset_disposal,model_dym_asset_disposal,,1,0,0,0
+access_dym_asset_disposal_line,access_dym_asset_disposal_line,model_dym_asset_disposal_line,,1,0,0,0
+access_dym_asset_delivery,access_dym_asset_delivery,model_dym_asset_delivery,,1,0,0,0
+access_dym_asset_delivery_line,access_dym_asset_delivery_line,model_dym_asset_delivery_line,,1,0,0,0

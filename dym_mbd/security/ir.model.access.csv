@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_mbd_allocation_all,dym_mbd_allocation all,model_dym_mbd_allocation,,1,1,1,0
+access_dym_mbd_allocation_line,access_dym_mbd_allocation_line,model_dym_mbd_allocation_line,,1,1,1,0
+access_dym_mbd_batch_import,access_dym_mbd_batch_import,model_dym_mbd_batch_import,,1,1,1,0

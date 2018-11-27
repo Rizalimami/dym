@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_btr_ho_to_branch_template">
+    <style type="text/css">
+        .tag_container {
+            margin: auto;
+            margin-bottom: 50px;
+            border: 1px solid black;
+        }
+        .no_border {
+            border: 0px !important;
+        }    
+        .margin_bottom {
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+        }    
+        .border_top {
+            border-top: 1px solid black !important;
+        }   
+        .border_bottom {
+            border-bottom: 1px solid black !important;
+        }                    
+        .page,
+        .header,
+        .footer,
+        .table {
+            font-size: 12px !important;
+        }
+        .hr {
+            border-top: 1px solid black !important;
+        }
+        .text_up{
+            text-transform: uppercase;
+        }
+        .text_bold{
+            font-weight: bold;
+        }
+        .text_head{
+            font-size: 16px;
+        }
+        .table_titikdua{
+            text-align:center;
+            width:20px
+        }
+        .table_margintop{
+            margin-top: 20px !important;
+        }
+    </style>
+    <t t-call="report.html_container">
+        <t t-set="numpage" t-value="0"/>
+        <t t-set="totpage" t-value="len(docs)"/>
+        <t t-foreach="docs" t-as="o">
+            <t t-set="numpage" t-value="numpage+1"/>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <div class="page">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <span class="text_up text_head"><t t-esc="company.name"/></span><br/>
+                        <span>Cabang : <span t-field="o.branch_id.code" /> - <span t-field="o.branch_id.name" /></span>
+                    </div>
+                    <div class="col-xs-4">
+                        <span class="text_up text_head text_bold">Bank Transfer</span><br/>
+                        <span t-if="o.name!='/'" t-field="o.name" />
+                        <span t-if="o.name=='/'">DRAFT</span>
+                    </div>
+                </div>
+                <hr class="border_top"/>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <table>
+                            <tr>
+                                <td>Cabang Tujuan</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.line_ids.branch_destination_id"/> - <span t-field="o.inter_branch_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td>Bank Tujuan</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.line_ids.payment_to_id"/></td>
+                            </tr>
+                            <tr>
+                                <td>Code Supplier</td>
+                                <td class="table_titikdua">:</td>
+                                <td>
+                                    <t t-foreach="docs.env['res.partner.bank'].search([('journal_id','=',o.line_ids.payment_to_id.id)])" t-as="obj">
+                                        <t t-esc="obj.code_supplier"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-xs-6">
+                        <table>
+                            <tr>
+                                <td>Bank Sumber</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.payment_from_id_ho2branch"/></td>
+                            </tr>
+                            <tr>
+                                <td>No Giro</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.cheque_giro_number"/></td>
+                            </tr>
+                            <tr>
+                                <td>Date</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.date"/></td>
+                            </tr>
+                            <tr>
+                                <td>Due Date</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.value_date"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table class="table table-condensed table_margintop">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><strong>No.</strong></th>
+                                    <th class="text-center"><strong>No Doc.</strong></th>
+                                    <th class="text-center"><strong>Uraian</strong></th>
+                                    <th class="text-center"><strong>Nominal</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="no" t-value="0"/>
+                                <t t-foreach="o.bank_trf_request_ids" t-as="line">
+                                    <t t-set="no" t-value="no+1"/>
+                                    <tr>
+                                        <td class="text-center"><t t-esc="no"/></td>
+                                        <td><span t-field="line.name"/></td>
+                                        <t t-if="line.notes">
+                                            <td><span t-field="line.notes"/></td>
+                                        </t>
+                                        <t t-if="not line.notes">
+                                            <td><span t-esc="o.desc_cetakan_btr_sin(line.name)"/></td>
+                                        </t>
+                                        <td class="text-right"><span t-esc="'{0:,.2f}'.format(int(line.amount))"/></td>
+                                    </tr>
+                                </t>
+                                <!--
+                                <t t-foreach="o.voucher_ids" t-as="line">
+                                    <t t-set="no" t-value="no+1"/>
+                                    <tr>
+                                        <td class="text-center"><t t-esc="no"/></td>
+                                        <td><span t-field="line.voucher_id"/></td>
+                                        <td><span t-field="line.notes"/></td>
+                                        <td class="text-right"><span t-esc="'{0:,.2f}'.format(int(line.line_amount))"/></td>
+                                    </tr>
+                                </t>
+                                <t t-foreach="o.bank_trf_advice_id.bank_trf_request_ids" t-as="line">
+                                    <tr t-if="line.obj!='account.voucher'">
+                                        <t t-set="no" t-value="no+1"/>
+                                        <td class="text-center"><t t-esc="no"/></td>
+                                        <td><span t-field="line.name"/></td>
+                                        <td>
+                                            <t t-if="line.description!='Write-Off'">
+                                                <span t-field="line.description"/>
+                                            </t>
+                                            <t t-if="line.description=='Write-Off'">
+                                                
+                                            </t>
+                                        </td>
+                                        <td class="text-right"><span t-esc="'{0:,.2f}'.format(int(line.amount))"/></td>
+                                    </tr>
+                                </t>
+                                -->
+                                <tr>
+                                    <td class="no_border border_top text-right" colspan="3">Total Amount :</td>
+                                    <td class="no_border border_top text-right"><t t-esc="'{0:,.2f}'.format(int(o.amount_total))"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span> Terbilang : <span t-esc="o.terbilang(o.amount_total)"/></span>
+                    </div>
+                </div>
+                <hr class="border_top"/>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <span>Cashier : </span><br/><br/><br/><br/><br/>
+                        <span><span t-esc="request.env.user.name"/></span><br/>
+                        <span><span t-esc="o.ubah_tanggal(o.branch_id.get_waktu_local())"/></span>
+                    </div>
+                    <div class="col-xs-4">
+                        <span>Approved by : </span><br/><br/><br/><br/><br/>
+                         <span>   
+                            <t t-if="o.approval_ids">                                 
+                                <span t-if="o.approval_ids[0].pelaksana_id" t-esc="o.approval_ids[0].pelaksana_id.name"/><br/>
+                                <span t-esc="o.ubah_tanggal(o.approval_ids[0].tanggal)"/><br/>
+                            </t>
+                        </span><br/>
+                   </div>
+                </div>
+                <hr class="border_top"/>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <table>
+                            <tr>
+                                <td>Lembar Ke-1</td>
+                                <td class="table_titikdua">:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Lembar Ke-2</td>
+                                <td class="table_titikdua">:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Lembar Ke-3</td>
+                                <td class="table_titikdua">:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Reprint</td>
+                                <td class="table_titikdua">:</td>
+                                <td><t t-esc="o.branch_id.get_cetakan_no('dym.bank.transfer','dym_bank_transfer.report_btr_ho_to_branch_template',o)"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-xs-4">
+                        <table>
+                            <tr>
+                                <td>Halaman</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-esc="numpage"/> / <span t-esc="totpage"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <hr class="border_top"/>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

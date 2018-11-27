@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sale_order_dealer_form" model="ir.ui.view">
+            <field name="name">dealer.sale.order.form</field>
+            <field name="model">dealer.sale.order</field>
+            <field name="inherit_id" ref="dealer_sale_order.sale_order_dealer_form"/>
+            <field name="arch" type="xml">
+            	<field name="state" position="before">
+                    <button name="view_cpa" type="object" states="progress,done" string="Create/View CPA" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h1,dym_base_security.group_dym_kasir_h1"/>
+            	</field>
+            </field>
+		</record>
+	</data>
+</openerp>

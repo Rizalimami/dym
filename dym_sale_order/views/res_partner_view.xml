@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_res_partner_form_view">
+            <field name="name">dym.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form" />
+            <field name="arch" type="xml">
+                <field name="credit_limit" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="credit_limit" position="after">
+                    <field name="credit_limit_unit" />
+                    <field name="credit_limit_sparepart" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

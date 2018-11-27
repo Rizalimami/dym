@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Top menu item -->     
+        <record id="kinerja_mekanik_report_wizard_view" model="ir.ui.view">
+            <field name="name">dym.kinerja.mekanik.report.form</field>
+            <field name="model">dym.kinerja.mekanik.report</field>
+            <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="report_type" required="1"/>
+                    <label for="start_date" string="Date" attrs="{'invisible': [('report_type','!=','Harian')]}"/>
+                    <div attrs="{'invisible': [('report_type','!=','Harian')]}">
+                        <field name="start_date" class="oe_inline" attrs="{'required': [('report_type','=','Harian')]}"/> - <field name="end_date" class="oe_inline" attrs="{'required': [('report_type','=','Harian')]}"/>
+                    </div>
+                    <label for="start_year" string="Periode" attrs="{'invisible': [('report_type','not in',('Bulanan','Tahunan'))]}"/>
+                    <div attrs="{'invisible': [('report_type','not in',('Bulanan','Tahunan'))]}">
+                        <field name="start_month" class="oe_inline" attrs="{'required': [('report_type','=','Bulanan')],'invisible': [('report_type','!=','Bulanan')]}"/> 
+                        <field name="start_year" class="oe_inline" attrs="{'required': [('report_type','in',('Bulanan','Tahunan'))],'invisible': [('report_type','not in',('Bulanan','Tahunan'))]}"/> - 
+                        <field name="end_month" class="oe_inline" attrs="{'required': [('report_type','=','Bulanan')],'invisible': [('report_type','!=','Bulanan')]}"/> 
+                        <field name="end_year" class="oe_inline" attrs="{'required': [('report_type','in',('Bulanan','Tahunan'))],'invisible': [('report_type','not in',('Bulanan','Tahunan'))]}"/>
+                    </div>
+                </group>
+                <notebook>
+                    <page string="Branchs">
+                        <field name="branch_ids" on_change="onchange_branch(branch_ids)"/>
+                    </page>
+                    <page string="Mekanik">
+                        <field name="mekanik_ids"/>
+                    </page>
+                    <page string="Products">
+                        <field name="product_ids"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="%(dym_kinerja_mekanik_report_report)d" string="Print PDF" type="action" class="oe_highlight"/>
+                    <button name="xls_export" string="Print Excel" type="object" context="{'xls_export':1}" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="kinerja_mekanik_report_action" model="ir.actions.act_window">
+            <field name="name">Laporan Kinerja Mekanik</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym.kinerja.mekanik.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            name="Laporan Kinerja Mekanik"
+            parent="dym_dealer_menu.workshop_report_menu"
+            action="kinerja_mekanik_report_action"
+            id="menu_kinerja_mekanik_report"
+            sequence="20"/>
+
+    </data>
+</openerp>

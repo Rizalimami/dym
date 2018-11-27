@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_bank_transfer_all,dym_bank_transfer_all,model_dym_bank_transfer,,1,1,1,1
+access_dym_bank_transfer_reimburse_all,dym_bank_transfer_reimburse_all,model_dym_bank_transfer_reimburse,,1,1,1,1
+access_dym_bank_transfer_line_all,dym_bank_transfer_line_all,model_dym_bank_transfer_line,,1,1,1,1
+access_dym_bank_transfer_voucher,access_dym_bank_transfer_voucher,model_dym_bank_transfer_voucher,,1,1,1,1
+access_dym_checkgyro,access_dym_checkgyro,model_dym_checkgyro,,1,1,1,1
+access_dym_checkgyro_line,access_dym_checkgyro_line,model_dym_checkgyro_line,,1,1,1,1
+access_dym_ibanking,access_dym_ibanking,model_dym_ibanking,,1,1,1,1
+access_bank_transfer_voucher_line,access_bank_transfer_voucher_line,model_bank_transfer_voucher_line,,1,1,1,1

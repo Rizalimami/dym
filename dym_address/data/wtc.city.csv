@@ -1,0 +1,515 @@
+id,code,name,state_id/id
+dym_address.kab_id_1101,1101,KAB. SIMEULUE,dym_address.province_id_1100
+dym_address.kab_id_1102,1102,KAB. ACEH SINGKIL,dym_address.province_id_1100
+dym_address.kab_id_1103,1103,KAB. ACEH SELATAN,dym_address.province_id_1100
+dym_address.kab_id_1104,1104,KAB. ACEH TENGGARA,dym_address.province_id_1100
+dym_address.kab_id_1105,1105,KAB. ACEH TIMUR,dym_address.province_id_1100
+dym_address.kab_id_1106,1106,KAB. ACEH TENGAH,dym_address.province_id_1100
+dym_address.kab_id_1107,1107,KAB. ACEH BARAT,dym_address.province_id_1100
+dym_address.kab_id_1108,1108,KAB. ACEH BESAR,dym_address.province_id_1100
+dym_address.kab_id_1109,1109,KAB. PIDIE,dym_address.province_id_1100
+dym_address.kab_id_1110,1110,KAB. BIREUEN,dym_address.province_id_1100
+dym_address.kab_id_1111,1111,KAB. ACEH UTARA,dym_address.province_id_1100
+dym_address.kab_id_1112,1112,KAB. ACEH BARAT DAYA,dym_address.province_id_1100
+dym_address.kab_id_1113,1113,KAB. GAYO LUES,dym_address.province_id_1100
+dym_address.kab_id_1114,1114,KAB. ACEH TAMIANG,dym_address.province_id_1100
+dym_address.kab_id_1115,1115,KAB. NAGAN RAYA,dym_address.province_id_1100
+dym_address.kab_id_1116,1116,KAB. ACEH JAYA,dym_address.province_id_1100
+dym_address.kab_id_1117,1117,KAB. BENER MERIAH,dym_address.province_id_1100
+dym_address.kab_id_1118,1118,KAB. PIDIE JAYA,dym_address.province_id_1100
+dym_address.kab_id_1171,1171,KOTA BANDA ACEH,dym_address.province_id_1100
+dym_address.kab_id_1172,1172,KOTA SABANG,dym_address.province_id_1100
+dym_address.kab_id_1173,1173,KOTA LANGSA,dym_address.province_id_1100
+dym_address.kab_id_1174,1174,KOTA LHOKSEUMAWE,dym_address.province_id_1100
+dym_address.kab_id_1175,1175,KOTA SUBULUSSALAM,dym_address.province_id_1100
+dym_address.kab_id_1201,1201,KAB. NIAS,dym_address.province_id_1200
+dym_address.kab_id_1202,1202,KAB. MANDAILING NATAL,dym_address.province_id_1200
+dym_address.kab_id_1203,1203,KAB. TAPANULI SELATAN,dym_address.province_id_1200
+dym_address.kab_id_1204,1204,KAB. TAPANULI TENGAH,dym_address.province_id_1200
+dym_address.kab_id_1205,1205,KAB. TAPANULI UTARA,dym_address.province_id_1200
+dym_address.kab_id_1206,1206,KAB. TOBA SAMOSIR,dym_address.province_id_1200
+dym_address.kab_id_1207,1207,KAB. LABUHANBATU,dym_address.province_id_1200
+dym_address.kab_id_1208,1208,KAB. ASAHAN,dym_address.province_id_1200
+dym_address.kab_id_1209,1209,KAB. SIMALUNGUN,dym_address.province_id_1200
+dym_address.kab_id_1210,1210,KAB. DAIRI,dym_address.province_id_1200
+dym_address.kab_id_1211,1211,KAB. KARO,dym_address.province_id_1200
+dym_address.kab_id_1212,1212,KAB. DELI SERDANG,dym_address.province_id_1200
+dym_address.kab_id_1213,1213,KAB. LANGKAT,dym_address.province_id_1200
+dym_address.kab_id_1214,1214,KAB. NIAS SELATAN,dym_address.province_id_1200
+dym_address.kab_id_1215,1215,KAB. HUMBANG HASUNDUTAN,dym_address.province_id_1200
+dym_address.kab_id_1216,1216,KAB. PAKPAK BHARAT,dym_address.province_id_1200
+dym_address.kab_id_1217,1217,KAB. SAMOSIR,dym_address.province_id_1200
+dym_address.kab_id_1218,1218,KAB. SERDANG BEDAGAI,dym_address.province_id_1200
+dym_address.kab_id_1219,1219,KAB. BATU BARA,dym_address.province_id_1200
+dym_address.kab_id_1220,1220,KAB. LABUHANBATU SELATAN,dym_address.province_id_1200
+dym_address.kab_id_1221,1221,KAB. LABUHANBATU UTARA,dym_address.province_id_1200
+dym_address.kab_id_1222,1222,KAB. NIAS UTARA,dym_address.province_id_1200
+dym_address.kab_id_1224,1224,KAB. NIAS BARAT,dym_address.province_id_1200
+dym_address.kab_id_1271,1271,KOTA SIBOLGA,dym_address.province_id_1200
+dym_address.kab_id_1272,1272,KOTA TANJUNG BALAI,dym_address.province_id_1200
+dym_address.kab_id_1273,1273,KOTA PEMATANG SIANTAR,dym_address.province_id_1200
+dym_address.kab_id_1274,1274,KOTA TEBING TINGGI,dym_address.province_id_1200
+dym_address.kab_id_1275,1275,KOTA MEDAN,dym_address.province_id_1200
+dym_address.kab_id_1276,1276,KOTA BINJAI,dym_address.province_id_1200
+dym_address.kab_id_1277,1277,KOTA PADANGSIDIMPUAN,dym_address.province_id_1200
+dym_address.kab_id_1278,1278,KAB. PADANG LAWAS,dym_address.province_id_1200
+dym_address.kab_id_1279,1279,KAB. PADANG LAWAS UTARA,dym_address.province_id_1200
+dym_address.kab_id_1280,1280,KOTA GUNUNGSITOLI,dym_address.province_id_1200
+dym_address.kab_id_1301,1301,KAB. KEPULAUAN MENTAWAI,dym_address.province_id_1300
+dym_address.kab_id_1302,1302,KAB. PESISIR SELATAN,dym_address.province_id_1300
+dym_address.kab_id_1303,1303,KAB. SOLOK,dym_address.province_id_1300
+dym_address.kab_id_1304,1304,KAB. SIJUNJUNG,dym_address.province_id_1300
+dym_address.kab_id_1305,1305,KAB. TANAH DATAR,dym_address.province_id_1300
+dym_address.kab_id_1306,1306,KAB. PADANG PARIAMAN,dym_address.province_id_1300
+dym_address.kab_id_1307,1307,KAB. AGAM,dym_address.province_id_1300
+dym_address.kab_id_1308,1308,KAB. LIMA PULUH KOTA,dym_address.province_id_1300
+dym_address.kab_id_1309,1309,KAB. PASAMAN,dym_address.province_id_1300
+dym_address.kab_id_1310,1310,KAB. SOLOK SELATAN,dym_address.province_id_1300
+dym_address.kab_id_1311,1311,KAB. DHARMASRAYA,dym_address.province_id_1300
+dym_address.kab_id_1312,1312,KAB. PASAMAN BARAT,dym_address.province_id_1300
+dym_address.kab_id_1371,1371,KOTA PADANG,dym_address.province_id_1300
+dym_address.kab_id_1372,1372,KOTA SOLOK,dym_address.province_id_1300
+dym_address.kab_id_1373,1373,KOTA SAWAHLUNTO,dym_address.province_id_1300
+dym_address.kab_id_1374,1374,KOTA PADANG PANJANG,dym_address.province_id_1300
+dym_address.kab_id_1375,1375,KOTA BUKITTINGGI,dym_address.province_id_1300
+dym_address.kab_id_1376,1376,KOTA PAYAKUMBUH,dym_address.province_id_1300
+dym_address.kab_id_1377,1377,KOTA PARIAMAN,dym_address.province_id_1300
+dym_address.kab_id_1401,1401,KAB. KUANTAN SINGINGI,dym_address.province_id_1400
+dym_address.kab_id_1402,1402,KAB. INDRAGIRI HULU,dym_address.province_id_1400
+dym_address.kab_id_1403,1403,KAB. INDRAGIRI HILIR,dym_address.province_id_1400
+dym_address.kab_id_1404,1404,KAB. PELALAWAN,dym_address.province_id_1400
+dym_address.kab_id_1405,1405,KAB. SIAK,dym_address.province_id_1400
+dym_address.kab_id_1406,1406,KAB. KAMPAR,dym_address.province_id_1400
+dym_address.kab_id_1407,1407,KAB. ROKAN HULU,dym_address.province_id_1400
+dym_address.kab_id_1408,1408,KAB. BENGKALIS,dym_address.province_id_1400
+dym_address.kab_id_1409,1409,KAB. ROKAN HILIR,dym_address.province_id_1400
+dym_address.kab_id_1410,1410,KAB. KEPULAUAN MERANTI,dym_address.province_id_1400
+dym_address.kab_id_1471,1471,KOTA PEKANBARU,dym_address.province_id_1400
+dym_address.kab_id_1473,1473,KOTA DUMAI,dym_address.province_id_1400
+dym_address.kab_id_1501,1501,KAB. KERINCI,dym_address.province_id_1500
+dym_address.kab_id_1502,1502,KAB. MERANGIN,dym_address.province_id_1500
+dym_address.kab_id_1503,1503,KAB. SAROLANGUN,dym_address.province_id_1500
+dym_address.kab_id_1504,1504,KAB. BATANGHARI,dym_address.province_id_1500
+dym_address.kab_id_1505,1505,KAB. MUARO JAMBI,dym_address.province_id_1500
+dym_address.kab_id_1506,1506,KAB. TANJUNG JABUNG TIMUR,dym_address.province_id_1500
+dym_address.kab_id_1507,1507,KAB. TANJUNG JABUNG BARAT,dym_address.province_id_1500
+dym_address.kab_id_1508,1508,KAB. TEBO,dym_address.province_id_1500
+dym_address.kab_id_1509,1509,KAB. BUNGO,dym_address.province_id_1500
+dym_address.kab_id_1571,1571,KOTA JAMBI,dym_address.province_id_1500
+dym_address.kab_id_1572,1572,KOTA SUNGAI PENUH,dym_address.province_id_1500
+dym_address.kab_id_1601,1601,KAB. OGAN KOMERING ULU,dym_address.province_id_1600
+dym_address.kab_id_1602,1602,KAB. OGAN KOMERING ILIR,dym_address.province_id_1600
+dym_address.kab_id_1603,1603,KAB. MUARA ENIM,dym_address.province_id_1600
+dym_address.kab_id_1604,1604,KAB. LAHAT,dym_address.province_id_1600
+dym_address.kab_id_1605,1605,KAB. MUSI RAWAS,dym_address.province_id_1600
+dym_address.kab_id_1606,1606,KAB. MUSI BANYUASIN,dym_address.province_id_1600
+dym_address.kab_id_1607,1607,KAB. BANYUASIN,dym_address.province_id_1600
+dym_address.kab_id_1608,1608,KAB. OGAN KOMERING ULU SELATAN,dym_address.province_id_1600
+dym_address.kab_id_1609,1609,KAB. OGAN KOMERING ULU TIMUR,dym_address.province_id_1600
+dym_address.kab_id_1610,1610,KAB. OGAN ILIR,dym_address.province_id_1600
+dym_address.kab_id_1611,1611,KAB. EMPAT LAWANG,dym_address.province_id_1600
+dym_address.kab_id_1612,1612,KAB. PENUKAL ABAB LEMATANG ILIR,dym_address.province_id_1600
+dym_address.kab_id_1613,1613,KAB. MUSI RAWAS UTARA,dym_address.province_id_1600
+dym_address.kab_id_1671,1671,KOTA PALEMBANG,dym_address.province_id_1600
+dym_address.kab_id_1672,1672,KOTA PRABUMULIH,dym_address.province_id_1600
+dym_address.kab_id_1673,1673,KOTA PAGAR ALAM,dym_address.province_id_1600
+dym_address.kab_id_1674,1674,KOTA LUBUK LINGGAU,dym_address.province_id_1600
+dym_address.kab_id_1701,1701,KAB. BENGKULU SELATAN,dym_address.province_id_1700
+dym_address.kab_id_1702,1702,KAB. REJANG LEBONG,dym_address.province_id_1700
+dym_address.kab_id_1703,1703,KAB. BENGKULU UTARA,dym_address.province_id_1700
+dym_address.kab_id_1704,1704,KAB. KAUR,dym_address.province_id_1700
+dym_address.kab_id_1705,1705,KAB. SELUMA,dym_address.province_id_1700
+dym_address.kab_id_1706,1706,KAB. MUKO MUKO,dym_address.province_id_1700
+dym_address.kab_id_1707,1707,KAB. LEBONG,dym_address.province_id_1700
+dym_address.kab_id_1708,1708,KAB. KEPAHIANG,dym_address.province_id_1700
+dym_address.kab_id_1710,1710,KAB. BENGKULU TENGAH,dym_address.province_id_1700
+dym_address.kab_id_1771,1771,KOTA BENGKULU,dym_address.province_id_1700
+dym_address.kab_id_1801,1801,KAB. LAMPUNG BARAT,dym_address.province_id_1800
+dym_address.kab_id_1802,1802,KAB. TANGGAMUS,dym_address.province_id_1800
+dym_address.kab_id_1803,1803,KAB. LAMPUNG SELATAN,dym_address.province_id_1800
+dym_address.kab_id_1804,1804,KAB. LAMPUNG TIMUR,dym_address.province_id_1800
+dym_address.kab_id_1805,1805,KAB. LAMPUNG TENGAH,dym_address.province_id_1800
+dym_address.kab_id_1806,1806,KAB. LAMPUNG UTARA,dym_address.province_id_1800
+dym_address.kab_id_1807,1807,KAB. WAY KANAN,dym_address.province_id_1800
+dym_address.kab_id_1808,1808,KAB. TULANG BAWANG,dym_address.province_id_1800
+dym_address.kab_id_1809,1809,KAB. PESAWARAN,dym_address.province_id_1800
+dym_address.kab_id_1810,1810,KAB. PRINGSEWU,dym_address.province_id_1800
+dym_address.kab_id_1811,1811,KAB. MESUJI,dym_address.province_id_1800
+dym_address.kab_id_1812,1812,KAB. TULANG BAWANG BARAT,dym_address.province_id_1800
+dym_address.kab_id_1813,1813,KAB. PESISIR BARAT,dym_address.province_id_1800
+dym_address.kab_id_1871,1871,KOTA BANDAR LAMPUNG,dym_address.province_id_1800
+dym_address.kab_id_1872,1872,KOTA METRO,dym_address.province_id_1800
+dym_address.kab_id_1901,1901,KAB. BANGKA,dym_address.province_id_1900
+dym_address.kab_id_1902,1902,KAB. BELITUNG,dym_address.province_id_1900
+dym_address.kab_id_1903,1903,KAB. BANGKA BARAT,dym_address.province_id_1900
+dym_address.kab_id_1904,1904,KAB. BANGKA TENGAH,dym_address.province_id_1900
+dym_address.kab_id_1905,1905,KAB. BANGKA SELATAN,dym_address.province_id_1900
+dym_address.kab_id_1906,1906,KAB. BELITUNG TIMUR,dym_address.province_id_1900
+dym_address.kab_id_1971,1971,KOTA PANGKAL PINANG,dym_address.province_id_1900
+dym_address.kab_id_2101,2101,KAB. KARIMUN,dym_address.province_id_2100
+dym_address.kab_id_2103,2103,KAB. NATUNA,dym_address.province_id_2100
+dym_address.kab_id_2104,2104,KAB. LINGGA,dym_address.province_id_2100
+dym_address.kab_id_2105,2105,KAB. KEPULAUAN ANAMBAS,dym_address.province_id_2100
+dym_address.kab_id_2106,2106,KAB. BINTAN,dym_address.province_id_2100
+dym_address.kab_id_2171,2171,KOTA BATAM,dym_address.province_id_2100
+dym_address.kab_id_2172,2172,KOTA TANJUNG PINANG,dym_address.province_id_2100
+dym_address.kab_id_3101,3101,KAB. ADM. KEP. SERIBU,dym_address.province_id_3100
+dym_address.kab_id_3171,3171,KOTA ADM. JAKARTA SELATAN,dym_address.province_id_3100
+dym_address.kab_id_3172,3172,KOTA ADM. JAKARTA TIMUR,dym_address.province_id_3100
+dym_address.kab_id_3173,3173,KOTA ADM. JAKARTA PUSAT,dym_address.province_id_3100
+dym_address.kab_id_3174,3174,KOTA ADM. JAKARTA BARAT,dym_address.province_id_3100
+dym_address.kab_id_3175,3175,KOTA ADM. JAKARTA UTARA,dym_address.province_id_3100
+dym_address.kab_id_3201,3201,KAB. BOGOR,dym_address.province_id_3200
+dym_address.kab_id_3202,3202,KAB. SUKABUMI,dym_address.province_id_3200
+dym_address.kab_id_3203,3203,KAB. CIANJUR,dym_address.province_id_3200
+dym_address.kab_id_3204,3204,KAB. BANDUNG,dym_address.province_id_3200
+dym_address.kab_id_3205,3205,KAB. GARUT,dym_address.province_id_3200
+dym_address.kab_id_3206,3206,KAB. TASIKMALAYA,dym_address.province_id_3200
+dym_address.kab_id_3207,3207,KAB. CIAMIS,dym_address.province_id_3200
+dym_address.kab_id_3208,3208,KAB. KUNINGAN,dym_address.province_id_3200
+dym_address.kab_id_3209,3209,KAB. CIREBON,dym_address.province_id_3200
+dym_address.kab_id_3210,3210,KAB. MAJALENGKA,dym_address.province_id_3200
+dym_address.kab_id_3211,3211,KAB. SUMEDANG,dym_address.province_id_3200
+dym_address.kab_id_3212,3212,KAB. INDRAMAYU,dym_address.province_id_3200
+dym_address.kab_id_3213,3213,KAB. SUBANG,dym_address.province_id_3200
+dym_address.kab_id_3214,3214,KAB. PURWAKARTA,dym_address.province_id_3200
+dym_address.kab_id_3215,3215,KAB. KARAWANG,dym_address.province_id_3200
+dym_address.kab_id_3216,3216,KAB. BEKASI,dym_address.province_id_3200
+dym_address.kab_id_3217,3217,KAB. BANDUNG BARAT,dym_address.province_id_3200
+dym_address.kab_id_3218,3218,KAB. PANGANDARAN,dym_address.province_id_3200
+dym_address.kab_id_3271,3271,KOTA BOGOR,dym_address.province_id_3200
+dym_address.kab_id_3272,3272,KOTA SUKABUMI,dym_address.province_id_3200
+dym_address.kab_id_3273,3273,KOTA BANDUNG,dym_address.province_id_3200
+dym_address.kab_id_3274,3274,KOTA CIREBON,dym_address.province_id_3200
+dym_address.kab_id_3275,3275,KOTA BEKASI,dym_address.province_id_3200
+dym_address.kab_id_3276,3276,KOTA DEPOK,dym_address.province_id_3200
+dym_address.kab_id_3277,3277,KOTA CIMAHI,dym_address.province_id_3200
+dym_address.kab_id_3278,3278,KOTA TASIKMALAYA,dym_address.province_id_3200
+dym_address.kab_id_3279,3279,KOTA BANJAR,dym_address.province_id_3200
+dym_address.kab_id_3301,3301,KAB. CILACAP,dym_address.province_id_3300
+dym_address.kab_id_3302,3302,KAB. BANYUMAS,dym_address.province_id_3300
+dym_address.kab_id_3303,3303,KAB. PURBALINGGA,dym_address.province_id_3300
+dym_address.kab_id_3304,3304,KAB. BANJARNEGARA,dym_address.province_id_3300
+dym_address.kab_id_3305,3305,KAB. KEBUMEN,dym_address.province_id_3300
+dym_address.kab_id_3306,3306,KAB. PURWOREJO,dym_address.province_id_3300
+dym_address.kab_id_3307,3307,KAB. WONOSOBO,dym_address.province_id_3300
+dym_address.kab_id_3308,3308,KAB. MAGELANG,dym_address.province_id_3300
+dym_address.kab_id_3309,3309,KAB. BOYOLALI,dym_address.province_id_3300
+dym_address.kab_id_3310,3310,KAB. KLATEN,dym_address.province_id_3300
+dym_address.kab_id_3311,3311,KAB. SUKOHARJO,dym_address.province_id_3300
+dym_address.kab_id_3312,3312,KAB. WONOGIRI,dym_address.province_id_3300
+dym_address.kab_id_3313,3313,KAB. KARANGANYAR,dym_address.province_id_3300
+dym_address.kab_id_3314,3314,KAB. SRAGEN,dym_address.province_id_3300
+dym_address.kab_id_3315,3315,KAB. GROBOGAN,dym_address.province_id_3300
+dym_address.kab_id_3316,3316,KAB. BLORA,dym_address.province_id_3300
+dym_address.kab_id_3317,3317,KAB. REMBANG,dym_address.province_id_3300
+dym_address.kab_id_3318,3318,KAB. PATI,dym_address.province_id_3300
+dym_address.kab_id_3319,3319,KAB. KUDUS,dym_address.province_id_3300
+dym_address.kab_id_3320,3320,KAB. JEPARA,dym_address.province_id_3300
+dym_address.kab_id_3321,3321,KAB. DEMAK,dym_address.province_id_3300
+dym_address.kab_id_3322,3322,KAB. SEMARANG,dym_address.province_id_3300
+dym_address.kab_id_3323,3323,KAB. TEMANGGUNG,dym_address.province_id_3300
+dym_address.kab_id_3324,3324,KAB. KENDAL,dym_address.province_id_3300
+dym_address.kab_id_3325,3325,KAB. BATANG,dym_address.province_id_3300
+dym_address.kab_id_3326,3326,KAB. PEKALONGAN,dym_address.province_id_3300
+dym_address.kab_id_3327,3327,KAB. PEMALANG,dym_address.province_id_3300
+dym_address.kab_id_3328,3328,KAB. TEGAL,dym_address.province_id_3300
+dym_address.kab_id_3329,3329,KAB. BREBES,dym_address.province_id_3300
+dym_address.kab_id_3371,3371,KOTA MAGELANG,dym_address.province_id_3300
+dym_address.kab_id_3372,3372,KOTA SURAKARTA,dym_address.province_id_3300
+dym_address.kab_id_3373,3373,KOTA SALATIGA,dym_address.province_id_3300
+dym_address.kab_id_3374,3374,KOTA SEMARANG,dym_address.province_id_3300
+dym_address.kab_id_3375,3375,KOTA PEKALONGAN,dym_address.province_id_3300
+dym_address.kab_id_3376,3376,KOTA TEGAL,dym_address.province_id_3300
+dym_address.kab_id_3401,3401,KAB. KULON PROGO,dym_address.province_id_3400
+dym_address.kab_id_3402,3402,KAB. BANTUL,dym_address.province_id_3400
+dym_address.kab_id_3403,3403,KAB. GUNUNGKIDUL,dym_address.province_id_3400
+dym_address.kab_id_3404,3404,KAB. SLEMAN,dym_address.province_id_3400
+dym_address.kab_id_3471,3471,KOTA YOGYAKARTA,dym_address.province_id_3400
+dym_address.kab_id_3501,3501,KAB. PACITAN,dym_address.province_id_3500
+dym_address.kab_id_3502,3502,KAB. PONOROGO,dym_address.province_id_3500
+dym_address.kab_id_3503,3503,KAB. TRENGGALEK,dym_address.province_id_3500
+dym_address.kab_id_3504,3504,KAB. TULUNGAGUNG,dym_address.province_id_3500
+dym_address.kab_id_3505,3505,KAB. BLITAR,dym_address.province_id_3500
+dym_address.kab_id_3506,3506,KAB. KEDIRI,dym_address.province_id_3500
+dym_address.kab_id_3507,3507,KAB. MALANG,dym_address.province_id_3500
+dym_address.kab_id_3508,3508,KAB. LUMAJANG,dym_address.province_id_3500
+dym_address.kab_id_3509,3509,KAB. JEMBER,dym_address.province_id_3500
+dym_address.kab_id_3510,3510,KAB. BANYUWANGI,dym_address.province_id_3500
+dym_address.kab_id_3511,3511,KAB. BONDOWOSO,dym_address.province_id_3500
+dym_address.kab_id_3512,3512,KAB. SITUBONDO,dym_address.province_id_3500
+dym_address.kab_id_3513,3513,KAB. PROBOLINGGO,dym_address.province_id_3500
+dym_address.kab_id_3514,3514,KAB. PASURUAN,dym_address.province_id_3500
+dym_address.kab_id_3515,3515,KAB. SIDOARJO,dym_address.province_id_3500
+dym_address.kab_id_3516,3516,KAB. MOJOKERTO,dym_address.province_id_3500
+dym_address.kab_id_3517,3517,KAB. JOMBANG,dym_address.province_id_3500
+dym_address.kab_id_3518,3518,KAB. NGANJUK,dym_address.province_id_3500
+dym_address.kab_id_3519,3519,KAB. MADIUN,dym_address.province_id_3500
+dym_address.kab_id_3520,3520,KAB. MAGETAN,dym_address.province_id_3500
+dym_address.kab_id_3521,3521,KAB. NGAWI,dym_address.province_id_3500
+dym_address.kab_id_3522,3522,KAB. BOJONEGORO,dym_address.province_id_3500
+dym_address.kab_id_3523,3523,KAB. TUBAN,dym_address.province_id_3500
+dym_address.kab_id_3524,3524,KAB. LAMONGAN,dym_address.province_id_3500
+dym_address.kab_id_3525,3525,KAB. GRESIK,dym_address.province_id_3500
+dym_address.kab_id_3526,3526,KAB. BANGKALAN,dym_address.province_id_3500
+dym_address.kab_id_3527,3527,KAB. SAMPANG,dym_address.province_id_3500
+dym_address.kab_id_3528,3528,KAB. PAMEKASAN,dym_address.province_id_3500
+dym_address.kab_id_3529,3529,KAB. SUMENEP,dym_address.province_id_3500
+dym_address.kab_id_3571,3571,KOTA KEDIRI,dym_address.province_id_3500
+dym_address.kab_id_3572,3572,KOTA BLITAR,dym_address.province_id_3500
+dym_address.kab_id_3573,3573,KOTA MALANG,dym_address.province_id_3500
+dym_address.kab_id_3574,3574,KOTA PROBOLINGGO,dym_address.province_id_3500
+dym_address.kab_id_3575,3575,KOTA PASURUAN,dym_address.province_id_3500
+dym_address.kab_id_3576,3576,KOTA MOJOKERTO,dym_address.province_id_3500
+dym_address.kab_id_3577,3577,KOTA MADIUN,dym_address.province_id_3500
+dym_address.kab_id_3578,3578,KOTA SURABAYA,dym_address.province_id_3500
+dym_address.kab_id_3579,3579,KOTA BATU,dym_address.province_id_3500
+dym_address.kab_id_3601,3601,KAB. PANDEGLANG,dym_address.province_id_3600
+dym_address.kab_id_3602,3602,KAB. LEBAK,dym_address.province_id_3600
+dym_address.kab_id_3603,3603,KAB. TANGERANG,dym_address.province_id_3600
+dym_address.kab_id_3604,3604,KAB. SERANG,dym_address.province_id_3600
+dym_address.kab_id_3671,3671,KOTA TANGERANG,dym_address.province_id_3600
+dym_address.kab_id_3672,3672,KOTA CILEGON,dym_address.province_id_3600
+dym_address.kab_id_3673,3673,KOTA TANGERANG SELATAN,dym_address.province_id_3600
+dym_address.kab_id_3674,3674,KOTA SERANG,dym_address.province_id_3600
+dym_address.kab_id_5101,5101,KAB. JEMBRANA,dym_address.province_id_5100
+dym_address.kab_id_5102,5102,KAB. TABANAN,dym_address.province_id_5100
+dym_address.kab_id_5103,5103,KAB. BADUNG,dym_address.province_id_5100
+dym_address.kab_id_5104,5104,KAB. GIANYAR,dym_address.province_id_5100
+dym_address.kab_id_5105,5105,KAB. KLUNGKUNG,dym_address.province_id_5100
+dym_address.kab_id_5106,5106,KAB. BANGLI,dym_address.province_id_5100
+dym_address.kab_id_5107,5107,KAB. KARANGASEM,dym_address.province_id_5100
+dym_address.kab_id_5108,5108,KAB. BULELENG,dym_address.province_id_5100
+dym_address.kab_id_5171,5171,KOTA DENPASAR,dym_address.province_id_5100
+dym_address.kab_id_5201,5201,KAB. LOMBOK BARAT,dym_address.province_id_5200
+dym_address.kab_id_5202,5202,KAB. LOMBOK TENGAH,dym_address.province_id_5200
+dym_address.kab_id_5203,5203,KAB. LOMBOK TIMUR,dym_address.province_id_5200
+dym_address.kab_id_5204,5204,KAB. SUMBAWA,dym_address.province_id_5200
+dym_address.kab_id_5205,5205,KAB. DOMPU,dym_address.province_id_5200
+dym_address.kab_id_5206,5206,KAB. BIMA,dym_address.province_id_5200
+dym_address.kab_id_5207,5207,KAB. SUMBAWA BARAT,dym_address.province_id_5200
+dym_address.kab_id_5208,5208,KAB. LOMBOK UTARA,dym_address.province_id_5200
+dym_address.kab_id_5271,5271,KOTA MATARAM,dym_address.province_id_5200
+dym_address.kab_id_5272,5272,KOTA BIMA,dym_address.province_id_5200
+dym_address.kab_id_5301,5301,KAB. SUMBA BARAT,dym_address.province_id_5300
+dym_address.kab_id_5302,5302,KAB. SUMBA TIMUR,dym_address.province_id_5300
+dym_address.kab_id_5303,5303,KAB. KUPANG,dym_address.province_id_5300
+dym_address.kab_id_5304,5304,KAB. TIMOR TENGAH SELATAN,dym_address.province_id_5300
+dym_address.kab_id_5305,5305,KAB. TIMOR TENGAH UTARA,dym_address.province_id_5300
+dym_address.kab_id_5306,5306,KAB. BELU,dym_address.province_id_5300
+dym_address.kab_id_5307,5307,KAB. ALOR,dym_address.province_id_5300
+dym_address.kab_id_5308,5308,KAB. LEMBATA,dym_address.province_id_5300
+dym_address.kab_id_5309,5309,KAB. FLORES TIMUR,dym_address.province_id_5300
+dym_address.kab_id_5310,5310,KAB. SIKKA,dym_address.province_id_5300
+dym_address.kab_id_5311,5311,KAB. ENDE,dym_address.province_id_5300
+dym_address.kab_id_5312,5312,KAB. NGADA,dym_address.province_id_5300
+dym_address.kab_id_5313,5313,KAB. MANGGARAI,dym_address.province_id_5300
+dym_address.kab_id_5314,5314,KAB. ROTE NDAO,dym_address.province_id_5300
+dym_address.kab_id_5315,5315,KAB. MANGGARAI BARAT,dym_address.province_id_5300
+dym_address.kab_id_5316,5316,KAB. SUMBA BARAT DAYA,dym_address.province_id_5300
+dym_address.kab_id_5317,5317,KAB. SUMBA TENGAH,dym_address.province_id_5300
+dym_address.kab_id_5318,5318,KAB. NAGEKEO,dym_address.province_id_5300
+dym_address.kab_id_5319,5319,KAB. SABU RAIJUA,dym_address.province_id_5300
+dym_address.kab_id_5320,5320,KAB. MALAKA,dym_address.province_id_5300
+dym_address.kab_id_5371,5371,KOTA KUPANG,dym_address.province_id_5300
+dym_address.kab_id_5372,5372,KAB. MANGGARAI TIMUR,dym_address.province_id_5300
+dym_address.kab_id_6101,6101,KAB. SAMBAS,dym_address.province_id_6100
+dym_address.kab_id_6102,6102,KAB. BENGKAYANG,dym_address.province_id_6100
+dym_address.kab_id_6103,6103,KAB. LANDAK,dym_address.province_id_6100
+dym_address.kab_id_6105,6105,KAB. SANGGAU,dym_address.province_id_6100
+dym_address.kab_id_6106,6106,KAB. KETAPANG,dym_address.province_id_6100
+dym_address.kab_id_6107,6107,KAB. SINTANG,dym_address.province_id_6100
+dym_address.kab_id_6108,6108,KAB. KAPUAS HULU,dym_address.province_id_6100
+dym_address.kab_id_6109,6109,KAB. SEKADAU,dym_address.province_id_6100
+dym_address.kab_id_6110,6110,KAB. MELAWI,dym_address.province_id_6100
+dym_address.kab_id_6111,6111,KAB. KAYONG UTARA,dym_address.province_id_6100
+dym_address.kab_id_6112,6112,KAB. MEMPAWAH,dym_address.province_id_6100
+dym_address.kab_id_6171,6171,KOTA PONTIANAK,dym_address.province_id_6100
+dym_address.kab_id_6172,6172,KOTA SINGKAWANG,dym_address.province_id_6100
+dym_address.kab_id_6174,6174,KAB. KUBU RAYA,dym_address.province_id_6100
+dym_address.kab_id_6201,6201,KAB. KOTAWARINGIN BARAT,dym_address.province_id_6200
+dym_address.kab_id_6202,6202,KAB. KOTAWARINGIN TIMUR,dym_address.province_id_6200
+dym_address.kab_id_6203,6203,KAB. KAPUAS,dym_address.province_id_6200
+dym_address.kab_id_6204,6204,KAB. BARITO SELATAN,dym_address.province_id_6200
+dym_address.kab_id_6205,6205,KAB. BARITO UTARA,dym_address.province_id_6200
+dym_address.kab_id_6206,6206,KAB. SUKAMARA,dym_address.province_id_6200
+dym_address.kab_id_6207,6207,KAB. LAMANDAU,dym_address.province_id_6200
+dym_address.kab_id_6208,6208,KAB. SERUYAN,dym_address.province_id_6200
+dym_address.kab_id_6209,6209,KAB. KATINGAN,dym_address.province_id_6200
+dym_address.kab_id_6210,6210,KAB. PULANG PISAU,dym_address.province_id_6200
+dym_address.kab_id_6211,6211,KAB. GUNUNG MAS,dym_address.province_id_6200
+dym_address.kab_id_6212,6212,KAB. BARITO TIMUR,dym_address.province_id_6200
+dym_address.kab_id_6213,6213,KAB. MURUNG RAYA,dym_address.province_id_6200
+dym_address.kab_id_6271,6271,KOTA PALANGKARAYA,dym_address.province_id_6200
+dym_address.kab_id_6301,6301,KAB. TANAH LAUT,dym_address.province_id_6300
+dym_address.kab_id_6302,6302,KAB. KOTABARU,dym_address.province_id_6300
+dym_address.kab_id_6303,6303,KAB. BANJAR,dym_address.province_id_6300
+dym_address.kab_id_6304,6304,KAB. BARITO KUALA,dym_address.province_id_6300
+dym_address.kab_id_6305,6305,KAB. TAPIN,dym_address.province_id_6300
+dym_address.kab_id_6306,6306,KAB. HULU SUNGAI SELATAN,dym_address.province_id_6300
+dym_address.kab_id_6307,6307,KAB. HULU SUNGAI TENGAH,dym_address.province_id_6300
+dym_address.kab_id_6308,6308,KAB. HULU SUNGAI UTARA,dym_address.province_id_6300
+dym_address.kab_id_6309,6309,KAB. TABALONG,dym_address.province_id_6300
+dym_address.kab_id_6310,6310,KAB. TANAH BUMBU,dym_address.province_id_6300
+dym_address.kab_id_6311,6311,KAB. BALANGAN,dym_address.province_id_6300
+dym_address.kab_id_6371,6371,KOTA BANJARMASIN,dym_address.province_id_6300
+dym_address.kab_id_6372,6372,KOTA BANJARBARU,dym_address.province_id_6300
+dym_address.kab_id_6401,6401,KAB. PASER,dym_address.province_id_6400
+dym_address.kab_id_6402,6402,KAB. KUTAI BARAT,dym_address.province_id_6400
+dym_address.kab_id_6403,6403,KAB. KUTAI KARTANEGARA,dym_address.province_id_6400
+dym_address.kab_id_6404,6404,KAB. KUTAI TIMUR,dym_address.province_id_6400
+dym_address.kab_id_6405,6405,KAB. BERAU,dym_address.province_id_6400
+dym_address.kab_id_6409,6409,KAB. PENAJAM PASER UTARA,dym_address.province_id_6400
+dym_address.kab_id_6412,6412,KAB. MAHAKAM ULU,dym_address.province_id_6400
+dym_address.kab_id_6471,6471,KOTA BALIKPAPAN,dym_address.province_id_6400
+dym_address.kab_id_6472,6472,KOTA SAMARINDA,dym_address.province_id_6400
+dym_address.kab_id_6474,6474,KOTA BONTANG,dym_address.province_id_6400
+dym_address.kab_id_6501,6501,KAB. MALINAU,dym_address.province_id_6500
+dym_address.kab_id_6502,6502,KAB. BULUNGAN,dym_address.province_id_6500
+dym_address.kab_id_6503,6503,KAB. TANA TIDUNG,dym_address.province_id_6500
+dym_address.kab_id_6504,6504,KAB. NUNUKAN,dym_address.province_id_6500
+dym_address.kab_id_6571,6571,KOTA TARAKAN,dym_address.province_id_6500
+dym_address.kab_id_7101,7101,KAB. BOLAANG MONGONDOW,dym_address.province_id_7100
+dym_address.kab_id_7102,7102,KAB. MINAHASA,dym_address.province_id_7100
+dym_address.kab_id_7103,7103,KAB. KEPULAUAN SANGIHE,dym_address.province_id_7100
+dym_address.kab_id_7104,7104,KAB. KEPULAUAN TALAUD,dym_address.province_id_7100
+dym_address.kab_id_7105,7105,KAB. MINAHASA SELATAN,dym_address.province_id_7100
+dym_address.kab_id_7106,7106,KAB. MINAHASA UTARA,dym_address.province_id_7100
+dym_address.kab_id_7107,7107,KAB. BOLAANG MONGONDOW UTARA,dym_address.province_id_7100
+dym_address.kab_id_7109,7109,KAB. MINAHASA TENGGARA,dym_address.province_id_7100
+dym_address.kab_id_7171,7171,KOTA MANADO,dym_address.province_id_7100
+dym_address.kab_id_7172,7172,KOTA BITUNG,dym_address.province_id_7100
+dym_address.kab_id_7173,7173,KOTA TOMOHON,dym_address.province_id_7100
+dym_address.kab_id_7174,7174,KOTA KOTAMOBAGU,dym_address.province_id_7100
+dym_address.kab_id_7175,7175,KAB. BOLAANG MONGONDOW TIMUR,dym_address.province_id_7100
+dym_address.kab_id_7176,7176,KAB. BOLAANG MONGONDOW SELATAN,dym_address.province_id_7100
+dym_address.kab_id_7177,7177,KAB. KEP. SIAU TAGULANDANG BIARO,dym_address.province_id_7100
+dym_address.kab_id_7201,7201,KAB. BANGGAI KEPULAUAN,dym_address.province_id_7200
+dym_address.kab_id_7202,7202,KAB. BANGGAI,dym_address.province_id_7200
+dym_address.kab_id_7203,7203,KAB. MOROWALI,dym_address.province_id_7200
+dym_address.kab_id_7204,7204,KAB. POSO,dym_address.province_id_7200
+dym_address.kab_id_7205,7205,KAB. DONGGALA,dym_address.province_id_7200
+dym_address.kab_id_7206,7206,KAB. TOLI TOLI,dym_address.province_id_7200
+dym_address.kab_id_7207,7207,KAB. BUOL,dym_address.province_id_7200
+dym_address.kab_id_7208,7208,KAB. PARIGI MOUTONG,dym_address.province_id_7200
+dym_address.kab_id_7209,7209,KAB. TOJO UNA UNA,dym_address.province_id_7200
+dym_address.kab_id_7210,7210,KAB. SIGI,dym_address.province_id_7200
+dym_address.kab_id_7211,7211,KAB. BANGGAI LAUT,dym_address.province_id_7200
+dym_address.kab_id_7212,7212,KAB. MOROWALI UTARA,dym_address.province_id_7200
+dym_address.kab_id_7271,7271,KOTA PALU,dym_address.province_id_7200
+dym_address.kab_id_7301,7301,KAB. KEPULAUAN SELAYAR,dym_address.province_id_7300
+dym_address.kab_id_7302,7302,KAB. BULUKUMBA,dym_address.province_id_7300
+dym_address.kab_id_7303,7303,KAB. BANTAENG,dym_address.province_id_7300
+dym_address.kab_id_7304,7304,KAB. JENEPONTO,dym_address.province_id_7300
+dym_address.kab_id_7305,7305,KAB. TAKALAR,dym_address.province_id_7300
+dym_address.kab_id_7306,7306,KAB. GOWA,dym_address.province_id_7300
+dym_address.kab_id_7307,7307,KAB. SINJAI,dym_address.province_id_7300
+dym_address.kab_id_7308,7308,KAB. MAROS,dym_address.province_id_7300
+dym_address.kab_id_7309,7309,KAB. PANGKAJENE KEPULAUAN,dym_address.province_id_7300
+dym_address.kab_id_7310,7310,KAB. BARRU,dym_address.province_id_7300
+dym_address.kab_id_7311,7311,KAB. BONE,dym_address.province_id_7300
+dym_address.kab_id_7312,7312,KAB. SOPPENG,dym_address.province_id_7300
+dym_address.kab_id_7313,7313,KAB. WAJO,dym_address.province_id_7300
+dym_address.kab_id_7314,7314,KAB. SIDENRENG RAPPANG,dym_address.province_id_7300
+dym_address.kab_id_7315,7315,KAB. PINRANG,dym_address.province_id_7300
+dym_address.kab_id_7316,7316,KAB. ENREKANG,dym_address.province_id_7300
+dym_address.kab_id_7317,7317,KAB. LUWU,dym_address.province_id_7300
+dym_address.kab_id_7318,7318,KAB. TANA TORAJA,dym_address.province_id_7300
+dym_address.kab_id_7322,7322,KAB. LUWU UTARA,dym_address.province_id_7300
+dym_address.kab_id_7325,7325,KAB. LUWU TIMUR,dym_address.province_id_7300
+dym_address.kab_id_7326,7326,KAB. TORAJA UTARA,dym_address.province_id_7300
+dym_address.kab_id_7371,7371,KOTA MAKASSAR,dym_address.province_id_7300
+dym_address.kab_id_7372,7372,KOTA PARE PARE,dym_address.province_id_7300
+dym_address.kab_id_7373,7373,KOTA PALOPO,dym_address.province_id_7300
+dym_address.kab_id_7401,7401,KAB. BUTON,dym_address.province_id_7400
+dym_address.kab_id_7402,7402,KAB. MUNA,dym_address.province_id_7400
+dym_address.kab_id_7403,7403,KAB. KONAWE,dym_address.province_id_7400
+dym_address.kab_id_7404,7404,KAB. KOLAKA,dym_address.province_id_7400
+dym_address.kab_id_7405,7405,KAB. KONAWE SELATAN,dym_address.province_id_7400
+dym_address.kab_id_7406,7406,KAB. BOMBANA,dym_address.province_id_7400
+dym_address.kab_id_7407,7407,KAB. WAKATOBI,dym_address.province_id_7400
+dym_address.kab_id_7408,7408,KAB. KOLAKA UTARA,dym_address.province_id_7400
+dym_address.kab_id_7409,7409,KAB. BUTON UTARA,dym_address.province_id_7400
+dym_address.kab_id_7410,7410,KAB. KONAWE UTARA,dym_address.province_id_7400
+dym_address.kab_id_7471,7471,KOTA KENDARI,dym_address.province_id_7400
+dym_address.kab_id_7472,7472,KOTA BAU BAU,dym_address.province_id_7400
+dym_address.kab_id_7473,7473,KAB. KOLAKA TIMUR,dym_address.province_id_7400
+dym_address.kab_id_7474,7474,KAB. KONAWE KEPULAUAN,dym_address.province_id_7400
+dym_address.kab_id_7475,7475,KAB. MUNA BARAT,dym_address.province_id_7400
+dym_address.kab_id_7476,7476,KAB. BUTON TENGAH,dym_address.province_id_7400
+dym_address.kab_id_7477,7477,KAB. BUTON SELATAN,dym_address.province_id_7400
+dym_address.kab_id_7501,7501,KAB. BOALEMO,dym_address.province_id_7500
+dym_address.kab_id_7502,7502,KAB. GORONTALO,dym_address.province_id_7500
+dym_address.kab_id_7503,7503,KAB. PAHUWATO,dym_address.province_id_7500
+dym_address.kab_id_7504,7504,KAB. BONE BOLANGO,dym_address.province_id_7500
+dym_address.kab_id_7505,7505,KAB. GORONTALO UTARA,dym_address.province_id_7500
+dym_address.kab_id_7571,7571,KOTA GORONTALO,dym_address.province_id_7500
+dym_address.kab_id_7601,7601,KAB. MAJENE,dym_address.province_id_7600
+dym_address.kab_id_7602,7602,KAB. POLEWALI MANDAR,dym_address.province_id_7600
+dym_address.kab_id_7603,7603,KAB. MAMASA,dym_address.province_id_7600
+dym_address.kab_id_7604,7604,KAB. MAMUJU,dym_address.province_id_7600
+dym_address.kab_id_7605,7605,KAB. MAMUJU UTARA,dym_address.province_id_7600
+dym_address.kab_id_7607,7607,KAB. MAMUJU TENGAH,dym_address.province_id_7600
+dym_address.kab_id_8101,8101,KAB. MALUKU TENGGARA BARAT,dym_address.province_id_8100
+dym_address.kab_id_8102,8102,KAB. MALUKU TENGGARA,dym_address.province_id_8100
+dym_address.kab_id_8103,8103,KAB. MALUKU TENGAH,dym_address.province_id_8100
+dym_address.kab_id_8104,8104,KAB. BURU,dym_address.province_id_8100
+dym_address.kab_id_8105,8105,KAB. KEPULAUAN ARU,dym_address.province_id_8100
+dym_address.kab_id_8106,8106,KAB. SERAM BAGIAN BARAT,dym_address.province_id_8100
+dym_address.kab_id_8107,8107,KAB. SERAM BAGIAN TIMUR,dym_address.province_id_8100
+dym_address.kab_id_8108,8108,KAB. MALUKU BARAT DAYA,dym_address.province_id_8100
+dym_address.kab_id_8109,8109,KAB. BURU SELATAN,dym_address.province_id_8100
+dym_address.kab_id_8171,8171,KOTA AMBON,dym_address.province_id_8100
+dym_address.kab_id_8172,8172,KOTA TUAL,dym_address.province_id_8100
+dym_address.kab_id_8201,8201,KAB. HALMAHERA BARAT,dym_address.province_id_8200
+dym_address.kab_id_8202,8202,KAB. HALMAHERA TENGAH,dym_address.province_id_8200
+dym_address.kab_id_8203,8203,KAB. KEPULAUAN SULA,dym_address.province_id_8200
+dym_address.kab_id_8204,8204,KAB. HALMAHERA SELATAN,dym_address.province_id_8200
+dym_address.kab_id_8205,8205,KAB. HALMAHERA UTARA,dym_address.province_id_8200
+dym_address.kab_id_8206,8206,KAB. HALMAHERA TIMUR,dym_address.province_id_8200
+dym_address.kab_id_8207,8207,KAB. PULAU MOROTAI,dym_address.province_id_8200
+dym_address.kab_id_8208,8208,KAB. PULAU TALIABU,dym_address.province_id_8200
+dym_address.kab_id_8271,8271,KOTA TERNATE,dym_address.province_id_8200
+dym_address.kab_id_8272,8272,KOTA TIDORE KEPULAUAN,dym_address.province_id_8200
+dym_address.kab_id_9101,9101,KAB. FAK FAK,dym_address.province_id_9100
+dym_address.kab_id_9102,9102,KAB. KAIMANA,dym_address.province_id_9100
+dym_address.kab_id_9103,9103,KAB. TELUK WONDAMA,dym_address.province_id_9100
+dym_address.kab_id_9104,9104,KAB. TELUK BINTUNI,dym_address.province_id_9100
+dym_address.kab_id_9105,9105,KAB. MANOKWARI,dym_address.province_id_9100
+dym_address.kab_id_9106,9106,KAB. SORONG SELATAN,dym_address.province_id_9100
+dym_address.kab_id_9107,9107,KAB. SORONG,dym_address.province_id_9100
+dym_address.kab_id_9108,9108,KAB. RAJA AMPAT,dym_address.province_id_9100
+dym_address.kab_id_9109,9109,KAB. MAYBRAT,dym_address.province_id_9100
+dym_address.kab_id_9110,9110,KAB. TAMBRAUW,dym_address.province_id_9100
+dym_address.kab_id_9111,9111,KAB. MANOKWARI SELATAN,dym_address.province_id_9100
+dym_address.kab_id_9112,9112,KAB. PEGUNUNGAN ARFAK,dym_address.province_id_9100
+dym_address.kab_id_9171,9171,KOTA SORONG,dym_address.province_id_9100
+dym_address.kab_id_9401,9401,KAB. MERAUKE,dym_address.province_id_9400
+dym_address.kab_id_9402,9402,KAB. JAYAWIJAYA,dym_address.province_id_9400
+dym_address.kab_id_9403,9403,KAB. JAYAPURA,dym_address.province_id_9400
+dym_address.kab_id_9404,9404,KAB. NABIRE,dym_address.province_id_9400
+dym_address.kab_id_9408,9408,KAB. KEPULAUAN YAPEN,dym_address.province_id_9400
+dym_address.kab_id_9409,9409,KAB. BIAK NUMFOR,dym_address.province_id_9400
+dym_address.kab_id_9410,9410,KAB. PANIAI,dym_address.province_id_9400
+dym_address.kab_id_9411,9411,KAB. PUNCAK JAYA,dym_address.province_id_9400
+dym_address.kab_id_9412,9412,KAB. MIMIKA,dym_address.province_id_9400
+dym_address.kab_id_9413,9413,KAB. BOVEN DIGOEL,dym_address.province_id_9400
+dym_address.kab_id_9414,9414,KAB. MAPPI,dym_address.province_id_9400
+dym_address.kab_id_9415,9415,KAB. ASMAT,dym_address.province_id_9400
+dym_address.kab_id_9416,9416,KAB. YAHUKIMO,dym_address.province_id_9400
+dym_address.kab_id_9417,9417,KAB. PEGUNUNGAN BINTANG,dym_address.province_id_9400
+dym_address.kab_id_9418,9418,KAB. TOLIKARA,dym_address.province_id_9400
+dym_address.kab_id_9419,9419,KAB. SARMI,dym_address.province_id_9400
+dym_address.kab_id_9420,9420,KAB. KEEROM,dym_address.province_id_9400
+dym_address.kab_id_9426,9426,KAB. WAROPEN,dym_address.province_id_9400
+dym_address.kab_id_9427,9427,KAB. SUPIORI,dym_address.province_id_9400
+dym_address.kab_id_9428,9428,KAB. DEIYAI,dym_address.province_id_9400
+dym_address.kab_id_9429,9429,KAB. DOGIYAI,dym_address.province_id_9400
+dym_address.kab_id_9430,9430,KAB. INTAN JAYA,dym_address.province_id_9400
+dym_address.kab_id_9431,9431,KAB. LANNY JAYA,dym_address.province_id_9400
+dym_address.kab_id_9432,9432,KAB. MAMBERAMO RAYA,dym_address.province_id_9400
+dym_address.kab_id_9433,9433,KAB. MAMBERAMO TENGAH,dym_address.province_id_9400
+dym_address.kab_id_9434,9434,KAB. NDUGA,dym_address.province_id_9400
+dym_address.kab_id_9435,9435,KAB. PUNCAK,dym_address.province_id_9400
+dym_address.kab_id_9436,9436,KAB. YALIMO,dym_address.province_id_9400
+dym_address.kab_id_9471,9471,KOTA JAYAPURA,dym_address.province_id_9400

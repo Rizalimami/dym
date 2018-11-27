@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_stock_picking_revise" model="ir.ui.view">
+            <field name="name">Revise Stock Picking</field>
+            <field name="model">dym.stock.packing.revise</field>
+            <field name="arch" type="xml">
+                <form string="Revise Shipments">
+                    <p>Anda akan merevisi stock packing yang statusnya sudah posted. Revisi dapat dilakukan selama consolidated invoice masih draft"</p>
+                    <group>
+                        <field name="dym_packing_id" readonly="1" />
+                    </group>
+                    <group>
+                        <group>
+                            <field name="sj_no" readonly="1" />
+                            <field name="sj_no_new" />
+                        </group>
+                        <group>
+                            <field name="sj_date" readonly="1" />
+                            <field name="sj_date_new" />
+                        </group>
+                    </group>
+                    <field name="dym_packing_revise_line">
+                        <tree string="Packing Revise Line" readonly="1">
+                            <field name="id" invisible="1" />
+                            <field name="dym_packing_id" invisible="1" />
+                            <field name="lot_id" invisible="1" />
+                            <field name="template_ids" invisible="1" />
+                            <field name="template_id" invisible="1" options="{'no_open':True,'no_create':True}" />
+                            <field name="template_id_new" invisible="1" string="Type" options="{'no_open':True,'no_create':True}" domain="[('id','in',template_ids)]" on_change='onchange_template_id_new(dym_packing_id, template_id, product_id, engine_number, engine_number_new, chassis_number, chassis_number_new, tahun_pembuatan, tahun_pembuatan_new)' />
+                            <field name="product_id" readonly="1" />
+                            <field name="product_id_new" invisible="1" on_change="onchange_product_id(template_id, product_id, engine_number, engine_number_new, chassis_number, chassis_number_new, tahun_pembuatan, tahun_pembuatan_new)" string="Warna" domain="[('sale_ok','=',True)]" attrs="{'required':[('template_id_new','!=',False)]}" options="{'no_open':True,'no_create':True,'always_reload': True}" />
+                            <field name="engine_number" readonly="1" />
+                            <field name="engine_number_new" string="New" invisible="1" attrs="{'required':[('product_id_new','!=',False)]}" on_change='onchange_engine_number(engine_number, engine_number_new, chassis_number, chassis_number_new, tahun_pembuatan, tahun_pembuatan_new)' />
+                            <field name="chassis_number" readonly="1" />
+                            <field name="chassis_number_new" string="New" invisible="1" attrs="{'required':[('product_id_new','!=',False)]}" on_change='onchange_engine_number(engine_number, engine_number_new, chassis_number, chassis_number_new, tahun_pembuatan, tahun_pembuatan_new)' />
+                            <field name="tahun_pembuatan" string="Thn" readonly="1" />
+                            <field name="tahun_pembuatan_new" string="New" invisible="1" on_change='onchange_engine_number(engine_number, engine_number_new, chassis_number, chassis_number_new, tahun_pembuatan, tahun_pembuatan_new)' />
+                        </tree>
+                        <form string="Packing Revise Line">
+                            <group>
+                                <group string="Original Data">
+                                    <field name="id" invisible="1" />
+                                    <field name="dym_packing_id" invisible="1" />
+                                    <field name="lot_id" invisible="1" />
+                                    <field name="template_ids" invisible="1" />
+                                    <field name="template_id" readonly="1" />
+                                    <field name="product_id" readonly="1" />
+                                    <field name="engine_number" readonly="1" />
+                                    <field name="chassis_number" readonly="1" />
+                                    <field name="tahun_pembuatan" readonly="1" />
+                                </group>
+                                <group string="New Data">
+                                    <field name="template_id_new" string="Type" options="{'no_open':True,'no_create':True}" domain="[('id','in',template_ids)]" on_change='onchange_template_id_new(dym_packing_id, template_id, product_id, engine_number, engine_number_new, chassis_number, chassis_number_new, tahun_pembuatan, tahun_pembuatan_new)' />
+                                    <field name="product_id_new" on_change="onchange_product_id(template_id, product_id, engine_number, engine_number_new, chassis_number, chassis_number_new, tahun_pembuatan, tahun_pembuatan_new)" string="Warna" domain="[('sale_ok','=',True)]" attrs="{'required':[('template_id_new','!=',False)]}" options="{'no_open':True,'no_create':True,'always_reload': True}" />
+                                    <field name="engine_number_new" />
+                                    <field name="chassis_number_new" />
+                                    <field name="tahun_pembuatan_new" />
+                                </group>
+                            </group>
+                        </form>
+                    </field>
+                    <footer>
+                        <button name="revise_shipments" string="Revise Shipments" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_stock_picking_posted_revise_button">
+            <field name="name">Revise Stock Picking</field>
+            <field name="res_model">dym.stock.packing.revise</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

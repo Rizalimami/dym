@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="asset_disposal_tree_view">
+            <field name="name">asset.disposal.tree</field>
+            <field name="model">dym.asset.disposal</field>
+            <field name="arch" type="xml">
+                <tree string="List Asset Disposal">
+                    <field name="name" />
+                    <field name="branch_id" />
+                    <field name="division" />
+                    <field name="partner_id" />
+                    <field name="date" />
+                    <field name="amount_total" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="asset_disposal_form_view">
+            <field name="name">asset.disposal.form</field>
+            <field name="model">dym.asset.disposal</field>
+            <field name="arch" type="xml">
+                <form string="Form Asset Disposal">
+                    <header>
+                        <button name="view_invoice" string="View Invoice" type="object" class="oe_highlight" attrs="{'invisible': ['|',('amount_total','&lt;=',0),('state','not in',['approved','done'])]}" />
+                        <button name="invoice_ok" states="except_invoice" string="Manually Corrected" />
+                        <button name="wkf_action_cancel" states="draft" string="Cancel" type="object" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved,done" statusbar_colors='{"draft":"red","approved":"done"}' />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h2>
+				                <label string="Asset Disposal"/>    			
+				 				<field name="name" class="oe_inline"/>
+			 				</h2>
+                        </div>
+                        <group col="2" colspan="2">
+                            <group>
+                                <field name="branch_id" options="{'no_create': True,'no_open': True}" on_change="dispose_change(branch_id,partner_id)" required="1" attrs="{'readonly': ['|',('state','!=','draft'),('name','!=',False)]}" />
+                            </group>
+                            <group>
+                                <field name="division" attrs="{'readonly': [('state','!=','draft')]}" required="1" />
+                            </group>
+                            <group>
+                                <field name="partner_id" on_change="dispose_change(branch_id,partner_id)" options="{'no_create': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')],'required': [('amount_total','&gt;',0)]}" />
+                                <field name="payment_term" attrs="{'readonly': ['|',('state','!=','draft')],'required': [('amount_total','&gt;',0)]}" required="1" />
+                            </group>
+                            <group>
+                                <field name="date" readonly="1" />
+                                <field name="reference" />
+                                <field name="memo" />
+                            </group>
+                        </group>
+                        <notebook colspan="5">
+                            <page string="Asset line">
+                                <field colspan="4" name="asset_disposal_line" nolabel="1" widget="one2many_list" attrs="{'readonly': [('state','!=','draft')]}" required="1">
+                                    <tree string="" editable="bottom">
+                                        <field name="responsible_id" options="{'no_open':True, 'no_create':True}" on_change="onchange_asset(asset_id,parent.branch_id,responsible_id)" />
+                                        <field name="asset_id" options="{'no_create': True,'no_open': True}" on_change="onchange_asset(asset_id,parent.branch_id,responsible_id)" required="1" />
+                                        <field name="description" required="1" />
+                                        <field name="amount" required="1" />
+                                        <field name="purchase_value" sum="Purchase Value" />
+                                        <field name="depreciated" sum="Depreciated" />
+                                        <field name="nbv" sum="NBV" />
+                                        <field name="gain_loss" sum="Gain (Loss)" />
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                                    <field name="discount" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                                    <field name="amount_net_price" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                                    <field name="taxes_ids" widget='many2many_tags' />
+                                    <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}" invisible="1" />
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_total" />
+                                        <button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link" />
+                                    </div>
+                                    <field name="amount_total" nolabel="1" widget='monetary' class="oe_subtotal_footer_separator" options="{'currency_field': 'currency_id'}" />
+                                </group>
+                                <div class="oe_clear" />
+                            </page>
+                            <page string='Faktur Pajak' attrs="{'invisible': [('amount_tax','=',0)]}">
+                                <group>
+                                    <field name="is_pedagang_eceran" invisible="1" />
+                                    <field name="pajak_gunggung" on_change="onchange_gabungan_gunggung('pajak_gunggung',pajak_gabungan,pajak_gunggung)" />
+                                    <field name="pajak_gabungan" on_change="onchange_gabungan_gunggung('pajak_gabungan',pajak_gabungan,pajak_gunggung)" />
+                                    <field name='faktur_pajak_id' readonly='1'></field>
+                                </group>
+                            </page>
+                            <page string="Account Analytic">
+                                <group>
+                                    <group width="50%">
+                                        <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                                        <field name="analytic_2" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                                        <field name="analytic_3" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                                        <field name="analytic_4" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" string="Account Analytic Cost Center" required="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                                    </group>
+                                    <group/>
+                                </group>
+                            </page>
+                            <page string="Invoicing" invisible="1">
+                                <group>
+                                    <field name="invoice_method" />
+                                    <field name="invoiced" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_asset_disposal_filter" model="ir.ui.view">
+            <field name="name">asset.disposal.list.select</field>
+            <field name="model">dym.asset.disposal</field>
+            <field name="arch" type="xml">
+                <search string="Search Asset Disposal">
+                    <field name="name" string="Reference" />
+                    <field name="branch_id" />
+                    <field name="date" />
+                    <field name="partner_id" string="Pembeli" />
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]" />
+                    <filter name="done" string="Done" domain="[('state','=','done')]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-partner" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter string="Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}" />
+                        <filter string="State" icon="terp-go-month" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="asset_disposal_action">
+            <field name="name">Asset Disposal</field>
+            <field name="res_model">dym.asset.disposal</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_asset_disposal_filter" />
+        </record>
+        <menuitem id="asset_disposal_submenu" name="Asset Disposal" parent="dym_dealer_menu.ga_asset_menu" action="asset_disposal_action" sequence="10" />
+    </data>
+</openerp>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_kwitansi_so_template">
+            <style type="text/css">
+                .tag_container {
+                    margin: auto;
+                    margin-bottom: 50px;
+                    border: 1px solid black;
+                }
+                
+                .no_border {
+                    border: 0px !important;
+                }
+                
+                .margin_bottom {
+                    margin-bottom: 5px !important;
+                    margin-top: 5px !important;
+                }
+                
+                .border_top {
+                    border-top: 1px solid black !important;
+                    margin-top: 2px !important;
+                    margin-bottom: 2px !important;
+                }
+                                
+                .page,
+                .header,
+                .footer,
+                .table {
+                    font-size: 10px !important;
+                }
+
+                .hr {
+                    border-top: 1px solid black !important;
+                }
+
+                .text_up{
+                    text-transform: uppercase;
+                }
+
+                .text_bold{
+                    font-weight: bold;
+                }
+
+                .text_head{
+                    font-size: 14px;
+                }
+
+                .table_titikdua{
+                    text-align:center;
+                    width:20px;
+                }
+
+                .table_margintop{
+                    margin-top: 20px !important;
+                }
+
+                .tableap {
+                    margin-bottom: 0px !important;
+                }
+
+                .tableap td, .tableap th {
+                    padding: 0px !important;
+                    border: 0px !important;
+                }
+
+                .ul_margin {
+                    margin-left: 15px !important;
+                }
+
+                .border_top_td {
+                    border-top: 1px solid #eeeeee !important;
+                }
+
+            </style>
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o and 'company_id' in o"><t t-set="company" t-value="o.company_id"></t></t>
+                    <t t-if="not o or not 'company_id' in o"><t t-set="company" t-value="res_company"></t></t>
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span class="text_up text_head"><t t-esc="company.name"/> - <span t-field="o.branch_id.name" /></span><br/>
+                                <span><span t-field="o.branch_id.street"/></span><br/><br/>
+                                <table>
+                                    <tr>
+                                        <td width="60">NPWP</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="company.partner_id.npwp"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">PKP</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="company.partner_id.npwp"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td width="60">No. Kuitansi</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><t t-esc="o.get_no_kuitansi(o.name)" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">Customer</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.partner_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">Sales Person</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.employee_id.name" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">T. Konsumen</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.tipe_konsumen" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">T. Transaksi</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.tipe_transaksi" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table tableap">
+                                    <thead>
+                                        <tr>
+                                            <td><strong>Item</strong></td>
+                                            <td align="right"><strong>Qty</strong></td>
+                                            <td align="right"><strong>Harga</strong></td>
+                                            <td align="right"><strong>Disc</strong></td>
+                                            <td align="right"><strong>Jumlah</strong></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="discount_total" t-value="0" />
+                                        <t t-foreach="o.order_line" t-as="line">
+                                            <t t-set="discount_total" t-value="discount_total+line.discount_show_2+line.discount_program+line.discount_lain_2+line.discount_cash_2" />
+                                            <tr class="border_top_td">
+                                                <td width="130"><span t-field="line.product_id.code"/></td>
+                                                <td align="right" width="15"><span t-field="line.product_uom_qty" /></td>
+                                                <td align="right"><span t-esc="line.price_unit" /></td>
+                                                <td align="right"><t t-esc="line.discount_show_2+line.discount_program+line.discount_lain_2+line.discount_cash_2" /></td>
+                                                <td align="right"><t t-esc="(line.product_uom_qty*line.price_unit)-(line.discount_show_2+line.discount_program+line.discount_lain_2+line.discount_cash_2)" /></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td width="60">Total</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td align="right"><t t-esc="o.amount_total+discount_total"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">Discount</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td align="right"><t t-esc="discount_total" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">Tot. Bayar</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td align="right"><t t-esc="o.amount_total" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <span>Diterima:</span><br/><br/><br/><br/>
+                                <span><b>Kasir</b></span>
+                                <t t-if="o.member"><br/>Anda Hemat <t t-esc="discount_total" /></t>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <span>Diserahkan:</span><br/><br/><br/><br/>
+                                <span><b>____________________</b></span>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                Catatan:
+                                <ul class="ul_margin">
+                                    <li>Harga sudah termasuk PPN</li>
+                                    <li>Bukti pembayaran yang sah apabila sudah ada cap Lunas dari Perusahaan kami</li>
+                                    <li>Pembayaran berupa cek/bilyet dianggap sah apabila cek/bilyet giro tersebut cair pada rekening kami</li>
+                                    <li>Apabila ada pembatalan Uang Muka, akan diproses dalam 2 hari kerja</li>
+                                </ul>
+                                <t t-esc="o.branch_id.get_waktu_local()"/>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

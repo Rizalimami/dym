@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_register_prepaid" model="ir.ui.view">
+            <field name="name">Register Prepaid</field>
+            <field name="model">dym.register.prepaid</field>
+            <field name="arch" type="xml">
+                <form string="Register Prepaid">
+                    <group>
+                        <field name="payment_request_id" invisible="1" />
+                        <field name="name" />
+                        <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                        <field name="category_id" />
+                        <field name="purchase_date" />
+                        <field name="purchase_value" />
+                        <field name="analytic_2" required="1" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled'))]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                        <field name="analytic_3" required="1" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                        <field name="analytic_4" required="1" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                    </group>
+                    <footer>
+                        <button name="register" string="_Register" type="object" class="oe_highlight" /> or
+                        <button string="_Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_register_prepaid" model="ir.actions.act_window">
+            <field name="name">Register Prepaid</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym.register.prepaid</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_register_prepaid" />
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

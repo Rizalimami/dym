@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_clearing_account_journal_form_view">
+            <field name="name">dym.clearing.giro.account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_account_journal_form" />
+            <field name="arch" type="xml">
+                <field name="analytic_journal_id" position="after">
+                    <field name="clearing_account_id" attrs="{'required': [('type','=','bank')],'invisible': [('type','!=','bank')]}" options="{'no_create':True,'no_open':True}" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_clearing_giro_tree_view">
+            <field name="name">dym.clearing.giro.tree</field>
+            <field name="model">dym.clearing.giro</field>
+            <field name="arch" type="xml">
+                <tree string="Clearing Bank" colors="blue:state=='draft';grey:state=='cancel'">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="branch_id" />
+                    <field name="partner_id" />
+                    <field name="division" />
+                    <field name="journal_id" />
+                    <field name="total_giro" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_clearing_giro_search" model="ir.ui.view">
+            <field name="name">dym.clearing.giro.search</field>
+            <field name="model">dym.clearing.giro</field>
+            <field name="arch" type="xml">
+                <search string="Search Clearing Bank">
+                    <field name="branch_id" />
+                    <field name="partner_id" />
+                    <field name="journal_id" />
+                    <field name="date" />
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-go-month" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter string="Partner" icon="terp-go-month" domain="[]" context="{'group_by':'partner_id'}" />
+                        <filter string="Division" icon="terp-go-month" domain="[]" context="{'group_by':'division'}" />
+                        <filter string="Type" icon="terp-go-month" domain="[]" context="{'group_by':'journal_id'}" />
+                        <filter string="State" icon="terp-go-month" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_clearing_giro_form_view">
+            <field name="name">dym.clearing.giro.form</field>
+            <field name="model">dym.clearing.giro</field>
+            <field name="arch" type="xml">
+                <form string="Clearing Bank">
+                    <header>
+                        <button name="confirm_clearing" states="draft" string="Confirm" type="object" class="oe_highlight" groups="dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_kasir_h1,dym_base_security.group_dym_kasir_h123,dym_base_security.group_dym_kasir_h23,dym_base_security.group_dym_adh,dym_base_security.group_dym_treasury_staff"/>
+                        <button name="wkf_action_cancel" states="draft" string="Cancel" type="object" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" groups="dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_kasir_h1,dym_base_security.group_dym_kasir_h123,dym_base_security.group_dym_kasir_h23,dym_base_security.group_dym_adh,dym_base_security.group_dym_treasury_staff"/>
+                        <button name="wkf_reverse_journal" states="done" string="Cancel Clearing" type="object" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_accounting_sec_head,dym_base_security.group_dym_accounting_sub_dept_head"/>
+                        <button name="wkf_action_reset" states="cancel" string="Reset to Draft" type="object" confirm="Apa anda yakin ingin mengembalikan transaksi ini ke status Draft?" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"red","done":"blue"}' />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+					            <label string="Clearing Bank"/>
+					 			<field name="name" class="oe_inline" readonly="1"/>	
+		    			    </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}" required="True" attrs="{'readonly':[('state','!=','draft')]}" on_change="change_reset('branch', branch_id)" />
+                                <field name="division" required="True" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="partner_type" options="{'no_show':True,'no_create':True,'no_open':True}" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="partner_id" options="{'no_show':True,'no_create':True,'no_open':True}" required="True" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="journal_id" options="{'no_show':True,'no_create':True,'no_open':True}" required="True" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="ref" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="clearing_account_id" invisible="1" />
+                                <field name="total_giro" />
+                            </group>
+                            <group>
+                                <field name="date" required="1"/>
+                                <field name="value_date"  invisible="1"/>
+                                <field name="move_id" />
+                                <field name="voucher_id" readonly="1" attrs="{'invisible':[('voucher_id','=',False)]}"/>
+                                <field name="memo" attrs="{'readonly':[('state','in',['cancel','done'])]}" />
+                                <field name="bank_ref" attrs="{'required':[('bank_ref','=',False),('payment_method','=','single_payment')]}" />
+                                <field name="payment_method" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Journal Line">
+                                <field name="move_line_ids" required="True" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                            </page>
+                            <page string="Account Analytic">
+                                <group>
+                                    <group width="50%">
+                                        <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                                        <field name="analytic_2" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" attrs="{'readonly':[('state','not in','draft')]}" on_change="change_reset('analytic_2')" />
+                                        <field name="analytic_3" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" attrs="{'readonly':[('state','not in','draft')]}" on_change="change_reset('analytic_3')" />
+                                        <field name="analytic_4" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" string="Account Analytic Cost Center" required="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                                    </group>
+                                    <group/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_clearing_giro_action">
+            <field name="name">Clearing Bank</field>
+            <field name="res_model">dym.clearing.giro</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_draft':1}</field>
+            <field name="domain">[]</field>
+        </record>
+        <record id="dym_clearing_giro_tree_action" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_clearing_giro_tree_view" />
+            <field name="act_window_id" ref="dym_clearing_giro_action" />
+        </record>
+        <record id="dym_clearing_giro_form_action" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_clearing_giro_form_view" />
+            <field name="act_window_id" ref="dym_clearing_giro_action" />
+        </record>
+        <menuitem id="dym_clearing_giro_menu_submenu" name="Clearing Bank" parent="dym_dealer_menu.backoffice_nontrade_menu" sequence="37" />
+        <menuitem action="dym_clearing_giro_action" id="dym_clearing_giro_menu" parent="dym_clearing_giro_menu_submenu" sequence="15" />
+    </data>
+</openerp>

@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="stock_picking_wizard_print_view" model="ir.ui.view">
+            <field name="name">stock.picking.wizard.print</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <form string="Picking">
+                    <button name="%(report_picking_bastk)d" string="BASTK" type="action" class="oe_highlight" />
+                    <button name="%(report_picking_sj)d" string="Surat Jalan" type="action" class="oe_highlight" />
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_stock_picking_type_form_view">
+            <field name="name">dym.stock.picking.type.form</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="dym_stock_inventory_form_view" model="ir.ui.view">
+            <field name="name">dym.stock.inventory</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                    <field name="confirm_uid" readonly="1"></field>
+                                    <field name="confirm_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                    <field name="cancel_uid" readonly="1"></field>
+                                    <field name="cancel_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="dym_stock_incoterm_form_view" model="ir.ui.view">
+            <field name="name">dym.stock.inventory</field>
+            <field name="model">stock.incoterms</field>
+            <field name="inherit_id" ref="stock.stock_incoterms_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="dym_stock_quants_form_view" model="ir.ui.view">
+            <field name="name">dym.stock.quant</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="dym_stock_location_form_view" model="ir.ui.view">
+            <field name="name">dym.stock.location.route</field>
+            <field name="model">stock.location.route</field>
+            <field name="inherit_id" ref="stock.stock_location_route_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_view_picking_internal_search">
+            <field name="name">dym.view.picking.internal.search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search" />
+            <field name="arch" type="xml">
+                <field name="group_id" position="after">
+                    <field name="origin" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_view_move_picking_tree">
+            <field name="name">dym.stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree" />
+            <field name="arch" type="xml">
+                <button name="%(stock.move_scrap)d" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_stock_picking_form_view">
+            <field name="name">dym.stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <form string="Transfer" position="attributes">
+                    <attribute name="create">false</attribute>
+                </form>
+                <!--
+                <xpath expr="//button[@name='force_assign']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                -->
+                <button name="force_assign" position="replace">
+                    <button name="force_assign" states="confirmed,waiting,partially_available" string="Force Availability" type="object" groups="base.group_system"/>
+                </button>
+                <button name="do_enter_transfer_details" position="replace">
+                    <button name="dym_do_enter_transfer_details" states="assigned,partially_available" string="Transfer" groups="stock.group_stock_user" type="object" class="oe_highlight" invisible="1" />
+                    <!-- Yordan <button name="create_packing" string="Packing" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h1,dym_base_security.group_dym_admin_h23,dym_base_security.group_dym_area_supervisor,dym_base_security.group_dym_branch_control,dym_base_security.group_dym_counter_part,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_ga_administrasi,dym_base_security.group_dym_inventory_h1,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_kepala_depo,dym_base_security.group_dym_part_acc_analyst,dym_base_security.group_dym_pic_tax,dym_base_security.group_dym_sales_advisor,dym_base_security.group_dym_service_sub_dept_head,dym_base_security.group_dym_tax_dept_head,dym_base_security.group_dym_workshop_analyst" type="object" class="oe_highlight" attrs="{'invisible': ['|',('state','in',['draft','cancel','waiting','confirmed']),'&amp;',('is_effective_date','=',False),('state','in',['draft','cancel','waiting','confirmed','partially_available','assigned'])]}"/> -->
+                    <button name="create_packing" string="Packing" groups="dym_base_security.group_dym_ga_purchasing,dym_base_security.group_dym_admin_h1,dym_base_security.group_dym_inventory_h23" type="object" class="oe_highlight" attrs="{'invisible': ['|',('state','in',['draft','cancel','waiting','confirmed']),'&amp;',('is_effective_date','=',False),('state','in',['draft','cancel','waiting','confirmed','partially_available','assigned'])]}"/>
+                </button>
+                <button name="dym_do_enter_transfer_details" position="after">
+                    <!-- Yordan <button name="%(report_picking_list)d" string="Print Picking List" type="action" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_area_supervisor,dym_base_security.group_dym_branch_control,dym_base_security.group_dym_counter_part,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_ga_administrasi,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_kepala_depo,dym_base_security.group_dym_part_acc_analyst,dym_base_security.group_dym_pic_tax,dym_base_security.group_dym_sales_advisor,dym_base_security.group_dym_service_sub_dept_head,dym_base_security.group_dym_workshop_analyst"/> -->
+                    <button name="%(report_picking_list)d" string="Print Picking List" type="action" class="oe_highlight" groups="dym_base_security.group_dym_admin_h1,dym_base_security.group_dym_admin_h23"/>
+                </button>
+                <button name="action_cancel" position="attributes">
+                    <!-- attribute name="attrs">{'invisible':['|','|',('picking_type_code','in',['interbranch_out','interbranch_in']),('is_effective_date','=',False)]}</attribute -->
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <button name="do_print_picking" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <button name="action_assign" position="attributes">
+                    <attribute name="attrs">{'invisible':['|',('is_effective_date','=',False)]}</attribute>
+                </button>
+                <button name="do_unreserve" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <button name="%(stock.act_stock_return_picking)d" position="attributes">
+                    <attribute name="groups">dym_stock.group_stock_picking_reverse,dym_base_security.group_dym_adh</attribute>
+                </button>
+                <label for="owner_id" groups="stock.group_tracking_owner" position="replace" />
+                <div groups="stock.group_tracking_owner" position="replace" />
+                <field name="partner_id" position="before">
+                    <field name="branch_id" options="{'no_open':True,'no_create':True}" on_change="branch_id_change(branch_id)" attrs="{'readonly':[('name','!=',False)]}" />
+                    <field name="rel_branch_type" invisible="1" />
+                    <field name="division" attrs="{'readonly':[('name','!=',False)]}" />
+                    <field name="start_date" attrs="{'readonly':[('state','!=','draft')]}" />
+                    <field name="end_date" attrs="{'readonly':[('state','!=','draft')]}" />
+                    <label for="owner_id" groups="stock.group_tracking_owner" />
+                    <div groups="stock.group_tracking_owner">
+                        <field name="owner_id" />
+                        <button name="action_assign_owner" string="Assign Owner" type="object" attrs="{'invisible': ['|',('pack_operation_exist', '=', False),('state', 'not in', ('draft','assigned','confirmed'))]}" class="oe_link oe_edit_only" />
+                    </div>
+                </field>
+                <field name="partner_id" position="replace" />
+                <field name="origin" position="replace" />
+                <field name="backorder_id" position="replace" />
+                <field name="date" position="before">
+                    <field name="partner_id" attrs="{'readonly':[('state','!=','draft')]}" />
+                    <field name="origin" placeholder="e.g. PO0032" class="oe_inline" attrs="{'readonly':[('state','!=','draft')]}" />
+                    <field name="transaction_id" invisible="1" />
+                    <field name="model_id" invisible="1" />
+                    <field name="is_effective_date" invisible="1" />
+                    <field name="is_reverse" invisible="1" />
+                </field>
+                <field name="date" position="after">
+                    <field name="backorder_id" readonly="1" attrs="{'invisible': [('backorder_id','=',False)]}" />
+                </field>
+                <xpath expr="//field[@name='picking_type_id']" position="attributes">
+                    <attribute name="domain">[('branch_id','=',branch_id)]</attribute>
+                    <attribute name="options">{'no_open':True,'no_create':True}</attribute>
+                </xpath>
+                <button name="%(stock.act_stock_return_picking)d" position="attributes">
+                    <attribute name="attrs">{'invisible':['|',('picking_type_code','in',['internal','interbranch_out','interbranch_in','incoming']),('is_reverse','=',True)]}</attribute>
+                </button>
+                <xpath expr="//page[@string='Additional Info']" position="after">
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                                <field name="confirm_uid" readonly="1"></field>
+                                <field name="confirm_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <page string="Operations" position="attributes">
+                    <attribute name="string">Information</attribute>
+                </page>
+                <field name="company_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="date" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </field>
+                <field name="min_date" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </field>
+                <field name="owner_id" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </field>
+                <field name="move_type" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </field>
+                <!-- iman
+                <field name="invoice_state" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </field>
+                -->
+                <field name="picking_type_id" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </field>
+                <field name="date_done" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </field>
+                <field name="priority" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </field>
+                <field name="move_lines" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','not in',['draft','waiting','confirmed','partially_available'])]}</attribute>
+                </field>
+                <field name="move_lines" position="inside">
+                    <tree string="Move" editable="top">
+                        <field name="branch_id" options="{'no_open':True,'no_create':True}" required="True" domain="[('id','=',parent.branch_id)]" on_change="picking_branch_id_change(categ_id,parent.branch_id,parent.division,parent.picking_type_id,location_id,location_dest_id)" invisible="1" />
+                        <field name="func_division" invisible="1" />
+                        <field name="categ_id" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="onchange_product_id(product_id,location_id,location_dest_id,parent.partner_id, product_tmpl_id, func_division)" invisible="1" />
+                        <field name="product_tmpl_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, parent.partner_id, product_tmpl_id, func_division)" options="{'no_open':True,'no_create':True}" domain="[('id','=',0)]" string="Product" />
+                        <!-- <field name="template_id" on_change="categ_id_change(branch_id, func_division, categ_id)" options="{'no_open':True,'no_create':True}" invisible="1"/> -->
+                        <field name="product_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, parent.partner_id, product_tmpl_id, func_division)" options="{'no_show':True,'no_create':True,'no_open':True,'always_reload': True}" domain="[('product_tmpl_id','=',product_tmpl_id)]" context="{'branch_id':parent.branch_id,'attribute_only':True}" string="Variant" />
+                        <field name="name" string="Product Desc." />
+                        <field name="group_id" invisible="1" />
+                        <field name="product_uom_qty" on_change="onchange_quantity(product_id, product_uom_qty, product_uom, product_uos)" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                        <field name="product_uom" invisible="1" />
+                        <field name="product_uos_qty" invisible="1" />
+                        <field name="product_uos" invisible="1" />
+                        <field name="picking_type_id" invisible="1" />
+                        <field name="location_id" domain="[('branch_id','=',parent.branch_id),('branch_id','!=',False),('usage','!=','view')]" />
+                        <field name="location_dest_id" domain="[('branch_id','=',parent.branch_id),('branch_id','!=',False),('usage','!=','view'), ('maximum_qty', '!=', 0), ('end_date','&gt;=',context_today().strftime('%%Y-%%m-%%d')), ('start_date','&lt;=',context_today().strftime('%%Y-%%m-%%d'))]" />
+                        <field name="state" string="Availability Status" />
+                        <field name="stock_available" invisible="1" on_change="internal_stock_available_change(stock_available)" />
+                        <field name="rel_stock_available" invisible="1" />
+                    </tree>
+                </field>
+            </field>
+        </record>
+        <record id="view_stock_warehouse_orderpoint" model="ir.ui.view">
+            <field name="name">dym.stock.warehouse.orderpoint</field>
+            <field name="model">stock.warehouse.orderpoint</field>
+            <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="vpicktree_internal" model="ir.ui.view">
+            <field name="name">stock.picking.internal.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <tree string="Picking list">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="picking_type_id" />
+                    <field name="internal_location_id" />
+                    <field name="internal_location_dest_id" />
+                    <field name="state" />
+                    <field name="location_dest_id" invisible="1" />
+                    <!--field name="partner_id"/-->
+                    <field name="min_date" invisible="1" />
+                    <field name="origin" invisible="1" />
+                    <field name="group_id" invisible="1" />
+                    <field name="backorder_id" invisible="1" />
+                    <field name="priority" invisible="1" />
+                    <field name="picking_type_code" invisible="1" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_picking_internal_form" model="ir.ui.view">
+            <field name="name">stock.picking.internal.form</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <form string="Transfer">
+                    <header>
+                        <!--
+                        <button name="%(report_internal_transfer)d" states="done" type="action" string="Print" class="oe_highlight"  icon="gtk-print" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_kepala_depo,dym_base_security.group_dym_pic_tax"/>
+                        <button name="action_confirm" states="draft" string="Confirm" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <button name="renew_available" states="draft" string="Renew Available" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <button name="action_assign" states="confirmed,partially_available" string="Check Availability" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <button name="dym_do_enter_transfer_details" states="assigned,partially_available" string="Transfer" groups="stock.group_stock_user" type="object" class="oe_highlight" invisible="1"/>
+                        <button name="do_transfer" states="assigned,partially_available" string="Transfer" groups="stock.group_stock_user" type="object" class="oe_highlight"/>
+                        <button name="action_cancel" states="assigned,confirmed,partially_available" string="Cancel Transfer" groups="base.group_user" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,partially_available,assigned,done" statusbar_colors='{"shipping_except":"red","invoice_except":"red","waiting_date":"blue"}'/>
+                        -->
+                        <button name="%(report_internal_transfer)d" states="done" type="action" string="Print" class="oe_highlight" icon="gtk-print" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_admin_h1" />
+                        <button name="action_confirm" states="draft" string="Confirm" type="object" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_admin_h1" />
+                        <button name="renew_available" states="draft" string="Renew Available" type="object" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_admin_h1" />
+                        <button name="action_assign" states="confirmed,partially_available" string="Check Availability" type="object" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_admin_h1" />
+                        <button name="dym_do_enter_transfer_details" states="assigned,partially_available" string="Transfer" groups="stock.group_stock_user" type="object" class="oe_highlight" invisible="1" />
+                        <button name="do_transfer" states="assigned,partially_available" string="Transfer" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_admin_h1" type="object" class="oe_highlight" />
+                        <button name="action_cancel" states="assigned,confirmed,partially_available" string="Cancel Transfer" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_admin_h1" type="object" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,partially_available,assigned,done" statusbar_colors='{"shipping_except":"red","invoice_except":"red","waiting_date":"blue"}' />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label string="Internal Transfer"/>
+                                <field name="name" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}" required="True" attrs="{'readonly':[('name','!=',False)]}" />
+                                <field name="division" required="True" attrs="{'readonly':[('name','!=',False)]}" />
+                                <field name="date" attrs="{'readonly':[('state','!=','draft')]}" string="Date" />
+                            </group>
+                            <group>
+                                <field name="picking_type_id" on_change="type_change(picking_type_id)" attrs="{'readonly':[('state','!=','draft')]}" domain="[('code','=','internal'),('branch_id','=',branch_id)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                <field name="picking_type_code" invisible="1" on_change="internal_location_change()" />
+                                <field name="internal_location_id" options="{'no_show':True,'no_create':True,'no_open':True}" attrs="{'readonly':[('state','!=','draft')]}" on_change="internal_location_change()" domain="[('usage','in',('internal','nrfs','kpb')),('branch_id','=',branch_id),('division','=',division)]" />
+                                <!-- <field name="internal_location_dest_id" options="{'no_show':True,'no_create':True,'no_open':True}" attrs="{'readonly':[('state','!=','draft')]}" on_change="internal_location_change()" domain="[('usage','in',('internal','nrfs','kpb'))]" /> -->
+                                <field name="internal_location_dest_id" options="{'no_show':True,'no_create':True,'no_open':True}" attrs="{'readonly':[('state','!=','draft')]}" on_change="internal_location_change()" domain="[('usage','in',('internal','nrfs','kpb')),('branch_id','=',branch_id),('end_date','&gt;=',context_today().strftime('%%Y-%%m-%%d')),('start_date','&lt;=',context_today().strftime('%%Y-%%m-%%d')),('division','=',division)]" />
+                                <field name="location_id" invisible="1" />
+                                <field name="location_dest_id" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Products">
+                                <field colspan="4" name="move_lines" nolabel="1" widget="one2many_list" attrs="{'readonly': [('state','in',['cancel','assigned','done'])]}">
+                                    <tree string="Product" editable="top">
+                                        <field name="branch_id" invisible="1" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                        <field name="func_division" invisible="1" />
+                                        <field name="categ_id" options="{'no_show':True,'no_create':True,'no_open':True}" invisible="1" />
+                                        <field name="product_tmpl_id" on_change="internal_product_qty_change(stock_available,parent.branch_id,parent.division,product_id,product_uom_qty,parent.picking_type_id,parent.internal_location_id,parent.internal_location_dest_id,restrict_lot_id, product_tmpl_id)" options="{'no_open':True,'no_create':True}" domain="[('categ_id','child_of',parent.division),('purchase_ok','=',True)]" />
+                                        <field name="product_id" on_change="internal_product_qty_change(stock_available,parent.branch_id,parent.division,product_id,product_uom_qty,parent.picking_type_id,parent.internal_location_id,parent.internal_location_dest_id,restrict_lot_id,product_tmpl_id)" options="{'no_show':True,'no_create':True,'no_open':True,'always_reload': True}" context="{'branch_id':parent.branch_id,'attribute_only':True}" string="Variant" domain="[('product_tmpl_id','=',product_tmpl_id),('categ_id','child_of',parent.division),('purchase_ok','=',True)]" />
+                                        <field name="name" />
+                                        <field name="restrict_lot_id" domain="[('id','=',0)]" options="{'no_open':True,'no_create':True}" attrs="{'required': [('func_division','=','Unit')], 'readonly': [('func_division','!=','Unit')]}" on_change="lot_qty_change(product_uom_qty,product_uom,restrict_lot_id)" string="Engine Number" />
+                                        <field name="product_uom_qty" on_change="internal_product_qty_change(stock_available,parent.branch_id,parent.division,product_id,product_uom_qty,parent.picking_type_id,parent.internal_location_id,parent.internal_location_dest_id,restrict_lot_id,product_tmpl_id)" />
+                                        <field name="product_uom" invisible="1" />
+                                        <field name="product_uos" invisible="1" />
+                                        <field name="product_uos_qty" invisible="1" />
+                                        <field name="picking_type_id" invisible="1" />
+                                        <field name="location_id" invisible="1" />
+                                        <field name="location_dest_id" invisible="1" />
+                                        <field name="state" />
+                                        <field name="stock_available" invisible="1" on_change="internal_stock_available_change(stock_available)" />
+                                        <field name="rel_stock_available" readonly="1" />
+                                    </tree>
+                                </field>
+                                <field name="pack_operation_exist" invisible="1" />
+                                <field name="note" invisible="1" placeholder="Add an internal note..." class="oe_inline" />
+                            </page>
+                            <page string="Operations" attrs="{'invisible': ['|', ('state','!=','done'), ('pack_operation_ids','=',[])]}">
+                                <field name="pack_operation_ids" context="{'default_picking_id': active_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}">
+                                    <tree editable="top">
+                                        <field name="package_id" invisible="1" groups="stock.group_tracking_lot" />
+                                        <field name="product_id" on_change="product_id_change(product_id, product_uom_id, product_qty)" />
+                                        <field name="product_uom_id" invisible="1" groups="product.group_uom" />
+                                        <field name="lot_id" domain="[('product_id','=?', product_id)]" context="{'product_id': product_id}" groups="stock.group_production_lot" />
+                                        <field name="picking_id" invisible="1" />
+                                        <field name="owner_id" invisible="1" groups="stock.group_tracking_owner" />
+                                        <field name="product_qty" attrs="{'required': [('product_id', '!=', False)]}" />
+                                        <field name="location_id" invisible="1" domain="[('id', 'child_of', parent.location_id)]" />
+                                        <field name="location_dest_id" invisible="1" domain="[('id', 'child_of', parent.location_dest_id)]" />
+                                        <field name="result_package_id" invisible="1" groups="stock.group_tracking_lot" context="{'location_id': location_dest_id}" />
+                                    </tree>
+                                </field>
+                                <p class="oe_grey" groups="stock.group_tracking_lot">
+                                    If there is no product but a source package, this means the source package was moved entirely. If there is a product and a source package, the product was taken from the source package.
+                                </p>
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_picking_internal_action">
+            <field name="name">Internal Transfer</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'menu': 'showroom'}</field>
+            <field name="domain">[('picking_type_code','=','internal'),('division','in',('Unit','Umum'))]</field>
+        </record>
+        <record id="dym_picking_internal_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="vpicktree_internal" />
+            <field name="act_window_id" ref="dym_picking_internal_action" />
+        </record>
+        <record id="dym_picking_internal_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_picking_internal_form" />
+            <field name="act_window_id" ref="dym_picking_internal_action" />
+        </record>
+        <record model="ir.actions.act_window" id="dym_picking_internal_action_workshop">
+            <field name="name">Internal Transfer</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'menu': 'workshop'}</field>
+            <field name="domain">[('picking_type_code','=','internal'),('division','in',('Sparepart','Umum'))]</field>
+        </record>
+        <record id="dym_picking_internal_action_tree_workshop" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="vpicktree_internal" />
+            <field name="act_window_id" ref="dym_picking_internal_action_workshop" />
+        </record>
+        <record id="dym_picking_internal_action_form_workshop" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_picking_internal_form" />
+            <field name="act_window_id" ref="dym_picking_internal_action_workshop" />
+        </record>
+        <menuitem action="dym_picking_internal_action" id="dym_picking_internal_menu_showroom" parent="dym_dealer_menu.showroom_mutasi_menu" sequence="1" />
+        <menuitem action="dym_picking_internal_action_workshop" id="dym_picking_internal_menu_workshop" parent="dym_dealer_menu.workshop_mutasi_menu" sequence="1" />
+    </data>
+</openerp>

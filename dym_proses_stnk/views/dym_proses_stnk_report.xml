@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="report_proses_stnk" string="Proses STNK" model="dym.proses.stnk" name="rml.proses.stnk" rml="dym_proses_stnk/report/dym_proses_stnk_report.rml" auto="False" menu="False" />
+        <report id="report_penerimaan_stnk" string="Penerimaan STNK" model="dym.penerimaan.stnk" name="rml.penerimaan.stnk" rml="dym_proses_stnk/report/dym_penerimaan_stnk_report.rml" auto="False" menu="False" />
+        <report id="report_proses_birojasa" string="Proses Birojasa" model="dym.proses.birojasa" name="rml.proses.birojasa" rml="dym_proses_stnk/report/dym_proses_birojasa_report.rml" auto="False" menu="False" />
+    </data>
+</openerp>

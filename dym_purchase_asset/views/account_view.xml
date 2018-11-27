@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym2_account_invoice_asset_form_view" model="ir.ui.view">
+            <field name="name">dym2.account.invoice.asset.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='invoice_cancel']" position="before">
+                    <button name="invoice_change_asset" string="Change to asset/prepaid" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_accounting_ho,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_ga_administrasi,dym_base_security.group_dym_hrga_dept_head,dym_base_security.group_dym_operation_div_head" type="object" attrs="{'invisible':['|','|','|',('tipe','!=','purchase'),('division','!=','Umum'),('state','in',('paid','cancel')),('asset','=',True)]}" invisible="1" />
+                    <button name="invoice_change_normal" string="Change to normal (not asset/prepaid)" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_accounting_ho,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_ga_administrasi,dym_base_security.group_dym_hrga_dept_head,dym_base_security.group_dym_operation_div_head" type="object" attrs="{'invisible':['|','|','|',('tipe','!=','purchase'),('division','!=','Umum'),('state','in',('paid','cancel')),('asset','=',False)]}" invisible="1" />
+                </xpath>
+                <field name="supplier_invoice_number" position="after">
+                    <field name="asset" readonly="1" invisible="1" />
+                </field>
+                <field name="date_due" position="after">
+                    <field name="is_cip" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

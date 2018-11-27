@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="proses_stnk_tree_view">
+            <field name="name">proses.stnk.tree</field>
+            <field name="model">dym.proses.stnk</field>
+            <field name="arch" type="xml">
+                <tree string="List Proses STNK">
+                    <field name="name" />
+                    <field name="branch_id" />
+                    <field name="division" />
+                    <field name="tgl_proses_stnk" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_add_engine" model="ir.actions.act_window">
+            <field name="name">Add New Engine</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wiz.proses.stnk</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="view_add_engine" model="ir.ui.view">
+            <field name="name">wiz.proses.stnk.form</field>
+            <field name="model">wiz.proses.stnk</field>
+            <field name="arch" type="xml">
+                <form string="Tambah Engine">
+                    <field name="proses_stnk_id" invisible="1" />
+                    <field name="branch_id" invisible="1" />
+                    <field name="line_ids" nolabel="1" widget="one2many_list">
+                        <tree string="" editable="top" create="false">
+                            <field name="check_process" />
+                            <field name="name" string="Engine No" readonly="1" />
+                            <field name="chassis_no" readonly="1" />
+                            <field name="customer_stnk" readonly="1" />
+                            <field name="faktur_stnk" readonly="1" />
+                            <field name="biro_jasa_id" domain="[('branch_birojasa_ids','=',parent.branch_id)]" attrs="{'required': [('check_process','=',True)]}" on_change="onchange_biro_jasa(biro_jasa_id, parent.branch_id)" />
+                            <field name="tgl_faktur" readonly="1" />
+                            <field name="tgl_terima" readonly="1" />
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="add_new" string="Add" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="proses_stnk_form_view">
+            <field name="name">proses.stnk.form</field>
+            <field name="model">dym.proses.stnk</field>
+            <field name="arch" type="xml">
+                <form string="Form Proses STNK">
+                    <header>
+                        <button name="%(dym_proses_stnk_report)d" states="posted" type="action" string="Print" class="oe_highlight" icon="gtk-print" groups="dym_base_security.group_dym_admin_h1,dym_base_security.group_dym_adh"/>
+                        <button name="post_proses" groups="dym_base_security.group_dym_admin_h1,dym_base_security.group_dym_adh" type="object" states="draft" string="Post" class="oe_highlight" />
+                        <button name="action_view_invoice_bbn" string="View Invoices" type="object" class="oe_highlight" groups="dym_base_security.group_dym_admin_h1,dym_base_security.group_dym_adh" attrs="{'invisible': ['|',('invoice_count','&lt;',1),('state','!=','posted')]}" invisible="1" />
+                        <button name="cancel_proses" groups='dym_base_security.group_dym_adh' type="object" states="posted,draft" string="Cancel" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" />
+                        <button name="set_to_draft" groups='dym_base_security.group_dym_admin_h1' type="object" states="cencel" string="Set to Draft" confirm="Apa anda yakin ingin mengembalikan transaksi ini ke status draft?" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted" statusbar_colors='{"draft":"red","approved":"blue"}' />
+                    </header>
+                    <sheet>
+                        <field name="invoice_count" invisible="1" />
+                        <div class="oe_title">
+                            <h2>
+				                <label string="Proses STNK"/>    			
+				 				<field name="name" class="oe_inline"/>
+			 				</h2>
+                        </div>
+                        <group col="2" colspan="2">
+                            <group>
+                                <field name="branch_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly': ['|',('state','!=','draft'),('name','not in',[False,'/'])]}" on_change="onchange_engine_line(branch_id)" />
+                            </group>
+                            <group>
+                                <field name="division" required="1" attrs="{'readonly': ['|',('serial_number_ids','&lt;&gt;',[]), ('state','!=','draft')]}" />
+                            </group>
+                            <!-- <group>
+							    <field name="partner_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')]}"  required="1" on_change="onchange_engine_line(branch_id)"/>
+	                    	</group> -->
+                            <group>
+                                <field name="tgl_proses_stnk" required="1" readonly="1" />
+                                <field name="total_record" readonly="True" />
+                            </group>
+                        </group>
+                        <notebook colspan="5">
+                            <page string="Engine line">
+                                <button name="%(action_add_engine)d" type="action" help="Tambah engine" string="Add new engine" context="{'branch_id': branch_id}" attrs="{'invisible': [('state','!=','draft')]}" />
+                                <field colspan="4" name="serial_number_ids" nolabel="1" widget="one2many_list" attrs="{'readonly': [('state','!=','draft')]}">
+                                    <tree string="" editable="top" create="false">
+                                        <field name="name" string="Engine No" readonly="1" />
+                                        <field name="chassis_no" readonly="1" />
+                                        <field name="customer_id" readonly="1"/>
+                                        <field name="customer_stnk" readonly="1" />
+                                        <field name="faktur_stnk" readonly="1" />
+                                        <field name="biro_jasa_id" required="1" domain="[('branch_birojasa_ids','=',parent.branch_id)]" on_change="onchange_biro_jasa(biro_jasa_id, parent.branch_id)" />
+                                        <field name="tgl_faktur" readonly="1" />
+                                        <field name="tgl_terima" readonly="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                        <field name="confirm_uid" readonly="1"></field>
+                                        <field name="confirm_date" readonly="1"></field>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                        <field name="cancel_uid" readonly="1"></field>
+                                        <field name="cancel_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_proses_stnk_filter" model="ir.ui.view">
+            <field name="name">proses.stnk.list.select</field>
+            <field name="model">dym.proses.stnk</field>
+            <field name="arch" type="xml">
+                <search string="Search Proses STNK">
+                    <field name="name" string="Reference" />
+                    <field name="branch_id" />
+                    <field name="engine_no" />
+                    <field name="customer_stnk" />
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]" />
+                    <filter name="post" string="Posted" domain="[('state','=','posted')]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-partner" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter string="Tanggal" icon="terp-go-month" domain="[]" context="{'group_by':'tgl_proses_stnk'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="proses_stnk_action">
+            <field name="name">Proses STNK</field>
+            <field name="res_model">dym.proses.stnk</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_proses_stnk_filter" />
+        </record>
+        <menuitem id="proses_stnk_submenu" name="Proses STNK" parent="dym_dealer_menu.stnk_bpkb_proses_stnk_menu" action="proses_stnk_action" sequence="10" />
+    </data>
+</openerp>

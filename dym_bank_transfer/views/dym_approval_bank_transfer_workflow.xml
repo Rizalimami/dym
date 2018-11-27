@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="act_rfa" model="workflow.activity">
+            <field name="wkf_id" ref="bank_transfer" />
+            <field name="name">rfa</field>
+            <field name="kind">function</field>
+            <field name="action">wkf_request_approval()</field>
+        </record>
+        <record id="act_is_approved" model="workflow.activity">
+            <field name="wkf_id" ref="bank_transfer" />
+            <field name="name">is_approved</field>
+            <field name="split_mode">OR</field>
+            <field name="kind">function</field>
+            <field name="action">wkf_approval()</field>
+        </record>
+        <record id="act_waiting_for_approval" model="workflow.activity">
+            <field name="wkf_id" ref="bank_transfer" />
+            <field name="name">waiting_for_approval</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'waiting_for_approval'})</field>
+        </record>
+        <record id="act_waiting_for_confirm_received" model="workflow.activity">
+            <field name="wkf_id" ref="bank_transfer" />
+            <field name="name">waiting_for_confirm_received</field>
+            <field name="kind">function</field>
+            <!-- <field name="action">write({'state':'waiting_for_confirm_received'})</field> -->
+            <field name="action">act_waiting_for_confirm_received()</field>
+        </record>
+        <!--
+        <record id="act_is_received" model="workflow.activity">
+            <field name="wkf_id" ref="bank_transfer" />
+            <field name="name">is_received</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'app_received'})</field>
+        </record>
+        -->
+        <record id="act_is_received" model="workflow.activity">
+            <field name="wkf_id" ref="bank_transfer" />
+            <field name="name">is_received</field>
+            <field name="kind">function</field>
+            <field name="action">has_received()</field>
+        </record>
+        <record id="act_is_rejected" model="workflow.activity">
+            <field name="wkf_id" ref="bank_transfer" />
+            <field name="name">is_rejected</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'app_rejected'})</field>
+        </record>
+        <record id="trans_waiting_to_received" model="workflow.transition">
+            <field name="act_from" ref="act_waiting_for_confirm_received" />
+            <field name="act_to" ref="act_is_received" />
+            <field name="signal">approval_received</field>
+        </record>
+        <record id="trans_waiting_to_rejected" model="workflow.transition">
+            <field name="act_from" ref="act_waiting_for_confirm_received" />
+            <field name="act_to" ref="act_is_rejected" />
+            <field name="signal">rejected_request</field>
+        </record>
+        <record id="trans_is_rejected_to_draft" model="workflow.transition">
+            <field name="act_from" ref="act_is_rejected" />
+            <field name="act_to" ref="act_set_to_draft" />
+            <field name="signal">reception_rejected</field>
+        </record>
+        <!--
+        <record id="act_approved" model="workflow.activity">
+            <field name="wkf_id" ref="bank_transfer" />
+            <field name="name">approved</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'app_approve'})</field>
+        </record>
+        -->
+        <record id="act_set_to_draft" model="workflow.activity">
+            <field name="wkf_id" ref="bank_transfer" />
+            <field name="name">set_to_draft</field>
+            <field name="kind">function</field>
+            <field name="action">wkf_set_to_draft()</field>
+        </record>
+        <record id="act_set_to_draft_cancel" model="workflow.activity">
+            <field name="wkf_id" ref="bank_transfer" />
+            <field name="name">set_to_draft</field>
+            <field name="kind">function</field>
+            <field name="action">wkf_set_to_draft_cancel()</field>
+        </record>
+        <record id="trans_draft_rfa" model="workflow.transition">
+            <field name="act_from" ref="act_draft" />
+            <field name="act_to" ref="act_rfa" />
+            <field name="signal">approval_request</field>
+        </record>
+        <record id="trans_rfa_is_approved" model="workflow.transition">
+            <field name="act_from" ref="act_rfa" />
+            <field name="act_to" ref="act_waiting_for_approval" />
+        </record>
+        <record id="trans_is_approved_ext_trf" model="workflow.transition">
+            <field name="act_from" ref="act_is_approved" />
+            <field name="act_to" ref="act_waiting_for_confirm_received" />
+            <field name="condition">has_approved_ext()</field>
+        </record>
+        <record id="trans_is_approved_int_trf" model="workflow.transition">
+            <field name="act_from" ref="act_is_approved" />
+            <field name="act_to" ref="act_is_received" />
+            <field name="condition">has_approved_int()</field>
+        </record>
+
+        <record id="trans_is_approved_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_is_approved" />
+            <field name="act_to" ref="act_cancel" />
+            <field name="signal">bank_cancel3</field>
+        </record>
+
+        <record id="trans_is_approved_draft" model="workflow.transition">
+            <field name="act_from" ref="act_is_approved" />
+            <field name="act_to" ref="act_draft" />
+            <field name="condition">has_rejected()</field>
+        </record>
+        <record id="trans_is_approved_waiting_for_approval" model="workflow.transition">
+            <field name="act_from" ref="act_is_approved" />
+            <field name="act_to" ref="act_waiting_for_approval" />
+            <field name="condition">not has_approved_ext() and not has_rejected()</field>
+        </record>
+        <record id="trans_waiting_for_approval_set_to_draft" model="workflow.transition">
+            <field name="act_from" ref="act_waiting_for_approval" />
+            <field name="act_to" ref="act_set_to_draft" />
+            <field name="signal">approval_reject</field>
+        </record>
+        <record id="trans_set_to_draft_to_draft" model="workflow.transition">
+            <field name="act_from" ref="act_set_to_draft" />
+            <field name="act_to" ref="act_draft" />
+        </record>
+        <record id="trans_waiting_for_approval_draft" model="workflow.transition">
+            <field name="act_from" ref="act_waiting_for_approval" />
+            <field name="act_to" ref="act_set_to_draft_cancel" />
+            <field name="signal">approval_cancel</field>
+        </record>
+        <record id="trans_set_to_draft_cancel_to_draft" model="workflow.transition">
+            <field name="act_from" ref="act_set_to_draft_cancel" />
+            <field name="act_to" ref="act_draft" />
+        </record>
+        <record id="trans_waiting_for_approval_is_approved" model="workflow.transition">
+            <field name="act_from" ref="act_waiting_for_approval" />
+            <field name="act_to" ref="act_is_approved" />
+            <field name="signal">approval_approve</field>
+        </record>
+        <record id="trans_is_received_to_post" model="workflow.transition">
+            <field name="act_from" ref="act_is_received" />
+            <field name="act_to" ref="act_post" />
+            <field name="signal">banktranster_post</field>
+        </record>
+        <!--
+        <record id="trans_approved_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_approved" />
+            <field name="act_to" ref="act_cancel" />
+            <field name="signal">bank_cancel</field>
+        </record>
+        -->
+    </data>
+</openerp>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="action_product_return" model="ir.actions.act_window">
+            <field name="name">Add New Product Return</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wiz.retur.beli</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="view_add_product_return" model="ir.ui.view">
+            <field name="name">wiz.retur.beli.form</field>
+            <field name="model">wiz.retur.beli</field>
+            <field name="arch" type="xml">
+                <form string="Tambah Barang Retur">
+                    <field name="retur_id" invisible="1" />
+                    <field name="invoice_id" invisible="1" />
+                    <field name="line_ids" nolabel="1" widget="one2many_list">
+                        <tree string="" editable="top" create="false">
+                            <field name="check_process" />
+                            <field name="product_id" options="{'no_open':True, 'no_create':True}" readonly="1" />
+                            <field name="product_qty" on_change="quantity_change(product_qty,product_id,beli_line_id)" />
+                            <field name="engine_number" on_change="onchange_engine(parent.invoice_id,product_id, engine_number)" readonly="1" />
+                            <field name="beli_line_id" invisible="1" />
+                            <field name="move_id" invisible="1" />
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="generate_retur_barang" string="Add" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="retur_beli_tree_view">
+            <field name="name">retur.beli.tree</field>
+            <field name="model">dym.retur.beli</field>
+            <field name="arch" type="xml">
+                <tree string="List Retur Pembelian">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="partner_id" />
+                    <field name="invoice_id" />
+                    <field name="consolidate_id" string="Nomor CI" />
+                    <field name="branch_id" />
+                    <field name="division" />
+                    <field name="amount_total" />
+                    <field name="retur_type" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="retur_beli_form_view">
+            <field name="name">retur.beli.form</field>
+            <field name="model">dym.retur.beli</field>
+            <field name="arch" type="xml">
+                <form string="Form Retur Pembelian">
+                    <header>
+                        <button name="view_invoice" string="View Invoice" type="object" class="oe_highlight" attrs="{'invisible': ['|',('retur_type','not in',['Uang','Admin']),('state','not in',('approved','done'))]}" />
+                        <button name="view_picking" string="View Delivery Order" type="object" class="oe_highlight" attrs="{'invisible': ['|',('picking_count','=',0),('state','not in',('approved','done'))]}" />
+                        <button name="picking_ok" states="except_picking" string="Manually Corrected" />
+                        <button name="invoice_ok" states="except_invoice" string="Manually Corrected" />
+                        <button name="wkf_action_cancel" states="draft" string="Cancel" type="object" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" />
+                        <button name="%(dym_retur_pembelian_report)d" type="action" string="Print" class="oe_highlight" icon="gtk-print" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved,done" statusbar_colors='{"draft":"red","approved":"done"}' />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h2>
+                                <label string="Retur Pembelian"/>               
+                                <field name="name" class="oe_inline"/>
+                            </h2>
+                        </div>
+                        <field name="picking_count" invisible="1" />
+                        <group col="2" colspan="2">
+                            <group>
+                                <field name="branch_id" options="{'no_create': True,'no_open': True}" on_change="retur_change(branch_id,division,partner_id)" required="1" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="division" attrs="{'readonly': [('state','!=','draft')]}" on_change="retur_change(branch_id,division,partner_id)" options="{'no_create': True,'no_open': True}" required="1" />
+                                <field name="retur_type" attrs="{'readonly': [('state','!=','draft')]}" required="1" />
+                                <field name="invoice_id" invisible="1" />
+                                <field name="date" readonly="1" />
+                                <!-- <field name="reason" /> -->
+                            </group>
+                            <group>
+                                <field name="partner_id" on_change="retur_change(branch_id,division,partner_id)" options="{'no_create': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')]}" required="1" />
+                                <field name="partner_cabang" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('state','not in','draft')]}" domain="[('partner_id','=',partner_id)]" />
+                                <field name="consolidate_id" on_change="consolidate_change(consolidate_id,retur_type,division)" options="{'no_create': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')]}" required="True" />
+                                <field name="payment_term" attrs="{'readonly': [('state','!=','draft')],'required': [('retur_type','=','Uang')]}" />
+                                <field name="date_due" attrs="{'readonly': [('state','!=','draft')]}" />
+                            </group>
+                        </group>
+                        <notebook colspan="5">
+                            <page string="Retur Line">
+                                <field colspan="4" name="retur_beli_line" nolabel="1" widget="one2many_list" attrs="{'readonly': [('state','!=','draft')]}" required="1">
+                                    <tree string="" editable="bottom" create="false">
+                                        <field name="lot_id" readonly="1" />
+                                        <field name="template_id" options="{'no_open':True,'no_create':True}" invisible="1" />
+                                        <field name="product_id" options="{'no_open':True, 'no_create':True,'always_reload': True}" context="{'branch_id':parent.branch_id}" string="Product" readonly="1" />
+                                        <field name="name" required="1" />
+                                        <field name="product_qty" required="1" on_change="quantity_change(product_qty,product_id,consolidate_line_id)" />
+                                        <field name="product_uom" readonly="1" />
+                                        <field name="price_unit" attrs="{'readonly': [('product_id','!=',False)]}" />
+                                        <field name="discount_amount" />
+                                        <field name="taxes_id" widget="many2many_tags" readonly="1" />
+                                        <field name="price_subtotal" />
+                                        <field name="consolidate_line_id" invisible="1" />
+                                        <field name="invoice_line_id" invisible="1" />
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                                    <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_total" />
+                                        <button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link" />
+                                    </div>
+                                    <field name="amount_total" nolabel="1" widget='monetary' class="oe_subtotal_footer_separator" options="{'currency_field': 'currency_id'}" />
+                                </group>
+                                <div class="oe_clear" />
+                            </page>
+                            <page string="Invoicing" invisible="1">
+                                <group>
+                                    <field name="invoice_method" />
+                                    <field name="invoiced" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_retur_beli_filter" model="ir.ui.view">
+            <field name="name">retur.beli.list.select</field>
+            <field name="model">dym.retur.beli</field>
+            <field name="arch" type="xml">
+                <search string="Search Retur Pembelian">
+                    <field name="name" string="Reference" />
+                    <field name="branch_id" />
+                    <field name="date" />
+                    <field name="partner_id" string="Supplier" />
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]" />
+                    <filter name="done" string="Done" domain="[('state','=','done')]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-partner" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter string="Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}" />
+                        <filter string="State" icon="terp-go-month" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="retur_beli_action">
+            <field name="name">Retur Pembelian</field>
+            <field name="res_model">dym.retur.beli</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_retur_beli_filter" />
+        </record>
+        <menuitem id="retur_beli_submenu" name="Retur Pembelian" parent="dym_dealer_menu.showroom_purchase_menu" action="retur_beli_action" sequence="50" />
+        <menuitem id="retur_beli_submenu_workshop" name="Retur Pembelian" parent="dym_dealer_menu.workshop_purchase_menu" action="retur_beli_action" sequence="100" />
+        <menuitem id="retur_beli_submenu_ga" name="Retur Pembelian" parent="dym_dealer_menu.ga_purchase_menu" action="retur_beli_action" sequence="110" />
+    </data>
+</openerp>

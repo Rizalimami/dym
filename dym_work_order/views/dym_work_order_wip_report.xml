@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="dym_work_order_wip_report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="oe_structure" />
+                        <div class="row">
+                        </div>
+                        <h2>WIP</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="border-bottom: 1px solid black;">
+                                    <th width="7.00%">No</th>
+                                    <th width="25.00%">Work Order</th>
+                                    <th width="25.00%">Order Date</th>
+                                    <th width="15.00%">No Polisi</th>
+                                    <th width="10.00%">Service Category</th>
+                                    <th width="10.00%">Status</th>
+                                    <th width="10.00%">State</th>
+                                    <th width="15.0%">Mekanik</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="lines_a(data['form'])" style="page-break-inside: avoid !important;font-size: 10px;" t-as="line">
+                                    <td><span t-esc="no_urut()" /></td>
+                                    <td><span t-esc="line['name']" /></td>
+                                    <td><span t-esc="line['date']" /></td>
+                                    <td><span t-esc="line['no_pol']" /></td>
+                                    <td><span t-esc="line['type']" /></td>
+                                    <td><span t-esc="line['state']" /></td>
+                                    <td><span t-esc="line['state_wo']" /></td>
+                                    <td><span t-esc="line['mekanik_name']" /></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td style="border:none" colspan='6'></td>
+                                </tr>
+                                <tr>
+                                    <td style="border:none" colspan='6'></td>
+                                </tr>
+                                <tr>
+                                    <td style="border:none" colspan='6'></td>
+                                </tr>
+                                <tr>
+                                    <td style="border:none" colspan='6'></td>
+                                </tr>
+                                <tr>
+                                    <td style="border:none"></td>
+                                    <td style="border:none"></td>
+                                    <td style="border:none"></td>
+                                    <td width="20.00%" style="border:none;font-size: 10px;">Kepala Mekanik
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>-----------------------</td>
+                                    <td width="20.00%" style="border:none;font-size: 10px;">Kepala Cabang
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>-----------------------</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="oe_structure" />
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

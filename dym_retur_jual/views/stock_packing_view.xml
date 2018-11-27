@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_stock_packing_form_view">
+            <field name="name">dym.stock.packing.form</field>
+            <field name="model">dym.stock.packing</field>
+            <field name="inherit_id" ref="dym_stock.dym_stock_packing_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[1]" position="before">
+                    <field name="is_returned" invisible="1"/>
+                    <field name="return_oos" invisible="1" />
+                    <div class="alert alert-danger" role="alert" attrs="{'invisible':['|',('return_oos','!=','transferred partial'),('is_returned','=',False)]}">
+                        <span class="glyphicon glyphicon-info-sign pull-left" style="margin-right: 15px;"></span>
+                        <strong>Perhatian!</strong> DN ini telah diretur <strong>PARTIAL</strong>.<br/>
+                        Silahkan untuk Nomor Mesin yang tidak diretur, diproses lebih lanjut. Perhatikan Pengisian Nilai pada <strong>Kolom Qty</strong> !!!
+                    </div>
+                    <div class="alert alert-danger" role="alert" attrs="{'invisible':['|',('return_oos','=','transferred partial'),('is_returned','=',False)]}">
+                        <span class="glyphicon glyphicon-info-sign pull-left" style="margin-right: 15px;"></span>
+                        <strong>Perhatian!</strong> DN ini telah diretur.
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

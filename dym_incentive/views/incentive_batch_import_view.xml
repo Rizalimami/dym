@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_incentive_batch_import_filter" model="ir.ui.view">
+            <field name="name">dym.incentive.batch.import.search</field>
+            <field name="model">dym.incentive.batch.import</field>
+            <field name="arch" type="xml">
+                <search string="Search Incentive Batch Import">
+                    <field name="name" string="Incentive Batch Import" />
+                    <field name="value_date" />
+                    <field name="date" />
+                    <filter string="Draft" domain="[('state','=','draft')]" help="Draft Incentive Batch Import" />
+                    <filter name="done_filter" string="Done" domain="[('state','=','close')]" help="Done Incentive Batch Import" />
+                </search>
+            </field>
+        </record>
+        <record id="dym_incentive_batch_import_tree" model="ir.ui.view">
+            <field name="name">dym.incentive.batch.import.tree</field>
+            <field name="model">dym.incentive.batch.import</field>
+            <field name="arch" type="xml">
+                <tree string="Incentive Batch Import">
+                    <field name="name" />
+                    <field name="value_date" />
+                    <field name="date" />
+                    <field name="total_cair" />
+                    <field name="total_dpp" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="dym_incentive_batch_import_form" model="ir.ui.view">
+            <field name="name">dym.incentive.batch.import.form</field>
+            <field name="model">dym.incentive.batch.import</field>
+            <field name="arch" type="xml">
+                <form string="Incentive Batch Import">
+                    <header>
+                        <button name="compute_incentive_batch_import" type="object" string="Compute" states="draft" class="oe_highlight" invisible="1" />
+                        <button string="Set to Draft" name="action_set_to_draft" type="object" states="close" />                        
+                        <button name="view_voucher" string="View Voucher" type="object" class="oe_highlight" states="approved,done" />
+                        <button name="view_voucher_cpa" string="View Voucher CPA" type="object" class="oe_highlight" states="done" />
+                        <button name="%(action_import_incentive)d" string="Load File" attrs="{'invisible':[('state', '!=',('draft'))]}" class="oe_highlight" type="action" />
+                        <button name="action_confirm_payment" string="Confirm Payment" attrs="{'invisible':[('state', 'not in',('approved'))]}" class="oe_highlight" type="object" />
+                        <button name="write_memo" type="object" string="Update Memo" states="draft,waiting_for_approval" class="oe_highlight" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,waiting_for_approval,approved,done" statusbar_colors='{"draft":"red","done":"blue"}' />
+
+                    </header>
+                    <sheet>
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="branch_id" />
+                                <field name="partner_id" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                                <field name="use_withholding" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                                <field name="voucher_ids" widget="many2many_tags" invisible="1" />
+                                <field name="journal_id" invisible="1" />
+                                <field name="account_id" invisible="1" />
+                                <field name="cde_id" attrs="{'invisible':['|',('incentive_payment_type','=','prepaid'),('state','not in',('approved','done'))],'readonly':[('state','=','done')]}" domain="[('partner_id','=',partner_id),('branch_id','=',branch_id),('type','=','receipt'),('is_hutang_lain','!=',False)]" class="oe_inline"/>
+                                <field name="cde_amount" readonly="1" attrs="{'invisible':['|',('incentive_payment_type','=','prepaid'),('state','not in',('approved','done'))]}" class="oe_inline"/>
+                                <field name="total_cair" />
+                                <field name="total_dpp" />
+                            </group>
+                            <group>
+                                <field name="company_id" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                                <field name="division" />
+                                <field name="incentive_payment_type" />
+                                <field name="date" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                                <field name="value_date" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                                <field name="memo" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                                <field name="writeoff_amount" attrs="{'invisible':[('writeoff_amount','=',0)]}"/>
+                                <field name="writeoff_account_id" attrs="{'invisible':[('writeoff_amount','=',0)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="batch_import" string="Batch Import">
+                                <field name="incentive_ids">
+                                    <tree string="Incentive Allocation" create="false">
+                                        <field name="name" />
+                                        <field name="date" />
+                                        <field name="inter_branch_id" />
+                                        <field name="partner_id" />
+                                        <field name="total_cair" />
+                                        <field name="total_dpp" />
+                                        <field name="voucher_id" />
+                                        <field name="state" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_dym_incentive_batch_import_tree" model="ir.actions.act_window">
+            <field name="name">Incentive Batch Import</field>
+            <field name="res_model">dym.incentive.batch.import</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="dym_incentive_batch_import_tree" />
+            <field name="search_view_id" ref="dym_incentive_batch_import_filter" />
+        </record>
+        <menuitem action="action_dym_incentive_batch_import_tree" id="menu_dym_incentive_batch_import" parent="dym_incentive_menu" sequence="11" />
+    </data>
+</openerp>

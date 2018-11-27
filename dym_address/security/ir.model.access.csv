@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_city_all,dym_city all,model_dym_city,,1,1,1,1
+access_dym_kecamatan_all,dym_kecamatan all,model_dym_kecamatan,,1,1,1,1
+access_dym_kelurahan_all,dym_kelurahan all,model_dym_kelurahan,,1,1,1,1

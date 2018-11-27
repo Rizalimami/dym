@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+  
+    <record id="view_report_stock_extras_wizard" model="ir.ui.view">
+      <field name="name">Print Stock KSU Report</field>
+      <field name="model">report.stock.extras.wizard</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Stock KSU Report">
+          <group col="4" colspan="4">
+            <field name="product_ids" widget="many2many_tags" options="{'no_open':True,'no_create_edit':True}"/>
+          </group>
+          
+          <notebook colspan="5">
+          <page string="Branchs">
+           <field name="branch_ids" colspan="4" nolabel="1"/>
+          </page>
+           <page string="Location">
+          	<field name="location_ids" colspan="4" nolabel="1"/>
+          </page> 
+            	
+        </notebook>
+          <footer>
+         
+            <button name="xls_export_extras" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1}" class="oe_highlight"/>
+            or <button string="Cancel" class="oe_link" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_report_stock_extras_wizard" model="ir.actions.act_window">
+      <field name="name">Stock KSU</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">report.stock.extras.wizard</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_report_stock_extras_wizard"/>
+      <field name="target">new</field>
+    </record>
+
+	
+	 <menuitem id="menu_stock_report_extras"  parent="dym_dealer_menu.showroom_report_menu" sequence="6"  action="action_report_stock_extras_wizard"/>
+
+  </data>
+</openerp>

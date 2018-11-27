@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_wizard_eksport_cddb">
+            <field name="name">view.wizard.eksport.cddb</field>
+            <field name="model">eksport.cddb</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form col="4" string="Eksport CDDB Wizard">
+                    <group>
+                        <field name="type" />
+                        <field name="name" invisible="True" />
+                        <separator colspan="4" />
+                        <field name="data_file" nolabel="1" colspan="4" filename="name" />
+                    </group>
+                    <footer>
+                        <button name="export_file" string="Export" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_export_cddb">
+            <field name="name">Import Object</field>
+            <field name="res_model">eksport.cddb</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record model="ir.ui.view" id="permohonan_faktur_tree_view">
+            <field name="name">permohonan.faktur.tree</field>
+            <field name="model">dym.permohonan.faktur</field>
+            <field name="arch" type="xml">
+                <tree string="List Permohonan Faktur">
+                    <field name="name" />
+                    <field name="branch_id" />
+                    <field name="division" />
+                    <field name="partner_id" />
+                    <field name="tgl_mohon_faktur" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_wizard_reject_faktur">
+            <field name="name">dym.reject.faktur.form</field>
+            <field name="model">dym.reject.faktur</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reject Faktur">
+                    <group>
+                        <field name="permohonan_faktur_id" invisible="1" />
+                        <separator/>
+                        <field colspan="4" name="serial_number_ids" nolabel="1" widget="one2many_list">
+                            <tree string="" editable="top" edit="false" create="false">
+                                <field name="serial_id" />
+                                <field name="chassis_no" />
+                                <field name="product_id" />
+                                <field name="customer_id" />
+                                <field name="customer_stnk" />
+                                <field name="state" />
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="do_reject_faktur" string="Reject" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_reject_faktur">
+            <field name="name">Reject Faktur</field>
+            <field name="res_model">dym.reject.faktur</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record model="ir.ui.view" id="permohonan_faktur_form_view">
+            <field name="name">permohonan.faktur.form</field>
+            <field name="model">dym.permohonan.faktur</field>
+            <field name="arch" type="xml">
+                <form string="Form Permohonan Faktur">
+                    <header>
+                        <button name="post_permohonan" groups='dym_base_security.group_dym_admin_h1,dym_base_security.group_dym_adh' type="object" string="Post" attrs="{'invisible': ['|',('exception_faktur','=',True),'|',('state','=','approved'),('state','=','cancel')]}" class="oe_highlight" />
+                        <button name="%(action_export_cddb)d" groups='dym_base_security.group_dym_admin_h1,dym_base_security.group_dym_adh' type="action" states="approved" string="Export File" class="oe_highlight" />
+                        <button name="%(dym_permohonan_faktur_report)d" type="action" states="approved" string="Print Laporan" class="oe_highlight" groups='dym_base_security.group_dym_admin_h1,dym_base_security.group_dym_adh'/>
+                        <button name="%(action_reject_faktur)d" groups='dym_base_security.group_dym_adh' type="action" states="approved" string="Reject Faktur" />
+                        <button name="cancel_permohonan" groups='dym_base_security.group_dym_adh' type="object" states="approved,draft" string="Cancel" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved" statusbar_colors='{"draft":"red","approved":"blue"}' />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h2>
+				                <label string="Permohonan Faktur STNK"/>    			
+				 				<field name="name" class="oe_inline"/>
+			 				</h2>
+                        </div>
+                        <group col="2" colspan="2">
+                            <group>
+                                <field name="branch_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly': ['|',('state','!=','draft'),('name','not in',[False,'/'])]}" on_change="onchange_branch_permohonan_faktur(branch_id,exception_faktur,pelwil,partner_id,is_pic)" />
+                            </group>
+                            <group>
+                                <field name="division" select="1" required="1" attrs="{'readonly': [('state','!=','draft')]}" />
+                            </group>
+                            <group>
+                                <field name="pelwil" attrs="{'readonly': ['|','|',('state','!=','draft'),('is_pic','=',True),('exception_faktur','=',True)]}" on_change="onchange_exception(exception_faktur,serial_number_ids,branch_id,partner_id,pelwil,is_pic)" />
+                                <field name="is_pic" attrs="{'readonly': ['|','|',('state','!=','draft'),('pelwil','=',True),('exception_faktur','=',True)]}" on_change="onchange_exception(exception_faktur,serial_number_ids,branch_id,partner_id,pelwil,is_pic)"/>
+                                <field name="exception_faktur" attrs="{'readonly': ['|','|',('state','!=','draft'),('pelwil','=',True),('is_pic','=',True)]}" on_change="onchange_exception(exception_faktur,serial_number_ids,branch_id,partner_id,pelwil,is_pic)" />
+                                <field name="total_record" readonly="True" />
+                            </group>
+                            <group>
+                                <field name="tgl_mohon_faktur" required="1" readonly="1" />
+                                <field name="partner_id" required="1" on_change="onchange_branch_permohonan_faktur(branch_id,exception_faktur,pelwil,partner_id,is_pic)" attrs="{'invisible': [('pelwil','=',False),('is_pic','=',False)],'readonly': [('state','!=','draft')]}" />
+                                <field name="partner_md" readonly="1" required="1" attrs="{'invisible': ['|',('pelwil','=',True),('is_pic','=',True)]}" />
+                                <field name="ahm_code" />
+                            </group>
+                        </group>
+                        <notebook colspan="5">
+                            <page string="Engine line">
+                                <field colspan="4" name="serial_number_ids" nolabel="1" widget="one2many_list" attrs="{'readonly': [('state','!=','draft')]}">
+                                    <tree string="" editable="top" edit="false" create="false">
+                                        <field name="name" string="Engine No" />
+                                        <field name="chassis_no" />
+                                        <field name="product_id" />
+                                        <field name="dealer_sale_order_id" />
+                                        <field name="customer_id" />
+                                        <field name="customer_stnk" />
+                                        <field name="pelanggaran_branch_name_test" />
+                                        <field name="pelanggaran_branch_ahm_code_test" />
+                                        <field name="pelanggaran_branch_ahm_sales_code_test" />
+                                        <field name="state" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Reject History" attrs="{'invisible': [('reject_ids','=',False)]}">
+                                <field name="reject_ids" widget="one2many_list" readonly="1" attrs="{'invisible': [('reject_ids','=',False)]}">
+                                    <tree string="" editable="top" edit="false" create="false">
+                                        <field name="name" string="Engine No" />
+                                        <field name="date" />
+                                        <field name="chassis_no" />
+                                        <field name="product_id" />
+                                        <field name="customer_id" />
+                                        <field name="customer_stnk" />
+                                        <field name="state" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_permohonan_faktur_filter" model="ir.ui.view">
+            <field name="name">permohonan.faktur.list.select</field>
+            <field name="model">dym.permohonan.faktur</field>
+            <field name="arch" type="xml">
+                <search string="Search Permohonan Faktur">
+                    <field name="name" string="Reference" />
+                    <field name="branch_id" />
+                    <field name="engine_no" />
+                    <field name="customer_stnk" />
+                    <field name="partner_id" />
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]" />
+                    <filter name="post" string="Posted" domain="[('state','=','posted')]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-partner" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter string="Tanggal" icon="terp-go-month" domain="[]" context="{'group_by':'tgl_mohon_faktur'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="permohonan_faktur_action">
+            <field name="name">Permohonan Faktur STNK</field>
+            <field name="res_model">dym.permohonan.faktur</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_permohonan_faktur_filter" />
+        </record>
+        <menuitem id="permohonan_faktur_submenu" name="Permohonan Faktur" parent="dym_dealer_menu.stnk_bpkb_permohonan_faktur_menu" action="permohonan_faktur_action" sequence="20" />
+    </data>
+</openerp>

@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_journal_security_users_form" model="ir.ui.view">
+            <field name="name">journal_security.users.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form" />
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <label for="area_id" class="oe_edit_only" groups="dym_base_security.group_dym_it_dept_head" />
+                    <field name="area_id" context="{'user_preference': 0}" groups="dym_base_security.group_dym_it_dept_head" />
+                    <label for="dealer_id" class="oe_edit_only" groups="dym_base_security.group_dym_it_dept_head" />
+                    <field name="dealer_id" context="{'user_preference': 0}" groups="dym_base_security.group_dym_it_dept_head" />
+                </field>
+                <group string="Allowed Companies" position="after">
+                    <group string="Allowed Branches" groups="dym_base_security.group_dym_it_dept_head">
+                        <field name="branch_ids" widget="many2many_tags" readonly="1" />
+                        <field name="branch_type" />
+                        <field name="branch_id" attrs="{'invisible':[('branch_type','in',[False,'HO'])],'required':[('branch_type','!=','HO')],'readonly':[('branch_ids','=',False)]}" context="{'branch_ids':branch_ids}" />
+                    </group>
+                </group>
+                <xpath expr="//page[@string='Preferences']" position="after">
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_journal_security_user_preference_form" model="ir.ui.view">
+            <field name="name">journal_security.user.preference.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif" />
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="area_id_show" readonly="1" contest="{'user_preference':0}" options="{'no_create': True}" groups="dym_base_security.group_dym_it_dept_head" />
+                    <field name="dealer_id_show" readonly="1" contest="{'user_preference':0}" options="{'no_create': True}" groups="dym_base_security.group_dym_it_dept_head" />
+                </field>
+                <xpath expr="//form/group" position="after">
+                    <group>
+                        <field name="branch_ids_show" widget="many2many_tags" colspan='2' readonly="1" contest="{'user_preference':0}" options="{'no_create': True}" groups="dym_base_security.group_dym_it_dept_head" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_users_tree" model="ir.ui.view">
+            <field name="name">res.users.tree</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_tree" />
+            <field name="arch" type="xml">
+                <field name="lang" position="after">
+                    <field name="branch_type" />
+                    <field name="branch_id" />
+                </field>
+            </field>
+        </record>
+        <record id="view_users_search" model="ir.ui.view">
+            <field name="name">res.users.search</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//search/field[@name='name']" position="after">
+                    <field name="branch_type" filter_domain="[('branch_type','ilike',self)]" string="Branch Type" />
+                    <field name="branch_id" filter_domain="[('branch_id','ilike',self)]" string="Branch" />
+                    <group expand="0" string="Group By">
+                        <filter name="groupby_branch_type" string="Branch Type" icon="terp-stock_symbol-selection" domain="" context="{'group_by':'branch_type'}" />
+                        <filter name="groupby_branch_id" string="Branch" icon="terp-stock_symbol-selection" domain="" context="{'group_by':'branch_id'}" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="base.action_res_users" model="ir.actions.act_window">
+            <field name="name">Users</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_groupby_branch_type":1,"search_default_groupby_branch_id":1}</field>
+            <field name="view_id" ref="view_users_tree" />
+            <field name="search_view_id" ref="view_users_search" />
+            <field name="help">Create and manage users that will connect to the system. Users can be deactivated should there be a period of time during which they will/should not connect to the system. You can assign them groups in order to give them specific access to the applications they need to use in the system.</field>
+        </record>
+    </data>
+</openerp>

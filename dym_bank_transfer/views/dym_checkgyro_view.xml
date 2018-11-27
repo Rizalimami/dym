@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_checkgyro_tree_view">
+            <field name="name">dym.checkgyro.tree.view</field>
+            <field name="model">dym.checkgyro</field>
+            <field name="arch" type="xml">
+                <tree string="List checkgyro">
+                    <field name="name" />
+                    <field name="company_id" />
+                    <field name="branch_id" />
+                    <field name="journal_id" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_checkgyro_form_view">
+            <field name="name">dym.checkgyro.form.view</field>
+            <field name="model">dym.checkgyro</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_generate_lines" attrs="{'invisible':[('state','!=','draft')]}" string="Generate Lines" class="oe_highlight" type="object" groups='dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_treasury_staff'/>
+                        <button name="action_validate" attrs="{'invisible':[('state','!=','draft')]}" string="Validate" class="oe_highlight" type="object" groups='dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_treasury_staff'/>
+                        <button name="action_reset_draft" attrs="{'invisible':[('state','!=','running')]}" string="Reset to Draft" type="object" groups='dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_treasury_staff'/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,running,done" statusbar_colors='{"draft":"blue","done":"grey"}' />
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company" readonly="1" />
+                                <field name="branch_id" options="{'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="journal_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="date_received" attrs="{'readonly': [('state','!=','draft')]}" />
+                            </group>
+                            <group>
+                                <field name="name" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <label for="prefix" string="Serial Number"/>
+                                <div>
+                                    <field name="prefix" class="oe_inline" readonly="1"/>
+                                    <field name="number_start" class="oe_inline" readonly="1" widget="handle"/>
+                                    <field name="number_end" class="oe_inline" readonly="1" widget="handle"/>
+                                </div>
+                                <field name="pages" />
+                                <field name="date_activated" attrs="{'readonly': [('state','!=','draft')]}" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Lines">
+                                <field name="line_ids">
+                                    <tree string="Lines">
+                                        <field name="name" />
+                                        <field name="amount" />
+                                        <field name="checkgyro_id" invisible="1" />
+                                        <field name="branch_id" invisible="1" />
+                                        <field name="journal_id" invisible="1" />
+                                        <field name="transfer_id" />
+                                        <field name="transfer_ids" invisible="1" />
+                                        <field name="transfers" string="Ts"/>
+                                        <field name="voucher_id" />
+                                        <field name="voucher_ids" invisible="1" />
+                                        <field name="vouchers" string="Vs"/>
+                                        <field name="used_date" />
+                                        <field name="state" />
+                                    </tree>
+                                    <form string="Lines">
+                                        <sheet>
+                                            <div class="oe_title">
+                                                <h2>
+                                                    <label string="Check/Giro Number"/>             
+                                                    <field name="name" class="oe_inline"/>
+                                                </h2>
+                                            </div>
+                                            <group>
+                                                <group>
+                                                    <field name="branch_id" options="{'no_create': True,'no_open': True}" />
+                                                    <field name="journal_id" options="{'no_create': True,'no_open': True}" />
+                                                    <field name="used_date" />
+                                                    <field name="amount" attrs="{'invisible':[('state','!=','available')]}" />
+                                                    <field name="is_opbal" />
+                                                </group>
+                                                <group>
+                                                    <field name="checkgyro_id" invisible="1" />
+                                                    <field name="vouchers" invisible="1" />
+                                                    <field name="voucher_id" attrs="{'invisible':[('voucher_id','=',False)]}" />
+                                                    <field name="voucher_ids" widget="many2many_tags" attrs="{'invisible':[('voucher_ids','=',False)]}" />
+                                                    <field name="transfers" invisible="1" />
+                                                    <field name="transfer_id" attrs="{'invisible':[('transfer_id','=',False)]}" />
+                                                    <field name="transfer_ids" widget="many2many_tags" attrs="{'invisible':[('transfer_ids','=',False)]}" />
+                                                    <field name="state" />
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_checkgyro_search" model="ir.ui.view">
+            <field name="name">checkgyro.list.select</field>
+            <field name="model">dym.checkgyro</field>
+            <field name="arch" type="xml">
+                <search string="Cheque or Giro Book">
+                    <field name="name" />
+                    <field name="branch_id" />
+                    <field name="journal_id" />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-partner" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter string="journal_id" icon="terp-go-month" domain="[]" context="{'group_by':'journal_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_checkgyro_action">
+            <field name="name">Cheque or Giro Book</field>
+            <field name="res_model">dym.checkgyro</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_checkgyro_search" />
+            <field name="domain">[('branch_id','!=',False)]</field>
+            <field name="context">{}</field>
+        </record>
+        <menuitem id="dym_checkgyro_submenu" name="Cheque or Giro Book" parent="dym_dealer_menu.backoffice_bankandcash_menu" action="dym_checkgyro_action" sequence="4" />
+    </data>
+</openerp>

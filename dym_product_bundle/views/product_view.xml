@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_bundle_product_form_view" model="ir.ui.view">
+            <field name="name">product_bundle.product_form_view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field eval="16" name="priority" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="type" position="replace">
+                    <field name="is_bundle" on_change="onchange_bundle(is_bundle)" />
+                    <field name="type" attrs="{'invisible': [('is_bundle','=',True)]}" />
+                </field>
+                <xpath expr="//page[@string='Information']" position="after">
+                    <page string="Bundle" attrs="{'invisible': [('is_bundle','=',False)]}">
+                        <field name="item_ids" nolabel="1">
+                            <tree string="Items" editable="bottom">
+                                <!-- <field name="sequence" widget="handle"/> -->
+                                <field name="product_tmpl_id" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                <field name="product_id" on_change="onchange_product_id(product_id)" options="{'no_show':True,'no_create':True,'no_open':True}" invisible="1" />
+                                <field name="product_uom_qty" />
+                                <field name="product_uom" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                <!-- <field name="revenue"/> -->
+                                <!-- <field name="editable"/> -->
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_bundle_diskon_tree_view">
+            <field name="name">dym.bundle.diskon.tree</field>
+            <field name="model">dym.bundle.diskon</field>
+            <field eval="1" name="priority" />
+            <field name="arch" type="xml">
+                <tree string="List Diskon Bundle" create="true" editable="top">
+                    <field name="branch_id" options="{'no_create': True,'no_open': True}" />
+                    <field name="template_id" options="{'no_create': True,'no_open': True}" domain="[('is_bundle','=',True)]" />
+                    <field name="product_tmpl_id" options="{'no_show':True,'no_create':True,'no_open':True}" domain="[('id','=',0)]" />
+                    <field name="product_id" options="{'no_create': True,'no_open': True}" domain="[('id','=',0)]" invisible="1" />
+                    <field name="diskon" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_bundle_diskon_form_view">
+            <field name="name">dym.bundle.diskon.form</field>
+            <field name="model">dym.bundle.diskon</field>
+            <field name="arch" type="xml">
+                <form string="Form Diskon Bundle">
+                    <group>
+                        <field name="branch_id" options="{'no_create': True,'no_open': True}" />
+                        <field name="template_id" options="{'no_create': True,'no_open': True}" domain="[('is_bundle','=',True)]" />
+                        <field name="product_id" options="{'no_create': True,'no_open': True}" domain="[('id','=',0)]" />
+                        <field name="diskon" />
+                    </group>
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_bundle_diskon">
+            <field name="name">Diskon Bundle</field>
+            <field name="res_model">dym.bundle.diskon</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Diskon Bundle" parent="dym_dealer_menu.workshop_configuration_menu" sequence="3" id="dym_bundle_diskon_menu" action="action_bundle_diskon" />
+    </data>
+</openerp>

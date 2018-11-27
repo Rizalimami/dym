@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="bank_trf_request_submenu" name="Bank Transfer Request" parent="dym_dealer_menu.backoffice_bankandcash_menu" sequence="7" />
+        <menuitem action="manual_transfer_request_action" id="bank_trf_manual_request_menu" parent="bank_trf_request_submenu" sequence="1" />
+    </data>
+</openerp>

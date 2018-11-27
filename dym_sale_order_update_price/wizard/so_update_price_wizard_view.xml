@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_dym_sale_order_update_price" model="ir.ui.view">
+            <field name="name">Sale Memo Update Price</field>
+            <field name="model">dym.sale.order.update.price</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Sale Memo Update Price">
+                    <p attrs="{'invisible':['|',('diff_price','!=',0),('diff_price_bbn','!=',0)]}">System tidak menemukan perbedaan harga antara harga di DSO ini dengan di pricelist.</p>
+                    <p attrs="{'invisible':[('diff_price','=',0),('diff_price_bbn','=',0)]}">Anda akan merubah harga agar sesuai dengan harga di pricelist yang baru. Jika ternyata harga tidak ada perubahan, mohon untuk koordinasi dengan bagian pricing.</p>
+                    <group>
+                        <group>
+                            <field name="so_id" readonly="1" />
+                            <field name="so_line_id" invisible="1" />
+                        </group>
+                        <group>
+                            <field name="template_id" readonly="1" />
+                            <field name="product_id" readonly="1" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Unit Price">
+                            <field name="sale_price" readonly="1" />
+                            <field name="sale_price_new" readonly="1" />
+                            <field name="diff_price" readonly="1" />
+                        </group>
+                        <group string="Price BBN">
+                            <field name="bbn_price" readonly="1" />
+                            <field name="bbn_price_new" readonly="1" />
+                            <field name="diff_price_bbn" readonly="1" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button special="cancel" string="Close" icon="gtk-close" class="oe_highlight" attrs="{'invisible':['|',('diff_price','!=',0),('diff_price_bbn','!=',0)]}" /> 
+                        <button name="action_update_price" string="Update Price Now" type="object" icon="gtk-execute" class="oe_highlight" attrs="{'invisible':[('diff_price','=',0),('diff_price_bbn','=',0)]}" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_dym_sale_order_update_price" model="ir.actions.act_window">
+            <field name="name">Sale Memo Update Price</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym.sale.order.update.price</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_dym_sale_order_update_price" />
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

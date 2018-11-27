@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<report id="print_kwitansi" string="Kwitansi" 
+		model="account.voucher" name="print.kwitansi" 
+		rml="dym_kwitansi/report/dym_kwitansi_report.rml" 
+		auto="False" menu="False"/>
+	</data>
+</openerp>

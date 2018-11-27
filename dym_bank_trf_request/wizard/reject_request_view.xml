@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="trf_request_reject_reason_form" model="ir.ui.view">
+            <field name="name">trf.request.reject.reason.form</field>
+            <field name="model">trf.request.reject.reason</field>
+            <field name="arch" type="xml">
+                <form string="Search">
+                    <group>
+                        <field name="request_id" readonly="1"/>
+                        <field name="reason" placeholder="e.g. Please revice the document"/>
+                    </group>
+                    <footer>
+                        <button string="Reject" name="action_reject" type="object" class="oe_highlight" /> <span>or</span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                    <field name="rejection_rpc_line">
+                        <tree string="Rejection Line" create="false">
+                            <field name="reimbursed_line_id" invisible="1" />
+                            <field name="pettycash_id" />
+                            <field name="date" />
+                            <field name="name" />
+                            <field name="amount" />
+                        </tree>
+                    </field>
+                    <field name="rejection_rpc_line2"/>
+                </form>
+            </field>
+        </record>
+        <record id="trf_request_reject_reason_action" model="ir.actions.act_window">
+            <field name="name">Rejection Reason</field>
+            <field name="res_model">trf.request.reject.reason</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

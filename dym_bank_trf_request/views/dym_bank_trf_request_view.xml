@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="bank_trf_request_tree_view" model="ir.ui.view">
+            <field name="name">bank.trf.request.tree.view</field>
+            <field name="model">bank.trf.request</field>
+            <field name="arch" type="xml">
+                <tree string="Transfer Request" create="false" colors="red:state=='rejected';">
+                    <field name="company_id" groups="base.group_multi_company" />
+                    <field name="branch_id" string="Branch"/>
+                    <field name="partner_id" />
+                    <field name="name" />
+                    <field name="description" invisible="1"/>
+                    <field name="notes" />
+                    <field name="res_id_state" invisible="1"/>
+                    <field name="obj" groups="base.group_system" />
+                    <field name="res_id" groups="base.group_system" />
+                    <field name="model_data_id" groups="base.group_system" />
+                    <field name="date_request" />
+                    <field name="date_due" />
+                    <field name="amount" />
+                    <field name="advice_id" string="TA"/>
+                    <button name="%(trf_request_reject_reason_action)d" states="confirmed" string="HO Reject" type="action" context="{'default_request_id':active_id}" groups="dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_treasury_sec_head,dym_base_security.group_dym_app_incentive,dym_base_security.group_dym_app_opex,dym_base_security.group_dym_pic_incentive,dym_base_security.group_dym_pic_opex" icon="gtk-cancel" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="bank_trf_request_form_view" model="ir.ui.view">
+            <field name="name">bank.trf.request.form.view</field>
+            <field name="model">bank.trf.request</field>
+            <field name="arch" type="xml">
+                <form string="Transfer Request">
+                    <header>
+                        <button name="action_view_invoice" states="progress,done" attrs="{'invisible':[('obj','!=','account.invoice')]}" string="View Invoice" type="object" class="oe_highlight" groups="dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_treasury_staff,dym_base_security.group_dym_treasury_sec_head,dym_base_security.group_dym_app_incentive,dym_base_security.group_dym_app_opex,dym_base_security.group_dym_pic_incentive,dym_base_security.group_dym_pic_opex" />
+                        <button name="action_view_reimburse" states="progress,done" attrs="{'invisible':[('obj','!=','dym.reimbursed')]}" string="View Reimburse" type="object" class="oe_highlight" groups="dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_treasury_staff,dym_base_security.group_dym_treasury_sec_head,dym_base_security.group_dym_app_incentive,dym_base_security.group_dym_app_opex,dym_base_security.group_dym_pic_incentive,dym_base_security.group_dym_pic_opex" />
+                        <button name="action_view_voucher" states="progress,done" attrs="{'invisible':[('obj','!=','account.voucher')]}" string="View PAR/CDE" type="object" class="oe_highlight" groups="dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_treasury_staff,dym_base_security.group_dym_treasury_sec_head,dym_base_security.group_dym_app_incentive,dym_base_security.group_dym_app_opex,dym_base_security.group_dym_pic_incentive,dym_base_security.group_dym_pic_opex" help="View Payment Request or Customer Deposit"/>
+                        <button name="action_confirm" states="draft" string="Confirm" type="object" class="oe_highlight" groups="base.group_user" />
+                        <button name="action_confirm" states="rejected" string="Reconfirm" type="object" class="oe_highlight" groups="base.group_user" confirm="Are you sure want to reconfirm this"/>
+                        <button name="action_ho_approve" states="confirmed" invisible="1" string="HO Approve" type="object" class="oe_highlight" groups="dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_treasury_sec_head,dym_base_security.group_dym_app_incentive,dym_base_security.group_dym_app_opex,dym_base_security.group_dym_pic_incentive,dym_base_security.group_dym_pic_opex" />
+                        <button name="%(trf_request_reject_reason_action)d" states="confirmed" string="HO Reject" type="action" context="{'default_request_id':active_id}" groups="dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_treasury_sec_head,dym_base_security.group_dym_app_incentive,dym_base_security.group_dym_app_opex,dym_base_security.group_dym_pic_incentive,dym_base_security.group_dym_pic_opex" />
+                        <button name="action_cancel" states="draft,confirmed" string="Cancel" type="object" class="" groups="base.group_user" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors='{"shipping_except":"red","invoice_except":"red","waiting_date":"blue"}' />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h2>
+                                <label string="Name"/>             
+                                <field name="name"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_request" />
+                                <field name="date_due" />
+                                <field name="amount" />
+                                <field name="reject_reason" attrs="{'invisible':[('state','!=','rejected')]}"/>
+                            </group>
+                            <group>
+                                <field name="advice_id" />
+                                <field name="company_id" groups="base.group_multi_company" />
+                                <field name="branch_id" />
+                                <field name="partner_id" />
+                                <field name="obj" groups="base.group_system" />
+                                <field name="res_id" groups="base.group_system" />
+                                <field name="model_data_id" groups="base.group_system" />
+                            </group>
+                        </group>
+                        <group string="Description">
+                            <field name="description" nolabel="True" />
+                        </group>
+                        <group string="Notes">
+                            <field name="notes" nolabel="True" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="bank_trf_request_search_view" model="ir.ui.view">
+            <field name="name">bank.trf.request.search.view</field>
+            <field name="model">bank.trf.request</field>
+            <field name="arch" type="xml">
+                <search string="Transfer Request">
+                    <field name="name" string="Name" />
+                    <field name="partner_id" />
+                    <filter string="Confirm" name="confirmed" domain="[('state','=', 'confirmed')]" />
+                    <filter string="Approved" name="approved" domain="[('state','=', 'approved')]" />
+                    <filter string="No TA" name="no_ta" domain="[('advice_id','=', False)]" />
+                    <filter string="Draft" name="draft" domain="[('state','=', 'draft')]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" domain="[]" context="{'group_by' : 'branch_id'}" />
+                        <filter string="Partner" domain="[]" context="{'group_by' : 'partner_id'}" />
+                        <filter string="Due Date" domain="[]" context="{'group_by' : 'date_due'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="bank_trf_request_action">
+            <field name="name">Transfer Request</field>
+            <field name="res_model">bank.trf.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_no_ta': 1}</field>
+            <field name="view_id" ref="bank_trf_request_tree_view" />
+            <field name="search_view_id" ref="bank_trf_request_search_view" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    This bank transfer request is generated automatically by the system.
+                </p>
+                <p>
+                    All transfer request came from paid invoice or paid payment request.
+                </p>
+            </field>
+        </record>
+        <record id="action_bank_transfer_request_all_a" model="ir.actions.act_window">
+            <field name="context">{}</field>
+            <field name="name">Transfer Request</field>
+            <field name="res_model">bank.trf.request</field>
+            <field name="view_id" ref="bank_trf_request_tree_view" />
+            <field name="view_mode">tree_bank_trf_request_quickadd,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Select the period and the journal you want to fill.
+                </p>
+                <p>
+                    This view can be used by accountants in order to quickly record entries in Odoo. If you want to record a supplier invoice, start by recording the line of the expense account. Odoo will propose to you automatically the Tax related to this account and the counterpart "Account Payable".
+                </p>
+            </field>
+        </record>
+        <menuitem action="action_bank_transfer_request_all_a" icon="STOCK_JUSTIFY_FILL" id="menu_bank_transfer_request_all" parent="bank_trf_request_submenu" sequence="1" />
+        <record id="action_bank_trf_request_all_tree" model="ir.actions.act_window">
+            <field name="name">Transfer Request</field>
+            <field name="res_model">bank.trf.request</field>
+            <field name="context">{'search_default_branch_id': [active_id]}</field>
+            <field name="view_id" ref="bank_trf_request_tree_view" />
+        </record>
+        <menuitem action="bank_trf_request_action" id="bank_trf_request_menu" parent="bank_trf_request_submenu" sequence="5" />
+    </data>
+</openerp>

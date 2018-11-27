@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_report_stock_unit_wizard" model="ir.ui.view">
+            <field name="name">Print Stock Unit Report</field>
+            <field name="model">report.stock.unit.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Stock Report">
+                    <group col="4" colspan="4">
+                        <field name="product_ids" widget="many2many_tags" options="{'no_open':True,'no_create_edit':True}" />
+                        <field name="show_valuation" groups="dym_base_security.group_dym_accounting_ho" />
+                        <!--<field name="date" required="1"/>-->
+                    </group>
+                    <notebook colspan="5">
+                        <page string="Branchs">
+                            <field name="branch_ids" colspan="4" nolabel="1" />
+                        </page>
+                        <page string="Location">
+                            <field name="location_ids" colspan="4" nolabel="1" />
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1}" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_stock_unit_report_wizard" model="ir.actions.act_window">
+            <field name="name">Stock Unit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.stock.unit.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_report_stock_unit_wizard" />
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_stock_unit_report" parent="dym_dealer_menu.showroom_report_menu" sequence="5" action="action_stock_unit_report_wizard" />
+    </data>
+</openerp>

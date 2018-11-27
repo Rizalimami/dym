@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_stock_production_permohonan_form_view" model="ir.ui.view">
+            <field name="name">dym.stock.production.permohonan.form.view</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="dym_serial_number.master_serial_number" />
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="plat" />
+                </field>
+                <field name="invoice_date" position="after">
+                    <field name="invoice_bbn" />
+                </field>
+                <field name="tgl_terima" position="before">
+                    <field name="permohonan_faktur_id" />
+                    <field name="penerimaan_faktur_id" />
+                    <field name="penyerahan_faktur_id" />
+                </field>
+                <field name="customer_id" position="before">
+                    <field name="cddb_id" />
+                    <field name="lot_status_cddb" />
+                </field>
+                <field name="tgl_terima" position="after">
+                    <field name="tgl_cetak_faktur" />
+                    <field name="tgl_bayar_birojasa" />
+                    <field name="tgl_penyerahan_faktur" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+       <report  
+            id="report_penyerahan_stnk" string="Penyerahan STNK" 
+            model="dym.penyerahan.stnk" 
+            name="rml.dym.penyerahan.stnk" 
+            rml="dym_penyerahan_stnk/report/dym_penyerahan_stnk_report.rml" 
+            auto="False" menu="False"/>  
+            
+        <report  
+            id="report_penyerahan_bpkb" string="Penyerahan BPKB" 
+            model="dym.penyerahan.bpkb" 
+            name="rml.dym.penyerahan.bpkb" 
+            rml="dym_penyerahan_stnk/report/dym_penyerahan_bpkb_report.rml" 
+            auto="False" menu="False"/> 
+            
+                    
+    </data>
+</openerp>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paper_format_stock_report" model="report.paperformat">
+            <field name="name">Stock Report Format</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">24</field>
+            <field name="margin_bottom">31</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="dym_bpb_report"
+            string="Bukti Penerimaan Barang"
+            model="dym.stock.packing"
+            report_type="qweb-pdf"
+            name="dym_stock.dym_bpb_report_template"
+            file="dym_stock.dym_bpb_report_template"
+        />
+
+        <report
+            id="dym_bpb_penyerahan_report"
+            string="Bukti Penyerahan Barang"
+            model="dym.stock.packing"
+            report_type="qweb-pdf"
+            name="dym_stock.dym_bpb_report_penyerahan_template"
+            file="dym_stock.dym_bpb_report_penyerahan_template"
+        />
+        <record id="dym_bpb_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_stock.paper_format_stock_report"/>
+        </record>
+        <record id="dym_bpb_penyerahan_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_stock.paper_format_stock_report"/>
+        </record>
+    </data>
+</openerp>

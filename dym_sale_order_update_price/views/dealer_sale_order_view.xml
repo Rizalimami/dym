@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sale_order_dealer_form" model="ir.ui.view">
+            <field name="name">dealer.sale.order.form.inherit</field>
+            <field name="model">dealer.sale.order</field>
+            <field name="inherit_id" ref="dealer_sale_order.sale_order_dealer_form" />
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='dealer_sale_order_line']/tree/field[@name='price_subtotal']" position="after">
+                    <button icon="gtk-ok" name="action_so_update_price" type="object" string="Update Harga" confirm="Pastikan form dalam model 'EDIT'. Jika tidak, maka perhitungan akan salah!. Jika belum klik EDIT, silahkan klik 'CANCEL', jika sudah klik EDIT, silahkan klik 'OK'"/>
+                    <!-- <button icon="gtk-ok" name="%(action_dym_sale_order_update_price)d" type="action" string="Update Harga" /> -->
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
+
+

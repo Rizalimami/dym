@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="group_stock_picking_reverse" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">Stock Picking Reverse Trf</field>
+        </record>
+    </data>
+</openerp>

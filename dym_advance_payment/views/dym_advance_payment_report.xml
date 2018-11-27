@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="report_advance_payment" string="advance_payment" model="dym.advance.payment" name="rml.advance.payment" rml="dym_advance_payment/report/dym_advance_payment_report.rml" auto="False" menu="False" />
+        <report id="report_settlement" string="settlement" model="dym.settlement" name="rml.settlement" rml="dym_advance_payment/report/dym_settlement_report.rml" auto="False" menu="False" />
+
+        <!-- STL ADV PAYMENT DONE -->
+        <record id="paper_report_settlement_done" model="report.paperformat">
+            <field name="name">Paper Report Stl Payment Done</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Landscape</field>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report 
+            id="report_settlement_done" 
+            string="settlement_done" 
+            model="dym.settlement" 
+            report_type="qweb-pdf" 
+            name="dym_advance_payment.stl_payment_done" 
+            file="dym_advance_payment.stl_payment_done" 
+            auto="False" 
+            menu="False"/>
+
+        <record id="report_settlement_done" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_advance_payment.paper_report_settlement_done" />
+        </record>
+    	
+    	<!-- ADV PAYMENT DONE -->
+    	<record id="paper_report_advance_payment_done" model="report.paperformat">
+            <field name="name">Paper Report Adv Payment Done</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Landscape</field>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+
+    	<report 
+    		id="report_advance_payment_done" 
+    		string="advance_payment_done" 
+    		model="dym.advance.payment" 
+    		report_type="qweb-pdf" 
+    		name="dym_advance_payment.adv_payment_done" 
+    		file="dym_advance_payment.adv_payment_done" 
+    		auto="False" 
+        	menu="False"/>
+
+    	<record id="report_advance_payment_done" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_advance_payment.paper_report_advance_payment_done" />
+        </record>
+
+        <!-- ADV PAYMENT DRAFT -->
+        <record id="paper_format_avp_draft" model="report.paperformat">
+            <field name="name">Advance Payment Draft Report Format</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="advance_payment_draft_report"
+            string="Advance Payment"
+            model="dym.advance.payment"
+            report_type="qweb-pdf"
+            name="dym_advance_payment.report_draft_advance_payment_template"
+            file="dym_advance_payment.report_draft_advance_payment_template"
+            auto="False" 
+            menu="False"
+        />
+        <record id="advance_payment_draft_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_advance_payment.paper_format_avp_draft" />
+        </record>
+
+        <!-- STL ADV PAYMENT DRAFT -->
+        <record id="paper_format_settle_avp_draft" model="report.paperformat">
+            <field name="name">Settlement Advance Payment Draft Report Format</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="settle_advance_payment_draft_report"
+            string="Settlement Advance Payment"
+            model="dym.settlement"
+            report_type="qweb-pdf"
+            name="dym_advance_payment.report_draft_settle_advance_payment_template"
+            file="dym_advance_payment.report_draft_settle_advance_payment_template"
+            auto="False" 
+            menu="False"
+        />
+        <record id="settle_advance_payment_draft_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_advance_payment.paper_format_settle_avp_draft" />
+        </record>
+
+        <!-- RREIMBURSED ADV PAYMENT -->
+        <report 
+            id="report_reimbursed_settlement"
+            string="Reimbursed"
+            model="dym.reimbursed.ho" 
+            report_type="qweb-pdf"
+            file="dym_advance_payment.report_reimbursed_settlement_template" 
+            name="dym_advance_payment.report_reimbursed_settlement_template" 
+            auto="False" 
+            menu="False"
+        />
+        <record id="report_reimbursed_settlement" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_report_custom.paperformat_a4"/>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,111 @@
+<openerp>
+    <data>
+        <record id="PARTNER_1" model="dym.partner.type">
+            <field name="field_type">boolean</field>
+            <field name="name">principle</field>
+            <field name="value">Principle</field>
+            <field name="division">Unit,Sparepart,Umum</field>
+            <field name="unit">1</field>
+            <field name="sparepart">1</field>
+            <field name="umum">1</field>
+        </record>
+        <record id="PARTNER_2" model="dym.partner.type">
+            <field name="field_type">boolean</field>
+            <field name="name">biro_jasa</field>
+            <field name="value">Biro Jasa</field>
+            <field name="division">Unit,Umum</field>
+            <field name="unit">1</field>
+            <field name="umum">1</field>
+        </record>
+        <record id="PARTNER_3" model="dym.partner.type">
+            <field name="field_type">boolean</field>
+            <field name="name">forwarder</field>
+            <field name="value">Forwarder</field>
+            <field name="division">Unit,Sparepart,Umum</field>
+            <field name="unit">1</field>
+            <field name="sparepart">1</field>
+            <field name="umum">1</field>
+        </record>
+        <record id="PARTNER_4" model="dym.partner.type">
+            <field name="field_type">boolean</field>
+            <field name="name">supplier</field>
+            <field name="value">General Supplier</field>
+            <field name="division">Unit,Sparepart,Umum</field>
+            <field name="unit">1</field>
+            <field name="sparepart">1</field>
+            <field name="umum">1</field>
+        </record>
+        <record id="PARTNER_5" model="dym.partner.type">
+            <field name="field_type">boolean</field>
+            <field name="name">finance_company</field>
+            <field name="value">Finance Company</field>
+            <field name="division">Unit,Umum</field>
+            <field name="unit">1</field>
+            <field name="umum">1</field>
+        </record>
+        <record id="PARTNER_6" model="dym.partner.type">
+            <field name="field_type">boolean</field>
+            <field name="name">customer</field>
+            <field name="value">Customer</field>
+            <field name="division">Unit,Sparepart,Umum</field>
+            <field name="unit">1</field>
+            <field name="sparepart">1</field>
+            <field name="umum">1</field>
+        </record>
+        <record id="PARTNER_7" model="dym.partner.type">
+            <field name="field_type">boolean</field>
+            <field name="name">dealer</field>
+            <field name="value">Dealer</field>
+            <field name="division">Unit,Umum</field>
+            <field name="unit">1</field>
+            <field name="umum">1</field>
+        </record>
+        <record id="PARTNER_8" model="dym.partner.type">
+            <field name="field_type">boolean</field>
+            <field name="name">ahass</field>
+            <field name="value">Ahass</field>
+            <field name="division">Sparepart,Umum</field>
+            <field name="sparepart">1</field>
+            <field name="umum">1</field>
+        </record>
+        <record id="PARTNER_9" model="dym.partner.type">
+            <field name="field_type">boolean</field>
+            <field name="name">creditur_debitur</field>
+            <field name="value">Creditur / Debitur</field>
+            <field name="division">Unit,Sparepart,Umum</field>
+            <field name="unit">1</field>
+            <field name="sparepart">1</field>
+            <field name="umum">1</field>
+        </record>
+        <record id="PARTNER_10" model="dym.partner.type">
+            <field name="field_type">selection</field>
+            <field name="selection_name">partner_type</field>
+            <field name="name">Afiliasi</field>
+            <field name="value">Afiliasi</field>
+            <field name="division">Unit,Sparepart,Umum</field>
+            <field name="unit">1</field>
+            <field name="sparepart">1</field>
+            <field name="umum">1</field>
+        </record>
+        <record id="PARTNER_11" model="dym.partner.type">
+            <field name="field_type">selection</field>
+            <field name="selection_name">partner_type</field>
+            <field name="name">Pihak_ke_3</field>
+            <field name="value">Pihak ke 3</field>
+            <field name="division">Unit,Sparepart,Umum</field>
+            <field name="unit">1</field>
+            <field name="sparepart">1</field>
+            <field name="umum">1</field>
+        </record>
+        <record id="PARTNER_12" model="dym.partner.type">
+            <field name="field_type">selection</field>
+            <field name="selection_name">partner_type</field>
+            <field name="name">Konsolidasi</field>
+            <field name="value">Konsolidasi</field>
+            <field name="division">Unit,Sparepart,Umum</field>
+            <field name="unit">1</field>
+            <field name="sparepart">1</field>
+            <field name="umum">1</field>
+        </record>
+    </data>
+</openerp>

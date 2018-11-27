@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+		<record model="ir.ui.view" id="dym_branch_config_retur_jual_form_view">
+		    <field name="name">dym.branch.config.retur.jual.form.view</field>
+		    <field name="model">dym.branch.config</field>
+		    <field name="inherit_id" ref="dym_retur_beli.dym_branch_config_retur_form_view"/>
+		    <field name="arch" type="xml">	
+                <xpath expr="/form/sheet/group[@string='Retur']" position="inside">
+					<field name="retur_jual_dso_journal_id"/>
+					<field name="retur_jual_dso_pic_account_id"/>
+					<field name="retur_jual_so_journal_id"/>
+					<field name="retur_jual_biaya_tambahan_retur_account_id"/>
+					<field name="retur_jual_notes" />
+                </xpath>				
+		    </field>
+		</record>
+	</data>
+</openerp>
+															

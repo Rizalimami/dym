@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1"> 
+    	
+<!-- Laporan Piutang -->	
+        <record id="group_laporan_piutang_showroom_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Piutang Showroom Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_piutang_report'))]"/>  
+        </record> 
+        <record id="group_laporan_piutang_workshop_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Piutang Workshop Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_piutang_report_workshop'))]"/>  
+        </record> 
+        <record id="group_laporan_piutang_finance_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Piutang Finance Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_piutang_report_finance'))]"/>  
+        </record> 
+
+        <record id="group_laporan_piutang_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Piutang Read</field> 
+        </record> 
+                
+        <record id="group_laporan_piutang_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Piutang Update</field> 
+			<field name="implied_ids" eval="[(4, ref('group_laporan_piutang_read'))]"/>            	            	
+        </record>
+     
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[(4,ref('group_laporan_piutang_read')),
+                                            (4,ref('group_laporan_piutang_update')),
+                                            (4,ref('group_laporan_piutang_showroom_menu')),
+                                            (4,ref('group_laporan_piutang_workshop_menu')),
+											(4,ref('group_laporan_piutang_finance_menu')),
+											]"/> 
+		</record>                                                                                                  
+    </data>
+</openerp>

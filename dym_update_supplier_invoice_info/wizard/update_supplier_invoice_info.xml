@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Top menu item -->     
+        <record id="update_supplier_invoice_info_view" model="ir.ui.view">
+            <field name="name">update.supplier.invoice.info.form</field>
+            <field name="model">update.supplier.invoice.info</field>
+            <field name="arch" type="xml">
+            <form>
+                <group>                    
+                    <field name="invoice_id" readonly="1" options="{'no_open':True,'no_create_edit':True,'no_create':True}" />
+                </group>
+                <group col="4">
+                    <field name="new_number"/>
+                    <field name="new_date"/>
+                </group>
+                <footer>
+                    <button name="action_update_info" string="Update" type="object" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="update_supplier_invoice_info_action" model="ir.actions.act_window">
+            <field name="name">Update Supplier Invoice Info</field>
+            <field name="res_model">update.supplier.invoice.info</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="update_supplier_invoice_info_view" />
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

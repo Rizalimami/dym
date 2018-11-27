@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="report_work_order" string="Work Order WO" model="dym.work.order" name="rml.work.order" rml="dym_work_order/report/dym_report_work_order.rml" auto="False" menu="False" />
+        <report id="report_work_order_picking" string="Work Order Picking" model="dym.work.order" name="rml.work.order.picking" rml="dym_work_order/report/dym_report_work_order_picking.rml" auto="False" menu="False" />
+        <report id="report_work_order_invoice" string="Work Order Invoice" model="dym.work.order.invoice" name="rml.work.order.invoice" rml="dym_work_order/report/dym_work_order_invoice_report.rml" auto="False" menu="False" />
+        <report string="WIP" id="action_WIP" model="dym.work.order" report_type="qweb-pdf" name="dym_work_order.dym_work_order_wip_report" file="dym_work_order.dym_work_order_wip_report" menu="False" />
+    </data>
+</openerp>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record id="surat_jalan_import_view" model="ir.ui.view">
+            <field name="name">Import Surat Jalan</field>
+            <field name="model">import.surat.jalan</field>
+            <field name="arch" type="xml">
+                <form string="Import Surat Jalan">
+                    <group>
+                        <group>
+                            <field name="partner_id" />
+                            <field name="branch_id" />
+                            <field name="ahm_code" />
+                        </group>
+                        <group>
+                            <field name="file_type" />
+                            <field name="division" />
+                            <field name="data_file" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="import_file" string="_Import" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>        
+        <record id="action_surat_jalan_import" model="ir.actions.act_window">
+            <field name="name">Import Surat Jalan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">import.surat.jalan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="surat_jalan_import_view" />
+        </record>
+    </data>
+</openerp>

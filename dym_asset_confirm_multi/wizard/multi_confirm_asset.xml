@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_multi_confirm_asset_wiz" model="ir.ui.view">
+            <field name="name">Confirm Asset</field>
+            <field name="model">asset.confirm</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Asset">
+                    <p>You are about to confirm selected assets. Please click Confirm button below to confirm</p>
+                    <footer>
+                        <button name="confirm_asset" string="Confirm" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window name="Confirm Asset" res_model="asset.confirm" src_model="account.asset.asset" view_mode="form" target="new" multi="True" key2="client_action_multi" id="action_view_confirm_asset" />
+    </data>
+</openerp>

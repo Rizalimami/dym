@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_export_faktur_pajak_wiz" model="ir.ui.view">
+            <field name="name">Eksport Faktur Pajak</field>
+            <field name="model">wizard.efaktur</field>
+            <field name="arch" type="xml">
+                <form string="Export Faktur Pajak">
+                    <group>
+                        <group>
+                            <field name="in_out" required="1"/>
+                        </group>
+                        <group/>
+                    </group>
+                    <field name="faktur_ids" invisible="1"/>
+                    <separator/>
+                    <field name="name" invisible="True"/>
+                    <field name="data_file" nolabel="1" colspan="4" filename="name"/>
+                    <footer>
+                        <button name="export" string="Eksport" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Eksport Faktur Pajak"
+            res_model="wizard.efaktur"
+            src_model="dym.faktur.pajak.out"
+            view_mode="form"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="action_view_export_fp"/>
+
+    </data>
+</openerp>
+

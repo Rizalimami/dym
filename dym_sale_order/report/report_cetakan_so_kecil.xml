@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="template_report_cetakan_so_kecil">
+            <style type="text/css">
+                .tag_container {
+                    margin: auto;
+                    margin-bottom: 50px;
+                    border: 1px solid black;
+                }
+                
+                .no_border {
+                    border: 0px !important;
+                }
+                
+                .margin_bottom {
+                    margin-bottom: 5px !important;
+                    margin-top: 5px !important;
+                }
+                
+                .border_top {
+                    border-top: 1px solid black !important;
+                    margin-top: 2px !important;
+                    margin-bottom: 2px !important;
+                }
+                
+                .border_bottom {
+                    border-bottom: 1px solid black !important;
+                }
+                                
+                .page,
+                .header,
+                .footer,
+                .table {
+                    font-size: 10px !important;
+                }
+
+                .hr {
+                    border-top: 1px solid black !important;
+                }
+
+                .text_up{
+                    text-transform: uppercase;
+                }
+
+                .text_bold{
+                    font-weight: bold;
+                }
+
+                .text_head{
+                    font-size: 14px;
+                }
+
+                .table_titikdua{
+                    text-align:center;
+                    width:20px;
+                }
+
+                .table_margintop{
+                    margin-top: 20px !important;
+                }
+
+                .tableap {
+                    margin-bottom: 0px !important;
+                }
+
+                .tableap td, .tableap th {
+                    padding: 0px !important;
+                    border: 0px !important;
+                }
+
+                .ul_margin {
+                    margin-left: 15px !important;
+                }
+
+                .border_top_td {
+                    border-top: 1px solid #eeeeee !important;
+                }
+
+            </style>
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o and 'company_id' in o"><t t-set="company" t-value="o.company_id"></t></t>
+		            <t t-if="not o or not 'company_id' in o"><t t-set="company" t-value="res_company"></t></t>
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span class="text_up text_head"><t t-esc="company.name"/> - <span t-field="o.branch_id.name" /></span><br/>
+                                <span><span t-field="o.branch_id.street"/></span>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span class="text_up text_head text_bold">SALES ORDER</span><br/>
+                                <table>
+                                    <tr>
+                                        <td width="70">No.</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.name" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="70">Tanggal</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.date_order" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table style="width:100%">
+                                    <tr>
+                                        <td width="70">Pelanggan</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.partner_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="70">Alamat</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.partner_id.street"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="70">No. Member</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.member"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="70">Tipe Transaksi</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.tipe_transaksi"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="70">Tipe Konsumen</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.tipe_konsumen"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table tableap">
+                                    <thead>
+                                        <tr>
+                                            <td><strong>Kode Barang</strong></td>
+                                            <td><strong>Nama Barang</strong></td>
+                                            <td><strong>Qty</strong></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.order_line" t-as="line">
+                                            <tr>
+                                                <td><span t-field="line.product_id.name"/></td>
+                                                <td><span t-field="line.product_id.product_tmpl_id.default_code"/></td>
+                                                <td><span t-field="line.product_uom_qty"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <t t-if="o.tipe_transaksi=='hotline'">
+                                    <span><br/>Catatan:<br/>Jangka waktu pengambilan sparepart Hotline adalah 1 bulan dari sejak tanggal terima barang di bengkel. Jika lebih dari 1 bulan, konsumen tidak melakukan konfirmasi dan pengambilan, maka sparepart tersebut menjadi status part reguler yang diperbolehkan untuk dijual ke konsumen lain, dengan ketentuan JP (Jaminan Pembelian) yang sudah dibayarkan menjadi hangus, tidak dapat diambil kembali.</span>
+                                </t>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <span>Customer:</span><br/><br/><br/><br/>
+                                <span><b><span t-field="o.partner_id.name"/></b></span>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <span>Front Desk:</span><br/><br/><br/><br/>
+                                <span><b>__________</b></span>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <span>Final Inspector:</span><br/><br/><br/><br/>
+                                <span><b>__________</b></span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <record id="paper_report_cetakan_so_kecil" model="report.paperformat">
+            <field name="name">Paper Report Cetakan SO Kecil</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Portrait</field>
+            <field name="format">custom</field>
+            <field name="page_height">200</field>
+            <field name="page_width">75</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="report_cetakan_so_kecil"
+            string="Sales Order Kecil"
+            model="sale.order"
+            report_type="qweb-pdf"
+            name="dym_sale_order.template_report_cetakan_so_kecil"
+            file="dym_sale_order.template_report_cetakan_so_kecil"
+        />
+        <record id="report_cetakan_so_kecil" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_sale_order.paper_report_cetakan_so_kecil"/>
+        </record>
+
+    </data>
+</openerp>

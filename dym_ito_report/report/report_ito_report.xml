@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="ito_report_template">
+    <t t-call="report.html_container">    
+        <t t-call="report.internal_layout">
+            <div class="page">
+                <div class="oe_structure"/>
+                <h2>Laporan ITO</h2>
+
+                <div class="row mt32 mb32">
+                    <div class="col-xs-3">
+                        <strong>Branch:</strong><br/>
+                        <t t-if="branch">
+                            <span t-esc="branch"/>
+                        </t>
+                        <t t-if="not branch">
+                            <span>-</span>
+                        </t>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Division:</strong><br/>
+                        <t t-if="division">
+                            <span t-esc="division"/>
+                        </t>
+                        <t t-if="not division">
+                            <span>-</span>
+                        </t>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Start Date:</strong><br/>
+                        <t t-if="first_date">
+                            <span t-esc="first_date"/>
+                        </t>
+                        <t t-if="not first_date">
+                            <span>-</span>
+                        </t>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>End Date:</strong><br/>
+                        <t t-if="date">
+                            <span t-esc="date"/>
+                        </t>
+                        <t t-if="not date">
+                            <span>-</span>
+                        </t>
+                    </div>
+                </div>                
+                <t t-if="not moves">
+                    <h3><span>Record Not Found</span></h3>
+                </t>
+                <table class="table table-condensed" t-if="moves">
+                    <thead>
+                        <tr>
+                            <th><strong>Variant</strong></th>
+                            <th><strong>Stock Days</strong></th>
+                            <th><strong>ITO</strong></th>
+                            <th><strong>Branch</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="current_branch" t-value="0"/>
+                        <t t-foreach="moves" t-as="res">
+                            <t t-set="ito" t-value="res.get_ito(first_date,date,res)"/>
+                            <!-- <t t-if="ito != '-'"> -->
+                                <t t-if="res.branch_id.id!=current_branch">
+                                    <t t-set="current_branch" t-value="res.branch_id.id"/>
+                                    <tr>
+                                        <td colspan="6"><strong>[<t t-esc="res.branch_id.code"/>] <t t-esc="res.branch_id.name"/></strong></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>
+                                        <span><t t-esc="res.product_id.name"/></span>
+                                    </td>
+                                    <td>
+                                        <span><t t-esc="res.get_stock_days(ito,first_date,date)"/></span>
+                                    </td>
+                                    <td>
+                                        <span><t t-esc="ito"/></span>
+                                    </td>
+                                    <td>
+                                        <span>[<t t-esc="res.branch_id.code"/>] <t t-esc="res.branch_id.name"/></span>
+                                    </td>
+                                </tr>
+                            <!-- </t> -->
+                        </t>
+                    </tbody>
+                </table>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

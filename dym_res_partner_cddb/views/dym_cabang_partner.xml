@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+        <record id="dym_cabang_partner_form" model="ir.ui.view">
+            <field name="name">dym.cabang.partner.form</field>
+            <field name="model">dym.cabang.partner</field>
+            <field name="arch" type="xml">
+				<form string="Cabang Partner">
+				 	<sheet>
+				 		<group>
+				 			<group>
+				 				<field name="name" required="1"></field>
+								<label for="address" string="Address"/>
+		    					<div>
+	                             <field name="street" placeholder="Street..." required="1"/>
+	                                <div>
+	                                	<field name="street2" placeholder="Street" style="width: 50%%"/>
+	                                	<field name="rt" on_change="change_rtrw(rt,rw)" placeholder="RT" style="width: 25%%" required="1"/>
+										<field name="rw" on_change="change_rtrw(rt,rw)" placeholder="RW" style="width: 25%%" required="1"/>
+										<field name="state_id" required="1" class="oe_no_button" placeholder="Province" style="width: 50%%" options='{"no_open": True}'/>
+										<field name="city_id" required="1" placeholder="City" style="width: 50%%"/>
+										<field name="kecamatan_id" required="1" placeholder="Kecamatan" style="width: 50%%" on_change="_onchange_kecamatan(kecamatan_id)"/>
+										<field name="kecamatan" placeholder="Kecamatan" style="width: 50%%" />						
+										<field name="zip_id" required="1" placeholder="ZIP" style="width: 50%%" options='{"no_open": True}' on_change="_onchange_zip(zip_id)"/>                               	
+	                                    <field name="kelurahan" required="1" class="oe_no_button" placeholder="Kelurahan" style="width: 50%%"/>
+	                                </div>                              
+		                          </div>
+						 	</group>
+						 	<group>
+						 		<field name="no_hp" on_change="change_nomor(no_hp,no_telp)"/>
+						 		<field name="no_telp" on_change="change_nomor(no_hp,no_telp)"/>	
+							</group>
+				 		</group>
+				 	</sheet>	
+				</form>	
+			</field>
+        </record>
+               
+		<record model="ir.ui.view" id="dym_cabang_partner_tree">
+		    <field name="name">dym.cabang.partner.tree</field>
+		    <field name="model">dym.cabang.partner</field>
+		    <field name="arch" type="xml">		    		    
+				<tree string="Cabang Partner" create="false">
+					<field name="name"/>
+                 	<field name="street"/>
+					<field name="city_id"/>
+					<field name="state_id"/>
+					<field name="no_hp"/>
+			 		<field name="no_telp"/>	
+				</tree>
+		     </field>
+		</record>	
+		
+		<record model="ir.actions.act_window" id="cabang_partner_action_view">
+		    <field name="name">Cabang Partner</field>
+		    <field name="res_model">dym.cabang.partner</field>
+		    <field name="type">ir.actions.act_window</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		    <field name="domain"></field>  
+		</record>
+		
+		<record id="cabang_partner_action_view_tree" model="ir.actions.act_window.view">
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="dym_cabang_partner_tree" />
+			<field name="act_window_id" ref="cabang_partner_action_view" />
+		</record>
+
+		<record id="cabang_partner_action_view_form" model="ir.actions.act_window.view">
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="dym_cabang_partner_form" />
+			<field name="act_window_id" ref="cabang_partner_action_view" />
+		</record>
+
+    	 <record id="res_partner_with_cabang_partner" model="ir.ui.view">
+            <field name="name">dym.res.partner.with.cabang.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//page[@string='Internal Notes']" position="after">
+					<page string="Cabang Partner">
+						<field name="cabang_partner_line">
+							<tree string="Cabang Partner">
+								<field name="name"/>
+			                 	<field name="street"/>
+								<field name="city_id"/>
+								<field name="state_id"/>
+								<field name="no_hp"/>
+						 		<field name="no_telp"/>	
+							</tree>
+						</field>
+					</page>
+				</xpath>
+            </field>
+        </record>
+	</data>
+</openerp>
+															

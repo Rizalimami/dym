@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="dym_fp_out_branch_rule" model="ir.rule">
+            <field name="name">dym.faktur.pajak.out branch rule</field>
+            <field name="model_id" ref="model_dym_faktur_pajak_out" />
+            <field name="domain_force">['|','|',('company_id','=',user.company_id.id),('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+        <record id="dym_fp_branch_rule" model="ir.rule">
+            <field name="name">dym.faktur.pajak branch rule</field>
+            <field name="model_id" ref="model_dym_faktur_pajak" />
+            <field name="domain_force">['|','|',('company_id','=',user.company_id.id),('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+        <record id="dym_fp_other_branch_rule" model="ir.rule">
+            <field name="name">dym.faktur.pajak.other branch rule</field>
+            <field name="model_id" ref="model_dym_faktur_pajak_other" />
+            <field name="domain_force">['|','|',('company_id','=',user.company_id.id),('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+        <record id="dym_fp_gabungan_branch_rule" model="ir.rule">
+            <field name="name">dym.faktur.pajak.gabungan branch rule</field>
+            <field name="model_id" ref="model_dym_faktur_pajak_gabungan" />
+            <field name="domain_force">['|','|',('company_id','=',user.company_id.id),('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+    </data>
+</openerp>

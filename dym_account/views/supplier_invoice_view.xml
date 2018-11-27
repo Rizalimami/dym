@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="layout" inherit_id="web.layout">
+            <xpath expr="." positon="inside">
+                <link rel="stylesheet" href='/dym_account/static/src/css/remove_sheet.css' />
+            </xpath>
+        </template>
+        <record id="view_supplier_invoice_groups" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.dealer</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <button name="invoice_open" position="attributes">
+                    <attribute name="groups">dym_base_security.group_dym_adh</attribute>
+                </button>
+                <button name="invoice_cancel" position="attributes">
+                    <attribute name="groups">dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h1,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_marketing_analyst_unit,dym_base_security.group_dym_treasury_sec_head</attribute>
+                </button>
+                <xpath expr="//form/sheet" position="attributes">
+                    <attribute name="class">remove_sheet</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

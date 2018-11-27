@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_stock_production_penyerahan_form_view" model="ir.ui.view">
+            <field name="name">dym.stock.production.penyerahan.form.view</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="dym_serial_number.master_serial_number" />
+            <field name="arch" type="xml">
+                <field name="tgl_terima" position="after">
+                    <field name="penyerahan_stnk_id" />
+                    <field name="penyerahan_notice_id" />
+                    <field name="penyerahan_polisi_id" />
+                    <field name="penyerahan_bpkb_id" />
+                    <field name="tgl_penyerahan_stnk" />
+                    <field name="tgl_penyerahan_notice" />
+                    <field name="tgl_penyerahan_plat" />
+                    <field name="tgl_penyerahan_bpkb" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

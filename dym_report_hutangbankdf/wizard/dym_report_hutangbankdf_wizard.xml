@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+    <record id="view_report_hutangbankdf_wizard" model="ir.ui.view">
+		<field name="name">Print Laporan Hutang</field>
+		<field name="model">dym.report.hutangbankdf.wizard</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+	        <form string="Laporan Hutang Bank DF">
+	        	<group col="4" colspan="4">
+	            	<field name="division"/>
+	            	<field name="status"/>
+	            	<label for="start_date" string="Tanggal Jtp"/>	
+	   				<div>
+	   					<field name="start_date" class="oe_inline" /> - <field name="end_date" class="oe_inline" />
+	   				</div>
+	   				<label for="start_date" string="Transaction Date"/>	
+	   				<div>
+	   					<field name="trx_start_date" class="oe_inline" required="1" /> - <field name="trx_end_date" class="oe_inline" required="1" />
+	   				</div>
+		            <field name="detail_pembayaran"/>         
+		            <field name="segmen"/>         
+		            <field name="branch_status"/> 
+	          	</group>
+	          
+				<notebook colspan="5">
+		      		<page string="Branches">
+						<field name="branch_ids" colspan="4" nolabel="1"/>
+		      		</page>
+		           	<page string="Supplier">
+		          		<field name="partner_ids" colspan="4" nolabel="1"/>
+		          	</page>
+		          	<page string="Account">
+		          		<field name="account_ids" colspan="4" nolabel="1"/>
+		          	</page>
+		          	<page string="Journal">
+		          		<field name="journal_ids" colspan="4" nolabel="1"/>
+		          	</page>
+	        	</notebook>
+	          	<footer>
+	            	<button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1}" class="oe_highlight"/>
+	            	or <button string="Cancel" class="oe_link" special="cancel"/>
+	          	</footer>
+	          	
+	        </form>
+    	</field>
+    </record>
+
+    <record id="action_report_hutangbankdf_wizard" model="ir.actions.act_window">
+		<field name="name">Laporan Hutang Bank DF</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">dym.report.hutangbankdf.wizard</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_report_hutangbankdf_wizard"/>
+		<field name="target">new</field>
+    </record>
+
+	<menuitem id="menu_hutang_report" parent="dym_dealer_menu.showroom_report_menu" sequence="6" action="action_report_hutangbankdf_wizard"/>
+	<menuitem id="menu_hutang_report_workshop" parent="dym_dealer_menu.workshop_report_menu" sequence="6" action="action_report_hutangbankdf_wizard"/>
+	<menuitem id="menu_hutang_report_finance" parent="dym_dealer_menu.backoffice_report_menu" sequence="100" action="action_report_hutangbankdf_wizard"/>
+	</data>
+</openerp>

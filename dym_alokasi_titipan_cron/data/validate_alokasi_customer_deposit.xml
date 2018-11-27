@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="1">
+        <record forcecreate="True" id="ir_cron_validate_alokasi_customer_deposit" model="ir.cron">
+            <field name="name">Run Alokasi Customer Deposit</field>
+            <field eval="False" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="'dym.alokasi.titipan'" name="model" />
+            <field eval="'check_confirm_alokasi'" name="function" />
+            <field name="args" eval="'()'" />
+        </record>
+    </data>
+</openerp>

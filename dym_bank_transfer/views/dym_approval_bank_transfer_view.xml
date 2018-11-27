@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_approval_bank_transfer_form_view" model="ir.ui.view">
+            <field name="name">dym.approval.bank.transfer.form</field>
+            <field name="model">dym.bank.transfer</field>
+            <field name="inherit_id" ref="banktransfer_form_view" />
+            <field name="arch" type="xml">
+                <button name="banktranster_post" position="after">
+                    <button name="approval_request" string="RFA" type="workflow" class="oe_highlight" states="draft" groups='dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_kasir_h1,dym_base_security.group_dym_kasir_h123,dym_base_security.group_dym_kasir_h23,dym_base_security.group_dym_treasury_staff,dym_base_security.group_dym_app_opex'/>
+                    <button name="approval_approve" string="Approve" attrs="{'invisible':['|',('payment_method','=','internet_banking'),('state','!=','waiting_for_approval')]}" type="workflow" class="oe_highlight" groups='dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_treasury_sec_head,dym_base_security.group_dym_treasury_staff,dym_base_security.group_dym_app_opex'/>
+                    <button name="approval_received" string="Received" type="workflow" class="oe_highlight" attrs="{'invisible':['|',('transaction_type','=','ats'),('state','!=','waiting_for_confirm_received')]}" />
+                    <button name="approval_received" string="Received" type="workflow" class="oe_highlight" groups='dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_treasury_sec_head,dym_base_security.group_dym_treasury_staff' attrs="{'invisible':['|',('transaction_type','!=','ats'),('state','!=','waiting_for_confirm_received')]}"/>
+                    <button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action" context="{'model_name':'dym.bank.transfer','next_workflow':'approval_reject'}" groups='dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_treasury_sec_head'/>
+                    <button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'dym.bank.transfer','next_workflow':'approval_cancel'}" groups='dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_treasury_sec_head'/>
+                    <button name="%(dym_approval.dym_reception_reject_wizard_action)d" states="waiting_for_confirm_received" string="Reception Reject" type="action" context="{'model_name':'dym.bank.transfer','next_workflow':'reception_rejected'}" />
+                </button>
+                <field name="amount" position="after">
+                    <field name="approval_state" class="oe_inline" />
+                </field>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Approval">
+                        <field name="approval_ids" attrs="{'readonly': [('state','!=','draft')]}">
+                            <tree string="Approval" editable="bottom" create="false" edit="false" delete="false">
+                                <field name="group_id" />
+                                <field name="branch_id" />
+                                <field name="division" />
+                                <field name="limit" />
+                                <field name="sts" />
+                                <field name="reason" />
+                                <field name="pelaksana_id" />
+                                <field name="tanggal" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                                <field name="confirm_uid" readonly="1"></field>
+                                <field name="confirm_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                                <field name="cancel_uid" readonly="1"></field>
+                                <field name="cancel_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

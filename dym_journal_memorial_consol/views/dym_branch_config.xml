@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+        <record model="ir.ui.view" id="dym_res_company_journal_memorial_journal_conso_form_view">
+            <field name="name">dym.res.company.journa.memorial.consol.form</field>            
+            <field name="model">res.company</field>            
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="company_registry" position="after">
+                    <field name="journal_memorial_journal_consol_id" domain="[('company_id','=',id)]" attrs="{'invisible':[('parent_id','!=',False)]}"/>
+                </field>
+            </field>
+        </record>
+	</data>
+</openerp>
+															

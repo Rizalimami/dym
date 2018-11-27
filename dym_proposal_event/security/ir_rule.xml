@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="dym_proposal_event_branch_rule" model="ir.rule">
+            <field name="name">dym.proposal.event branch rule</field>
+            <field name="model_id" ref="model_dym_proposal_event"/>
+            <field name="domain_force">[('branch_id','in',[b.id for b in user.area_id.branch_ids])]</field>
+        </record>
+        <record id="dym_event_template_branch_rule" model="ir.rule">
+            <field name="name">dym.event.template branch rule</field>
+            <field name="model_id" ref="model_dym_event_template"/>
+            <field name="domain_force">[('branch_id','in',[user.area_id.branch_ids.ids,False])]</field>
+        </record>
+    </data>
+</openerp>

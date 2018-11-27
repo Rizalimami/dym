@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_reject_approval_stock_mutation_form_view">
+            <field name="name">dym.reject.approval.stock.mutation.form</field>
+            <field name="model">dym.reject.approval.stock.mutation</field>
+            <field name="arch" type="xml">
+                <form string="REASON">
+                    <group>
+                        <field name="reason" />
+                    </group>
+                    <footer>
+                        <button name="dym_reject_approval" string="Revise" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_reject_approval_stock_mutation_action">
+            <field name="name">Reason Reject Stock Mutation</field>
+            <field name="res_model">dym.reject.approval.stock.mutation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="dym_approval_stock_mutation_form_view" model="ir.ui.view">
+            <field name="name">dym.approval.stock.mutation.form</field>
+            <field name="model">dym.mutation.request</field>
+            <field name="inherit_id" ref="dym_mutation_request_form_view" />
+            <field name="arch" type="xml">
+                <button name="wkf_action_cancel" position="before">
+                    <!--
+                    <button name="wkf_request_approval" states="draft" string="RFA" type="object" class="oe_highlight" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h1,dym_base_security.group_dym_admin_h23,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_area_supervisor,dym_base_security.group_dym_branch_control,dym_base_security.group_dym_ceo,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_inventory_h1,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_kepala_bengkel,dym_base_security.group_dym_kepala_depo,dym_base_security.group_dym_marketing_sub_div_head,dym_base_security.group_dym_operation_div_head,dym_base_security.group_dym_operation_sub_div_head,dym_base_security.group_dym_part_acc_dept_head,dym_base_security.group_dym_service_dept_head,dym_base_security.group_dym_service_sub_dept_head" />
+                    <button name="wkf_approval" states="waiting_for_approval" string="Approve" type="object" class="oe_highlight" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_aftersales_div_head,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_branch_control,dym_base_security.group_dym_ceo,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_kepala_bengkel,dym_base_security.group_dym_kepala_cabang,dym_base_security.group_dym_kepala_depo,dym_base_security.group_dym_marketing_sub_div_head,dym_base_security.group_dym_operation_div_head,dym_base_security.group_dym_operation_sub_div_head,dym_base_security.group_dym_part_acc_dept_head,dym_base_security.group_dym_pic_tax,dym_base_security.group_dym_service_dept_head,dym_base_security.group_dym_service_sub_dept_head" />
+                    <button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action" context="{'model_name':'dym.mutation.request','update_value':{'approval_state':'r','state':'draft'}}" />
+                    <button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'dym.mutation.request','update_value':{'approval_state':'b','state':'draft'}}" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_aftersales_div_head,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_branch_control,dym_base_security.group_dym_ceo,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_kepala_bengkel,dym_base_security.group_dym_kepala_cabang,dym_base_security.group_dym_kepala_depo,dym_base_security.group_dym_marketing_sub_div_head,dym_base_security.group_dym_operation_div_head,dym_base_security.group_dym_operation_sub_div_head,dym_base_security.group_dym_part_acc_dept_head,dym_base_security.group_dym_pic_tax,dym_base_security.group_dym_service_dept_head_approval" />
+                    -->
+                    <button name="wkf_request_approval" states="draft" string="RFA" type="object" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_inventory_h23" />
+                    <button name="wkf_approval" states="waiting_for_approval" string="Approve" type="object" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_kepala_bengkel,dym_base_security.group_dym_kepala_cabang,dym_base_security.group_dym_part_acc_dept_head" />
+                    <button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action" context="{'model_name':'dym.mutation.request','update_value':{'approval_state':'r','state':'draft'}}" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_kepala_bengkel,dym_base_security.group_dym_kepala_cabang" />
+                    <button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'dym.mutation.request','update_value':{'approval_state':'b','state':'draft'}}" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_inventory_h23,dym_base_security.group_dym_kepala_bengkel,dym_base_security.group_dym_kepala_cabang" />
+                </button>
+                <field name="description" position="after">
+                    <field name="approval_state" />
+                </field>
+                <xpath expr="//page[@string='Request Line']" position="after">
+                    <page string="Approval">
+                        <field name="approval_ids">
+                            <tree string="Approval" editable="bottom" create="false" edit="false" delete="false">
+                                <field name="group_id" />
+                                <field name="branch_id" />
+                                <field name="division" />
+                                <field name="limit" />
+                                <field name="sts" />
+                                <field name="reason" />
+                                <field name="pelaksana_id" />
+                                <field name="tanggal" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                                <field name="confirm_uid" readonly="1"></field>
+                                <field name="confirm_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                                <field name="cancel_uid" readonly="1"></field>
+                                <field name="cancel_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

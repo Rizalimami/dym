@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="wiz_dym_batal_birojasa_view" model="ir.ui.view">
+            <field name="name">dym.batal.birojasa.wizard</field>
+            <field name="model">wiz.dym.batal.birojasa</field>
+            <field name="arch" type="xml">
+                <form string="Batal Birojasa">
+                    <group>
+                        <group>
+                            <field name="branch_id" />
+                            <field name="birojasa_id" />
+                        </group>
+                        <group>
+                            <field name="partner_id" />
+                            <field name="division" />
+                        </group>
+                        <group colspan="2">
+                            <field name="reason" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="wkf_request_cancel" string="Request Batal TBJ" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

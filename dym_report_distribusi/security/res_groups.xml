@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">  	
+    	
+<!-- Laporan Distribusi Sparepart dan Accessoris -->	
+        <record id="group_laporan_distribusi_workshop_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Distribusi Sparepart Workshop Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_distribusi_workshop_report'))]"/>  
+        </record>         
+   
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[
+                                            (4,ref('group_laporan_distribusi_workshop_menu')),
+                                            ]"/>
+		</record>                                                                                           
+    </data>
+</openerp>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_pkb_template">
+            <style type="text/css">
+            .tag_container {
+                margin: auto;
+                margin-bottom: 50px;
+                border: 1px solid black;
+            }
+            
+            .no_border {
+                border: 0px !important;
+            }
+            
+            .margin_bottom {
+                margin-bottom: 5px !important;
+                margin-top: 5px !important;
+            }
+            
+            .border_top {
+                border-top: 1px solid black !important;
+            }
+            
+            .border_bottom {
+                border-bottom: 1px solid black !important;
+            }
+                            
+            .page,
+            .header,
+            .footer,
+            .table {
+                font-size: 12px !important;
+            }
+
+            .hr {
+                border-top: 1px solid black !important;
+            }
+
+            .text_up{
+                text-transform: uppercase;
+            }
+
+            .text_bold{
+                font-weight: bold;
+            }
+
+            .text_head{
+                font-size: 16px;
+            }
+
+            .table_titikdua{
+                text-align:center;
+                width:20px;
+            }
+
+            .table_margintop{
+                margin-top: 20px !important;
+            }
+
+            .tableap td, .tableap th {
+                padding: 0px !important;
+            }
+            </style>
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+        	        <t t-if="o and 'company_id' in o"><t t-set="company" t-value="o.company_id"></t></t>
+		            <t t-if="not o or not 'company_id' in o"><t t-set="company" t-value="res_company"></t></t>
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-7">
+                                <span class="text_up text_head"><t t-esc="company.name"/> - <span t-field="o.branch_id.name" /></span><br/>
+                                <span><span t-field="o.branch_id.street"/></span>
+                            </div>
+
+                            <div class="col-xs-5">
+                                <span class="text_up text_head text_bold">PERINTAH KERJA BENGKEL</span><br/>
+                                <table>
+                                    <tr>
+                                        <td width="50">No.</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.name" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50">Tanggal</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.date" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <table>
+                                    <tr>
+                                        <td>Pelanggan</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.customer_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alamat</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.customer_id.street"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telp.</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.mobile"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. Member</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.member"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jaminan</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><t t-esc="o.get_uang_muka(o.name)"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="col-xs-3">
+                                <table>
+                                    <tr>
+                                        <td>Jenis Motor</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.product_id.name" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. Polisi</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.no_pol" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. Rangka</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.lot_id.chassis_no" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. Mesin</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.lot_id.name" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <table>
+                                    <tr>
+                                        <td>Jenis WO</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.type" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mekanik</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.mekanik_id" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>KM</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.km" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>BBM</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.bensin" />%</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td><strong>Keluhan/Pesan</strong></td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.note" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table tableap">
+                                    <thead>
+                                        <tr>
+                                            <td><strong>No</strong></td>
+                                            <td><strong>Kode Barang / Jasa</strong></td>
+                                            <td><strong>Nama Barang / Jasa</strong></td>
+                                            <td><strong>Jumlah</strong></td>
+                                            <td><strong>Satuan</strong></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="no" t-value="0" />
+                                        <t t-foreach="o.work_lines" t-as="line">
+                                            <t t-set="no" t-value="no+1" />
+                                            <tr>
+                                                <td><t t-esc="no" /></td>
+                                                <td><span t-field="line.product_id.name" /></td>
+                                                <td><span t-field="line.product_id.product_tmpl_id.default_code" /></td>
+                                                <td><span t-field="line.product_qty" /></td>
+                                                <td><span t-field="line.product_uom" /></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-4">
+                            <span>Customer:</span><br/><br/><br/><br/>
+                            <span><b><span t-field="o.customer_id.name" /></b></span>
+                            </div>
+
+                            <div class="col-xs-4">
+                            <span>Front Desk:</span><br/><br/><br/><br/>
+                            <span><b>(______________)</b></span>
+                            </div>
+
+                            <div class="col-xs-4">
+                            <span>Final Inspector:</span><br/><br/><br/><br/>
+                            <span><b>(______________)</b></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <br/><span><t t-esc="user.name"/> <t t-esc="o.branch_id.get_waktu_local()"/></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

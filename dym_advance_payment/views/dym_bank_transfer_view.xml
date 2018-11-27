@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_avp_ibanking_form_view" model="ir.ui.view">
+            <field name="name">dym.avp.ibanking.form</field>
+            <field name="model">dym.bank.transfer</field>
+            <field name="inherit_id" ref="dym_bank_transfer.banktransfer_form_view" />
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='topup_pettycash']" position="after">
+					<field name="is_settlement" attrs="{'invisible':['|',('transaction_type','!=','withdraw'),('topup_pettycash','!=',False)]}" />
+				</xpath>
+				<xpath expr="//field[@name='line_ids']" position="replace">
+					<field colspan="4" name="line_ids" nolabel="1" widget="one2many_list" attrs="{'invisible':['|',('transaction_type','not in',['withdraw']),('is_settlement','!=',False)],'readonly': [('state','!=','draft')]}" context="{'topup_pettycash':topup_pettycash,'parent':parent,'transaction_type':transaction_type,'active_ids':active_ids,'inter_branch_id':inter_branch_id,'inter_branch_division':inter_branch_division,'payment_from_id':payment_from_id,'transfer_type':transfer_type}">
+                        <tree string="" editable="bottom">
+                            <field name="transaction_type" invisible="1" />
+                            <field name="reimbursement_id" options="{'no_create':True,'no_open':True}" />
+                            <field name="branch_destination_id" invisible="1" />
+                            <field name="branch_destination_select" invisible="1" />
+                            <field name="payment_to_id" required="1" options="{'no_create': True,'no_open': True}" />
+                            <field name="description" required="1" />
+                            <field name="analytic_1" invisible="1" options="{'no_create': True,'no_open':True}" />
+                            <field name="analytic_2" string="Business Unit" invisible="0" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" />
+                            <field name="analytic_3" invisible="0" domain="[('segmen','=',3),('branch_id','=',branch_destination_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" />
+                            <field name="analytic_4" string="Cost Center" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" />
+                            <field name="amount" required="1" sum="Total Amount" />
+                        </tree>
+                    </field>
+					<field colspan="4" name="line_ids3" nolabel="1" widget="one2many_list" attrs="{'invisible':[('is_settlement','!=',True)],'readonly': [('state','!=','draft')],'readonly': [('state','!=','draft')]}" context="{'topup_pettycash':topup_pettycash,'parent':parent,'transaction_type':transaction_type,'active_ids':active_ids,'inter_branch_id':inter_branch_id,'inter_branch_division':inter_branch_division,'payment_from_id':payment_from_id,'transfer_type':transfer_type}">
+                        <tree string="" editable="bottom">
+                            <field name="transaction_type" invisible="1" />
+                            <field name="reimburse_ho_id" options="{'no_create':True,'no_open':True}" />
+                            <field name="branch_destination_id" invisible="1" />
+                            <field name="branch_destination_select" invisible="1" />
+                            <field name="payment_to_id" required="1" options="{'no_create': True,'no_open': True}" />
+                            <field name="description" required="1" />
+                            <field name="analytic_1" invisible="1" options="{'no_create': True,'no_open':True}" />
+                            <field name="analytic_2" string="Business Unit" invisible="0" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" />
+                            <field name="analytic_3" invisible="0" domain="[('segmen','=',3),('branch_id','=',branch_destination_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" />
+                            <field name="analytic_4" string="Cost Center" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" />
+                            <field name="amount" required="1" sum="Total Amount" />
+                        </tree>
+                    </field>
+				</xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

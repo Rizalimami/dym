@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_kas_besar_form_view" model="ir.ui.view">
+            <field name="name">Print Report Monitoring Salso Kas Besar</field>
+            <field name="model">dym.kas.besar</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Laporan CASH &amp; Kas Besar">
+                    <group>
+                        <field name="branch_id" required="1" options="{'no_open':True,'no_create_edit':True}" on_change="branch_id_onchange(branch_id)" />
+                        <label for="start_date" string="Value Date" />
+                        <div>
+                            <field name="start_date" class="oe_inline" required="1" /> 
+                            <field name="end_date" class="oe_inline" required="1" />
+                        </div>
+                        <field name="journal_id" options="{'no_open':True,'no_create_edit':True}" required="1" />
+     
+                    </group>
+                    <footer>
+                        <button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1}" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_kas_besar_action">
+            <field name="name">Monitoring Saldo Kas Besar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym.kas.besar</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem action="dym_kas_besar_action" id="dym_kas_besar_menu" parent="dym_dealer_menu.backoffice_report_menu" sequence="2" />
+    </data>
+</openerp>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paper_format_permohonan_faktur" model="report.paperformat">
+            <field name="name">Permohonan Faktur Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_permohonan_faktur_report"
+            string="Laporan Permohonan Faktur"
+            model="dym.permohonan.faktur"
+            report_type="qweb-pdf"
+            name="dym_permohonan_faktur.report_permohonan_faktur_template"
+            file="dym_permohonan_faktur.report_permohonan_faktur_template"
+        />
+
+        <record id="dym_permohonan_faktur_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_permohonan_faktur.paper_format_permohonan_faktur"/>
+        </record>
+
+        <record id="paper_format_penerimaan_faktur" model="report.paperformat">
+            <field name="name">Penerimaan Faktur Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_penerimaan_faktur_report"
+            string="Laporan Penerimaan Faktur"
+            model="dym.penerimaan.faktur"
+            report_type="qweb-pdf"
+            name="dym_permohonan_faktur.report_penerimaan_faktur_template"
+            file="dym_permohonan_faktur.report_penerimaan_faktur_template"
+        />
+
+        <record id="dym_penerimaan_faktur_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_permohonan_faktur.paper_format_penerimaan_faktur"/>
+        </record>
+    </data>
+</openerp>

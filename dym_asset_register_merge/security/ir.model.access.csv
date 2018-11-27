@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_approval_matrixbiaya_all,dym_approval_matrixbiaya all,model_dym_approval_matrixbiaya,,1,1,1,1
+access_dym_approval_line_all,dym_approval_line all,model_dym_approval_line,,1,1,1,1
+access_dym_approval_matrixdiscount_all,dym_approval_matrixdiscount all,model_dym_approval_matrixdiscount,,1,1,1,1
+access_dym_approval_matrixdiscount_header_all,dym_approval_matrixdiscount_header all,model_dym_approval_matrixdiscount_header,,1,1,1,1
+access_dym_approval_matrixbiaya_header_all,dym_approval_matrixbiaya_header all,model_dym_approval_matrixbiaya_header,,1,1,1,1
+access_dym_approval_config_all,dym_approval_config all,model_dym_approval_config,,1,1,1,1

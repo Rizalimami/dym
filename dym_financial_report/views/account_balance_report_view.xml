@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="account_report_balance_view_inherit" model="ir.ui.view">
+            <field name="name">Trial Balance Account Analytic</field>
+            <field name="model">account.balance.report</field>
+            <field name="inherit_id" ref="account.account_report_balance_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Filters']" position="after">
+                    <page string="Journals" name="journal_ids">
+                        <field name="journal_ids" />
+                    </page>
+                    <page string="Accounts" name="account_ids">
+                        <field name="account_ids" />
+                    </page>
+                    <page string="Analytics" name="analytic_ids">
+                        <group>
+                            <label for="analytic_co_dari" string="Analytic Company" />
+                            <div>
+                                <field name="analytic_co_dari" class="oe_inline" /> -
+                                <field name="analytic_co_sampai" class="oe_inline" />
+                            </div>
+                            <label for="analytic_bb_dari" string="Analytic Bisnis Unit" />
+                            <div>
+                                <field name="analytic_bb_dari" class="oe_inline" /> -
+                                <field name="analytic_bb_sampai" class="oe_inline" />
+                            </div>
+                            <label for="analytic_br_dari" string="Analytic Branch" />
+                            <div>
+                                <field name="analytic_br_dari" class="oe_inline" /> -
+                                <field name="analytic_br_sampai" class="oe_inline" />
+                            </div>
+                            <label for="analytic_cc_dari" string="Analytic Cost Center" />
+                            <div>
+                                <field name="analytic_cc_dari" class="oe_inline" /> -
+                                <field name="analytic_cc_sampai" class="oe_inline" />
+                            </div>
+                        </group>
+                    </page>
+                </xpath>
+                <field name="target_move" position="after">
+                    <field name="konsolidasi" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

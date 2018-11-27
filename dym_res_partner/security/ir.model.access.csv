@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_incentive_finco_line_all,dym_incentive_finco_line all,model_dym_incentive_finco_line,,1,1,1,1
+access_dym_incentive_finco_line_detail_all,dym_incentive_finco_line_detail all,model_dym_incentive_finco_line_detail,,1,1,1,1
+access_dym_request_payment_term_all,dym_request_payment_term all,model_dym_request_payment_term,,1,1,1,1
+access_dym_driver_line_all,dym_driver_line_all,model_dym_driver_line,,1,1,1,1
+access_dym_plat_number_line_all,dym_plat_number_line_all,model_dym_plat_number_line,,1,1,1,1
+access_dym_request_platform,access_dym_request_platform,model_dym_request_platform,,1,0,0,0

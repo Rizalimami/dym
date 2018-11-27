@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="dym_branch.branch_dsr" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_djj" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_djb" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_djs" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_djm" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dju" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dsm" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dsg" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dsb" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dsp" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dsk" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dup" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_duk" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dle" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlp" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlm" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlh" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlx" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dll" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dld" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlf" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlv" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlq" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlc" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dly" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlw" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlu" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlt" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dls" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlo" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dln" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlk" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlj" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dli" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlg" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlb" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dla" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlr" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_hho" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_mml" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dbl" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dbk" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dbb" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dbs" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dbt" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dds" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_ddc" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_ddb" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dda" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_ddd" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dde" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_ddg" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_ddm" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_ddj" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_ddt" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_ddi" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dxk" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dxt" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dxs" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dxg" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dxb" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dxn" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dwt" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dwr" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dwp" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dwo" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dwk" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dws" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dwg" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dwm" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dwn" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_ddu" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_dlz" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    
+        <record id="dym_branch.branch_hhp" model="dym.branch">
+           <field name="pricelist_bbn_merah_id" ref="pricelist_jual_bbn_merah_all"/>
+            <field name="pricelist_part_sales_id" ref="pricelist_jual_part"/>
+            <field name="pricelist_part_purchase_id" ref="pricelist_beli_part"/>
+            <field name="blind_bonus_beli">100000</field>
+        </record>
+    </data>
+</openerp>

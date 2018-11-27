@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="dym_product_product_stock_tree_view" model="ir.ui.view">
+            <field name="name">product.product.stock.tree</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.view_stock_product_tree"/>
+            <field name="arch" type="xml">
+                <field name="qty_available" position="replace">
+                    <field name="qty_available" invisible="1"/>
+                    <field name="stock_intransit"/>
+                    <field name="stock_rfs"/>
+                    <field name="stock_nrfs"/>
+                    <field name="stock_reserved"/>
+                    <field name="stock_undelivered"/>
+                    <field name="stock_transferred"/>
+                </field>
+                <field name="virtual_available" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+        
+        <record id="dym_product_template_stock_tree_view" model="ir.ui.view">
+            <field name="name">product.template.stock.tree</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_stock_product_template_tree"/>
+            <field name="arch" type="xml">
+                <field name="virtual_available" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="qty_available" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="qty_available" position="before">
+                    <field name="description"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="dym_product_product_tree_view" model="ir.ui.view">
+            <field name="name">product.product.tree.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="lst_price" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="price" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="ean13" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="dym_product_template_seardh_view_asset" model="ir.ui.view">
+            <field name="name">product.template.search.purchase.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <filter name="filter_to_sell" position="after">
+                   <filter name="filter_to_asset" string="Is Asset" icon="terp-accessories-archiver+" domain="[('is_asset', '=', 1)]"/>
+                   <filter name="filter_to_prepaid" string="Is Prepaid" icon="terp-accessories-archiver+" domain="[('is_prepaid', '=', 1)]"/>
+                   <filter name="filter_to_oli" string="Is Oli" icon="terp-accessories-archiver+" domain="[('is_oli', '=', 1)]"/>
+                </filter>
+            </field>
+        </record>
+    
+        <record model="ir.ui.view" id="dym_product_template_form_view">
+            <field name="name">dym.product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">    
+                <div name="options" position="inside">
+                    <div>
+                        <field name="is_asset"/>
+                        <label for="is_asset"/>
+                    </div>
+                    <div>
+                        <field name="is_prepaid"/>
+                        <label for="is_prepaid"/>
+                    </div>
+                    <div>
+                        <field name="is_oli"/>
+                        <label for="is_oli"/>
+                    </div>
+                </div>
+            	<field name="type" position="after">
+            		<field name="kd_mesin" on_change="kd_mesin_change(kd_mesin)"/>
+            		<field name="category_product_id"/>
+            	</field>
+            	<field name="active" position="after">
+            		<field name="series"/>
+            	</field>
+			    <field name="default_code" position="attributes">
+			    	<attribute name="required">1</attribute>
+			    </field>
+			    
+            	<xpath expr="//page[@string='Variants']" position="after">
+					<!-- <page string="Extras">
+                        <field colspan="4" name="extras_line" nolabel="1" widget="one2many_list">
+                            <tree string="Barang Extras" editable="top">
+                            	<field name="product_id" on_change="product_change(product_id,parent.categ_id)" options="{'no_open':True, 'no_create':True}"/>
+				                <field name="quantity"/>
+                            </tree>
+                        </field>
+					</page> -->
+					<page string="Audit Trail">
+						<group>
+							<group>
+								<field name="create_uid" readonly="1"></field>
+								<field name="create_date" readonly="1"></field>
+							</group>
+							<group>							
+								<field name="write_uid" readonly="1"></field>
+								<field name="write_date" readonly="1"></field>
+							</group>
+						</group>
+					</page>					
+				</xpath>
+            	
+        	</field>
+        </record>
+        
+        <record model="ir.ui.view" id="product_attribute_value_code_form_view">
+            <field name="name">dym.product.attribute.value.form.code</field>
+            <field name="model">product.attribute.value</field>
+            <field name="inherit_id" ref="product.variants_tree_view" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="code"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="dym_product_price_types_form_view">
+            <field name="name">dym.product.price.types</field>
+            <field name="model">product.price.type</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_price_type_view"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//form" position="inside">
+            		<notebook>
+						<page string="Audit Trail">
+							<group>
+								<group>
+									<field name="create_uid" readonly="1"></field>
+									<field name="create_date" readonly="1"></field>
+								</group>
+								<group>							
+									<field name="write_uid" readonly="1"></field>
+									<field name="write_date" readonly="1"></field>
+								</group>
+							</group>
+						</page>
+					</notebook>
+				</xpath>
+            	
+        	</field>
+        </record>   
+
+        <record model="ir.ui.view" id="dym_product_product_form_view">
+            <field name="name">dym.product.product</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+				<group name="packaging" position="before">
+                    <group name="default_location" string="Default Location" colspan="4">
+	                    <field colspan="4" name="default_location" nolabel="1" widget="one2many_list">
+	                        <tree string="Default Location" editable="top">
+	                        	<field name="branch_id" options="{'no_open':True, 'no_create':True}"/>
+				                <field name="location_id" options="{'no_open':True, 'no_create':True}"/>
+	                        </tree>
+	                    </field>
+	                </group>
+                </group>
+            	<xpath expr="//page[@string='Sales']" position="after">
+	            		<page string="Extras">
+	                        <field colspan="4" name="extras_line" nolabel="1" widget="one2many_list">
+	                            <tree string="Barang Extras" editable="top">
+	                            	<field name="product_id" on_change="product_change(product_id,parent.categ_id)" options="{'no_open':True, 'no_create':True}"/>
+					                <field name="quantity"/>
+	                            </tree>
+	                        </field>
+						</page>
+						<page string="Audit Trail">
+							<group>
+								<group>
+									<field name="create_uid" readonly="1"></field>
+									<field name="create_date" readonly="1"></field>
+								</group>
+								<group>							
+									<field name="write_uid" readonly="1"></field>
+									<field name="write_date" readonly="1"></field>
+								</group>
+							</group>
+						</page>
+				</xpath>
+            	
+        	</field>
+        </record> 
+                
+        <record model="ir.ui.view" id="dym_product_category_form_view">
+            <field name="name">dym.product.category</field>
+            <field name="model">product.category</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//sheet" position="inside">
+            		<notebook>
+						<page string="Audit Trail">
+							<group>
+								<group>
+									<field name="create_uid" readonly="1"></field>
+									<field name="create_date" readonly="1"></field>
+								</group>
+								<group>							
+									<field name="write_uid" readonly="1"></field>
+									<field name="write_date" readonly="1"></field>
+								</group>
+							</group>
+						</page>
+					</notebook>
+				</xpath>
+            	
+        	</field>
+        </record>    
+        
+        <record model="ir.ui.view" id="dym_product_uom_category_form_view">
+            <field name="name">dym.product.uom.category</field>
+            <field name="model">product.uom.categ</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_uom_categ_form_view"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//form" position="inside">
+            		<notebook>
+						<page string="Audit Trail">
+							<group>
+								<group>
+									<field name="create_uid" readonly="1"></field>
+									<field name="create_date" readonly="1"></field>
+								</group>
+								<group>							
+									<field name="write_uid" readonly="1"></field>
+									<field name="write_date" readonly="1"></field>
+								</group>
+							</group>
+						</page>
+					</notebook>
+				</xpath>
+            	
+        	</field>
+        </record>  
+        
+        <record model="ir.ui.view" id="dym_category_product_tree_view">
+		    <field name="name">dym.category.product.tree</field>
+		    <field name="model">dym.category.product</field>
+		    <field name="arch" type="xml">
+		        <tree string="List Category">
+		           	<field name="name"/>
+		        </tree>
+		     </field>
+		</record>
+ 
+		<record model="ir.ui.view" id="dym_category_product_form_view">
+		    <field name="name">dym.category.product.form</field>
+		    <field name="model">dym.category.product</field>
+		    <field name="arch" type="xml">
+		        <form string="Form Category Service">
+		            <group>
+		            	<field name="name" options="{'no_open':True, 'no_create':True}"/>
+		            </group>
+		            
+		             <notebook>
+						<page string="Audit Trail">
+							<group>
+								<group>
+									<field name="create_uid" readonly="1"></field>
+									<field name="create_date" readonly="1"></field>
+								</group>
+								<group>							
+									<field name="write_uid" readonly="1"></field>
+									<field name="write_date" readonly="1"></field>
+								</group>
+							</group>
+						</page>
+					</notebook>
+		        </form>
+		        
+		    </field>
+		</record>
+		
+		<record id="action_dym_category_product" model="ir.actions.act_window">
+			 <field name="name">Category Service</field>
+             <field name="res_model">dym.category.product</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+       </record>
+       
+       <record model="ir.ui.view" id="dym_category_product_service_tree_view">
+		    <field name="name">dym.category.product.service.tree</field>
+		    <field name="model">dym.category.product.service</field>
+		    <field name="arch" type="xml">
+		        <tree string="List Product Category Service">
+		           	<field name="category_product_id"/>
+		           	<field name="product_id"/>
+		           	<field name="price"/>
+		        </tree>
+		     </field>
+		</record>
+ 
+		<record model="ir.ui.view" id="dym_category_product_service_form_view">
+		    <field name="name">dym.category.product.service.form</field>
+		    <field name="model">dym.category.product.service</field>
+		    <field name="arch" type="xml">
+		        <form string="Form Category Product Service">
+		            <group>
+		            	<field name="category_product_id" options="{'no_open':True, 'no_create':True}" required="1"/>
+		           		<field name="product_id" options="{'no_open':True, 'no_create':True}" domain="[('categ_id','=','OIL')]" required="1"/>
+		           		<field name="price" required="1"/>
+		            </group>
+		            
+		             <notebook>
+						<page string="Audit Trail">
+							<group>
+								<group>
+									<field name="create_uid" readonly="1"></field>
+									<field name="create_date" readonly="1"></field>
+								</group>
+								<group>							
+									<field name="write_uid" readonly="1"></field>
+									<field name="write_date" readonly="1"></field>
+								</group>
+							</group>
+						</page>
+					</notebook>
+		        </form>
+		        
+		    </field>
+		</record>
+		
+		<record id="action_dym_category_product_service" model="ir.actions.act_window">
+			 <field name="name">Category Product Service</field>
+             <field name="res_model">dym.category.product.service</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+       </record>
+       
+       <menuitem action="action_dym_category_product" id="menu_dym_category_product_action" parent="dym_dealer_menu.workshop_configuration_menu" sequence="25" />
+       <menuitem action="action_dym_category_product_service" id="menu_dym_category_product_service_action" parent="dym_dealer_menu.workshop_configuration_menu" sequence="26" />
+<!-- New -->       
+       <menuitem action="product.product_template_action" id="menu_product_template_master"  parent="dym_dealer_menu.ma_products_menu" sequence="40"/>	
+       <menuitem action="product.product_normal_action" id="menu_product_variant_master"  parent="dym_dealer_menu.ma_products_menu" sequence="50"/>
+       <menuitem action="product.variants_action" id="menu_attribute_values_master"  parent="dym_dealer_menu.ma_products_menu" sequence="60"/>
+       
+       	       
+       <record model="ir.ui.menu" id="stock.menu_stock_root" >
+       		<field name="groups_id" eval="[(6,0,[])]"/>
+       </record>
+    </data>
+</openerp>

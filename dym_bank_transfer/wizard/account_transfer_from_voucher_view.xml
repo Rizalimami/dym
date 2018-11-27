@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_bank_transfer_from_voucher_from_voucher" model="ir.ui.view">
+            <field name="name">dym.bank.transfer.from.voucher.form</field>
+            <field name="model">dym.bank.transfer.from.voucher</field>
+            <field name="arch" type="xml">
+                <form string="Import Vouchers">
+                    <group>
+                        <group>
+                            <field name="transfer_id" readonly="1" />
+                        </group>
+                        <group>
+                            <label for="date_start" string="Filter Date Start - End" />
+                            <div>
+                                <field name="date_start" class="oe_inline" />
+                                <field name="date_end" class="oe_inline" />
+                            </div>
+                        </group>
+                    </group>
+                    <field name="line_ids">
+                        <tree string="List Voucher">
+                            <field name="number" />
+                            <field name="date" />
+                            <field name="due_date_payment" />
+                            <field name="amount" />
+                            <field name="net_amount" />
+                            <field name="withholdings_amount" />
+                            <field name="state" />
+                            <!--                             
+                            <field name="date"/>
+                            <field name="date_due"/>
+                            <field name="partner_id"/>
+                            <field name="qq_id" invisible="context.get('type') != 'receipt'"/>
+                            <field name="amount"/>
+                            <field name="withholdings_amount" string="Jumlah PPh" invisible="context.get('type') not in ['receipt','payment']"/>
+                            <field name="branch_id"/>
+                            <field name="inter_branch_id" string="Bayar/Terima Untuk" invisible="context.get('type') not in ['receipt','payment']"/>
+                            <field name="state"/>
+                            <field name="disbursed" />
+                            <field name="clearing_bank"/>
+                            <field name="payment_request_type" invisible="1"/>
+                            <field name="division" invisible="1"/>
+                            <field name="type" invisible="1"/>
+                            <field name="no_document" invisible="1"/>
+                            <field name="journal_id" invisible="1"/>
+                            -->
+                        </tree>
+                    </field>
+                    <footer>
+                        <!-- <button string="Ok" name="populate_statement" type="object" class="oe_highlight" /> or -->
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_view_account_transfer_from_voucher" model="ir.actions.act_window">
+            <field name="name">Import Vouchers</field>
+            <field name="res_model">dym.bank.transfer.from.voucher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="dym_bank_transfer_from_voucher_from_voucher" />
+            <field name="target">new</field>
+            <field name="context">{'statement_id': active_id}</field>
+        </record>
+    </data>
+</openerp>

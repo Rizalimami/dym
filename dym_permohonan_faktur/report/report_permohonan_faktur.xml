@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_permohonan_faktur_template">
+    <style type="text/css">
+        .tag_container{
+            margin: auto;
+            margin-bottom:50px;
+            border: 1px solid black;
+        }
+        .no_border{
+            border: 0px !important;
+            line-height: 0.7 !important;
+        }
+        .margin_bottom{
+            margin-bottom: 5px !important;
+        }
+        .border_top{
+            border-top: 1px solid black !important;
+        }
+        .border_bottom{
+            border-bottom: 1px solid black !important;
+        }
+        .line_height{
+        }
+        .page, .header, .footer{
+            font-size:12px;
+        }
+    </style>
+    <t t-call="report.html_container">    
+		<t t-foreach="docs" t-as="o">
+        	<t t-if="o and 'company_id' in o">
+		        <t t-set="company" t-value="o.company_id"></t>
+		    </t>
+		    <t t-if="not o or not 'company_id' in o">
+		        <t t-set="company" t-value="res_company"></t>
+		    </t>
+            <div class="header">
+        		<div class="row">
+				    <div class="col-xs-12">	                    	
+    					<h4><u>Laporan Input Permohonan Faktur</u></h4>
+    				</div>
+				    <div class="col-xs-4">	                    	
+        				<table class="table table-condensed">
+	                        <tr>
+	                            <td class="no_border">No. Mohon</td>
+	                            <td class="no_border">
+	                                : <t t-esc="o.name"/>
+	                            </td>
+	                        </tr>       	
+	                        <tr>
+	                            <td class="no_border">Tgl. Mohon</td>
+	                            <td class="no_border">
+	                                : <t t-esc="o.tgl_mohon_faktur"/>
+	                            </td>
+	                        </tr>
+	                    </table>     	
+                    </div>
+                </div>
+            </div>
+            <div class="page">
+                <div class="row">
+        			<div class="col-xs-12">
+	                	<table class="table table-condensed" style="margin-bottom:0px !important;">
+		                    <thead>
+		                        <tr>
+		                            <th class="border_top"><strong>No. Mesin / No. Rangka</strong></th>
+									<th class="border_top"><strong>Nama Customer</strong></th>
+		                            <th class="border_top"><strong>Nama STNK</strong></th>
+		                            <th class="border_top"><strong>Alamat STNK</strong></th>
+		                            <th class="border_top"><strong>Kelurahan</strong></th>
+		                            <th class="border_top"><strong>Kecamatan</strong></th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+			                    <t t-foreach="o.serial_number_ids" t-as="line">
+			                    	<tr>
+				                    	<td class=""><span t-field="line.name"/><br/><span t-field="line.chassis_no"/></td>
+				                    	<td class=""><span t-field="line.customer_id.name"/></td>
+										<td class=""><span t-field="line.customer_stnk.name"/></td>
+				                    	<td class=""><span t-field="line.customer_stnk.street"/></td>
+				                    	<td class=""><span t-field="line.customer_stnk.zip_id"/></td>
+				                    	<td class=""><span t-field="line.customer_stnk.kecamatan_id"/></td>
+				                    </tr>
+				                </t>
+		                    	<tr>
+			                    	<td class="border_top" colspan="10"></td>
+			                    </tr>
+			            	</tbody>
+		                </table>
+		            </div>
+	            </div>
+	        </div>
+	        <div class="footer">
+                <div class="row">
+                	<div class="col-xs-12 text-right">
+                		<span style="font-size: 11px;"><t t-esc="user.name"/> <t t-esc="o.branch_id.get_waktu_local()"/></span>
+                	</div>
+                </div>
+            </div>
+	    </t>
+	</t>
+</template>
+</data>
+</openerp>

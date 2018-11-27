@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="register_asset_prepaid_branch_config" model="ir.ui.view">
+            <field name="name">register.asset.prepaid.branch.config</field>
+            <field name="model">dym.branch.config</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_config_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <group string="Register Asset &amp; Prepaid">
+                        <field name="journal_register_asset" />
+                        <field name="journal_register_prepaid" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="dym2_register_prepaid_form" model="ir.ui.view">
+            <field name="name">Register Prepaid</field>
+            <field name="model">dym2.register.prepaid</field>
+            <field name="arch" type="xml">
+                <form string="Register Prepaid">
+                    <header>
+                        <button name="create_prepaid" groups='dym_purchase_asset.group_dym_receipt_prepaid_create_prepaid' states='draft' string="Create Prepaid" type="object" class="oe_highlight" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"red","posted":"blue"}' />
+                    </header>
+                    <!-- <sheet> -->
+                    <div class="oe_title">
+                        <h2>
+                                <label string="Register Prepaid"/>                
+                                <field name="name" class="oe_inline" readonly="1"/>
+                            </h2>
+                    </div>
+                    <group>
+                        <field name="register_type" on_change="onchange_register_type()" required="1" attrs="{'readonly': [('state','!=','draft')]}" />
+                        <field name="receive_id" on_change="onchange_receive(receive_id)" domain="[('asset_receive','=',False),('state','=','done'),('asset_prepaid','=','prepaid'),('consolidated','=',True)]" options="{'no_create': True,'no_create_edit': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')],'invisible': [('register_type','!=','receive')],'required': [('register_type','=','receive')]}" />
+                        <field name="payment_request_id" on_change="onchange_payment_request(payment_request_id)" domain="[('prepaid_state','=',False),('state','=','posted'),('payment_request_type','=','prepaid'), ('type','=','purchase')]" options="{'no_create': True,'no_create_edit': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')],'invisible': [('register_type','!=','payment_request')],'required': [('register_type','=','payment_request')]}" />
+                        <field name="date" readonly="1" />
+                    </group>
+                    <notebook>
+                        <page string="Register Detail">
+                            <field colspan="4" name="transfer_ids" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}">
+                                <tree editable="bottom" create="false">
+                                    <!-- <field name="product_id" invisible="1" options="{'no_create': True,'no_open': True}"/> -->
+                                    <field name="prepaid_id" options="{'no_create': True,'no_open': True}" invisible="1" />
+                                    <field name="description" required="1" />
+                                    <field name="price_unit" invisible="1" />
+                                    <field name="price_unit_show" />
+                                    <field name="asset_owner" options="{'no_create': True,'no_open': True}" required="1" />
+                                    <field name="responsible_id" options="{'no_create': True,'no_open': True}" required="1" />
+                                    <field name="asset_user" options="{'no_create': True,'no_open': True}" required="0" />
+                                    <field name="method" invisible="1" />
+                                    <field name="method_time" invisible="1" />
+                                    <field name="asset_categ_id" required="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="branch_id" required="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" />
+                                    <field name="analytic_2" required="1" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="analytic_3" required="1" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="analytic_4" required="1" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <!-- <field name="location_id" required="1" options="{'no_create': True,'no_open': True}"/> -->
+                                    <field name="document_date" required="1" />
+                                    <field name="prorata" invisible="1" />
+                                    <field name="method_number" required="1" invisible="0" />
+                                    <field name="open_asset" />
+                                    <field name="first_day_of_month" invisible="1" />
+                                    <field name="method_period" required="1" invisible="1" />
+                                    <field name="pr_line_id" invisible="1" />
+                                    <field name="receive_line_id" invisible="1" />
+                                    <field name="register_type" invisible="1" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Prepaid Items">
+                            <field colspan="4" name="prepaid_ids" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}">
+                                <tree edit="false" create="false">
+                                    <field name="name" />
+                                    <!-- <field name="code"/> -->
+                                    <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="category_id" />
+                                    <field name="asset_classification_id" />
+                                    <!-- <field name="purchase_date"/>
+                                  <field name="purchase_id"/> -->
+                                    <field name="invoice_id" />
+                                    <field name="purchase_value" />
+                                    <field name="value_residual" />
+                                    <field name="partner_id" />
+                                    <field name="state" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                    <field name="confirm_uid" readonly="1"></field>
+                                    <field name="confirm_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                    <field name="cancel_uid" readonly="1"></field>
+                                    <field name="cancel_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <!-- </sheet> -->
+                </form>
+                <!-- <form string="Register Prepaid">
+                    <group>
+                        <field name="payment_request_id" invisible="1"/>
+                        <field name="name"/>
+                        <field name="branch_id"/>
+                        <field name="category_id"/>                 
+                        <field name="purchase_date"/>
+                        <field name="purchase_value"/> 
+                        <field name="analytic_2" required="1" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled'))]" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                        <field name="analytic_3" required="1" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                        <field name="analytic_4" required="1" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}"/> 
+                    </group>
+                    <footer>
+                        <button name="register" string="_Register" type="object" class="oe_highlight"/>
+                        or
+                        <button string="_Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form> -->
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym2_register_prepaid_tree">
+            <field name="name">dym2.register.prepaid.tree</field>
+            <field name="model">dym2.register.prepaid</field>
+            <field name="arch" type="xml">
+                <tree string="Register Prepaid">
+                    <field name="name" />
+                    <field name="payment_request_id" />
+                    <field name="date" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="dym2_register_prepaid_filter" model="ir.ui.view">
+            <field name="name">dym2.register.prepaid.search</field>
+            <field name="model">dym2.register.prepaid</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="name" />
+                    <field name='payment_request_id' />
+                    <field name="date" />
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym2_register_prepaid_action">
+            <field name="name">Register Prepaid</field>
+            <field name="res_model">dym2.register.prepaid</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="dym2_register_prepaid_filter" />
+        </record>
+        <record id="dym2_register_prepaid_tree_form" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym2_register_prepaid_tree" />
+            <field name="act_window_id" ref="dym2_register_prepaid_action" />
+        </record>
+        <record id="dym2_register_prepaid_form_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym2_register_prepaid_form" />
+            <field name="act_window_id" ref="dym2_register_prepaid_action" />
+        </record>
+        <menuitem id="register_prepaid_submenu" parent="dym_dealer_menu.ga_prepaid_menu" action="dym2_register_prepaid_action" sequence='0' />
+    </data>
+</openerp>

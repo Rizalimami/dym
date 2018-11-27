@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_res_company_form_view">
+            <field name="name">dym.res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <field name="company_registry" position="after">
+                    <field name="max_tax_amount_diff" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

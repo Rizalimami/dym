@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Sales Memo -->
+        <report id="sale_order_report" string="Sales Memo" model="sale.order" name="rml.sale.order" rml="dym_sale_order/report/dym_sale_order_report.rml" auto="False" menu="False" />
+        
+        <!-- Kuitansi Kecil -->
+        <record id="paper_format_kwitansi_kecil_so" model="report.paperformat">
+            <field name="name">Report Kwitansi Kecil SO Format</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Portrait</field>
+            <field name="format">custom</field>
+            <field name="page_height">200</field>
+            <field name="page_width">75</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report id="oned_kwitansi_kecil_so_report" string="Kuitansi Kecil" model="sale.order" report_type="qweb-pdf" name="dym_sale_order.report_kwitansi_so_template" file="dym_sale_order.report_kwitansi_so_template" />
+        <record id="oned_kwitansi_kecil_so_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_sale_order.paper_format_kwitansi_kecil_so" />
+        </record>
+
+        <!-- NSC -->
+        <record id="paper_format_nsc_so" model="report.paperformat">
+            <field name="name">SO Report Nota Suku Cadang</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Portrait</field>
+            <field name="format">custom</field>
+            <field name="page_height">200</field>
+            <field name="page_width">75</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report id="oned_nsc_report" string="Nota Suku Cadang (NSC)" model="sale.order" report_type="qweb-pdf" name="dym_sale_order.report_nsc_so_template" file="dym_sale_order.report_nsc_so_template" />
+        <record id="oned_nsc_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_sale_order.paper_format_nsc_so" />
+        </record>
+    </data>
+</openerp>

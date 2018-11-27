@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paper_format_kinerja_mekanik" model="report.paperformat">
+            <field name="name">Kinerja Mekanik Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Landscape</field>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="dym_kinerja_mekanik_report_report"
+            string="Report Kinerja Mekanik"
+            model="dym.kinerja.mekanik.report"
+            report_type="qweb-pdf"
+            name="dym_kinerja_mekanik_report.kinerja_mekanik_report_template"
+            file="dym_kinerja_mekanik_report.kinerja_mekanik_report_template"
+        />
+
+        <record id="dym_kinerja_mekanik_report_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_kinerja_mekanik_report.paper_format_kinerja_mekanik"/>
+        </record>
+    </data>
+</openerp>

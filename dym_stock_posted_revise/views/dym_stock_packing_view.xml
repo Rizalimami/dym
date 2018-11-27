@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_stock_packing_form_view">
+            <field name="name">dym.stock.packing.form</field>
+            <field name="model">dym.stock.packing</field>
+            <field name="inherit_id" ref="dym_stock.dym_stock_packing_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//form/header/field[@name='state']" position="before">
+                    <button name="%(action_stock_picking_posted_revise_button)d" string="Update Serial Number" type="action" groups="dym_base_security.group_dym_adh" attrs="{'invisible':[('state','not in',['posted'])]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

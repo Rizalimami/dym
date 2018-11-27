@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_nsc_template">
+            <style type="text/css">
+                .tag_container {
+                    margin: auto;
+                    margin-bottom: 50px;
+                    border: 1px solid black;
+                }
+                
+                .no_border {
+                    border: 0px !important;
+                }
+                
+                .margin_bottom {
+                    margin-bottom: 5px !important;
+                    margin-top: 5px !important;
+                }
+                
+                .border_top {
+                    border-top: 1px solid black !important;
+                    margin-top: 2px !important;
+                    margin-bottom: 2px !important;
+                }
+                
+                .border_bottom {
+                    border-bottom: 1px solid black !important;
+                }
+                                
+                .page,
+                .header,
+                .footer,
+                .table {
+                    font-size: 10px !important;
+                }
+
+                .hr {
+                    border-top: 1px solid black !important;
+                }
+
+                .text_up{
+                    text-transform: uppercase;
+                }
+
+                .text_bold{
+                    font-weight: bold;
+                }
+
+                .text_head{
+                    font-size: 14px;
+                }
+
+                .table_titikdua{
+                    text-align:center;
+                    width:20px;
+                }
+
+                .table_margintop{
+                    margin-top: 20px !important;
+                }
+
+                .tableap {
+                    margin-bottom: 0px !important;
+                }
+
+                .tableap td, .tableap th {
+                    padding: 0px !important;
+                    border: 0px !important;
+                }
+
+                .ul_margin {
+                    margin-left: 15px !important;
+                }
+
+                .border_top_td {
+                    border-top: 1px solid #eeeeee !important;
+                }
+            </style>
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o and 'company_id' in o"><t t-set="company" t-value="o.company_id"></t></t>
+                    <t t-if="not o or not 'company_id' in o"><t t-set="company" t-value="res_company"></t></t>
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span class="text_up text_head"><t t-esc="company.name"/> - <span t-field="o.branch_id.name" /></span><br/>
+                                <span><span t-field="o.branch_id.street"/></span><br/><br/>
+                                <table>
+                                    <tr>
+                                        <td width="60">NPWP</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="company.partner_id.npwp"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">PKP</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="company.partner_id.npwp"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table style="width:100% !important">
+                                    <tr>
+                                        <td width="60">No. Faktur</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><t t-esc="o.get_no_invoice(o.name,'Sparepart')"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">No. Reff</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">No. Pol</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.no_pol" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">Type Motor</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.product_id.name" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">Mekanik</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.mekanik_id.name" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">Konsumen</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.customer_id" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table tableap">
+                                    <thead>
+                                        <tr>
+                                            <td><strong>Item</strong></td>
+                                            <td align="right"><strong>Qty</strong></td>
+                                            <td align="right"><strong>Harga</strong></td>
+                                            <td align="right"><strong>Disc</strong></td>
+                                            <td align="right"><strong>Jumlah</strong></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="discount_total" t-value="0" />
+                                        <t t-set="total" t-value="0" />
+                                        <t t-foreach="o.work_lines" t-as="line">
+                                            <t t-if="line.categ_id == 'Sparepart'">
+                                                <t t-set="discount_total" t-value="discount_total+line.discount+line.discount_program+line.discount_bundle" />
+                                                <t t-set="total" t-value="total+((line.product_qty*line.price_unit)-line.discount)" />
+                                                <tr class="border_top_td">
+                                                    <td width="130"><span t-field="line.product_id.code"/></td>
+                                                    <td align="right" width="15"><span t-field="line.product_qty" /></td>
+                                                    <td align="right"><span t-esc="line.price_unit" /></td>
+                                                    <td align="right"><t t-esc="line.discount" /></td>
+                                                    <td align="right"><t t-esc="(line.product_qty*line.price_unit)-line.discount" /></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table>
+                                    <tr>
+                                        <td width="60">Total</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td align="right"><t t-esc="total+discount_total"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">Discount</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td align="right"><t t-esc="discount_total" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="60">Tot. Bayar</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td align="right"><t t-esc="total" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span>Dibuat oleh:</span><br/><br/><br/><br/>
+                                <span><b>Frontdesk</b></span>
+                            </div>
+                        </div>
+
+                        <hr class="border_top"/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                Catatan:
+                                <ul class="ul_margin">
+                                    <li>Harga sudah termasuk PPN</li>
+                                    <li>Barang yang sudah dibeli tidak bisa dikembalikan</li>
+                                </ul>
+                                <t t-esc="o.branch_id.get_waktu_local()"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

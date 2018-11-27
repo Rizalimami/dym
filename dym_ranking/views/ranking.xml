@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="dym_master_ranking_tree">
+		    <field name="name">dym.ranking.master.tree</field>
+		    <field name="model">dym.ranking.master</field>
+		    <field eval="1" name="priority"/>
+		    <field name="arch" type="xml">
+		        <tree string="Master Ranking">
+			        	<field name="name"/>
+			           	<field name="operator"/>
+			           	<field name="percentage"/>
+			           	<field name="order_min"/>
+			           	<field name="order_max"/>
+			           	<field name="order_qty"/>
+		        </tree>
+		     </field>
+		</record>
+
+		<record model="ir.ui.view" id="dym_master_ranking_view">
+		    <field name="name">dym.ranking.master.form</field>
+		    <field name="model">dym.ranking.master</field>
+		    <field name="arch" type="xml">
+		        <form string="Master Ranking">
+					<sheet>
+	                    <div class="oe_title">                      
+		       				<h1>
+					            <label string="Rank Name"/>
+					        	<field name="name" class="oe_inline"/>
+	    			        </h1>
+	                    </div>
+			            <group col="4">
+				           	<field name="operator"/>
+				           	<field name="percentage"/>
+				           	<field name="order_min"/>
+				           	<field name="order_max"/>
+			           		<field name="order_qty" required="1"/>
+			            </group>
+			            <notebook>
+								<page string="Audit Trail">
+									<group>
+										<group>
+											<field name="create_uid" readonly="1"></field>
+											<field name="create_date" readonly="1"></field>
+										</group>
+										<group>							
+											<field name="write_uid" readonly="1"></field>
+											<field name="write_date" readonly="1"></field>
+										</group>
+									</group>
+								</page>	 		            	
+			            </notebook>
+			        </sheet>
+		        </form>
+		    </field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_dym_master_ranking">
+		    <field name="name">Master Ranking</field>
+		    <field name="res_model">dym.ranking.master</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Master Ranking" parent="dym_dealer_menu.workshop_configuration_menu" sequence="8" id="menu_dym_master_ranking" action="action_dym_master_ranking"/>
+
+		<record model="ir.ui.view" id="dym_ranking_tree_view">
+		    <field name="name">dym.ranking.tree</field>
+		    <field name="model">dym.ranking</field>
+		    <field name="arch" type="xml">
+		        <tree string="Analisa Ranking">
+		 			<field name="name"/>	
+		            <field name="branch_id"/>
+		            <field name="division"/>
+		            <field name="periode"/>
+		            <field name="month"/>
+		            <field name="year"/>
+		            <field name="product_ids"/>
+		        </tree>
+		     </field>
+		</record>
+
+		<record model="ir.ui.view" id="dym_ranking_form_view">
+		    <field name="name">dym.ranking.form</field>
+		    <field name="model">dym.ranking</field>
+		    <field name="arch" type="xml">
+		    	
+		    	<form string="Analisa Ranking">
+		    		<header>
+						<button name="create_po" string="Create PO" type="object" class="oe_highlight" attrs="{'invisible': ['|',('purchase_id','!=',False),('rank_line','=',False)]}"/>
+						<button name="view_po" string="View PO" type="object" class="oe_highlight" attrs="{'invisible': [('purchase_id','=',False)]}"/>
+		    		</header>
+		    		<sheet>
+		    			<div class="oe_title">                      
+		       				<h1>
+					 			<field name="name" class="oe_inline" readonly="1"/>	
+		    			    </h1>
+	                    </div>
+			    		<field name="purchase_id" invisible="1"/>
+			    		<group col="4">
+			    			<field name="branch_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly': [('purchase_id','!=',False)]}"/>
+			    			<field name="division" attrs="{'readonly': [('purchase_id','!=',False)]}"/>
+			    			<field name="periode" attrs="{'readonly': [('purchase_id','!=',False)]}"/>
+			    			<label string="Bulan"/>
+                    		<div>
+				    			<field name="month" class="oe_inline" attrs="{'readonly': [('purchase_id','!=',False)]}"/> 
+	                        	<field name="year" class="oe_inline" attrs="{'readonly': [('purchase_id','!=',False)]}"/>
+	                        </div>
+			    		</group>
+			    		<group>
+				    		<group>			    		
+				    			<field name="m6_koefisien" attrs="{'required': [('periode','=','6')],'readonly': ['|',('purchase_id','!=',False),('periode','!=','6')]}"/>
+				    			<field name="m5_koefisien" attrs="{'required': [('periode','=','6')],'readonly': ['|',('purchase_id','!=',False),('periode','!=','6')]}"/>
+				    			<field name="m4_koefisien" attrs="{'required': [('periode','=','6')],'readonly': ['|',('purchase_id','!=',False),('periode','!=','6')]}"/>
+				    			<field name="m3_koefisien" required="1" attrs="{'readonly': [('purchase_id','!=',False)]}"/>
+				    			<field name="m2_koefisien" required="1" attrs="{'readonly': [('purchase_id','!=',False)]}"/>
+				    			<field name="m1_koefisien" required="1" attrs="{'readonly': [('purchase_id','!=',False)]}"/>
+				    		</group>
+				    		<group>
+                        		<field name="part_aksesoris" widget="radio" attrs="{'invisible': [('division','!=','Sparepart')], 'required': [('division','=','Sparepart')]}"/>
+                        		<field name="product_ids" widget="many2many_tags" options="{'no_open':True,'no_create':True}" attrs="{'readonly': [('purchase_id','!=',False)]}"/>
+                    		</group>
+				    	</group>
+			            <group col="4">
+				           	<field name="total_koefisien" invisible="1"/>
+			            </group>
+                        <button name="generate_line"
+                            type="object"
+                            help="Generate Rank"
+                            string="Generate Rank" attrs="{'invisible': [('purchase_id','!=',False)]}"/>
+                		<field name="rank_line" attrs="{'readonly': [('purchase_id','!=',False)]}">
+                    		<tree string="Detail Rank" editable="bottom" create="false" delete="false">
+	                            <field name="product_id" readonly="1"/>
+	                            <field name="m6" readonly="1"/>
+	                            <field name="m5" readonly="1"/>
+	                            <field name="m4" readonly="1"/>
+	                            <field name="m3" readonly="1"/>
+	                            <field name="m2" readonly="1"/>
+	                            <field name="m1" readonly="1"/>
+	                            <field name="mad" readonly="1"/>
+	                            <field name="mad_koefisien" readonly="1"/>
+	                            <field name="mad_kumulatif" readonly="1"/>
+	                            <field name="mad_percentage" readonly="1"/>
+	                            <field name="master_rank_id" readonly="1"/>
+	                            <field name="order_min" readonly="1"/>
+	                            <field name="order_max" readonly="1"/>
+	                            <field name="order_qty" required="1" readonly="0"/>
+	                            <field name="saldo_stock_awal" readonly="1"/>
+	                            <field name="suggestion_order" readonly="1"/>
+	                            <field name="adjust_qty" required="1" readonly="0"/>
+	                            <field name="suggestion_order_final" readonly="1"/>
+	                            <field name="saldo_stock_akhir" readonly="1"/>
+	                            <field name="stock_level_akhir" readonly="1"/>
+	                            <field name="cur_month_factor" invisible="1"/>
+	                            <field name="check_order" readonly="0" attrs="{'readonly': [('suggestion_order_final','&lt;=',0)]}"/>
+                   			 </tree>
+               			</field>
+		    		</sheet>
+		    	</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="dym_ranking_action">
+		    <field name="name">Analisa Ranking</field>
+		    <field name="res_model">dym.ranking</field>
+		    <field name="view_type">form</field>
+    		<field name="view_mode">tree,form</field>
+    		<!-- <field name="context" eval="{'default_categ_id': ref('dym_product.categ_sparepart')}"/> -->
+		</record>
+										
+		<menuitem name="Analisa Ranking" parent="dym_dealer_menu.workshop_sales_menu" sequence="1" id="dym_analisa_ranking_menu" action="dym_ranking_action"/>
+		
+	</data>
+</openerp>

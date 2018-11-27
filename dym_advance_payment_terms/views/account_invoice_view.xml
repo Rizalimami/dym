@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_branch_on_supplier_invoice_form_view">
+            <field name="name">dym.branch.supplier.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <field name="date_due" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                    <attribute name="on_change">onchange_date_due(partner_id,date_due)</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

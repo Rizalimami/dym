@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_customer_invoice_groups" model="ir.ui.view">
+            <field name="name">account.invoice.customer.dealer</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <button name="invoice_open" position="attributes">
+                    <attribute name="groups">account.group_account_user,dym_base_security.group_dym_adh</attribute>
+                </button>
+                <button name="invoice_cancel" position="attributes">
+                    <attribute name="groups">dym_base_security.group_dym_accounting_inventory</attribute>
+                </button>
+                <button name="action_cancel_draft" position="attributes">
+                    <attribute name="groups">account.group_account_user,dym_base_security.group_dym_adh</attribute>
+                </button>
+                <button name="%(account.action_account_invoice_refund)d" position="attributes">
+                    <attribute name="groups">account.group_account_user,dym_base_security.group_dym_adh</attribute>
+                </button>
+                <field name="account_id" position="after">
+                    <field name="tanda_jadi" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly':['|',('tanda_jadi','!=',False),('state','not in','draft')]}" />
+                </field>
+                <xpath expr="/form/sheet/group/group/field[@name='partner_id']" position="after">
+                    <field name="partner_cabang" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

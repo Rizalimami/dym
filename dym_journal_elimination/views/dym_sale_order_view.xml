@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="sale_order_intercompany_ref_form_inherit">
+            <field name="name">dym.sale.order.intercompany</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="dym_sale_order.dym_sale_order_form_view" />
+            <field name="arch" type="xml">
+                <field name="tipe_transaksi" position="after">
+                    <field name="intercom_ref_id" options="{'no_create': True,'no_open':True}" attrs="{'invisible': [('tipe_transaksi','!=','pic')], 'required': [('tipe_transaksi','=','pic')]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

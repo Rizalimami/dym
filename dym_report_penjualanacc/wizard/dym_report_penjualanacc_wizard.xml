@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+    <record id="view_report_penjualanacc_wizard" model="ir.ui.view">
+		<field name="name">Print Laporan Penjualan Acc</field>
+		<field name="model">dym.report.penjualanacc.wizard</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+	        <form string="Laporan Penjualan Acc">
+	        	<group col="4" colspan="4">
+	            	<field name="options"/>
+	            	<field name="user_id" options="{'no_open':True,'no_create_edit':True}" domain="[('branch_id','in',branch_ids[0][2]),('job_id.salesman','=',True)]"/>
+	            	<field name="partner_komisi_id" options="{'no_open':True,'no_create_edit':True}" domain="['|',('branch_id','in',branch_ids[0][2]),('branch_id','=',False)]"/>
+	            	<field name="hutang_komisi_id" options="{'no_open':True,'no_create_edit':True}" domain="[('branch_id','in',branch_ids[0][2])]"/>
+	            	<!-- <field name="proposal_id" options="{'no_open':True,'no_create_edit':True}" domain="[('branch_id','in',branch_ids[0][2])]"/> -->
+	            	<field name="section_id" options="{'no_open':True,'no_create_edit':True}" domain="['|',('user_id','=',user_id),('member_ids','=',user_id)]"/>
+	            	<field name="product_ids" widget="many2many_tags" options="{'no_open':True,'no_create_edit':True}"/>
+	            	<label for="start_date" string="Date"/>
+	   				<div>
+	   					<field name="start_date" class="oe_inline"/> - <field name="end_date" class="oe_inline"/>
+	   				</div>
+	   				<field name="state"/>
+		            <field name="segmen"/>         
+		            <field name="branch_status"/> 
+	          	</group>
+	          	
+				<notebook colspan="5">
+		      		<page string="Branch">
+						<field name="branch_ids" colspan="4" nolabel="1"/>
+		      		</page>
+		           	<page string="Finco">
+		          		<field name="finco_ids" colspan="4" nolabel="1"/>
+		          	</page>
+	        	</notebook>
+	          	<footer>
+	            	<button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':options}" class="oe_highlight"/>
+	            	or <button string="Cancel" class="oe_link" special="cancel"/>
+	          	</footer>
+	          	
+	        </form>
+    	</field>
+    </record>
+
+    <record id="action_report_penjualanacc_wizard" model="ir.actions.act_window">
+		<field name="name">Laporan Penjualan Acc</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">dym.report.penjualanacc.wizard</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_report_penjualanacc_wizard"/>
+		<field name="target">new</field>
+    </record>
+
+	<menuitem id="menu_penjualanacc_report" parent="dym_dealer_menu.showroom_report_menu" sequence="9" action="action_report_penjualanacc_wizard"/>
+
+	</data>
+</openerp>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_workshop_category_tree_view">
+            <field name="name">dym.workshop.category.tree</field>
+            <field name="model">dym.workshop.category</field>
+            <field name="arch" type="xml">
+                <tree string="List Workshop Category">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_workshop_category_form_view">
+            <field name="name">dym.workshop.category.form</field>
+            <field name="model">dym.workshop.category</field>
+            <field name="arch" type="xml">
+                <form string="Form Workshop Category">
+                    <group>
+                        <field name="name" />
+                    </group>
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_dym_workshop_category_form">
+            <field name="name">Workshop Category</field>
+            <field name="res_model">dym.workshop.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="dym_workshop_category_menuitem" name="Workshop Category" sequence="4" parent="dym_dealer_menu.ma_branches_menu" action="action_dym_workshop_category_form" />
+        <record model="ir.ui.view" id="dym_branch_category_form_view">
+            <field name="name">dym.branch.form</field>
+            <field name="model">dym.branch</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_form_view" />
+            <field name="arch" type="xml">
+                <field name="pricelist_part_purchase_id" position="after">
+                    <field name="workshop_category" string="Workshop Category" attrs="{'required':[('branch_status','in',['H23','H123'])]}" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_branch_on_stock_picking_type_form_view">
+            <field name="name">stock.picking.type.form</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="branch_id" required="1" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                </field>
+                <field name="default_location_src_id" position="attributes">
+                    <attribute name="required">True</attribute>
+                    <attribute name="domain">[('branch_id','=',branch_id)]</attribute>
+                </field>
+                <field name="default_location_dest_id" position="attributes">
+                    <attribute name="required">True</attribute>
+                    <attribute name="domain">[('branch_id','=',branch_id)]</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

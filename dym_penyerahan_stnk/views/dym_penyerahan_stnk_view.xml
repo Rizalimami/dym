@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="wizard_penyerahan_stnk_line_action" model="ir.actions.act_window">
+            <field name="name">wiz.penyerahan.stnk.line.action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wiz.penyerahan.stnk.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="wizard_penyerahan_stnk_line_form" model="ir.ui.view">
+            <field name="name">wiz.penyerahan.stnk.line.form</field>
+            <field name="model">wiz.penyerahan.stnk.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="penyerahan_stnk_id" invisible="1" />
+                    </group>
+                    <field name="lot_ids" options="{'no_create': True,'no_open': True}" required="1" on_change="lot_change(penyerahan_stnk_id)" />
+                    <footer>
+                        <button name="save_lot_ids" string="Save" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="penyerahan_stnk_tree_view">
+            <field name="name">penyerahan.stnk.tree</field>
+            <field name="model">dym.penyerahan.stnk</field>
+            <field name="arch" type="xml">
+                <tree string="List Penyerahan STNK">
+                    <field name="name" />
+                    <field name="branch_id" />
+                    <field name="division" />
+                    <field name="partner_id" />
+                    <field name="penerima" />
+                    <field name="tanggal" />
+                    <field name="state" />
+                    <field name="lengkap" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="penyerahan_stnk_form_view">
+            <field name="name">penyerahan.stnk.form</field>
+            <field name="model">dym.penyerahan.stnk</field>
+            <field name="arch" type="xml">
+                <form string="Form Penyerahan STNK">
+                    <header>
+                        <button name="post_penyerahan" groups='dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h1' type="object" states="draft" string="Post" class="oe_highlight" />
+                        <button name="%(dym_penyerahan_stnk_report)d" attrs="{'invisible': [('state','!=','posted')]}" string="Print" type="action" class="oe_highlight" groups='dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h1' />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted" statusbar_colors='{"draft":"red","approved":"blue"}' />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h2>
+                                <label string="Penyerahan STNK"/>               
+                                <field name="name" class="oe_inline"/>
+                            </h2>
+                        </div>
+                        <group col="2" colspan="2">
+                            <group>
+                                <field name="branch_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly': ['|',('state','!=','draft'),('name','!=',False)]}" />
+                            </group>
+                            <group>
+                                <field name="division" required="1" attrs="{'readonly': ['|',('penyerahan_line','&lt;&gt;',[]), ('state','!=','draft')]}" />
+                            </group>
+                            <group>
+                                <field name="partner_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')]}" on_change="onchange_partner(partner_id)" />
+                                <field name="keterangan" attrs="{'readonly': [('state','!=','draft')]}" />
+                            </group>
+                            <group>
+                                <field name="penerima" required="1" options="{'no_create': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="tanggal" required="1" readonly="1" />
+                                <field name="total_record" readonly="True" />
+                            </group>
+                        </group>
+                        <notebook colspan="5">
+                            <page string="Engine line">
+                                <button name="%(wizard_penyerahan_stnk_line_action)d" type="action" help="AR tagihan harus sudah lunas" string="Add Multiple Engine" attrs="{'invisible': [('state','!=','draft')]}" />
+                                <field colspan="4" name="penyerahan_line" nolabel="1" widget="one2many_list">
+                                    <tree string="" editable="bottom">
+                                        <field name="name" options="{'no_create': True,'no_open': True}" on_change="onchange_engine(name,parent.branch_id,parent.division,parent.partner_id,parent.penerima)" />
+                                        <field name="customer_id" />
+                                        <field name="customer_stnk" />
+                                        <field name="no_notice" attrs="{'required': [('tgl_ambil_notice','!=',False)], 'readonly': [('state','=','cancel')]}" />
+                                        <field name="no_stnk" attrs="{'required': [('tgl_ambil_stnk','!=',False)], 'readonly': [('state','=','cancel')]}" />
+                                        <field name="no_polisi" attrs="{'required': [('tgl_ambil_polisi','!=',False)], 'readonly': [('state','=','cancel')]}" />
+                                        <field name="tgl_ambil_notice" attrs="{'required': [('no_notice','!=',False)], 'readonly': [('state','=','cancel')]}" />
+                                        <field name="tgl_ambil_stnk" attrs="{'required': [('no_stnk','!=',False)], 'readonly': [('state','=','cancel')]}" on_change="onchenge_tgl_ambil_polisi(name, tgl_ambil_polisi, tgl_ambil_stnk)" />
+                                        <field name="tgl_ambil_polisi" attrs="{'readonly': [('state','=','cancel')]}" on_change="onchenge_tgl_ambil_polisi(name, tgl_ambil_polisi, tgl_ambil_stnk)" />
+                                        <field name="state" invisible="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                        <field name="confirm_uid" readonly="1"></field>
+                                        <field name="confirm_date" readonly="1"></field>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_penyerahan_stnk_filter" model="ir.ui.view">
+            <field name="name">penyerahan.stnk.list.select</field>
+            <field name="model">dym.penyerahan.stnk</field>
+            <field name="arch" type="xml">
+                <search string="Search Penyerahan STNK">
+                    <field name="name" string="Reference" />
+                    <field name="branch_id" />
+                    <field name="engine_no" />
+                    <field name="customer_stnk" />
+                    <field name="no_stnk" />
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]" />
+                    <filter name="post" string="Posted" domain="[('state','=','posted')]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-partner" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter string="Tanggal" icon="terp-go-month" domain="[]" context="{'group_by':'tanggal'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="penyerahan_stnk_action">
+            <field name="name">Penyerahan STNK</field>
+            <field name="res_model">dym.penyerahan.stnk</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_penyerahan_stnk_filter" />
+        </record>
+        <menuitem id="penyerahan_stnk_submenu" name="Penyerahan STNK" parent="dym_dealer_menu.stnk_bpkb_proses_stnk_menu" action="penyerahan_stnk_action" sequence="50" />
+    </data>
+</openerp>

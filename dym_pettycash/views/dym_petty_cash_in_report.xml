@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!--
+        <report id="report_petty_cash_out" string="Petty Cash" model="dym.pettycash" name="rml.dym.pettycash" rml="dym_pettycash/report/dym_petty_cash_out_report.rml" auto="False" menu="False" />
+        <report id="print_reimbursed_pc" string="Reimbursed Petty Cash" model="dym.reimbursed" name="rml.dym.reimbursed" rml="dym_pettycash/report/dym_reimbursed_cash_out_report.rml" auto="False" menu="False" />
+		-->
+        <report 
+            id="report_petty_cash_in"
+            string="Petty Cash"
+            model="dym.pettycash.in" 
+            report_type="qweb-pdf"
+            file="dym_pettycash.report_pettycashin" 
+            name="dym_pettycash.report_pettycashin" 
+        />
+        <record id="report_petty_cash_in" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_report_custom.paperformat_a4"/>
+        </record>
+  
+    </data>
+</openerp>

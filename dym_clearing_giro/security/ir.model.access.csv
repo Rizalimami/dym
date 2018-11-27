@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_clearing_giro_all,dym_clearing_giro all,model_dym_clearing_giro,,1,1,1,1
+access_dym_clearing_giro_kasir_h1,dym_clearing_giro kasir_h1,model_dym_clearing_giro,dym_base_security.group_dym_adh,1,1,1,1
+access_dym_clearing_giro_kasir_h123,dym_clearing_giro kasir_h123,model_dym_clearing_giro,dym_base_security.group_dym_adh,1,1,1,1
+access_dym_clearing_giro_kasir_h23,dym_clearing_giro kasir_h23,model_dym_clearing_giro,dym_base_security.group_dym_adh,1,1,1,1
+access_dym_clearing_giro_adh,dym_clearing_giro adh,model_dym_clearing_giro,dym_base_security.group_dym_adh,1,1,1,1

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+        
+        <record id="dym_res_partner_finco_form_view" model="ir.ui.view">
+            <field name="name">dym.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field eval="3" name="priority"/>
+            <field name="arch" type="xml">
+                <form>                              
+				<sheet>
+                    <div class="oe_title">
+                        <h1>
+                        	<label string="Finance Company"/> 
+		        			<field name="default_code" placeholder="Partner Code" attrs="{'invisible':[('rel_code','!=',False)]}"/>
+		        			<field name="rel_code" attrs="{'invisible':[('rel_code','=',False)]}"/>                            
+                        </h1>
+                    </div>
+                   
+                    <group>
+                    	<group>
+	                    	<field name="name" default_focus="1" placeholder="Name" />
+							<field name="ahm_code"/>  
+							<field name="website"/>            		                    	          		                    	
+						</group>
+						<group>			
+							<field name="phone" on_change="change_nomor(mobile,phone)"/>
+		        			<field name="mobile" on_change="change_nomor(mobile,phone)"/>                          				    	
+		        			<field name="email" widget="email" ></field>							
+	                    	<field name="dealer_code" attrs="{'invisible': [('dealer','!=', True)]}"/>	
+	 						<field name="principle" invisible="1"  on_change="onchange_dealer(dealer, finance_company, principle, ahm_code, dealer_code)"/>                   		                   	
+							<field name="dealer" invisible="1" on_change="onchange_dealer(dealer, finance_company, principle, ahm_code, dealer_code)"/>                   		                    	
+							<field name="finance_company" invisible="1" default="1" on_change="onchange_dealer(dealer, finance_company, principle, ahm_code, dealer_code)"/>		        			
+	        			</group>
+	        			<group>
+							<label for="address" string="Address"/>
+	    					<div>
+	                         <field name="street" placeholder="Street..." on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)"/>
+	                            <div>
+	                            	<field name="street2" placeholder="Street" style="width: 50%%" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)"/>
+	                            	<field name="rt" placeholder="RT" style="width: 25%%" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)"/>
+									<field name="rw" placeholder="RW" style="width: 25%%" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)"/>
+									<field name="state_id" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" class="oe_no_button" placeholder="Province" style="width: 50%%" options='{"no_open": True}'/>
+									<field name="city_id" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" placeholder="City" style="width: 50%%"/>
+									<field name="kecamatan_id" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" placeholder="Kecamatan" style="width: 50%%"/>
+									<field name="kecamatan" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" placeholder="Kecamatan" style="width: 50%%" />						
+									<field name="zip_id" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" placeholder="ZIP" style="width: 50%%" options='{"no_open": True}'/>                               	
+	                                <field name="kelurahan" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" class="oe_no_button" placeholder="Kelurahan" style="width: 50%%"/>
+	                            </div>                              
+	                          </div>	
+                         </group> 
+                    </group>                      
+                    <notebook>
+		                <page string="Incentive Finco">
+		                	<field name="incentive_finco_ids">
+		                		<tree string="Incentive Finco"  >	                			
+		                			 <field name="name" />
+		                			 <field name="start_date" />
+		                			 <field name="end_date" />  
+		                			 <field name="active" />
+		                		</tree>
+		                		<form string="Incentive Finco">
+		                			<group col="4">
+		                				<field name="name" />
+		                				<field name="active" />
+		                				<field name="start_date" />
+		                			 	<field name="end_date" />
+		                			</group>
+	
+					                <field name="incentive_finco_detail_ids" colspan="4" nolabel="1">
+					                    <tree string="Details" editable="top">
+					                        <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+					                        <field name="incentive"/>
+					                    </tree>
+					                </field>
+		                		</form>
+		                	</field>
+		                </page>                    	
+						<page string="Cabang Partner">
+							<field name="cabang_partner_line">
+								<tree string="Cabang Partner">
+									<field name="name"/>
+				                 	<field name="street"/>
+									<field name="city_id"/>
+									<field name="state_id"/>
+									<field name="no_hp"/>
+							 		<field name="no_telp"/>	
+								</tree>
+							</field>
+						</page>
+                    </notebook>                                                      
+                  </sheet>
+                </form>
+            </field>
+        </record>      
+               
+		<record model="ir.ui.view" id="dym_partner_finco_tree_view">
+		    <field name="name">dym.partner.customer.tree</field>
+		    <field name="model">res.partner</field>
+		    <field name="arch" type="xml">
+		    		        	
+                <tree string="Finco" create="1">
+	                <field name="name"/>
+	                <field name="rel_code"/>
+					<field name="phone"/>	                
+	                <field name="mobile"/> 
+	                <field name="email"/>	
+	                <field name="ahm_code"/>																	                
+                </tree>
+		     </field>
+		</record>	
+		
+		<record model="ir.actions.act_window" id="dym_partner_finco_action_view">
+		    <field name="name">Finance Company</field>
+		    <field name="res_model">res.partner</field>
+		    <field name="type">ir.actions.act_window</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		    <field name="domain">[('finance_company','!=',False)]</field>  
+		    <field name="context" eval="{'form_name': 'Finco'}"/>
+		</record>
+		
+		<record id="view_res_partner_finco_tree" model="ir.actions.act_window.view">
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="dym_partner_finco_tree_view" />
+			<field name="act_window_id" ref="dym_partner_finco_action_view" />
+		</record>
+
+		<record id="view_res_partner_finco_form" model="ir.actions.act_window.view">
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="dym_res_partner_finco_form_view" />
+			<field name="act_window_id" ref="dym_partner_finco_action_view" />
+		</record>
+					
+		<menuitem id="dym_partner_finco_submenu" name="Finance Company" parent="dym_dealer_menu.showroom_configuration_menu"  action="dym_partner_finco_action_view" sequence="1"/> 	
+	</data>
+</openerp>
+															

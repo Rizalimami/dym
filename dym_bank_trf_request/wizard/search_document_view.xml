@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_search_document_form" model="ir.ui.view">
+            <field name="name">dym.search.document.form</field>
+            <field name="model">dym.search.document</field>
+            <field name="arch" type="xml">
+                <form string="Search">
+                    <group>
+                        <label for="cari" />
+                        <div>
+                            <field name="cari" class="oe_inline" style="width:85% !important;"/>
+                            <button name="action_search_doc" string="Search" type="object" class="oe_inline oe_highlight" style="width:12% !important;"/>
+                        </div>
+                        <field name="state" invisible="1"/>
+                        <field name="doc_type" invisible="1"/>
+                        <field name="request_id" invisible="1"/>
+                        <field name="invoice_id" readonly="1" attrs="{'invisible':['|',('state','!=','ready'),('doc_type','!=','invoice')]}"/>
+                        <field name="voucher_id" readonly="1" attrs="{'invisible':['|',('state','!=','ready'),('doc_type','!=','voucher')]}"/>
+                        <field name="reimburse_id" readonly="1" attrs="{'invisible':['|',('state','!=','ready'),('doc_type','!=','reimburse')]}"/>
+                    </group>
+                    <p attrs="{'invisible':[('state','!=','exist')]}"><b>Notes:</b> Dokumen sudah diimport, silahkan cari dokumen lainnya. </p>
+                    <!-- Invoice -->
+                    <field name="invoice_line" attrs="{'invisible':['|',('state','!=','ready'),('doc_type','!=','invoice')]}">
+                        <tree string="Invoice Line">
+                            <field name="name" readonly="1"/>
+                            <field name="account_id" greadonly="1"/>
+                            <field name="quantity" readonly="1"/>
+                            <field name="uos_id" readonly="1"/>
+                            <field name="price_unit" readonly="1"/>
+                            <field name="discount" readonly="1"/>
+                            <field name="price_subtotal" sum="Total" readonly="1"/>
+                        </tree>                        
+                    </field>
+                    <group class="oe_subtotal_footer oe_right" attrs="{'invisible':['|',('state','!=','ready'),('doc_type','!=','invoice')]}">
+                        <field name="amount_untaxed" readonly="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <div>
+                            <label for="amount_tax"/>
+                        </div>                        
+                        <field name="amount_tax" readonly="1" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="amount_total" readonly="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="residual" readonly="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                    <!-- Voucher -->
+                    <field name="voucher_line" attrs="{'invisible':['|',('state','!=','ready'),('doc_type','!=','voucher')]}">
+                        <tree string="Debit">
+                            <field name="account_id" readonly="1"/>
+                            <field name="date_original" readonly="1" />
+                            <field name="date_due" readonly="1" />
+                            <field name="amount_original" readonly="1" />
+                            <field name="amount_unreconciled" readonly="1" />
+                            <field name="reconcile" readonly="1"/>
+                            <field name="amount" sum="Total Allocation" string="Allocation" />
+                        </tree>
+                    </field>
+                    <group attrs="{'invisible':['|',('state','!=','ready'),('doc_type','!=','voucher')]}">
+                        <field name="narration" nolabel="1" placeholder="Internal Notes"/>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="tax_id" readonly="1" widget="selection" nolabel="1"/>
+                            <field name="tax_amount" readonly="1" nolabel="1"/>
+                            <div class="oe_subtotal_footer_separator">
+                                <label for="amount"/>
+                            </div>
+                            <field name="amount" readonly="1" class="oe_subtotal_footer_separator" nolabel="1"/>
+                        </group>
+                    </group>
+                    <!-- Reimburse -->
+                    <field name="reimburse_line" attrs="{'invisible':['|',('state','!=','ready'),('doc_type','!=','reimburse')]}">
+                        <tree string="Petty Cash" widget="one2many_list" editable="bottom">
+                            <field name="state" readonly="1"/>
+                            <field name="pettycash_id" readonly="1"/>
+                            <field name="account_id" readonly="1"/>
+                            <field name="name" readonly="1"/>
+                            <field name="amount" readonly="1"/>
+                        </tree>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right" attrs="{'invisible':['|',('state','!=','ready'),('doc_type','!=','reimburse')]}">
+                        <div class="oe_subtotal_footer_seperator oe_inline">
+                            <label for="reimburse_total" />
+                        </div>
+                        <field name="reimburse_total" readonly="1" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' />
+                    </group>
+                    <footer>
+                        <button string="Import" name="import_them" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','ready')]}"/> <span attrs="{'invisible':[('state','!=','ready')]}">or</span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="dym_search_document_action" model="ir.actions.act_window">
+            <field name="name">Document Search</field>
+            <field name="res_model">dym.search.document</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

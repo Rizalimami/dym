@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_kwitansi_gc_template">
+    <style type="text/css">
+        .tag_container{
+            margin: auto;
+            margin-bottom:50px;
+            border: 1px solid black;
+        }
+        .no_border{
+            border: 0px !important;
+            line-height: 0.7 !important;
+        }
+        .margin_bottom{
+            margin-top: 5px !important;
+            margin-bottom: 5px !important;
+        }
+        .border_top{
+            border-top: 1px solid black !important;
+        }
+        .border_bottom{
+            border-bottom: 1px solid black !important;
+        }
+        .line_height{
+        }
+        .page, .header, .footer{
+            font-size:14px;
+        }
+        .font_12{
+            font-size:12px;
+        }
+        .padding_ap{
+            padding-bottom:10px;
+        }
+        .padding_header_ap{
+            padding-bottom:40px;
+        }
+    </style>
+    <t t-call="report.html_container">    
+            <!-- Ask Pa Asep Error CSS-->
+
+            <t t-set="company" t-value="res_company"></t>
+            <div class="page">
+                <div class="row">
+                    <div class="col-xs-12 text-center padding_header_ap">
+                        <h2>KUITANSI PENAGIHAN GC</h2>
+                    </div>
+                    <div class="col-xs-12 padding_ap">
+                        <div class="col-xs-3">
+                            Telah Terima Dari
+                        </div>
+                        <div class="col-xs-9">
+                            <t t-esc="partner.name"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padding_ap">
+                        <div class="col-xs-3">
+                            Uang Sejumlah
+                        </div>
+                        <div class="col-xs-9">
+                            <strong><t t-esc="terbilang"/></strong>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padding_ap">
+                        <div class="col-xs-3">
+                            Untuk Pembayaran
+                        </div>
+                        <div class="col-xs-9">
+                            <t t-esc="untuk_pembayaran"/>
+                        </div>
+                    </div>
+                    <t t-if="len(invoice) > 0">
+                        <div class="col-xs-12 padding_ap">
+                            <div class="col-xs-3">
+                                Nomor Invoice
+                            </div>
+                            <div class="col-xs-9">
+                                <t t-if="len(invoice) == 1">
+                                    <t t-esc="invoice.number"/> tanggal <t t-esc="invoice.date_invoice"/>, Tax Base: <t t-esc="invoice.amount_untaxed" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                </t>
+                                <t t-if="len(invoice) > 1">
+                                    Terlampir
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                    <div class="col-xs-12">
+                        <div class="col-xs-6">
+                            <br/><br/><br/><br/>
+                            <div style="border-top: 1px black solid !important;border-bottom: 1px black solid !important; font-size:16px !important;">
+                                <strong>Total <t t-esc="total" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/></strong>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <span><t t-esc="branch.state_id.name"/>, <t t-esc="branch.formatted_date(tanggal)"/></span><br/><br/><br/><br/>
+                            <span t-field="company.name"/>
+                        </div>
+                    </div>                  
+                </div>
+                <t t-if="len(invoice) > 1">
+                    <div style="page-break-after: always;margin-top:50px;">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <h4>
+                                    <u>Lampiran Kwitansi Penagihan GC</u>
+                                </h4>
+                            </div>
+                            <div class="col-xs-12">
+                                <table class="table table-condensed" style="margin-bottom:0px !important;">
+                                    <thead>
+                                        <tr>
+                                            <th class="border_top"><strong>No</strong></th>
+                                            <th class="border_top"><strong>Nomor Invoice</strong></th>
+                                            <th class="border_top"><strong>Tanggal Invoice</strong></th>
+                                            <th class="border_top"><strong>Tax Base</strong></th>
+                                            <th class="border_top"><strong>Balance</strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="no" t-value="0"/>
+                                        <t t-foreach="invoice" t-as="inv">
+                                            <t t-set="no" t-value="no+1"/>
+                                            <tr>
+                                                <td class=""><t t-esc="no"/></td>
+                                                <td class=""><span t-field="inv.number"/></td>
+                                                <td class=""><span t-field="inv.date_invoice"/></td>
+                                                <td class="">
+                                                    <span t-field="inv.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                                </td>
+                                                <td class="">
+                                                    <span t-field="inv.residual" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+
+    </t>
+</template>
+</data>
+</openerp>

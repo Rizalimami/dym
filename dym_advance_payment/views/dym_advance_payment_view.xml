@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_dym_advance_payment_tree" model="ir.ui.view">
+            <field name="name">dym.advance.payment.tree</field>
+            <field name="model">dym.advance.payment</field>
+            <field name="arch" type="xml">
+                <tree string="Advance Payment">
+                    <field name="name" />
+                    <field name="user_id" />
+                    <field name="date" />
+                    <field name="source_settlement" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_advance_payment_search" model="ir.ui.view">
+            <field name="name">dym.advance.payment.select</field>
+            <field name="model">dym.advance.payment</field>
+            <field name="arch" type="xml">
+                <search string="Search ADV Payment">
+                    <field name="name" />
+                    <field name='division' />
+                    <field name="branch_id" />
+                    <field name="payment_method" />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-partner" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter string="Tanggal" icon="terp-go-month" domain="[]" context="{'group_by':'date'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="view_dym_advance_payment_form" model="ir.ui.view">
+            <field name="name">dym.advance.payment.form</field>
+            <field name="model">dym.advance.payment</field>
+            <field name="arch" type="xml">
+                <form string="Advance Payment">
+                    <header>
+                        <button name="%(advance_payment_draft_report)d" states="draft,waiting_for_approval,approved,confirmed" type="action" string="Print Draft" class="oe_highlight" icon="gtk-print" />
+                        <button name="%(report_advance_payment_done)d" states="done" type="action" string="Print Done" class="oe_highlight" icon="gtk-print" />
+                        <button name="confirm" states="approved" string="Confirm" type="workflow" class="oe_highlight" groups="dym_base_security.group_dym_treasury_sec_head"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,waiting_for_approval,approved,confirmed,done" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label string="Advance Payment"/>
+                                <field name="name" class="oe_inline" readonly="1"/> 
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="branch_id" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('name','!=',False)]}" class="oe_inline" />
+                                <!-- <field name="date" options="{'no_create': True,'no_open':True}" readonly="1" class="oe_inline" /> -->
+                                <field name="date" attrs="{'readonly':[('journal_is_bank','=',False)]}" class="oe_inline" />
+                                <field name="user_id" domain="['|',('supplier','=',True),'&amp;',('employee_id','!=',False),('customer','=',False)]" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('state','not in','draft')]}" class="oe_inline" />
+                                <field name="payment_method" domain="[('type','in',['bank', 'cash','pettycash']),('branch_id','in',[branch_id,False])]" attrs="{'readonly': [('state','not in','draft')]}" options="{'no_create': True,'no_open':True}" class="oe_inline" />
+                                <field name="balance" />
+                                <field name="partner_bank_name" readonly="1" attrs="{'invisible':[('journal_is_bank','=',False)]}" />
+                                <field name="partner_bank_id" options="{'no_create': True,'no_open':True}" attrs="{'invisible':[('journal_is_bank','=',False)]}" domain="[('partner_id','=',user_id),'|',('division','=',False),('division','=',division)]" />
+                                <field name="clearing_bank" attrs="{'readonly': [('state','not in','draft')],'invisible': [('journal_is_bank','=',False)]}" />
+                            </group>
+                            <group>
+                                <field name="division" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('state','not in','draft')]}" class="oe_inline" />
+                                <field name="employee_id" class="oe_inline" attrs="{'readonly': [('state','not in','draft')]}" options="{'no_create': True,'no_open':True}" />
+                                <!-- <field name="date_due" class="oe_inline" required="1" /> -->
+                                <field name="user_balance" class="oe_inline" />
+                                <field name="amount" attrs="{'readonly': [('state','not in','draft')]}" />
+                                <field name="open_balance" readonly="1" />
+                                <field name="journal_is_bank" invisible="1" />
+                                <field name="description" attrs="{'readonly': [('state','not in','draft')]}" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_advance_payment">
+            <field name="name">Advance Payment</field>
+            <field name="res_model">dym.advance.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="dym_advance_payment_master_menu" name="Advance Payment" parent="dym_dealer_menu.backoffice_nontrade_menu" sequence="10" />
+        <menuitem id="dym_advance_payment_menuitem" name="Advance Payment" parent="dym_advance_payment_master_menu" action="dym_advance_payment" sequence="10" />
+    </data>
+</openerp>

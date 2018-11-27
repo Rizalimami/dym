@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_transfer_request_group" model="ir.ui.view">
+            <field name="name">Bank Transfer Request Grup</field>
+            <field name="model">bank.trf.request.group</field>
+            <field name="inherit_id" ref="dym_bank_trf_request.view_transfer_request_group" />
+            <field name="arch" type="xml">
+                <field name="branch_destination_id" position="after">
+                    <field name="branch_via_id" string="Via Branch" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

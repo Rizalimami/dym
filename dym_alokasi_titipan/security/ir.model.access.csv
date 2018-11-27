@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_alokasi_titipan_all,dym_alokasi_titipan all,model_dym_alokasi_titipan,,1,1,1,1
+access_dym_alokasi_titipan_line,access_dym_alokasi_titipan_line,model_dym_alokasi_titipan_line,,1,0,0,0

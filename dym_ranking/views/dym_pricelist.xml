@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>					
+		<record model="ir.ui.view" id="dym_pricelist_lost_product_form_view">
+		    <field name="name">dym.pricelist.lost.product.form</field>
+		    <field name="model">dym.pricelist</field>
+		    <field name="inherit_id" ref="dym_pricelist.dym_pricelist_form_view"/>
+		    <field name="type">form</field>
+		    <field name="arch" type="xml">
+		    	<field name="branch_id" position="after">
+	    			<field name="order_qty"/>
+	    			<field name="lost_order_qty_show" readonly="1"/>
+                    <button name="save_lost_order"
+                        type="object"
+                        help="Save Lost Order"
+                        string="Save Lost Order"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('lost_order_qty','=',0)]}"/>
+	    			<field name="lost_order_qty" invisible="1" attrs="{'readonly': [('lost_order_qty','=',0)]}"/>
+			    </field>
+			</field>
+		</record>
+	</data>
+</openerp>

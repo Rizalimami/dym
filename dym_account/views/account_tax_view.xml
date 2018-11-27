@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_tax" model="ir.ui.view">
+            <field name="name">dym.account.tax2</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form" />
+            <field name="arch" type="xml">
+                <field name="description" position="after">
+                    <field name="type_tax_use2" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_dym_payslip_line_tree" model="ir.ui.view">
+            <field name="name">dym.payslip.line.tree</field>
+            <field name="model">dym.payslip.line</field>
+            <field name="arch" type="xml">
+                <tree string="Payslips">
+                    <field name="branch_id" />
+                    <field name="partner_id" />
+                    <field name="division" />
+                    <field name="account_id" />
+                    <field name="analytic_ids" />
+                    <field name="amount" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_dym_payslip_line_form" model="ir.ui.view">
+            <field name="name">dym.payslip.line.form</field>
+            <field name="model">dym.payslip.line</field>
+            <field name="arch" type="xml">
+                <form string="Payslip">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id" />
+                                <field name="account_id" />
+                                <field name="amount" />
+                            </group>
+                            <group>
+                                <field name="branch_id" options="{'no_create': True}" />
+                                <field name="division" />
+                            </group>
+                        </group>
+                        <field name="analytic_ids" />
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_dym_payslip_line_filter" model="ir.ui.view">
+            <field name="name">dym.payslip.line.select</field>
+            <field name="model">dym.payslip.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Payslips">
+                    <field name="division" string="Payslips" filter_domain="['|',('branch_id','ilike',self),('division','ilike',self)]" />
+                </search>
+            </field>
+        </record>
+        <record id="action_view_dym_payslip_line_form" model="ir.actions.act_window">
+            <field name="name">Employee Payslips</field>
+            <field name="res_model">dym.payslip.line</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_dym_payslip_line_tree" />
+            <field name="search_view_id" ref="view_dym_payslip_line_filter" />
+        </record>
+        <menuitem action="action_view_dym_payslip_line_form" id="menu_department_tree" parent="dym_payroll_sub_menu" />
+    </data>
+</openerp>

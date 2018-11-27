@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="cost_sheet_report_report"
+            string="Cost Sheet"
+            model="dealer.spk"
+            report_type="qweb-pdf"
+            name="dym_cost_sheet.cost_sheet_report_template"
+            file="dym_cost_sheet.cost_sheet_report_template"
+        />
+        <record id="cost_sheet_report_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_cost_sheet"/>
+        </record>
+    </data>
+</openerp>

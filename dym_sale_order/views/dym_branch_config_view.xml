@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="dym_purchase_order_branch_config_view" model="ir.ui.view">
+            <field name="name">dym.branch.config.purchase.order.view</field>
+            <field name="model">dym.branch.config</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_config_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <group string="Sales Memo Sparepart">
+                        <!-- <field name="dym_so_journal_unit_id" domain="[('type','=','sale')]"/> -->
+                        <field name="dym_so_journal_sparepart_id" domain="[('type','=','sale')]" />
+                        <field name="dym_so_account_discount_cash_id" />
+                        <field name="dym_so_account_discount_program_id" />
+                        <field name="dym_so_account_discount_program_external_id" />
+                        <field name="dym_so_account_discount_lainnya_id" />
+                        <field name="so_account_potongan_langsung_id" />
+                        <field name="dym_so_journal_psmd_id" />
+                        <field name="dym_so_account_sisa_subsidi_id" />
+                        <field name="so_journal_bbmd_id" domain="[('type','=','sale')]" />
+                        <!-- <field name="so_analytic_2_sparepart" domain="[('type','=','normal'),('segmen','=',2),('parent_ids','=',analytic_company),('parent_ids','!=',False),('division','=','Sparepart'), ('state','not in',('close','cancelled'))]"/>
+                        <field name="so_analytic_4_sparepart" domain="[('type','=','normal'),('segmen','=',4),('parent_ids','=',analytic_id),('parent_ids','!=',False),('state','not in',('close','cancelled'))]"/>
+                        <field name="so_analytic_2_aksesoris" domain="[('type','=','normal'),('segmen','=',2),('parent_ids','=',analytic_company),('parent_ids','!=',False),('division','=','Aksesoris'), ('state','not in',('close','cancelled'))]"/>
+                        <field name="so_analytic_4_aksesoris" domain="[('type','=','normal'),('segmen','=',4),('parent_ids','=',analytic_id),('parent_ids','!=',False),('state','not in',('close','cancelled'))]"/> -->
+                    </group>
+                    <group string="Sales Memo Sparepart - Intercompany">
+                        <field name="dym_so_journal_pic_id" domain="[('type','=','sale')]" />
+                        <field name="dym_so_account_penjualan_pic_id" />
+                        <field name="dym_so_account_potongan_pic_id" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

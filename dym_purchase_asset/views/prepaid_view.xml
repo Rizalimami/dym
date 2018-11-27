@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_split_amortisasi" model="ir.ui.view">
+            <field name="name">Split Amortisasi</field>
+            <field name="model">dym2.split.amortisasi</field>
+            <field name="arch" type="xml">
+                <form string="Split Amortisasi">
+                    <field name="depre_line_id" invisible="1" />
+                    <group>
+                        <field name="total_amortisasi" readonly="1" />
+                    </group>
+                    <field name="amortisation_lines">
+                        <tree string="Amortisation Lines" editable="bottom">
+                            <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="change_reset('branch')" />
+                            <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" />
+                            <field name="analytic_2" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" on_change="change_reset('analytic_2')" />
+                            <field name="analytic_3" domain="[('segmen','=',3),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2),('branch_id','=',branch_id)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" on_change="change_reset('analytic_3')" />
+                            <field name="account_analytic_id" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" string="Account Analytic Cost Center" required="1" />
+                            <field name="amount" />
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="create_move" string="_Submit" type="object" class="oe_highlight" /> or
+                        <button string="_Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="create_move" model="ir.actions.act_window">
+            <field name="name">Split Amortisasi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym2.split.amortisasi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_split_amortisasi" />
+            <field name="target">new</field>
+        </record>
+        <record model="ir.ui.view" id="view_account_asset_asset_form_prepaid">
+            <field name="name">account.asset.asset.form.prepaid</field>
+            <field name="model">account.asset.asset</field>
+            <field name="arch" type="xml">
+                <form string="Prepaid">
+                    <header>
+                        <button name="validate" groups='dym_purchase_asset.group_dym_asset_confirm' states="draft" string="Confirm Prepaid" type="object" class="oe_highlight" />
+                        <!-- <button name="%(action_transfer_beban)d" string="Transfer Beban" type="action" attrs="{'invisible': [('parent_id','!=',False)]}"/>     -->
+                        <button name="set_to_close" groups='dym_purchase_asset.group_dym_asset_close' states="open" string="Set to Close" type="object" class="oe_highlight" />
+                        <button name="set_to_draft" groups='dym_purchase_asset.group_dym_asset_draft' states="open" string="Set to Draft" type="object" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,open" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box oe_right">
+                            <button class="oe_inline oe_stat_button" name="open_entries" type="object" icon="fa-pencil">
+                                <field string="Entries" name="entry_count" widget="statinfo" />
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Prepaid Name" />
+                            <h1>
+                            <field name="code" readonly="1" class="oe_inline"/> - 
+                            <field name="name" class="oe_inline"/>
+                        </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="asset_owner" attrs="{'readonly': [('state','not in','draft')]}" options="{'no_open':True,'no_create':True}" required="1" />
+                            </group>
+                            <group>
+                                <field name="division" attrs="{'readonly': ['|',('state','not in','draft'),('name','!=','/')]}" />
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="category_id" string="Prepaid Category" attrs="{'readonly': [('state','not in','draft')]}" on_change="onchange_category_id(category_id)" />
+                                <field name="parent_id" string="Parent Prepaid" attrs="{'readonly': [('state','not in','draft')]}" />
+                            </group>
+                            <group>
+                                <field name="categ_type" invisible="1" />
+                                <field name="gl_date" />
+                                <field name="purchase_date" attrs="{'readonly': [('state','not in','draft')]}" string="Effective Date" />
+                                <field name="branch_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly': [('state','not in','draft')]}" required="1" on_change="change_reset('branch')" />
+                                <field name="asset_user" attrs="{'readonly': [('state','not in','draft')]}" options="{'no_open':True,'no_create':True}" required="1" />
+                                <field name="currency_id" groups="base.group_multi_currency" />
+                                <field name="company_id" widget="selection" groups="base.group_multi_company" on_change="onchange_company_id(company_id)" />
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="General">
+                                <group>
+                                    <group>
+                                        <field name="purchase_value" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('state','not in','draft')]}" on_change="onchange_purchase_salvage_value(purchase_value, salvage_value)" />
+                                        <field name="salvage_value" attrs="{'readonly': [('state','not in','draft')]}" widget="monetary" options="{'currency_field': 'currency_id'}" on_change="onchange_purchase_salvage_value(purchase_value, salvage_value)" />
+                                        <field name="value_residual" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('state','not in','draft')]}" />
+                                        <field name="partner_id" attrs="{'readonly': [('state','not in','draft')]}" />
+                                        <field name="real_purchase_value" readonly="1" />
+                                        <field name="real_purchase_date" readonly="1" />
+                                    </group>
+                                    <group>
+                                        <field name="method" attrs="{'readonly': [('state','not in','draft')]}" />
+                                        <field name="method_progress_factor" attrs="{'invisible':[('method','=','linear')], 'required':[('method','=','degressive')]}" />
+                                        <label for="method_time" />
+                                        <div>
+                                            <field name="method_time" attrs="{'readonly': [('state','not in','draft')]}" on_change="onchange_method_time(method_time)" class="oe_inline" />
+                                            <button name="%(account_asset.action_asset_modify)d" states="open" string="Change Duration" type="action" icon="terp-stock_effects-object-colorize" class="oe_inline" colspan="1"/>
+                                        </div>
+                                        <field name="prorata" attrs="{'invisible': [('method_time','=','end')]}" />
+                                        <field name="first_day_of_month" attrs="{'readonly': [('state','not in','draft')]}" />
+                                        <field name="method_number" string="Number of Amortisation" attrs="{'invisible':[('method_time','=','end')], 'required':[('method_time','=','number')]}" />
+                                        <field name="method_period" attrs="{'readonly': [('state','not in','draft')]}" />
+                                        <field name="method_end" attrs="{'required': [('method_time','=','end')], 'invisible':[('method_time','=','number')]}" />
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Other Info">
+                                <group>
+                                    <field name="responsible_id" options="{'no_create':True}" attrs="{'readonly': [('state','not in','draft')]}" required="1" />
+                                </group>
+                                <separator string="Account" />
+                                <group>
+                                    <field name="account_asset_id" />
+                                    <field name="account_depreciation_id" />
+                                    <field name="account_expense_depreciation_id" />
+                                </group>
+                                <separator string="Transfer Pembebanan History" />
+                                <field name="beban_history_ids" nolabel="1" widget="one2many_list" readonly="1">
+                                    <tree string="Transfer Line">
+                                        <field name="date" />
+                                        <field name="branch_from" />
+                                        <field name="branch_to" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Amortisation Board">
+                                <field name="depreciation_line_ids" mode="tree">
+                                    <tree string="Amortisation Lines" colors="blue:(move_check == False);black:(move_check == True)">
+                                        <field name="depreciation_date" />
+                                        <field name="sequence" invisible="1" />
+                                        <field name="depreciated_value" readonly="1" />
+                                        <field name="amount" />
+                                        <field name="remaining_value" readonly="1" />
+                                        <field name="move_check" />
+                                        <field name="parent_state" invisible="1" />
+                                        <button name="%(create_move)d" attrs="{'invisible':['|',('move_check','!=',False),('parent_state','!=','open')]}" icon="gtk-execute" string="Split Amortisasi" type="action" />
+                                    </tree>
+                                    <form string="Amortisation Lines">
+                                        <group>
+                                            <group>
+                                                <field name="asset_id" invisible="1" />
+                                                <field name="parent_state" invisible="1" />
+                                                <field name="name" />
+                                                <field name="amount" />
+                                                <field name="move_id" />
+                                                <field name="move_check" />
+                                                <field name="parent_state" invisible="1" />
+                                            </group>
+                                            <group>
+                                                <field name="sequence" />
+                                                <field name="depreciation_date" />
+                                                <field name="depreciated_value" readonly="1" />
+                                                <field name="remaining_value" readonly="1" />
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                                <button type="object" name="compute_depreciation_board" string="Compute" icon="terp-stock_format-scientific" colspan="2" attrs="{'invisible':[('state','=','close')]}" />
+                            </page>
+                            <page string="History">
+                                <field name="account_move_line_ids" readonly="1" />
+                                <field name="history_ids" readonly="1" />
+                            </page>
+                            <page string="Notes">
+                                <field name="note" placeholder="Add an internal note here..." />
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                        <field name="confirm_uid" readonly="1"></field>
+                                        <field name="confirm_date" readonly="1"></field>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_account_asset_asset_tree_prepaid">
+            <field name="name">account.asset.asset.tree</field>
+            <field name="model">account.asset.asset</field>
+            <field name="field_parent">child_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Prepaid" colors="blue:(state == 'draft');grey:(state == 'close')">
+                    <field name="name" string="Prepaid Name" />
+                    <field name="category_id" string="Prepaid Category" />
+                    <field name="purchase_date" />
+                    <field name="partner_id" />
+                    <field name="purchase_value" />
+                    <field name="value_residual" />
+                    <field name="currency_id" groups="base.group_multi_currency" />
+                    <field name="company_id" groups="base.group_multi_company" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_account_asset_asset_hierarchy_tree_prepaid">
+            <field name="name">account.asset.asset.hierarchy.prepaid</field>
+            <field name="model">account.asset.asset</field>
+            <field name="field_parent">child_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Prepaid">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="category_id" />
+                    <field name="purchase_date" />
+                    <field name="purchase_value" />
+                    <field name="value_residual" />
+                    <field name="currency_id" groups="base.group_multi_currency" />
+                    <field name="company_id" groups="base.group_multi_company" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_account_asset_search_prepaid" model="ir.ui.view">
+            <field name="name">account.asset.asset.search.prepaid</field>
+            <field name="model">account.asset.asset</field>
+            <field name="arch" type="xml">
+                <search string="Account Prepaid">
+                    <field name="name" string="Prepaid" />
+                    <field name="purchase_date" />
+                    <filter icon="terp-check" string="Current" domain="[('state','in', ('draft','open'))]" help="Assets in draft and open states" />
+                    <filter icon="terp-dialog-close" string="Closed" domain="[('state','=', 'close')]" help="Assets in closed state" />
+                    <field name="category_id" />
+                    <field name="partner_id" filter_domain="[('partner_id','child_of',self)]" />
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_account_asset_asset_hierarchy_tree_prepaid">
+            <field name="name">Prepaid Hierarchy</field>
+            <field name="res_model">account.asset.asset</field>
+            <field name="view_type">tree</field>
+            <field name="domain">[('parent_id','=',False),('categ_type','=','prepaid')]</field>
+            <field name="context" eval="{'type': 'prepaid'}" />
+            <field name="view_id" ref="view_account_asset_asset_hierarchy_tree_prepaid" />
+        </record>
+        <record model="ir.actions.act_window" id="action_account_asset_asset_form_prepaid">
+            <field name="name">Prepaids</field>
+            <field name="res_model">account.asset.asset</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="view_account_asset_search_prepaid" />
+            <field name="context" eval="{'type': 'prepaid'}" />
+            <field name="domain">[('categ_type','=','prepaid')]</field>
+        </record>
+        <record id="view_prepaid_tree" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_account_asset_asset_tree_prepaid" />
+            <field name="act_window_id" ref="action_account_asset_asset_form_prepaid" />
+        </record>
+        <record id="view_prepaid_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_account_asset_asset_form_prepaid" />
+            <field name="act_window_id" ref="action_account_asset_asset_form_prepaid" />
+        </record>
+        <menuitem id="prepaid_submenu" parent="dym_dealer_menu.ga_prepaid_menu" action="action_account_asset_asset_form_prepaid" sequence='1' />
+        <menuitem id="prepaid_hierarcy_submenu" parent="dym_dealer_menu.ga_prepaid_menu" action="action_account_asset_asset_hierarchy_tree_prepaid" sequence='2' />
+    </data>
+</openerp>

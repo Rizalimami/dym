@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_reclass_payment" model="ir.ui.view">
+            <field name="name">Reclass Unidentified Payment</field>
+            <field name="model">dym.reclass.payment</field>
+            <field name="arch" type="xml">
+                <form string="Reclass Unidentified Payment">
+                    <group>
+                        <group>
+                            <field name="partner_id" />
+                        </group>
+                        <group>
+                            <field name="division" required="1" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Date">
+                            <field name="old_date" readonly="1"/>
+                            <field name="new_date" required="1"/>
+                        </group>
+                        <group string="Account">
+                            <field name="old_account_id" readonly="1"/>
+                            <field name="new_account_id" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="reclass_payment" string="_Reclass" type="object" class="oe_highlight" /> or
+                        <button string="_Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_reclass_payment" model="ir.actions.act_window">
+            <field name="name">Reclass Unidentified Payment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym.reclass.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_reclass_payment" />
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

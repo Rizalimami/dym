@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="group_dym_voucher_allow_backdate" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">Voucher Allow Backdate</field>
+        </record>
+    </data>
+</openerp>

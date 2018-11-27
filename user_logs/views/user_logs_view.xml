@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--FORM [User logs]-->
+        <record id="form_users_logs" model="ir.ui.view">
+            <field name="name">res.users.log.form</field>
+            <field name="model">res.users.log</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0">
+                    <sheet>
+                        <group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="sign_in" />
+                            <field name="sign_out" />
+                            <field name='session_id' invisible='1'/>
+                        </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--TREE [DOCTOR EXPENSES]-->
+        <record id="tree_user_logs" model="ir.ui.view">
+            <field name="name">res.users.log.tree</field>
+            <field name="model">res.users.log</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                     <field name="user_id"/>
+                    <field name="sign_in" />
+                    <field name="sign_out" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_user_logs_search" model="ir.ui.view">
+            <field name="name">res.users.log.search</field>
+            <field name="model">res.users.log</field>
+            <field name="arch" type="xml">
+                <search string="User Logs">
+                    <field name="user_id"/>
+                    <field name="sign_in"/>
+                    <field name="sign_out"/>
+                    <filter string="User" domain="[('user_id','=',uid)]"/>
+                    <filter string="All User" domain="[('user_id','=',False)]"/>
+                    <separator/>
+                    <group expand="1" string="Group By">
+                        <filter string="User" name = "group_by_user" context="{'group_by':'user_id'}"/>
+                        <separator/>
+                        <filter string="Month" name = "group_by_month" context="{'group_by':'sign_in:month'}" help="Month"/>
+                        <separator/>
+                        <filter string="Year" name = "group_by_year" context="{'group_by':'sign_in:year'}" help="Year"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!--ACTION [User LOgs]-->
+       <record id="action_user_logs" model="ir.actions.act_window">
+            <field name="name">User Logs</field>
+            <field name="res_model">res.users.log</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="context">{"search_default_group_by_user":True,"search_default_group_by_month" :True}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a new user logs.
+              </p>
+            </field>
+        </record>
+        <!--MENU [User Logs]-->
+        <menuitem action="action_user_logs"
+                  id="menu_user_logs"
+                  sequence="3"
+                  parent="base.menu_users" groups="group_user_log_create"/>
+    </data>
+</openerp>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">  	
+    	
+<!-- Laporan Monitoring -->	
+        <record id="group_laporan_monitoring_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Monitoring Workshop Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_monitoring_report'))]"/>  
+        </record>         
+        <record id="group_laporan_monitoring_showroom_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Monitoring Showroom Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_monitoring_showroom_report'))]"/>  
+        </record>         
+   
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[
+                                            (4,ref('group_laporan_monitoring_menu')),
+                                            (4,ref('group_laporan_monitoring_showroom_menu')),
+                                            ]"/>
+		</record>                                                                                           
+    </data>
+</openerp>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_approval_disposal_form_view" model="ir.ui.view">
+            <field name="name">dym.approval.disposal.form</field>
+            <field name="model">dym.asset.disposal</field>
+            <field name="inherit_id" ref="dym_asset_disposal.asset_disposal_form_view" />
+            <field name="arch" type="xml">
+            	<field name="partner_id" position="before">
+            		<field name="jenis_npwp" />
+            		<field name="npwp_branch_id" attrs="{'required':[('jenis_npwp','=','percabang')],'invisible':[('branch_id','=',False)]}"/>
+            	</field>
+            </field>
+        </record>
+    </data>
+</openerp>

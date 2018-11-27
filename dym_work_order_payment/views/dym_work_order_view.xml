@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_dym_work_order_form" model="ir.ui.view">
+            <field name="name">work.order.form1</field>
+            <field name="model">dym.work.order</field>
+            <field name="inherit_id" ref="dym_work_order.view_dym_work_order_form"/>
+            <field name="arch" type="xml">
+            	<field name="state" position="before">
+                    <!-- <button name="view_cpa" type="object" string="View CPA" attrs="{'invisible': [('state_wo','!=','finish'), ('state','!=', 'open')]}" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23"/> -->
+                    <button name="view_cpa" type="object" attrs="{'invisible': ['|',('state','not in',['open','except_invoice','done']),('type','=','WAR')]}" string="Create/View CPA" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23,dym_base_security.group_dym_kasir_h1"/>
+            	</field>
+            </field>
+		</record>
+	</data>
+</openerp>

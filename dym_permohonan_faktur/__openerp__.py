@@ -1,0 +1,43 @@
+{
+    "name":"Permohonan Faktur",
+    "version":"1.0",
+    "author":"ADSOFT",
+    "category":"Custom Module for DYMS",
+    "description": """
+        Permohonan Faktur
+    """,
+    "depends":[
+    "base",
+        "dym_res_partner_cddb",
+        "account_voucher",
+        "account",
+        "dym_branch",
+        "stock",
+        "dym_dealer_menu",
+        "dym_serial_number",
+        "dym_approval",
+        "dym_proses_stnk",
+        "dealer_sale_order",
+    ],
+    "data":[
+        "report/report_penerimaan_faktur.xml",
+        "report/report_permohonan_faktur.xml",
+        "report/report.xml",
+        "views/dym_permohonan_faktur_workflow.xml",
+        "views/dym_approval_permohonan_faktur_workflow.xml",  
+        "views/dym_outstanding_permohonan_faktur_view.xml",
+        "views/dym_permohonan_faktur_view.xml",
+        "views/dym_approval_permohonan_faktur_view.xml",
+        "views/dym_penerimaan_faktur_view.xml",
+        "views/dym_serial_number_pf_view.xml",
+        "views/dym_penyerahan_faktur_view.xml",
+        "wizard/dym_report_stnk_bpkb.xml",  
+        "data/dym_approval_config_data.xml",
+        "security/ir.model.access.csv",
+        "security/ir_rule.xml",   
+        # "security/res_groups.xml",   
+        # "security/res_groups_button.xml", 
+    ],
+    "active":False,
+    "installable":True
+}

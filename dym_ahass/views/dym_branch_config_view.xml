@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_branch_config_kas_ahass_form_view">
+            <field name="name">dym.branch.config.kas.ahass.form.view</field>
+            <field name="model">dym.branch.config</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_config_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <group string="Titipan Kas AHASS">
+                        <field name="ahass_titipan_kas_journal_id" />
+                        <field name="ahass_piutang_induk_journal_id" />
+                        <field name="ahass_account_kas_induk" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

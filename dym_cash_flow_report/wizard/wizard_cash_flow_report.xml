@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Top menu item -->  
+        <record id="cash_flow_report_wizard_view" model="ir.ui.view">
+            <field name="name">dym.cash.flow.report.form</field>
+            <field name="model">dym.cash.flow.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Laporan Cash Flow">
+                    <group col="4" colspan="4">
+                        <field name="division"/>
+                        <field name="per_tgl"/>
+                        <field name="status"/>
+                        <label for="start_date" string="Tanggal"/>
+                        <div>
+                            <field name="start_date" class="oe_inline"/> - <field name="end_date" class="oe_inline"/>
+                        </div>
+                    </group>
+                  
+                    <notebook colspan="5">
+                        <page string="Branches">
+                            <field name="branch_ids" colspan="4" nolabel="1"/>
+                        </page>
+                        <page string="Customer">
+                            <field name="partner_ids" colspan="4" nolabel="1"/>
+                        </page>
+                        <page string="Account">
+                            <field name="account_ids" colspan="4" nolabel="1"/>
+                        </page>
+                        <page string="Bank">
+                            <field name="bank_ids" colspan="4" nolabel="1"/>
+                        </page>
+                        <page string="Journal">
+                            <field name="journal_ids" colspan="4" nolabel="1"/>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1}" class="oe_highlight"/>
+                        or <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                    
+                </form>
+            </field>
+        </record>
+
+        <record id="cash_flow_report_action" model="ir.actions.act_window">
+            <field name="name">Laporan Cash Flow</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym.cash.flow.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            name="Laporan Cash Flow"
+            parent="dym_dealer_menu.backoffice_report_menu"
+            action="cash_flow_report_action"
+            id="menu_cash_flow_report"
+            sequence="50"/>
+
+    </data>
+</openerp>

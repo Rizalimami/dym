@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Top menu item -->     
+        <record id="kwitansi_pelunasan_leasing_wizard_view" model="ir.ui.view">
+            <field name="name">dym.kwitansi.pelunasan.leasing.multi.report.form</field>
+            <field name="model">dym.kwitansi.pelunasan.leasing.multi</field>
+            <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="partner_id" on_change="fill_dso(partner_id,finco_cabang,branch_id)" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                        <field name="finco_cabang" on_change="fill_dso(partner_id,finco_cabang,branch_id)" domain="[('partner_id','=',finco_id)]" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                    </group>
+                    <group>
+                        <field name="branch_id" on_change="fill_dso(partner_id,finco_cabang,branch_id)" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="untuk_pembayaran" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                </group>
+                <notebook>
+                    <page string="Dealer Sales Memo">
+                        <field name="dso_ids" on_change="onchange_dso(dso_ids)" required="1" domain="[('id','=',0)]" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="%(dym_kwitansi_pelunasan_leasing_multi_report)d" string="Print" type="action" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="dym_kwitansi_pelunasan_leasing_action" model="ir.actions.act_window">
+            <field name="name">Kwitansi Pelunasan Leasing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym.kwitansi.pelunasan.leasing.multi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            name="Kwitansi Pelunasan Leasing"
+            parent="dym_dealer_menu.showroom_report_menu"
+            action="dym_kwitansi_pelunasan_leasing_action"
+            id="menu_kwitansi_pelunasan_leasing"
+            sequence="6"/>
+    </data>
+</openerp>

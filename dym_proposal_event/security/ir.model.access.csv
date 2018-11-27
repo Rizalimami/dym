@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_proposal_event,access_dym_proposal_event,model_dym_proposal_event,,1,1,1,1
+access_dym_proposal_event_sharing,access_dym_proposal_event_sharing,model_dym_proposal_event_sharing,,1,1,1,1
+access_dym_event_template_line,access_dym_event_template_line,model_dym_event_template_line,,1,1,1,1
+access_dym_event_template_line_biaya,access_dym_event_template_line_biaya,model_dym_event_template_line_biaya,,1,1,1,1
+access_dym_event_template,access_dym_event_template,model_dym_event_template,,1,1,1,1
+access_dym_proposal_event_pengeluaran,access_dym_proposal_event_pengeluaran,model_dym_proposal_event_pengeluaran,,1,1,1,1
+access_dym_proposal_event_biaya,access_dym_proposal_event_biaya,model_dym_proposal_event_biaya,,1,1,1,1
+access_dym_proposal_event_target,access_dym_proposal_event_target,model_dym_proposal_event_target,,1,1,1,1

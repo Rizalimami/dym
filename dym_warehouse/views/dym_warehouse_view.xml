@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem action="product.attribute_action" id="menu_attribute_action_warehouse" parent="stock.menu_product_in_config_stock" sequence="9" />
+        <menuitem action="product.variants_action" id="menu_variants_action_warehouse" parent="stock.menu_product_in_config_stock" sequence="10" />
+        <record model="ir.ui.view" id="dym_warehouse_form_view">
+            <field name="name">dym.warehouse.form</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse" />
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="branch_id" required="True" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                    <field name="lot_stock_id" />
+                </field>
+                <field name="out_type_id" position="after">
+                    <field name="interbranch_in_type_id" domain="[('code','=','internal')]" readonly="True" />
+                    <field name="interbranch_out_type_id" domain="[('code','=','internal')]" readonly="True" />
+                </field>
+                <field name="name" position="attributes">
+                    <attribute name="on_change">upper_change(name,code)</attribute>
+                </field>
+                <field name="code" position="attributes">
+                    <attribute name="on_change">upper_change(name,code)</attribute>
+                    <attribute name="attrs">{'invisible':[('rel_code','!=',False)]}</attribute>
+                </field>
+                <field name="code" position="after">
+                    <field name="rel_code" attrs="{'invisible':[('rel_code','=',False)]}" />
+                </field>
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_warehouse_location_form_view">
+            <field name="name">dym.warehouse.location.form</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_form" />
+            <field name="arch" type="xml">
+                <field name="active" position="after">
+                    <field name="warehouse_id" required="1" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_warehouse_ir_sequence_form_view">
+            <field name="name">dym.warehouse.ir.sequence.form</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view" />
+            <field name="arch" type="xml">
+                <field name="active" position="after">
+                    <field name="picking_type_id" invisible="1" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

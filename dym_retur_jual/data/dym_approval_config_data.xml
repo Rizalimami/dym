@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="config_approval_retur_jual" model="dym.approval.config">
+            <field name="name">Retur Penjualan</field>        	        	
+            <field name="form_id" ref="dym_retur_jual.model_dym_retur_jual"/> 
+            <field name="code"> </field>
+            <field name="type">biaya</field>
+        </record>
+    </data>
+</openerp>
+            

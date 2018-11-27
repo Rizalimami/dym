@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_account_form_payroll_inherit" model="ir.ui.view">
+            <field name="name">account.account.form.payroll.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="dym_account.view_account_account_branch_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Default Partners" attrs="{'invisible': [('type','=','view')]}">
+                        <field name="account_default_partner_ids" attrs="{'invisible': [('type','=','view')]}">
+                            <tree editable="top">
+                                <field name="partner_id" />
+                                <field name="city" />
+                                <field name="state_id" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

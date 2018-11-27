@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="dym_purchase_order_branch_config_view" model="ir.ui.view">
+            <field name="name">dym.branch.config.purchase.order.view</field>
+            <field name="model">dym.branch.config</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_config_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <group string="Purchase Order">
+                        <field name="dym_po_journal_unit_id" domain="[('type','=','purchase')]" />
+                        <field name="dym_po_journal_sparepart_id" domain="[('type','=','purchase')]" />
+                        <field name="dym_po_journal_umum_id" domain="[('type','=','purchase')]" />
+                        <field name="dym_po_journal_asset_id" domain="[('type','=','purchase')]" />
+                        <field name="dym_po_journal_prepaid_id" domain="[('type','=','purchase')]" />
+                        <field name="dym_po_journal_intercompany_id" domain="[('type','=','purchase')]" />
+                        <group colspan="4" col="2">
+                            <label for='get_all_po_types' string=''/>
+                            <div>
+                                <button name="get_all_po_types" string="Get PO Types" type="object" class="oe_highlight"/>
+                            </div>
+                        </group>
+                        <field name="dym_po_type_journal_ids">
+                            <tree string='PO Type' editable="bottom" create="false">
+                                <field name='category' readonly='1'/>
+                                <field name='po_type_id' readonly='1'/>
+                                <field name='journal_id' />
+                            </tree>
+                        </field>
+                        <field name="dym_po_account_discount_cash_id" invisible="1" />
+                        <field name="dym_po_account_discount_program_id" invisible="1" />
+                        <field name="dym_po_account_discount_lainnya_id" invisible="1" />
+                        <field name="dym_po_journal_blind_bonus_beli_id" domain="[('type','=','sale')]" invisible="1" />
+                        <field name="dym_po_account_blind_bonus_beli_dr_id" invisible="1" />
+                        <field name="dym_po_account_blind_bonus_beli_cr_id" invisible="1" />
+                        <!-- 
+                        <field name="dym_po_account_analytic_bu_unit" domain="[('type','=','normal'),('segmen','=',2),('parent_ids','=',analytic_company),('parent_ids','!=',False),('state','not in',('close','cancelled')),('division','=','Unit')]" string="Account Analytic BU (Unit)"/>
+                        <field name="dym_po_account_analytic_bu_sparepart" domain="[('type','=','normal'),('segmen','=',2),('parent_ids','=',analytic_company),('parent_ids','!=',False),('state','not in',('close','cancelled')),('division','=','Sparepart')]" string="Account Analytic BU (Sparepart)"/>
+                        <field name="dym_po_account_analytic_bu_aksesoris" domain="[('type','=','normal'),('segmen','=',2),('parent_ids','=',analytic_company),('parent_ids','!=',False),('state','not in',('close','cancelled')),('division','=','Aksesoris')]" string="Account Analytic BU (Aksesoris)"/>
+                        <field name="dym_po_account_analytic_bu_umum" domain="[('type','=','normal'),('segmen','=',2),('parent_ids','=',analytic_company),('parent_ids','!=',False),('state','not in',('close','cancelled')),('division','=','Umum')]" string="Account Analytic BU (Umum)"/>
+                        <field name="dym_po_account_analytic_cost_center" domain="[('type','=','normal'),('segmen','=',4),('parent_ids','=',analytic_id),('parent_ids','!=',False),('state','not in',('close','cancelled'))]" string="Account Analytic Cost Center"/> 
+                        -->
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

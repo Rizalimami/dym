@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">  	
+    	
+<!-- Laporan Hutang -->	
+        <record id="group_laporan_hutang_invoice_finance_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Hutang Invoice Finance Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_hutang_invoice_report'))]"/>  
+        </record> 
+
+        <record id="group_laporan_hutang_invoice_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Hutang Invoice Read</field> 
+        </record> 
+
+        <record id="group_laporan_hutang_invoice_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Hutang Invoice Update</field> 
+			<field name="implied_ids" eval="[(4, ref('group_laporan_hutang_invoice_read'))]"/>            	            	
+        </record>
+   
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[(4,ref('group_laporan_hutang_invoice_read')),
+											(4,ref('group_laporan_hutang_invoice_update')),
+                                            (4,ref('group_laporan_hutang_invoice_finance_menu')),
+                                            ]"/> 
+		</record>                                                                                           
+    </data>
+</openerp>

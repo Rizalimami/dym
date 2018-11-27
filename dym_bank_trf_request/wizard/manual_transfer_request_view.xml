@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="manual_transfer_request_form" model="ir.ui.view">
+            <field name="name">manual.transfer.request.form</field>
+            <field name="model">manual.transfer.request</field>
+            <field name="arch" type="xml">
+                <form string="Search">
+                    <p>Biasanya transfer request dibuat otomatis oleh komputer setiap malam hari. Tapi Anda dapat melakukannya secara manual di sini.</p>
+                    <group>
+                        <field name="company_id" invisible="1"/>
+                        <field name="branch_id" />
+                        <field name="doc_type" />
+                        <field name="inv_id" options="{'no_quick_create':True,'no_create_edit':True}" domain="[('type','=','in_invoice'),('state','!=','paid'),('transfer_request_id','=',False)]" attrs="{'invisible':[('doc_type','!=','supplier_invoice')]}"/>
+                        <field name="par_id" options="{'no_quick_create':True,'no_create_edit':True}" domain="[('journal_id.type','in',['purchase','purchase_refund']),('transfer_request_id','=',False)]" attrs="{'invisible':[('doc_type','!=','payment_request')]}"/>
+                        <field name="cde_id" options="{'no_quick_create':True,'no_create_edit':True}" domain="[('type','=','receipt'),('is_hutang_lain','!=',False)]" attrs="{'invisible':[('doc_type','!=','customer_deposit')]}"/>
+                        <field name="rpc_id" options="{'no_quick_create':True,'no_create_edit':True}" domain="[('state','!=','paid'),('transfer_request_id','=',False)]" attrs="{'invisible':[('doc_type','!=','pettycash_reimburse')]}"/>
+                        <field name="rbk_id" options="{'no_quick_create':True,'no_create_edit':True}" domain="[('state','=','posted')]" attrs="{'invisible':[('doc_type','!=','bank_inout_reimburse')]}"/>
+                    </group>
+                    <footer>
+                        <button string="Send" name="send_to_bank_transfer_request" type="object" class="oe_highlight" />
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="manual_transfer_request_action" model="ir.actions.act_window">
+            <field name="name">Manual Request</field>
+            <field name="res_model">manual.transfer.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    
+<!-- Reporting Stock -->
+        <record id="group_stock_unit_reporting_menu_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Unit Reporting Menu Read</field>
+            <field name="menu_access" eval="[(4, ref('menu_stock_unit_report_all')),
+                                            ]"/>
+        </record>
+        <record id="group_stock_sparepart_reporting_menu_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Sparepart Reporting Menu Read</field>
+            <field name="menu_access" eval="[(4, ref('menu_stock_sparepart_report_all')),
+                                            ]"/>
+        </record>
+        <record id="group_stock_extras_reporting_menu_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock KSU Reporting Menu Read</field>
+            <field name="menu_access" eval="[(4, ref('menu_stock_extras_report_all')),
+                                            ]"/>
+        </record>
+
+        <record id="group_stock_reporting_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Reporting Read</field>
+        </record>
+
+        <record id="access_stock_reporting_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_unit_report"/>
+            <field name="name">stock_reporting read</field>
+            <field name="group_id" ref="group_stock_reporting_read"/>
+            <field name="perm_read">1</field>
+        </record>
+        
+        <record id="group_stock_reporting_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Reporting Update</field>
+            <field name="implied_ids" eval="[(4, ref('group_stock_reporting_read'))]"/>
+        </record>
+
+        <record id="access_stock_reporting_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_unit_report"/>
+            <field name="name">stock_reporting update</field>
+            <field name="group_id" ref="group_stock_reporting_update"/>
+            <field name="perm_read">1</field>
+        </record>
+<!-- Report Memo -->	
+	
+        <record id="group_report_spk_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Report Memo Read</field> 
+            <field name="menu_access" eval="[(4, ref('menu_dealer_spk_report'))]"/>  
+        </record> 
+                      
+        <record id="group_report_spk_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Report Memo Update</field> 
+            <field name="menu_access" eval="[(4, ref('menu_dealer_spk_report'))]"/>   
+			<field name="implied_ids" eval="[(4, ref('group_report_spk_read'))]"/>            	            	
+        </record>
+    </data>
+</openerp>
+<!-- (4,ref('group_dealer_distribusi_spk_delete')), -->

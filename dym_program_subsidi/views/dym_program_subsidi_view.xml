@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="wiz_program_subsidi" model="ir.actions.act_window">
+            <field name="name">wiz.program.subsidi.action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wiz.program.subsidi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="wiz_program_subsidi_form" model="ir.ui.view">
+            <field name="name">wiz.program.subsidi.form</field>
+            <field name="model">wiz.program.subsidi</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="program_subsidi_id" invisible="1" />
+                        <field name="hutang_komisi_id" invisible="1" />
+                        <field name="subsidi_barang_id" invisible="1" />
+                        <field name="qty" attrs="{'readonly':[('subsidi_barang_id','=',False)], 'invisible':[('subsidi_barang_id','=',False)]}" />
+                        <field name="amount" attrs="{'readonly':[('hutang_komisi_id','=',False)], 'invisible':[('hutang_komisi_id','=',False)]}" />
+                        <field name="tipe_dp" attrs="{'readonly':[('program_subsidi_id','=',False)], 'invisible':[('program_subsidi_id','=',False)]}" />
+                        <field name="amount_dp" attrs="{'readonly':[('program_subsidi_id','=',False)], 'invisible':[('program_subsidi_id','=',False)]}" />
+                        <field name="tenor" attrs="{'readonly':[('program_subsidi_id','=',False)], 'invisible':[('program_subsidi_id','=',False)]}" />
+                        <field name="tipe_diskon" attrs="{'readonly':[('program_subsidi_id','=',False)], 'invisible':[('program_subsidi_id','=',False)], 'required':[('program_subsidi_id','!=',False)]}" />
+                        <field name="diskon_persen" attrs="{'readonly':['|',('program_subsidi_id','=',False),'&amp;',('tipe_diskon','!=','percentage'),('program_subsidi_id','!=',False)], 'invisible':['|',('program_subsidi_id','=',False),'&amp;',('tipe_diskon','!=','percentage'),('program_subsidi_id','!=',False)]}" />
+                        <group cols="16">
+                            <field name="diskon_ahm" attrs="{'readonly':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)], 'invisible':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)]}" />
+                            <field name="diskon_md" attrs="{'readonly':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)], 'invisible':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)]}" />
+                            <field name="diskon_dealer" attrs="{'readonly':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)], 'invisible':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)]}" />
+                            <field name="diskon_finco" attrs="{'readonly':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)], 'invisible':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)]}" />
+                            <field name="diskon_others" attrs="{'readonly':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)], 'invisible':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)]}" />
+                        </group>
+                    </group>
+                    <field name="product_ids" options="{'no_create': True,'no_open': True}" required="1" />
+                    <footer>
+                        <button name="save_program" string="Save" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!-- Ori -->
+        <!--
+        <record id="wiz_program_subsidi_form" model="ir.ui.view">
+            <field name="name">wiz.program.subsidi.form</field>
+            <field name="model">wiz.program.subsidi</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="program_subsidi_id" invisible="1" />
+                        <field name="hutang_komisi_id" invisible="1" />
+                        <field name="subsidi_barang_id" invisible="1" />
+                        <field name="qty" attrs="{'readonly':[('subsidi_barang_id','=',False)], 'invisible':[('subsidi_barang_id','=',False)]}" />
+                        <field name="amount" attrs="{'readonly':[('hutang_komisi_id','=',False)], 'invisible':[('hutang_komisi_id','=',False)]}" />
+                        <field name="tipe_dp" attrs="{'readonly':[('program_subsidi_id','=',False)], 'invisible':[('program_subsidi_id','=',False)]}" />
+                        <field name="amount_dp" attrs="{'readonly':[('program_subsidi_id','=',False)], 'invisible':[('program_subsidi_id','=',False)]}" />
+                        <field name="tipe_diskon" attrs="{'readonly':[('program_subsidi_id','=',False)], 'invisible':[('program_subsidi_id','=',False)], 'required':[('program_subsidi_id','!=',False)]}" />
+                        <field name="diskon_persen" attrs="{'readonly':['|',('program_subsidi_id','=',False),'&amp;',('tipe_diskon','!=','percentage'),('program_subsidi_id','!=',False)], 'invisible':['|',('program_subsidi_id','=',False),'&amp;',('tipe_diskon','!=','percentage'),('program_subsidi_id','!=',False)]}" />
+                        <field name="diskon_ahm" attrs="{'readonly':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)], 'invisible':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)]}" />
+                        <field name="diskon_md" attrs="{'readonly':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)], 'invisible':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)]}" />
+                        <field name="diskon_dealer" attrs="{'readonly':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)], 'invisible':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)]}" />
+                        <field name="diskon_finco" attrs="{'readonly':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)], 'invisible':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)]}" />
+                        <field name="diskon_others" attrs="{'readonly':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)], 'invisible':['|',('hutang_komisi_id','!=',False),'&amp;',('tipe_diskon','!=','amount'),('program_subsidi_id','!=',False)]}" />
+                    </group>
+                    <field name="product_ids" options="{'no_create': True,'no_open': True}" required="1" />
+                    <footer>
+                        <button name="save_program" string="Save" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        -->
+        <record model="ir.ui.view" id="dym_program_subsidi_tree_view">
+            <field name="name">dym.program.subsidi.tree</field>
+            <field name="model">dym.program.subsidi</field>
+            <field name="arch" type="xml">
+                <tree string="Program Subsidi">
+                    <field name="name" />
+                    <field name="branch_id" />
+                    <field name="division" />
+                    <field name="date_start" />
+                    <field name="date_end" />
+                    <field name="tipe_subsidi" />
+                    <field name="include_invoice" />
+                    <field name="nilai_promo" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_program_subsidi_search" model="ir.ui.view">
+            <field name="name">dym.program.subsidi.search</field>
+            <field name="model">dym.program.subsidi</field>
+            <field name="arch" type="xml">
+                <search string="Search Program Subsidi">
+                    <field name='name' />
+                    <field name='branch_id' />
+                    <field name='area_id' />
+                    <field name='division' />
+                    <field name='tipe_subsidi' />
+                    <field name='instansi_id' />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-go-month" domain="[]" context="{'group_by':'branch_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_program_subsidi_form_view">
+            <field name="name">dym.program.subsidi.form</field>
+            <field name="model">dym.program.subsidi</field>
+            <field name="arch" type="xml">
+                <form string="Program Subsidi">
+                    <header>
+                        <button name="%(wiz_program_subsidi)d" type="action" help="Add Multiple Products" string="Add Multiple Products" class="oe_highlight" attrs="{'invisible':[('state','not in',['draft','on_revision'])]}" context="{'program_subsidi_id':active_id}" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,waiting_for_approval,approved" statusbar_colors='{"draft":"red","approved":"blue"}' />
+                    </header>
+                    <group>
+                        <group>
+                            <field name="branch_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" />
+                            <field name="division" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" />
+                            <field name="area_id" options="{'no_create': True,'no_open': True}" domain="[('branch_ids','=',branch_id)]" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" />
+                            <field name="name" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" />
+                            <label for="date_start" string="Date Start" />
+                            <div>
+                                <field name="date_start" class="oe_inline" nolabel="1" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" /> -
+                                <field name="date_end" nolabel="1" class="oe_inline" attrs="{'readonly':[('state','not in',['draft','editable','on_revision'])]}" />
+                            </div>
+                            <field name="is_exclusive" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" />
+                            <field name="is_program_depo" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" />
+                            <field name="is_member_only" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" />
+                            <field name="partner_ref" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" />
+                            <field name="tipe_subsidi" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" />
+                            <field name="include_invoice" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" />
+                        </group>
+                        <group>
+                            <field name="active" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" />
+                            <field name="instansi_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly':[('state','not in',['draft','on_revision'])],'invisible':[('division','=','Sparepart')]}" widget="many2many_tags" />
+                            <field name="keterangan" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" />
+                            <label for="nilai_promo" string="Nilai Promo" />
+                            <div>
+                                <field name="nilai_promo" class="oe_inline" nolabel="1" />
+                                <button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link" nolabel="1" />
+                            </div>
+                            <label for="tenor_start" string="Tenor Range" />
+                            <div>
+                                <field name="tenor" class="oe_inline oe_highlight" nolabel="1" /> : 
+                                <field name="tenor_start" class="oe_inline" nolabel="1" /> -
+                                <field name="tenor_end" nolabel="1" class="oe_inline" />
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Program Subsidi Lines">
+                            <field colspan="4" name="program_subsidi_line" nolabel="1" attrs="{'readonly':[('state','not in',['draft','on_revision'])]}" context="{'parent':parent,'tenor_start':tenor_start,'tenor_end':tenor_end}">
+                                <tree string="Program Subsidi" editable="bottom">
+                                    <field name="product_template_id" options="{'no_create': True,'no_open': True}" on_change="_get_domain_program_subsidi(parent.division)" required="1" />
+                                    <field name="tipe_dp" />
+                                    <field name="amount_dp" />
+                                    <field name="tipe_diskon" required="1" on_change="onchange_tipe_diskon(tipe_diskon)" />
+                                    <field name="diskon_persen" attrs="{'readonly':[('tipe_diskon','!=','percentage')]}" />
+                                    <field name="tenor" invisible="1" />
+                                    <field name="tenor_start" invisible="1" />
+                                    <field name="tenor_end" invisible="1" />
+                                    <field name="tenor_range" on_change="onchange_tenor_range(tenor_range)" />
+                                    <field name="diskon_ahm" attrs="{'readonly':[('tipe_diskon','!=','amount')]}" />
+                                    <field name="diskon_md" attrs="{'readonly':[('tipe_diskon','!=','amount')]}" />
+                                    <field name="diskon_dealer" attrs="{'readonly':[('tipe_diskon','!=','amount')]}" />
+                                    <field name="diskon_finco" attrs="{'readonly':[('tipe_diskon','!=','amount')]}" />
+                                    <field name="diskon_others" attrs="{'readonly':[('tipe_diskon','!=','amount')]}" />
+                                    <field name="total_diskon" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_program_subsidi_action">
+            <field name="name">Program Subsidi</field>
+            <field name="res_model">dym.program.subsidi</field>
+            <field name="domain">[('division','=','Unit')]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_program_subsidi_action_workshop">
+            <field name="name">Program Subsidi</field>
+            <field name="res_model">dym.program.subsidi</field>
+            <field name="domain">[('division','=','Sparepart')]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="program_subsidi_menuitem" parent="dym_dealer_menu.showroom_configuration_menu" sequence="3" action="dym_program_subsidi_action" />
+        <menuitem id="program_subsidi_menuitem_workshop" parent="dym_dealer_menu.workshop_configuration_menu" sequence="30" action="dym_program_subsidi_action_workshop" />
+    </data>
+</openerp>

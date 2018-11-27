@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_pettycash_in_full_refund_reason_0" model="dym.pettycash.in.full.refund.reason">
+            <field name="name">Alasan khusus, sebutkan di bawah ini</field>
+            <field name="notes"></field>
+            <field name="sequence">0</field>
+        </record>
+        <record id="dym_pettycash_in_full_refund_reason_1" model="dym.pettycash.in.full.refund.reason">
+            <field name="name">Barang tidak ada</field>
+            <field name="notes">Barang yang ingin dibeli tidak ada di supplier/toko</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="dym_pettycash_in_full_refund_reason_2" model="dym.pettycash.in.full.refund.reason">
+            <field name="name">Barang ada, pembayaran via Supplier Payment</field>
+            <field name="notes">Barang ada, tapi pembayaran diharuskan menggunakan Supplier Payment/ bukan petty cash</field>
+            <field name="sequence">2</field>
+        </record>
+    </data>
+</openerp>

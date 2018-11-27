@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="group_dym_biaya_lain_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Config Costsheet - Biaya Lain-lain</field> 
+            <field name="menu_access" eval="[(4, ref('dym_biaya_lain_menuitem'))]"/>
+        </record>
+        <record id="access_dym_biaya_lain_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_biaya_lain"/>
+            <field name="name">dym_biaya_lain read</field> 
+            <field name="group_id" ref="group_dym_biaya_lain_read"/>  
+            <field name="perm_read">1</field> 
+            <field name="perm_write">1</field> 
+            <field name="perm_create">1</field> 
+            <field name="perm_unlink">1</field>
+        </record>
+    </data>
+</openerp>

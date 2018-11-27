@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_bank_transfer_request_supplier_invoice_tree_view">
+            <field name="name">dym.bank.transfer.request.supplier.invoice.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree" />
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="transfer_request_id" />
+                </field>
+            </field>
+        </record>
+        <!--
+        <record model="ir.ui.view" id="dym_branch_on_customer_invoice_form_view">
+            <field name="name">dym.branch.customer.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group/group/field[@name='partner_id']" position="after">
+                    <field name="qq_id" attrs="{'invisible':[('tipe','=','customer')]}" invisible="1" />
+                </xpath>
+            </field>
+        </record>
+        -->
+    </data>
+</openerp>

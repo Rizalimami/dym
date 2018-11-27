@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_asset_form_view" model="ir.ui.view">
+            <field name="name">dym.asset.form.view</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="dym_purchase_asset.view_asset_asset_add" />
+            <field name="arch" type="xml">
+                <separator string="Account" position="before">
+                    <separator string="Dispose Info" />
+                    <group>
+                        <field name="dispose_asset_id" readonly="1" />
+                        <field name="tgl_asset_disposal" readonly="1" />
+                        <field name="inv_dispose_asset" readonly="1" />
+                        <field name="tgl_bayar_disposal" readonly="1" />
+                    </group>
+                </separator>
+                <separator string="Account" position="before">
+                    <separator string="Analytic" />
+                    <group>
+                        <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                        <field name="analytic_2" required="1" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="change_reset('analytic_2')" />
+                        <field name="analytic_3" required="1" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="change_reset('analytic_3')" />
+                        <field name="analytic_4" required="1" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                    </group>
+                </separator>
+            </field>
+        </record>
+        <record id="dym_prepaid_analytic_form_view" model="ir.ui.view">
+            <field name="name">dym.prepaid.analytic.form.view</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="dym_purchase_asset.view_account_asset_asset_form_prepaid" />
+            <field name="arch" type="xml">
+                <separator string="Account" position="before">
+                    <separator string="Analytic" />
+                    <group>
+                        <field name="analytic_2" required="1" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled'))]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="change_reset('analytic_2')" />
+                        <field name="analytic_3" required="1" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="change_reset('analytic_3')" />
+                        <field name="analytic_4" required="1" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                    </group>
+                </separator>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="group_on_incoming_shipment_showroom_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">On Incoming Shipment Showroom Menu</field>
+            <field name="menu_access" eval="[(4, ref('dym_picking_incoming_showroom_menu'))]" />
+        </record>
+        <record id="group_on_incoming_shipment_workshop_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">On Incoming Shipment Workshop Menu</field>
+            <field name="menu_access" eval="[(4, ref('dym_picking_incoming_workshop_menu'))]" />
+        </record>
+        <record id="group_on_incoming_shipment_general_affair_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">On Incoming Shipment General Affair Menu</field>
+            <field name="menu_access" eval="[(4, ref('dym_picking_incoming_ga_menu'))]" />
+        </record>
+        <!-- Purchase Orders -->
+        <record id="group_purchase_order_showroom_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Purchase Order Showroom Menu</field>
+            <field name="menu_access" eval="[(4, ref('menu_purchase_form_action_4'))]" />
+        </record>
+        <record id="group_purchase_order_workshop_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Purchase Order Workshop Menu</field>
+            <field name="menu_access" eval="[(4, ref('menu_purchase_form_action_5'))]" />
+        </record>
+        <record id="group_purchase_order_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Purchase Orders Read</field>
+        </record>
+        <record id="access_purchase_order_read" model="ir.model.access">
+            <field name="model_id" ref="model_purchase_order" />
+            <field name="name">purchase_order read</field>
+            <field name="group_id" ref="group_purchase_order_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_purchase_order_line_read" model="ir.model.access">
+            <field name="model_id" ref="model_purchase_order_line" />
+            <field name="name">purchase_order_line read</field>
+            <field name="group_id" ref="group_purchase_order_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_purchase_order_approval_line_read" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line" />
+            <field name="name">purchase_order_approval_line read</field>
+            <field name="group_id" ref="group_purchase_order_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="group_purchase_order_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Purchase Orders Update</field>
+            <field name="implied_ids" eval="[(4, ref('group_purchase_order_read'))]" />
+        </record>
+        <record id="access_purchase_order_update" model="ir.model.access">
+            <field name="model_id" ref="model_purchase_order" />
+            <field name="name">purchase_order update</field>
+            <field name="group_id" ref="group_purchase_order_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="access_purchase_order_line_update" model="ir.model.access">
+            <field name="model_id" ref="model_purchase_order_line" />
+            <field name="name">purchase_order_line update</field>
+            <field name="group_id" ref="group_purchase_order_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="access_purchase_order_approval_line_update" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line" />
+            <field name="name">purchase_order_approval_line update</field>
+            <field name="group_id" ref="group_purchase_order_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="group_purchase_order_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Purchase Orders Delete</field>
+            <field name="implied_ids" eval="[(4, ref('group_purchase_order_read'))]" />
+        </record>
+        <record id="access_purchase_order_delete" model="ir.model.access">
+            <field name="model_id" ref="model_purchase_order" />
+            <field name="name">purchase_order delete</field>
+            <field name="group_id" ref="group_purchase_order_delete" />
+            <field name="perm_unlink">1</field>
+        </record>
+        <record id="access_purchase_order_line_delete" model="ir.model.access">
+            <field name="model_id" ref="model_purchase_order_line" />
+            <field name="name">purchase_order_line delete</field>
+            <field name="group_id" ref="group_purchase_order_delete" />
+            <field name="perm_unlink">1</field>
+        </record>
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+            <field name="implied_ids" eval="[(4,ref('group_purchase_order_read')),
+                                            (4,ref('group_purchase_order_update')),
+                                            (4,ref('group_purchase_order_delete')),
+
+                                            ]" />
+        </record>
+        <record id="group_supplier_invoice_showroom_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Supplier Invoice Showroom Menu</field>
+            <field name="menu_access" eval="[(4, ref('menu_action_invoice_tree3'))]" />
+        </record>
+        <record id="group_supplier_invoice_workshop_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Supplier Invoice Workshop Menu</field>
+            <field name="menu_access" eval="[(4, ref('menu_action_invoice_tree4'))]" />
+        </record>
+        <record id="group_supplier_invoice_finance_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Supplier Invoice Finance Menu</field>
+            <field name="menu_access" eval="[(4, ref('menu_action_invoice_tree5'))]" />
+        </record>
+        <!-- <record id="dym_account.group_supplier_invoice_read" model="res.groups">
+            <field name="menu_access" eval="[(4, ref('menu_action_invoice_tree3')),
+                                            (4, ref('menu_action_invoice_tree4'))
+                                            ]"/>  
+        </record> 
+                
+        <record id="dym_account.group_supplier_invoice_update" model="res.groups">
+            <field name="menu_access" eval="[(4, ref('menu_action_invoice_tree3')),
+                                            (4, ref('menu_action_invoice_tree4'))
+                                            ]"/>   
+        </record>    
+        <record id="dym_account.group_supplier_invoice_delete" model="res.groups">
+            <field name="menu_access" eval="[(4, ref('dym_purchase_order.menu_action_invoice_tree3')),
+                                            (4, ref('dym_purchase_order.menu_action_invoice_tree4'))
+                                            ]"/>   
+        </record> -->
+        <record id="group_supplier_payment_showroom_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Supplier Payment Showroom Menu</field>
+            <field name="menu_access" eval="[(4, ref('dym_purchase_order.menu_action_vendor_payment3'))]" />
+        </record>
+        <record id="group_supplier_payment_workshop_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Supplier Payment Workshop Menu</field>
+            <field name="menu_access" eval="[(4, ref('dym_purchase_order.menu_action_vendor_payment2'))]" />
+        </record>
+        <record id="group_supplier_payment_finance_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Supplier Payment Finance Menu</field>
+            <field name="menu_access" eval="[(4, ref('dym_purchase_order.menu_action_vendor_payment4'))]" />
+        </record>
+        <!-- <record id="dym_account_voucher.group_supplier_payment_read" model="res.groups">
+            <field name="menu_access" eval="[(4, ref('dym_purchase_order.menu_action_vendor_payment2')),
+                                             (4, ref('dym_purchase_order.menu_action_vendor_payment3')),
+                                             (4, ref('dym_purchase_order.menu_action_vendor_payment4')) 
+                                             ]"/>  
+        </record>     
+        <record id="dym_account_voucher.group_supplier_payment_update" model="res.groups">
+            <field name="menu_access" eval="[(4, ref('dym_purchase_order.menu_action_vendor_payment2')),
+                                             (4, ref('dym_purchase_order.menu_action_vendor_payment3')),
+                                             (4, ref('dym_purchase_order.menu_action_vendor_payment4')) 
+                                             ]"/>  
+        </record> 
+        <record id="dym_account_voucher.group_supplier_payment_delete" model="res.groups">
+            <field name="menu_access" eval="[(4, ref('dym_purchase_order.menu_action_vendor_payment2')),
+                                             (4, ref('dym_purchase_order.menu_action_vendor_payment3')),
+                                             (4, ref('dym_purchase_order.menu_action_vendor_payment4')) 
+                                             ]"/>  
+        </record> -->
+        <!-- On Purchase Order Lines -->
+        <record id="group_on_purchase_order_lines_showroom_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">On Purchase Order Lines Showroom Menu</field>
+            <field name="menu_access" eval="[(4, ref('menu_purchase_line_order_draft_showroom'))]" />
+        </record>
+        <record id="group_on_purchase_order_lines_workshop_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">On Purchase Order Lines Workshop Menu</field>
+            <field name="menu_access" eval="[(4, ref('menu_purchase_line_order_draft_workshop'))]" />
+        </record>
+        <record id="group_on_purchase_order_lines_general_affair_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">On Purchase Order Lines General Affair Menu</field>
+            <field name="menu_access" eval="[(4, ref('menu_purchase_line_order_draft_general_affair'))]" />
+        </record>
+        <record id="group_on_purchase_order_lines_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">On Purchase Order Lines Read</field>
+        </record>
+        <record id="access_on_purchase_order_lines_read" model="ir.model.access">
+            <field name="model_id" ref="purchase.model_purchase_order_line" />
+            <field name="name">on_purchase_order_lines read</field>
+            <field name="group_id" ref="group_on_purchase_order_lines_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_on_purchase_order_stock_move_read" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_move" />
+            <field name="name">on_purchase_order_stock_move read</field>
+            <field name="group_id" ref="group_on_purchase_order_lines_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_on_purchase_order_po_read" model="ir.model.access">
+            <field name="model_id" ref="purchase.model_purchase_order" />
+            <field name="name">on_purchase_order read</field>
+            <field name="group_id" ref="group_on_purchase_order_lines_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="group_on_purchase_order_lines_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">On Purchase Order Lines Update</field>
+            <field name="implied_ids" eval="[(4, ref('group_on_purchase_order_lines_read'))]" />
+        </record>
+        <record id="access_on_purchase_order_lines_update" model="ir.model.access">
+            <field name="model_id" ref="purchase.model_purchase_order_line" />
+            <field name="name">on_purchase_order_lines update</field>
+            <field name="group_id" ref="group_on_purchase_order_lines_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="group_on_purchase_order_lines_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">On Purchase Order Lines Delete</field>
+            <field name="implied_ids" eval="[(4, ref('group_on_purchase_order_lines_read'))]" />
+        </record>
+        <record id="access_on_purchase_order_lines_delete" model="ir.model.access">
+            <field name="model_id" ref="purchase.model_purchase_order_line" />
+            <field name="name">on_purchase_order_lines delete</field>
+            <field name="group_id" ref="group_on_purchase_order_lines_delete" />
+            <field name="perm_unlink">1</field>
+        </record>
+        <!-- Purchase Order Types -->
+        <record id="group_purchase_order_types_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Purchase Order Types Read</field>
+            <field name="menu_access" eval="[(4, ref('dym_purchase_order_type_menuitem'))]" />
+        </record>
+        <record id="access_purchase_order_types_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_purchase_order_type" />
+            <field name="name">purchase_order_types read</field>
+            <field name="group_id" ref="group_purchase_order_types_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="group_purchase_order_types_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Purchase Order Types Update</field>
+            <field name="menu_access" eval="[(4, ref('dym_purchase_order_type_menuitem'))]" />
+            <field name="implied_ids" eval="[(4, ref('group_purchase_order_types_read'))]" />
+        </record>
+        <record id="access_purchase_order_types_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_purchase_order_type" />
+            <field name="name">purchase_order_types update</field>
+            <field name="group_id" ref="group_purchase_order_types_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="group_purchase_order_types_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Purchase Order Types Delete</field>
+            <field name="menu_access" eval="[(4, ref('dym_purchase_order_type_menuitem'))]" />
+            <field name="implied_ids" eval="[(4, ref('group_purchase_order_types_read'))]" />
+        </record>
+        <record id="access_purchase_order_types_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_purchase_order_type" />
+            <field name="name">purchase_order_types delete</field>
+            <field name="group_id" ref="group_purchase_order_types_delete" />
+            <field name="perm_unlink">1</field>
+        </record>
+        <record id="access_approval_portal_purchase_order_read" model="ir.model.access">
+            <field name="model_id" ref="purchase.model_purchase_order" />
+            <field name="name">approval_portal_model_purchase_order read</field>
+            <field name="group_id" ref="dym_approval.group_approval_portal_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+            <field name="implied_ids" eval="[(4,ref('group_purchase_order_read')),
+                                            (4,ref('group_purchase_order_update')),
+                                            (4,ref('group_purchase_order_delete')),
+                                            (4,ref('group_on_purchase_order_lines_read')),
+                                            (4,ref('group_on_purchase_order_lines_update')),
+                                            (4,ref('group_on_purchase_order_lines_delete')),
+                                            (4,ref('group_purchase_order_types_read')),
+                                            (4,ref('group_purchase_order_types_update')),
+                                            (4,ref('group_purchase_order_types_delete')),           
+                                            ]" />
+        </record>
+    </data>
+</openerp>

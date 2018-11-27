@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <record id="dym_product_pricelist_item_tree_view" model="ir.ui.view">
+            <field name="name">product.pricelist.item.tree</field>
+            <field name="model">product.pricelist.item</field>
+		    <field name="inherit_id" ref="product.product_pricelist_item_tree_view"/>
+            <field name="arch" type="xml">    	
+		    	<field name="product_id" position="replace"/>
+		    	<field name="product_tmpl_id" position="replace"/>
+		    	<field name="categ_id" position="after">			    	
+			    	<field name="product_tmpl_id"/>
+			    	<field name="product_id" string="Product Variant"/>
+		    	</field>
+            </field>
+        </record>
+		
+		<record model="ir.ui.view" id="dym_product_pricelist_item_form_view">
+		    <field name="name">dym.product.pricelist.item.form</field>
+		    <field name="model">product.pricelist.item</field>
+		    <field name="type">form</field>
+		    <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+		    <field name="arch" type="xml">		    	
+		    	<field name="product_id" position="replace"/>
+		    	<field name="product_tmpl_id" position="replace"/>
+		    	<field name="categ_id" position="after">			    	
+			    	<field name="product_tmpl_id"/>
+			    	<field name="product_id"/>
+		    	</field>
+
+		    	<field name="product_id" position="attributes">
+		    		<attribute name="on_change">product_id_change(product_id,product_tmpl_id,categ_id)</attribute>
+		    		<attribute name="string">Product Variant</attribute>
+		    		<attribute name="attrs">{'readonly':['|',('product_tmpl_id','!=',False),('categ_id','!=',False)]}</attribute>
+		    	</field>
+		    	<field name="product_tmpl_id" position="attributes">
+		    		<attribute name="on_change">product_id_change(product_id,product_tmpl_id,categ_id)</attribute>
+		    		<attribute name="attrs">{'readonly':['|',('product_id','!=',False),('categ_id','!=',False)]}</attribute>
+		    	</field>
+		    	<field name="categ_id" position="attributes">
+		    		<attribute name="on_change">product_id_change(product_id,product_tmpl_id,categ_id)</attribute>
+		    		<attribute name="attrs">{'readonly':['|',('product_tmpl_id','!=',False),('product_id','!=',False)]}</attribute>
+		    	</field>
+				
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="dym_product_pricelist_form_view">
+		    <field name="name">dym.product.pricelist.form</field>
+		    <field name="model">product.pricelist</field>
+		    <field name="type">form</field>
+		    <field name="inherit_id" ref="product.product_pricelist_view"/>
+		    <field name="arch" type="xml">
+				<field name="items_id" position="inside">
+            		<tree>
+	            		<field name="sequence"/>
+	            		<field name="categ_id"/>
+	            		<field name="product_tmpl_id"/>
+	            		<field name="product_id"/>
+	            		<field name="price_surcharge"/>
+	            		<field name="base"/>
+            		</tree>
+				</field>
+            	<xpath expr="//form" position="inside">
+            		<notebook>
+						<page string="Audit Trail">
+							<group>
+								<group>
+									<field name="create_uid" readonly="1"></field>
+									<field name="create_date" readonly="1"></field>
+								</group>
+								<group>							
+									<field name="write_uid" readonly="1"></field>
+									<field name="write_date" readonly="1"></field>
+								</group>
+							</group>
+						</page>
+					</notebook>
+				</xpath>
+				
+			</field>
+		</record>	
+		
+		<record model="ir.ui.view" id="dym_product_pricelist_version_form_view">
+		    <field name="name">dym.product.pricelist.version.form</field>
+		    <field name="model">product.pricelist.version</field>
+		    <field name="type">form</field>
+		    <field name="inherit_id" ref="product.product_pricelist_version_form_view"/>
+		    <field name="arch" type="xml">
+                <field name="items_id" position="inside">
+            		<tree>
+	            		<field name="sequence"/>
+	            		<field name="categ_id"/>
+	            		<field name="product_tmpl_id"/>
+	            		<field name="product_id"/>
+	            		<field name="price_surcharge"/>
+	            		<field name="base"/>
+            		</tree>
+                </field>
+            	<xpath expr="//page[@string='Item List']" position="after">
+						<page string="Audit Trail">
+							<group>
+								<group>
+									<field name="create_uid" readonly="1"></field>
+									<field name="create_date" readonly="1"></field>
+								</group>
+								<group>							
+									<field name="write_uid" readonly="1"></field>
+									<field name="write_date" readonly="1"></field>
+								</group>
+							</group>
+						</page>
+				</xpath>
+				
+			</field>
+		</record>
+					
+		<record model="ir.ui.view" id="dym_pricelist_form_view">
+		    <field name="name">dym.pricelist.form</field>
+		    <field name="model">dym.pricelist</field>
+		    <field name="arch" type="xml">
+		    	
+		    	<form string="Check Prices" create="false">
+		    		<sheet>
+			    		<group>
+			    			<group>
+			    				<field name="product_id" options="{'no_open':True,'no_create':True}" on_change="pricelist_change(product_id,branch_id)"/>
+				    			<field name="name" readonly="True"/>
+				    			<field name="categ_id" readonly="True" options="{'no_open':True,'no_create':True}"/>
+			    				<field name="branch_id" on_change="pricelist_change(product_id,branch_id)" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+				    			<field name="pricelist_unit_purchase_id" readonly="True" invisible="True" options="{'no_open':True,'no_create':True}"/>
+				    			<field name="pricelist_unit_sales_id" readonly="True" invisible="True" options="{'no_open':True,'no_create':True}"/>
+				    			<field name="pricelist_part_purchase_id" readonly="True" invisible="True" options="{'no_open':True,'no_create':True}"/>
+				    			<field name="pricelist_part_sales_id" readonly="True" invisible="True" options="{'no_open':True,'no_create':True}"/>
+				    			<field name="pricelist_bbn_hitam_id" readonly="True" invisible="True" options="{'no_open':True,'no_create':True}"/>
+				    			<field name="pricelist_bbn_merah_id" readonly="True" invisible="True" options="{'no_open':True,'no_create':True}"/>
+			    			</group>
+			    			<group>
+				    			<field name="harga_beli" readonly="True"/>
+				    			<field name="harga_jual" readonly="True"/>
+				    			<field name="harga_jual_bbn_hitam" readonly="True"/>
+				    			<field name="harga_jual_bbn_merah" readonly="True"/>
+			    			</group>
+			    			<group>
+			    				<field name="location_id" readonly="True"/>
+			    				<field name="stock_available" readonly="True"/>
+				    			<field name="stock_available" readonly="True"/>
+				    			<field name="stock_intransit" readonly="True"/>
+				    			<field name="stock_reserved" readonly="True"/>
+				    			<field name="total_stock" readonly="True"/>
+			    			</group>
+						</group>
+		    		</sheet>
+		    	</form>
+		    	
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="dym_pricelist_action">
+		    <field name="name">Check Prices</field>
+		    <field name="res_model">dym.pricelist</field>
+		    <field name="view_type">form</field>
+    		<field name="view_mode">form</field>
+    		<field name="context" eval="{'default_categ_id': 'Unit'}"/>
+		</record>
+
+		<record model="ir.actions.act_window" id="dym_pricelist_action2">
+		    <field name="name">Check Prices</field>
+		    <field name="res_model">dym.pricelist</field>
+		    <field name="view_type">form</field>
+    		<field name="view_mode">form</field>
+    		<field name="context" eval="{'default_categ_id': 'Sparepart'}"/>
+		</record>
+										
+		<menuitem name="Check Prices" parent="dym_dealer_menu.showroom_sales_menu" sequence="1" id="dym_pricelist_menu" action="dym_pricelist_action"/>
+		<menuitem name="Check Prices" parent="dym_dealer_menu.workshop_sales_menu" sequence="1" id="dym_pricelist_menu_2" action="dym_pricelist_action2"/>
+				
+<!-- NEW -->
+	        <menuitem
+            action="product.product_pricelist_action" id="menu_product_pricelist_action_master"
+            parent="dym_dealer_menu.ma_pricelist_menu" sequence="1"/>
+	        	
+        <menuitem
+            action="product.product_pricelist_action2" id="menu_product_pricelist_action2_master"
+            parent="dym_dealer_menu.ma_pricelist_menu" sequence="2"/>
+            	            	
+            	            			
+	</data>
+</openerp>

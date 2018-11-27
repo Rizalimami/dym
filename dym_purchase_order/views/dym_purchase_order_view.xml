@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_purchase_order_tree_inherit">
+            <field name="name">purchase.order.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree" />
+            <field name="arch" type="xml">
+                <tree string="Purchase Order" position="replace">
+                    <tree fonts="bold:message_unread==True" colors="grey:state=='cancel';blue:state in ('wait','confirmed');red:state in ('except_invoice','except_picking')" string="Purchase Order">
+                        <field name="message_unread" invisible="1" />
+                        <field name="name" />
+                        <field name="date_order" />
+                        <field name="minimum_planned_date" invisible="context.get('quotation_only', False)" />
+                        <field name="partner_id" />
+                        <field name="amount_untaxed" sum="Total Untaxed amount" string="Untaxed" />
+                        <field name="amount_total" sum="Total amount" />
+                        <field name="requisition_id" />
+                        <field name="branch_id" />
+                        <field name="state" />
+                        <field name="company_id" groups="base.group_multi_company" widget="selection" invisible="1" />
+                        <field name="origin" invisible="1" />
+                    </tree>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_branch_on_purchase_order_form_view">
+            <field name="name">dym.branch.purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="dym_close_purchase.purchase_order_close_form_view" />
+            <field name="arch" type="xml">
+                <page string="RFQ &amp; Bid" position="after">
+                    <page string="Account Analytic">
+                        <group>
+                            <group width="50%">
+                                <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" attrs="{'readonly': [('state','not in','draft')]}" />
+                                <field name="analytic_2" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" attrs="{'readonly': [('state','not in','draft')]}" on_change="change_reset('analytic_2')" />
+                                <field name="analytic_3" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" attrs="{'readonly': [('state','not in','draft')]}" on_change="change_reset('analytic_3')" />
+                                <field name="analytic_4" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" string="Account Analytic Cost Center" required="1" attrs="{'readonly': [('state','not in','draft')]}" />
+                            </group>
+                            <group/>
+                        </group>
+                    </page>
+                    <page string="References">
+                        <field name="editable_price" invisible="1" />
+                        <field name="mandatory_so_wo" invisible="1" />
+                        <field name="mandatory_hutang_lain" invisible="1" />
+                        <group>
+                            <field name="wo_id" attrs="{'required': [('mandatory_so_wo','=',True),('so_id','=',False)], 'readonly': [('state','not in','draft')]}" domain="[('branch_id','=',branch_id)]" />
+                            <field name="so_id" attrs="{'required': [('mandatory_so_wo','=',True),('wo_id','=',False)], 'readonly': [('state','not in','draft')]}" on_change="change_so_ref(so_id,division,partner_id)" domain="[('branch_id','=',branch_id)]" />
+                            <field name="hutang_lain_id" domain="[('type','=','receipt'),('is_hutang_lain','!=',False),('branch_id','=',branch_id)]" attrs="{'required': [('mandatory_hutang_lain','=',True)], 'readonly': [('state','not in','draft')]}" />
+                            <field name="dealer_spk_id" attrs="{'readonly': [('state','not in','draft')]}" domain="[('branch_id','=',branch_id)]" />
+                            <field name="sugor_ids" attrs="{'readonly': [('state','not in','draft')]}" on_change="change_sugor_ref(sugor_ids,division,partner_id,branch_id)" domain="[('division','=',division)]" />
+                        </group>
+                    </page>
+                </page>
+                <button name="purchase_confirm" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <button name="view_invoice" position="after">
+                    <button name="action_invoice_create" string="Create Invoice" type="object" attrs="{'invisible': ['|', ('invoice_method','in', ['picking', 'manual']), '|', ('state','not in', ['approved','except_picking','except_invoice','done']), ('invoice_count','>',0) ]}" class="oe_highlight" />
+                    <button name="refresh_po" string="Refresh Workflow PO" type="object" groups="base.group_erp_manager" class="oe_highlight" />
+                </button>
+                <xpath expr="//button[@name='action_cancel']" position="after">
+                    <button name="%(dym_invoice_po_report)d" type="action" string="Print" class="oe_highlight" icon="gtk-print" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_tax_dept_head,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_treasury_sec_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_kepala_cabang,dym_base_security.group_dym_marketing_analyst_unit,dym_base_security.group_dym_sales_advisor,dym_base_security.group_dym_kepala_bengkel,dym_base_security.group_dym_service_sub_dept_head,dym_base_security.group_dym_part_acc_dept_head" />
+                </xpath>
+                <xpath expr="//button[@name='action_cancel']" position="attributes">
+                    <attribute name="groups">dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_tax_dept_head,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_treasury_sec_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_kepala_cabang,dym_base_security.group_dym_marketing_analyst_unit,dym_base_security.group_dym_sales_advisor,dym_base_security.group_dym_kepala_bengkel,dym_base_security.group_dym_service_sub_dept_head,dym_base_security.group_dym_part_acc_dept_head</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_close']" position="attributes">
+                    <attribute name="groups">dym_purchase_order.group_purchase_order_close_order</attribute>
+                </xpath>
+                <xpath expr="//field[@name='pricelist_id']" position="replace">
+                    <field domain="[('type','=','purchase')]" name="pricelist_id" groups="product.group_purchase_pricelist" on_change="onchange_pricelist(pricelist_id, context)" />
+                </xpath>
+                <field name="date_order" position="replace" />
+                <field name="payment_term_id" position="replace" />
+                <field name="journal_id" position="replace" />
+                <field name="origin" position="replace" />
+                <field name='partner_id' position="before">
+                    <field name="create_invoice" invisible="1" />
+                    <field name="branch_id" options="{'no_open':True,'no_create':True}" attrs="{'readonly': ['|',('state','not in','draft'),('name','!=','/')]}" on_change="onchange_picking_type_id(branch_id,picking_type_id,True,asset,prepaid,order_line,purchase_order_type_id)" />
+                    <field name="division" on_change="onchange_division(branch_id,division,partner_id)" attrs="{'readonly': ['|',('state','not in','draft'),('name','!=','/')]}" />
+                    <field name="origin" attrs="{'invisible': [('origin','=',False)]}" />
+                    <field name="date_order" readonly="1" />
+                    <field name="purchase_order_type_id" options="{'no_open':True,'no_create_edit':True}" domain="[('category','=',division)]" on_change="purchase_order_type_id_change(division,partner_type,purchase_order_type_id,branch_id,asset, prepaid, order_line)" attrs="{'readonly': ['|',('state','not in','draft'),('partner_id','=',False)]}" required="1" />
+                    <label for="start_date" string="Effective Date" />
+                    <div>
+                        <field name="start_date" class="oe_inline" on_change="effective_date_change(start_date,end_date)" attrs="{'readonly': [('state','not in','draft')]}" /> -
+                        <field name="end_date" class="oe_inline" on_change="effective_date_change(start_date,end_date)" attrs="{'readonly': [('state','not in','draft')]}" />
+                    </div>
+                    <field name="journal_id" domain="[('type','=','purchase'),('branch_id','in',[branch_id,False])]" options="{'no_open':True,'no_create_edit':True}" required="1" />
+                </field>
+                <field name="partner_ref" position="replace" />
+                <field name="partner_id" position="replace" />
+                <field name="company_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="company_id" position="before">
+                    <!--
+                    <field name='partner_type' on_change='onchange_partner_type(partner_type,branch_id)' context="{'partner_type':partner_type}" attrs="{'invisible': ['|',('branch_id','=',False),('division','=',False)],'readonly':[('state','in',('confirmed','done','waiting_for_approval','approved'))]}" required="0" options="{'no_open':True,'no_create_edit':True}" />
+                    <field name="partner_id" on_change="onchange_partner_id(branch_id, division, partner_id, context)" context="{'search_default_supplier':1, 'default_supplier':1, 'default_customer':0}" domain="[('supplier','=',True)]" attrs="{'invisible': ['|',('branch_id','=',False),('division','=',False)]}" />
+                    -->
+
+                    <field name='partner_type' on_change="purchase_order_type_id_change(division,partner_type,purchase_order_type_id,branch_id,asset, prepaid, order_line)" context="{'partner_type':partner_type}" attrs="{'invisible': ['|',('branch_id','=',False),('division','=',False)],'readonly':[('state','in',('confirmed','done','waiting_for_approval','approved'))]}" required="0" options="{'no_open':True,'no_create_edit':True}" />
+                    <field name="partner_id" on_change="purchase_order_type_id_change(division,partner_type,purchase_order_type_id,branch_id,asset, prepaid, order_line)" context="{'search_default_supplier':1, 'default_supplier':1, 'default_customer':0}" domain="[('supplier','=',True)]" attrs="{'invisible': ['|',('branch_id','=',False),('division','=',False)]}" />
+
+                    <!-- <field name="partner_type" on_change="purchase_order_type_id_change(division,partner_type,purchase_order_type_id,branch_id,asset, prepaid, order_line)" attrs="{'readonly': ['|',('state','not in','draft'),('partner_id','=',False)]}" required="1" /> -->
+                    <!-- <field name="partner_id" domain="[('category','=',division)]" on_change="purchase_order_type_id_change(division,partner_type,purchase_order_type_id,branch_id,asset, prepaid, order_line)" attrs="{'readonly': ['|',('state','not in','draft'),('partner_id','=',False)]}" required="1" /> -->
+
+                    <field name="partner_cabang" options="{'no_create': True,'no_open':True}" attrs="{'invisible': ['|',('branch_id','=',False),('division','=',False)],'readonly':[('state','not in','draft')]}" domain="[('partner_id','=',partner_id)]" />
+                    <field name="partner_ref" attrs="{'invisible': ['|',('branch_id','=',False),('division','=',False)]}"/>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="domain">[('supplier','!=',False),('branch_id','=',branch_id)]</attribute>
+                    <attribute name="context">{'division':division}</attribute>
+                    <attribute name="options">{'no_open':True,'no_create_edit':True}</attribute>
+                </field>
+                <button name="view_invoice" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('invoice_method','in', ['picking', 'manual']), '|', ('state','!=', 'approved'), '|', ('invoiced','=',True), '|',('create_invoice','=',True), ('invoice_count','&lt;=',0)]}</attribute>
+                </button>
+                <field name="location_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="incoterm_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="validator" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="date_approve" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="fiscal_position" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="bid_validity" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state','not in','draft')]}</attribute>
+                </field>
+                <field name="minimum_planned_date" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state','not in','draft')]}</attribute>
+                </field>
+                <!--field name="invoice_method" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field-->
+                <xpath expr="//field[@name='product_id']" position="before">
+                    <field name="template_id" options="{'no_open':True,'no_create':True}" domain="['|',('categ_id','child_of',categ_id),('categ_id','child_of',parent.division),('purchase_ok','=',True),('is_asset','=',parent.asset),('is_prepaid','=',parent.prepaid)]" on_change="category_change(categ_id,parent.branch_id,parent.division,parent.pricelist_id, parent.asset, parent.prepaid, template_id, parent.editable_price)" />
+                </xpath>
+                <xpath expr="//field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_open':True,'no_create_edit':True,'always_reload': True}</attribute>
+                    <attribute name="context">{'branch_id':parent.branch_id,'attribute_only':True}</attribute>
+                    <attribute name="domain">[('product_tmpl_id','=',template_id),'|',('categ_id','child_of',categ_id),('categ_id','child_of',parent.division),('purchase_ok','=',True),('is_asset','=',parent.asset),('is_prepaid','=',parent.prepaid)]</attribute>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='template_id']" position="before">
+                    <field name="categ_id" string='Categ' on_change="category_change(categ_id,parent.branch_id,parent.division,parent.pricelist_id, parent.asset, parent.prepaid)" domain="[('name','=',parent.division)]" options="{'no_open':True,'no_create':True}" />
+                </xpath>
+                <xpath expr="//field[@name='date_planned']" position="replace">
+                    <field name="date_planned" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='account_analytic_id']" position="replace">
+                    <field name="account_analytic_id" groups="purchase.group_analytic_accounting" domain="[('type','not in',('view','template'))]" invisible="1" />
+                </xpath>
+                <field name="product_qty" position="after">
+                    <field name="qty_invoiced" readonly="1" />
+                    <field name="received" readonly="1" />
+                </field>
+                <field name="product_qty" position="attributes">
+                    <attribute name="sum">Product QTY</attribute>
+                </field>
+                <field name="price_unit" position="replace">
+                    <field name="division_dummy" invisible="1" />
+                    <field name="editable_price" invisible="0" />
+                    <field name="price_unit" invisible="0" on_change="price_unit_change(price_unit)" />
+                    <field name="price_unit_show" attrs="{'readonly': ['|',('division_dummy','not in',['Umum','Sparepart']),('editable_price','=',False)],'required': [('division_dummy','in',['Umum','Sparepart'])]}" on_change="price_unit_change(price_unit_show)" />
+                    <field name="taxes_id_show" readonly="1" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','!=','sale')]" />
+                </field>
+                <field name="taxes_id" position="replace">
+                    <field name="taxes_id" invisible='1' on_change="change_tax(taxes_id)" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','!=','sale')]" />
+                </field>
+                <field name="partner_ref" position="after">
+                    <field name="payment_term_id" options="{'no_open': True, 'no_create': True}" required="1" attrs="{'readonly': [('state','not in','draft')]}" />
+                </field>
+                <field name="picking_type_id" position="attributes">
+                    <attribute name="on_change">onchange_picking_type_id(branch_id,picking_type_id)</attribute>
+                    <!-- iman <attribute name="domain">[('code','=','incoming'),('branch_id','=',branch_id)]</attribute> -->
+                </field>
+                <xpath expr="//page[@string='Deliveries &amp; Invoices']" position="after">
+                    <page string="Hotline" col="1" attrs="{'invisible': [('division','!=','Sparepart')]}">
+                        <group col="4">
+                            <field name="po_ref" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="dealer_id" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="back_order" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="salesman_id" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="no_claim" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="ship_to" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="delivery_date" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="customer_id" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="post_code" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="type_motor_id" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="assembling" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="of_the_road" widget="radio" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="return_service" widget="radio" attrs="{'readonly': [('state','not in','draft')]}" />
+                        </group>
+                    </page>
+                </xpath>
+                <div class="oe_title" position="replace">
+                    <div class="oe_title">
+                        <h1>
+                            <label string="Purchase Order "/>
+                            <field name="name" class="oe_inline" readonly="1" attrs="{'invisible':[('state','=','draft')]}"/>
+                        </h1>
+                    </div>
+                </div>
+                <xpath expr="//field[@name='order_line']/tree[@string='Purchase Order Lines']/field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_branch_on_purchase_order_form2_view">
+            <field name="name">dym.branch.purchase.order.form2</field>
+            <field name="model">purchase.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="purchase_requisition.purchase_order_form_inherit" />
+            <field name="arch" type="xml">
+                <field name="requisition_id" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state','not in','draft')]}</attribute>
+                </field>
+            </field>
+        </record>
+        <record id="purchase_form_action_showroom" model="ir.actions.act_window">
+            <field name="name">Purchase Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="context">{'menu': 'showroom'}</field>
+            <field name="domain">[('division','in',('Unit','Umum')),('asset','=',False),('prepaid','=',False)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation that will be converted into a purchase order.
+                </p>
+                <p>
+                    Use this menu to search within your purchase orders by references, supplier, products, etc. For each purchase order, you can track the related discussion with the supplier, control the products received and control the supplier invoices.
+                </p>
+            </field>
+        </record>
+        <record id="purchase_form_action_workshop" model="ir.actions.act_window">
+            <field name="name">Purchase Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="context">{'menu': 'workshop'}</field>
+            <field name="domain">[('division','in',('Sparepart','Umum')),('asset','=',False),('prepaid','=',False)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation that will be converted into a purchase order.
+                </p>
+                <p>
+                    Use this menu to search within your purchase orders by references, supplier, products, etc. For each purchase order, you can track the related discussion with the supplier, control the products received and control the supplier invoices.
+                </p>
+            </field>
+        </record>
+        <menuitem action="purchase_form_action_showroom" id="menu_purchase_form_action_4" parent="dym_dealer_menu.showroom_purchase_menu" sequence="3" />
+        <menuitem action="purchase_form_action_workshop" id="menu_purchase_form_action_5" parent="dym_dealer_menu.workshop_purchase_menu" sequence="3" />
+        <record id="view_voucher_filter_vendor" model="ir.ui.view">
+            <field name="name">account.voucher.purchase.select</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <search string="Search Vouchers">
+                    <field name="number" string="Voucher" />
+                    <field name="date" />
+                    <filter icon="terp-document-new" string="Draft" domain="[('state','=','draft')]" help="Draft Vouchers" />
+                    <filter icon="terp-camera_test" string="Posted" domain="[('state','=','posted')]" help="Posted Vouchers" />
+                    <field name="partner_id" string="Supplier" filter_domain="[('partner_id','child_of',self)]" />
+                    <field name="journal_id" widget="selection" context="{'journal_id': self, 'set_visible':False}" domain="[('type','in',('purchase','purchase_refund'))]" />
+                    <!-- Keep widget=selection on this field to pass numeric `self` value, which is not the case for regular m2o widgets! -->
+                    <field name="period_id" />
+                    <group expand="0" string="Group By">
+                        <filter string="Supplier" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}" />
+                        <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'journal_id'}" />
+                        <filter string="Period" icon="terp-go-month" domain="[]" context="{'group_by':'period_id','visible':True}" />
+                        <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="view_dym_purchase_order" model="ir.ui.view">
+            <field name="name">dym.purchase.order.search.view</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter" />
+            <field name="arch" type="xml">
+                <field name="name" position='after'>
+                    <field name='branch_id' />
+                    <field name="division" />
+                    <group expand="0" string="Group By">
+                        <filter string="Type" domain="[]" context="{'group_by':'purchase_order_type_id'}" />
+                    </group>
+                </field>
+            </field>
+        </record>
+        <record id="action_purchase_receipt" model="ir.actions.act_window">
+            <field name="name">Payment Request</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('journal_id.type','in',['purchase','purchase_refund']), ('type','=','purchase')]</field>
+            <field name="context">{'default_type': 'purchase', 'type': 'purchase'}</field>
+            <field name="view_id" eval="False" />
+            <field name="search_view_id" eval="view_voucher_filter_vendor" />
+            <field name="target">current</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to register a purchase receipt.
+                </p>
+                <p>
+                    When the purchase receipt is confirmed, you can record the supplier payment related to this purchase receipt.
+                </p>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_purchase_order_line_tree">
+            <field name="name">dym.purchase.order.line.tree</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_tree" />
+            <field name="arch" type="xml">
+                <tree string="Purchase Order Lines" position="replace">
+                    <tree string="Purchase Order Lines" create="false">
+                        <field name="order_id" />
+                        <field name="partner_id" string="Supplier" />
+                        <field name="product_id" />
+                        <field name="name" />
+                        <field name="asset" />
+                        <field name="prepaid" />
+                        <field name="product_uom" groups="product.group_uom" />
+                        <field name="product_qty" />
+                        <field name="price_unit" />
+                        <field name="qty_invoiced" />
+                        <field name="received" />
+                        <field name="qty_consolidated" />
+                        <field name="price_subtotal" />
+                        <field name="date_planned" widget="date" width="135" />
+                        <field name="branch_id" />
+                        <field name="state" invisible="1" />
+                        <field name="invoiced" invisible="1" />
+                    </tree>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="invoice_tree_v2">
+            <field name="name">account.invoice.tree.v2</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <tree colors="blue:state == 'draft';black:state in ('proforma','proforma2','open');gray:state == 'cancel'" string="Invoice" create="false">
+                    <field name="partner_id" groups="base.group_user" />
+                    <field name="number" string="Supplier Invoice" />
+                    <field name="commercial_partner_id" invisible="1" />
+                    <field name="date_invoice" string="Invoice Date" />
+                    <field name="reference" invisible="1" />
+                    <field name="name" invisible="1" />
+                    <field name="journal_id" invisible="1" />
+                    <field name="period_id" invisible="1" groups="account.group_account_user" />
+                    <field name="company_id" invisible="1" groups="base.group_multi_company" widget="selection" />
+                    <field name="user_id" string="Responsible" invisible="1" />
+                    <field name="date_due" />
+                    <field name="origin" string="PO / Source Doc.Ref." />
+                    <field name="currency_id" groups="base.group_multi_currency" invisible="1" />
+                    <field name="residual" sum="Residual Amount" />
+                    <field name="amount_untaxed" sum="Untaxed Amount" invisible="1" />
+                    <field name="amount_total" sum="Total Amount" string="Total / Original" />
+                    <field name="branch_id" />
+                    <field name="state" />
+                    <field name="type" invisible="1" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_invoice_tree2_showroom" model="ir.actions.act_window">
+            <field name="name">Supplier Invoices</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field eval="False" name="view_id" />
+            <field name="domain">[('type','=','in_invoice'),('division','in',('Unit','Umum')),('asset','=',False)]</field>
+            <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase','menu': 'showroom'}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to record a new supplier invoice.
+                </p>
+                <p>
+                    You can control the invoice from your supplier according to what you purchased or received. Odoo can also generate draft invoices automatically from purchase orders or receipts.
+                </p>
+            </field>
+        </record>
+        <record id="action_invoice_tree2_workshop" model="ir.actions.act_window">
+            <field name="name">Supplier Invoices</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field eval="False" name="view_id" />
+            <field name="domain">[('type','=','in_invoice'),('division','in',('Sparepart','Umum')),('asset','=',False)]</field>
+            <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase','menu': 'workshop'}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to record a new supplier invoice.
+                </p>
+                <p>
+                    You can control the invoice from your supplier according to what you purchased or received. Odoo can also generate draft invoices automatically from purchase orders or receipts.
+                </p>
+            </field>
+        </record>
+        <record id="action_invoice_tree_showroom" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="invoice_tree_v2" />
+            <field name="act_window_id" ref="action_invoice_tree2_showroom" />
+        </record>
+        <record id="action_invoice_tree_workshop" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="invoice_tree_v2" />
+            <field name="act_window_id" ref="action_invoice_tree2_workshop" />
+        </record>
+        <menuitem action="action_invoice_tree2_showroom" id="menu_action_invoice_tree3" parent="dym_dealer_menu.showroom_purchase_menu" sequence="5" />
+        <menuitem action="action_invoice_tree2_workshop" id="menu_action_invoice_tree4" parent="dym_dealer_menu.workshop_purchase_menu" sequence="5" />
+        <menuitem action="account.action_invoice_tree2" id="menu_action_invoice_tree5" parent="dym_dealer_menu.backoffice_nontrade_menu" sequence="34" />
+        <record id="action_vendor_payment_showroom" model="ir.actions.act_window">
+            <field name="name">Supplier Payments</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('journal_id.type', 'in', ['bank', 'cash']), ('type','=','payment'), ('division','in',('Unit','Umum')),('transaction_type','=',False)]</field>
+            <field name="context">{'type':'payment','menu': 'showroom'}</field>
+            <field name="view_id" eval="False" />
+            <field name="search_view_id" ref="account_voucher.view_voucher_filter_vendor_pay" />
+            <field name="target">current</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new supplier payment.
+                </p>
+                <p>
+                    Odoo helps you easily track payments you make and the remaining balances you need to pay your suppliers.
+                </p>
+            </field>
+        </record>
+
+
+        <record id="view_vendor_payment_treeviewx" model="ir.ui.view">
+            <field name="name">account.voucher.list.select</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <tree string="List Voucher">
+                    <field name="number" />
+                    <field name="date" />
+                    <field name="date_due" />
+                    <field name="partner_id" />
+                    <field name="qq_id" invisible="context.get('type') != 'receipt'" />
+                    <field name="amount" />
+                    <field name="withholdings_amount" string="Jumlah PPh" invisible="context.get('type') not in ['receipt','payment']" />
+                    <field name="branch_id" />
+                    <field name="inter_branch_id" string="Bayar/Terima Untuk" invisible="context.get('type') not in ['receipt','payment']" />
+                    <field name="state" />
+                    <field name="clearing_bank" />
+                    <field name="payment_request_type" invisible="1" />
+                    <field name="division" invisible="1" />
+                    <field name="type" invisible="1" />
+                    <field name="no_document" invisible="1" />
+                    <field name="journal_id" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_vendor_payment_workshop" model="ir.actions.act_window">
+            <field name="name">Supplier Payments</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('journal_id.type', 'in', ['bank', 'cash']), ('type','=','payment'), ('division','in',('Sparepart','Umum'))]</field>
+            <field name="context">{'type':'payment','menu': 'workshop'}</field>
+            <field name="view_id" eval="False" />
+            <field name="search_view_id" ref="account_voucher.view_voucher_filter_vendor_pay" />
+            <field name="target">current</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new supplier payment.
+                </p>
+                <p>
+                    Odoo helps you easily track payments you make and the remaining balances you need to pay your suppliers.
+                </p>
+            </field>
+        </record>
+        <record id="action_vendor_payment_tree_showroom" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_vendor_payment_treeviewx" />            
+            <field name="act_window_id" ref="action_vendor_payment_showroom" />
+        </record>
+        <record id="action_vendor_payment_form_showroom" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_voucher.view_vendor_payment_form" />
+            <field name="act_window_id" ref="action_vendor_payment_showroom" />
+        </record>
+        <record id="action_vendor_payment_tree_workshop" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="action_vendor_payment_workshop" />
+        </record>
+        <record id="action_vendor_payment_form_workshop" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_voucher.view_vendor_payment_form" />
+            <field name="act_window_id" ref="action_vendor_payment_workshop" />
+        </record>
+        <menuitem action="action_vendor_payment_workshop" icon="STOCK_JUSTIFY_FILL" sequence="9" id="menu_action_vendor_payment2" parent="dym_dealer_menu.workshop_purchase_menu" />
+        <menuitem action="action_vendor_payment_showroom" icon="STOCK_JUSTIFY_FILL" sequence="9" id="menu_action_vendor_payment3" parent="dym_dealer_menu.showroom_purchase_menu" />
+        <menuitem action="account_voucher.action_vendor_payment" icon="STOCK_JUSTIFY_FILL" sequence="35" id="menu_action_vendor_payment4" parent="dym_dealer_menu.backoffice_nontrade_menu" />
+        <!-- New -->
+        <record id="purchase_line_form_action_showroom" model="ir.actions.act_window">
+            <field name="name">On Purchase Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="domain">[('order_id.invoice_method','=','manual'), ('state','in',('confirmed','done')), ('invoiced', '=', False),('order_id.division','in',('Unit','Umum')),('order_id.asset','=',False),('order_id.prepaid','=',False)]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="purchase.purchase_order_line_search" />
+            <field name="help" type="html">
+                <p>
+                    Here you can track all the lines of purchase orders where the invoicing is "Based on Purchase Order Lines", and for which you have not received a supplier invoice yet. You can generate a draft supplier invoice based on the lines from this list.
+                </p>
+            </field>
+        </record>
+        <record id="purchase_line_form_action_tree_showroom" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="purchase.purchase_order_line_tree" />
+            <field name="act_window_id" ref="purchase_line_form_action_showroom" />
+        </record>
+        <record id="purchase_line_form_action_form_showroom" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="purchase.purchase_order_line_form2" />
+            <field name="act_window_id" ref="purchase_line_form_action_showroom" />
+        </record>
+        <menuitem action="purchase_line_form_action_showroom" id="menu_purchase_line_order_draft_showroom" parent="dym_dealer_menu.showroom_purchase_menu" sequence="4" />
+        <record id="purchase_line_form_action_workshop" model="ir.actions.act_window">
+            <field name="name">On Purchase Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="domain">[('order_id.invoice_method','=','manual'), ('state','in',('confirmed','done')), ('invoiced', '=', False),('order_id.division','in',('Sparepart','Umum')),('order_id.asset','=',False),('order_id.prepaid','=',False)]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="purchase.purchase_order_line_search" />
+            <field name="help" type="html">
+                <p>
+                    Here you can track all the lines of purchase orders where the invoicing is "Based on Purchase Order Lines", and for which you have not received a supplier invoice yet. You can generate a draft supplier invoice based on the lines from this list.
+                </p>
+            </field>
+        </record>
+        <record id="purchase_line_form_action_tree_workshop" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="purchase.purchase_order_line_tree" />
+            <field name="act_window_id" ref="purchase_line_form_action_workshop" />
+        </record>
+        <record id="purchase_line_form_action_form_workshop" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="purchase.purchase_order_line_form2" />
+            <field name="act_window_id" ref="purchase_line_form_action_workshop" />
+        </record>
+        <menuitem action="purchase_line_form_action_workshop" id="menu_purchase_line_order_draft_workshop" parent="dym_dealer_menu.workshop_purchase_menu" sequence="4" />
+        <menuitem action="purchase.purchase_line_form_action2" id="menu_purchase_line_order_draft_general_affair" parent="dym_dealer_menu.ga_purchase_menu" sequence="30" />
+    </data>
+</openerp>

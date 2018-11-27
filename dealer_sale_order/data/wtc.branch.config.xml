@@ -1,0 +1,1115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="dym_branch.dym_branch_config_dsr" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_djj" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_djb" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_djs" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_djm" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dju" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dsm" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dsg" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dsb" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dsp" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dsk" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dup" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_duk" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dle" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlp" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlm" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlh" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlx" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dll" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dld" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlf" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlv" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlq" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlc" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dly" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlw" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlu" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlt" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dls" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlo" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dln" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlk" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlj" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dli" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlg" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlb" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dla" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlr" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_hho" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_mml" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dbl" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dbk" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dbb" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dbs" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dbt" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dds" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_ddc" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_ddb" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dda" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_ddd" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dde" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_ddg" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_ddm" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_ddj" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_ddt" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_ddi" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dxk" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dxt" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dxs" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dxg" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dxb" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dxn" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dwt" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dwr" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dwp" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dwo" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dwk" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dws" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dwg" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dwm" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dwn" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_ddu" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_dlz" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+        <record id="dym_branch.dym_branch_config_hhp" model="dym.branch.config">
+            <field name="dealer_so_journal_pelunasan_id" ref="dym_branch.journal_pelunasan_so" />
+            <field name="dealer_so_journal_dp_id" ref="dym_branch.journal_pelunasan_dp" />
+            <field name="dealer_so_account_potongan_langsung_id" ref="l10n_id_honda.chart_45110101" />
+            <field name="dealer_so_account_potongan_subsidi_id" ref="l10n_id_honda.chart_45110102" />
+            <field name="dealer_so_journal_psmd_id" ref="dym_branch.journal_ps_md" />
+            <field name="dealer_so_journal_psfinco_id" ref="dym_branch.journal_ps_finco" />
+            <field name="dealer_so_journal_bbnbeli_id" ref="dym_branch.journal_bbn_beli" />
+            <field name="dealer_so_journal_insentive_finco_id" ref="dym_branch.journal_incentive_finco" />
+            <field name="dealer_so_account_bbn_jual_id" ref="l10n_id_honda.chart_41110102" />
+            <field name="dealer_so_journal_bbmd_id" ref="dym_branch.journal_subsidi_barang_md" />
+            <field name="dealer_so_journal_bbfinco_id" ref="dym_branch.journal_subsidi_barang_finco" />
+            <field name="dealer_so_journal_hc_id" ref="dym_branch.journal_hc" />
+            <field name="dealer_so_account_sisa_subsidi_id" ref="l10n_id_honda.chart_799299" />
+        </record>
+    </data>
+</openerp>

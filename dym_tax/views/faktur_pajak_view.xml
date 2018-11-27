@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_generate_faktur_pajak_form" model="ir.ui.view">
+            <field name="name">dym.generate.faktur.pajak.form</field>
+            <field name="model">dym.faktur.pajak</field>
+            <field name="inherit_id" ref="dym_faktur_pajak.dym_generate_faktur_pajak_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="jenis_npwp" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='branch_id']" position="attributes">
+                    <attribute name="attrs">{'required':[('jenis_npwp','!=','terpusat')],'invisible':[('jenis_npwp','=','terpusat')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_faktur_pajak_out_tree" model="ir.ui.view">
+            <field name="name">dym.faktur.pajak.out.tree</field>
+            <field name="model">dym.faktur.pajak.out</field>
+            <field name="inherit_id" ref="dym_faktur_pajak.view_faktur_pajak_out_tree" />
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <field name="branch_ids" position="before">
+                    <field name="branch_id" />
+                </field>
+            </field>
+        </record>
+        <record id="view_faktur_pajak_out_form" model="ir.ui.view">
+            <field name="name">dym.faktur.pajak.out.search</field>
+            <field name="model">dym.faktur.pajak.out</field>
+            <field name="inherit_id" ref="dym_faktur_pajak.view_faktur_pajak_out_form" />
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="branch_id" />
+                </field>
+            </field>
+        </record>
+        <record id="view_faktur_pajak_out_line_search" model="ir.ui.view">
+            <field name="name">dym.faktur.pajak.out.search</field>
+            <field name="model">dym.faktur.pajak.out</field>
+            <field name="inherit_id" ref="dym_faktur_pajak.view_faktur_pajak_out_line_search" />
+            <field name="arch" type="xml">
+                <field name="branch_ids" position="after">
+                    <field name="branch_id" />
+                </field>
+                <xpath expr="//group" position="inside">
+                    <filter string="Branch" icon="terp-go-month" domain="[]" context="{'group_by':'branch_id'}" />
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_faktur_pajak.dym_faktur_pajak_out_action">
+            <field name="name">Faktur Pajak</field>
+            <field name="res_model">dym.faktur.pajak.out</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_groupby_branch':1,'search_default_groupby_masa':1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to setup a new bank account.
+                </p>
+                <p>
+                    Configure your company's bank account and select those that must appear on the report footer.
+                </p>
+                <p>
+                    If you use the accounting application of Odoo, journals and accounts will be created automatically based on these data.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</openerp>

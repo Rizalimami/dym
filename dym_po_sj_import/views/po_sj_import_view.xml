@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_stock_packing_form_view">
+            <field name="name">dym.stock.packing.form</field>
+            <field name="model">dym.stock.packing</field>
+            <field name="inherit_id" ref="dym_stock.dym_stock_packing_form_view" />
+            <field name="arch" type="xml">
+                <field name="nrfs_location" position="before">
+                    <field name="no_faktur" readonly="1" />
+                </field>
+                <field name="rel_origin" position="after">
+                    <field name="import_sj" attrs="{'invisible':['|',('rel_code','=','outgoing'),('rel_division','=','Umum')]}"/>
+                    <field name="sj_no" attrs="{'readonly':[('state','!=','draft')],'required':[('rel_code','=','incoming')], 'invisible':['|',('rel_code','=','outgoing'),('import_sj','=',True)]}" />
+                    <field name="sj_id" attrs="{'readonly':[('state','!=','draft')],'required':[('import_sj','=',True)], 'invisible':['|',('rel_code','=','outgoing'),('import_sj','=',False)]}" domain="[('division','=',rel_division),('state', '=', 'confirmed')]" />                                
+                    <field name="sj_date" attrs="{'readonly':[('state','!=','draft')],'required':[('rel_code','=','incoming')], 'invisible':[('rel_code','=','outgoing')]}" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="po_sj_import_tree_view">
+            <field name="name">po.sj.import.tree.view</field>
+            <field name="model">po.sj.import</field>
+            <field name="arch" type="xml">
+                <tree string="List po_sj_import" create="false">
+                    <field name="name" />
+                    <field name="shipping_date" />
+                    <field name="division" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="po_sj_import_form_view">
+            <field name="name">po.sj.import.form.view</field>
+            <field name="model">po.sj.import</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="%(action_surat_jalan_import)d" string="Import" type="action" class="oe_highlight" attrs="{'invisible': [('state','!=','draft')]}"/>
+                        <button name="act_validate" string="Validate" type="object" class="oe_highlight" attrs="{'invisible': [('state','!=','draft')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,waiting_for_approval,approved,confirmed,done" statusbar_colors='{"draft":"red","done":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h2>
+                                <label for="name" string="Nomor Surat Jalan"/>              
+                                <field name="name" class="oe_inline" required="1"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="user_id" invisible="1" />
+                               	<field name="branch_id" />
+                                <field name="nopol" />
+                                <field name="division" />
+                            </group>
+                            <group>
+                                <field name="shipping_date" />
+                                <field name="no_faktur" string="Supplier Invoice Number"/>
+                                <field name="faktur_date" string="Supplier Invoice Date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detail">
+                                <field name="unit_lines" attrs="{'invisible':[('division','!=','Unit')], 'readonly': True}">
+                                    <tree string="Lines">
+                                        <field name="nomor_surat_jalan" invisible="1"/>
+                                        <field name="tanggal_shipping" invisible="1"/>
+                                        <field name="nomor_mesin" />
+                                        <field name="nomor_rangka" />
+                                        <field name="tahun_perakitan" />
+                                        <field name="kode_product" />
+                                        <field name="nama_product" />
+                                        <field name="kode_warna" />
+                                        <field name="sts_receive" />
+                                    </tree>
+                                </field>
+                                <field name="part_lines" attrs="{'invisible':[('division','!=','Sparepart')], 'readonly': True}">
+                                    <tree string="Lines">
+                                        <field name="nomor_surat_jalan" invisible="1"/>
+                                        <field name="tanggal_shipping" invisible="1"/>
+                                        <field name="kode_product" />
+                                        <field name="nama_product" />
+                                        <field name="quantity" sum="total" />
+                                        <field name="qty_receive" sum="total" />
+                                        <field name="qty_residual" sum="total" />
+                                        <field name="sts_receive" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_po_sj_import" model="ir.ui.view">
+            <field name="name">po_sj_import.list.select</field>
+            <field name="model">po.sj.import</field>
+            <field name="arch" type="xml">
+                <search string="Search po_sj_import">
+                    <field name="name" string="Reference" />
+                    <!--                     <field name="branch_id"/>
+                    <field name="division"/>
+                    <field name="journal_id"/> 
+                    <field name="edc_journal_id"/>                    
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-partner" domain="[]" context="{'group_by':'branch_id'}"/>
+                        <filter string="Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>                    
+                    </group>
+ -->
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="po_unit_sj_import_action">
+            <field name="name">PO Unit SJ Import</field>
+            <field name="res_model">po.sj.import</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('division','=','Unit')]</field>
+            <field name="search_view_id" ref="view_po_sj_import" />
+        </record>
+
+        <record model="ir.actions.act_window" id="po_part_sj_import_action">
+            <field name="name">PO Part SJ Import</field>
+            <field name="res_model">po.sj.import</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('division','=','Sparepart')]</field>
+            <field name="search_view_id" ref="view_po_sj_import" />
+        </record>
+
+        <menuitem id="unit_sj_submenu" name="Surat Jalan" parent="dym_dealer_menu.showroom_purchase_menu" sequence="50" />
+        <menuitem id="unit_list_sj_menu" name="Daftar Surat Jalan" parent="unit_sj_submenu" action="po_unit_sj_import_action" sequence="1" />
+        <menuitem id="unit_import_do_wizard_menu" name="Import Surat Jalan" parent="unit_sj_submenu" action="action_surat_jalan_import" sequence="2" />
+
+        <menuitem id="part_sj_submenu" name="Surat Jalan" parent="dym_dealer_menu.workshop_purchase_menu" sequence="101" />
+        <menuitem id="part_list_sj_submenu" name="Daftar Surat Jalan" parent="part_sj_submenu" action="po_part_sj_import_action" sequence="1" />
+        <menuitem id="part_import_do_wizard_submenu" name="Import Surat Jalan" parent="part_sj_submenu" action="action_surat_jalan_import" sequence="2" />
+    </data>
+</openerp>

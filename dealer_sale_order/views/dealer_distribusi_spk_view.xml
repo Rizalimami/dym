@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_distribusi_spk_tree" model="ir.ui.view">
+            <field name="name">dealer.distribusi.spk.tree</field>
+            <field name="model">dealer.distribusi.spk</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <tree string="Register Dealer Memo Dealer">
+                    <field name="branch_id" />
+                    <field name="sales_id" />
+                    <field name="date" />
+                    <field name="distribusi_spk_ids" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_distribusi_spk_search" model="ir.ui.view">
+            <field name="name">dealer.distribusi.spk.search</field>
+            <field name="model">dealer.distribusi.spk</field>
+            <field name="arch" type="xml">
+                <search string="Search Distribusi Dealer Memo">
+                    <field name='branch_id' />
+                    <field name='sales_id' />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-go-month" domain="[]" context="{'group_by':'branch_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="dealer_distribusi_spk_form" model="ir.ui.view">
+            <field name="name">dealer.distribusi.spk.form</field>
+            <field name="model">dealer.distribusi.spk</field>
+            <field name="arch" type="xml">
+                <form string="Distribusi Dealer Memo">
+                    <header>
+                        <button name="action_draft" states="cancel" string="Set to Draft" type="object" groups="base.group_user" />
+                        <button name="action_cancel" states="posted" string="Cancel" type="object" groups="base.group_user" />
+                        <button name="action_post" states="draft" string="Post" class="oe_highlight" type="object" groups="base.group_user" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,cencel,posted" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label string="Distribusi Dealer Memo"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group col="4">
+                                <field name="branch_id" options="{'no_create': True,'no_open':True}" class="oe_inline" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="date" readonly='1' class="oe_inline" />
+                                <field name="sales_id" options="{'no_create': True,'no_open':True}" class="oe_inline" attrs="{'readonly':[('state','!=','draft')]}" domain="[('branch_id','=',branch_id),('active','=',True),('job_id.salesman','=',True)]" />
+                            </group>
+                        </group>
+                        <field name="distribusi_spk_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                            <tree editable="bottom">
+                                <field name="dealer_register_spk_line_id" on_change="onchange_register_spk(parent.branch_id)" options="{'no_create': True,'no_open':True}" />
+                                <field name="state_distribusi" />
+                                <field name="state" />
+                                <field name="tanggal_distribusi" />
+                                <field name="tanggal_kembali" />
+                                <field name="spk_id" />
+                                <field name="dealer_sale_order_id" />
+                            </tree>
+                        </field>
+                        <notebook>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                        <field name="confirm_uid" readonly="1"></field>
+                                        <field name="confirm_date" readonly="1"></field>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dealer_distribusi_spk_action">
+            <field name="name">Dealer Distribusi Memo</field>
+            <field name="res_model">dealer.distribusi.spk</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="dealer_distribusi_spk_action" id="menu_dealer_distribusi_spk" parent="dym_dealer_menu.showroom_configuration_menu" />
+    </data>
+</openerp>

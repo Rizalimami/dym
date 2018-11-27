@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="act_request_cancel" model="workflow.activity">
+            <field name="wkf_id" ref="proses_birojasa" />
+            <field name="name">request_cancel</field>
+            <field name="kind">function</field>
+            <field name="action">wkf_request_batal_birojasa()</field>
+        </record>
+        <record id="act_waiting_approval_cancel" model="workflow.activity">
+            <field name="wkf_id" ref="proses_birojasa" />
+            <field name="name">waiting_approval_cancel</field>
+        </record>
+        <record id="act_approve_cancel" model="workflow.activity">
+            <field name="wkf_id" ref="proses_birojasa" />
+            <field name="name">approve_cancel</field>
+            <field name="kind">function</field>
+            <field name="action">wkf_approve_cancel()</field>
+        </record>
+        <record id="act_cancel_tbj" model="workflow.activity">
+            <field name="wkf_id" ref="proses_birojasa" />
+            <field name="name">cancel_tbj</field>
+            <field name="kind">function</field>
+            <field name="action">wkf_action_proses_cancel_tagihan()</field>
+        </record>
+
+        <record id="trans_approved_to_request_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_approved" />
+            <field name="act_to" ref="act_request_cancel" />
+        </record>
+        <record id="trans_request_cancel_to_waiting_approval_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_request_cancel" />
+            <field name="act_to" ref="act_waiting_approval_cancel" />
+        </record>
+        <record id="trans_waiting_approval_cancel_to_approved_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_waiting_approval_cancel" />
+            <field name="act_to" ref="act_approve_cancel" />
+        </record>
+        <record id="trans_approval_cancel_to_cancel_tbj" model="workflow.transition">
+            <field name="act_from" ref="act_approve_cancel" />
+            <field name="act_to" ref="act_cancel_tbj" />
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_report_intercompany_wizard" model="ir.ui.view">
+            <field name="name">Intercomany Report</field>
+            <field name="model">dym.report.intercompany</field>
+            <field name="arch" type="xml">
+                <form string="Intercompany Report">
+                    <group col="4">
+                        <field name="period_id"/>
+                        <field name="journal_state"/>
+                        <field name="name" invisible='True'/>
+                    </group>
+                    <group >
+                        <field name="data_file" filename="name"/>
+                    </group>
+                    <footer>
+                        <button name="eksport_excel" string="Print" type="object" class="oe_highlight"/>
+                        or 
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>               
+                </form>
+            </field>
+        </record>
+
+        <act_window id="launch_intercompany_report"
+            name="Intercompany Report"
+            src_model="dym.report.intercompany"
+            res_model="dym.report.intercompany"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"/>
+
+        <menuitem id="menu_report_intercompany" name="Laporan Intercompany" action="launch_intercompany_report"  parent="dym_journal_consolidation.dym_multi_company_master_menu"/>
+
+
+    </data>
+</openerp>

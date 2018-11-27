@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+	<record id="view_dealer_register_spk_tree" model="ir.ui.view">
+            <field name="name">dealer.register.spk.line.tree</field>
+            <field name="model">dealer.register.spk.line</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <tree string="Register Dealer Memo Dealer" create="0">                   
+                    <field name="name"/>
+                    <field name="branch_id" />
+					<field name="sales_id" />
+                    <field name="tanggal_distribusi"/>
+           			<field name="spk_id" />			
+           			<field name="dealer_sale_order_id" /> 
+           			<field name="state"/>
+                </tree>
+            </field>
+     </record>
+ 		 <record id="view_register_spk_line_search" model="ir.ui.view">
+            <field name="name">dealer.register.spk.line.search</field>
+            <field name="model">dealer.register.spk.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Register Dealer Memo Line">
+                	<field name='name'/>
+        			<field name='branch_id'/>
+        			<field name='sales_id'/>
+        			<field name='dealer_sale_order_id'/>
+        			<field name='spk_id'/>
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-go-month" domain="[]" context="{'group_by':'branch_id'}"/>
+               
+                    </group>
+                </search>
+            </field>
+        </record>    
+     <record id="view_dealer_register_spk_form" model="ir.ui.view">
+            <field name="name">dealer.register.spk.line.form</field>
+            <field name="model">dealer.register.spk.line</field>            
+            <field name="arch" type="xml">
+                <form string="Register Dealer Memo Dealer" create="0" edit="0">
+                    <header>
+                        <button name="set_rusak" string="Set Rusak" type="object" groups="dym_base_security.group_dym_adh" confirm="Apa anda yakin ingin mengganti status menjadi 'Rusak'?" attrs="{'invisible': ['|','|',('state','not in',('draft','open')),('spk_id','!=',False),('dealer_sale_order_id','!=',False)]}"/>
+                        <button name="set_hilang" string="Set Hilang" type="object" groups="dym_base_security.group_dym_adh" confirm="Apa anda yakin ingin mengganti status menjadi 'Hilang'?" attrs="{'invisible': ['|','|',('state','not in',('draft','open')),('spk_id','!=',False),('dealer_sale_order_id','!=',False)]}"/>
+                        <button name="kembalikan_distribusi" string="Kembalikan" type="object" groups="dym_base_security.group_dym_adh" confirm="Apa anda yakin ingin mengembalikan nomor register ke awal?" attrs="{'invisible': ['|','|',('state','!=','open'),('spk_id','!=',False),('dealer_sale_order_id','!=',False)]}"/>
+                    </header>
+                    <sheet>
+                       	<group col="4">
+    	                	<field name="name"/>
+    	                    <field name="branch_id" options="{'no_create': True,'no_open':True}"/>
+    						<field name="sales_id" domain="[('branch_id','=',branch_id),('active','=',True),('job_id.salesman','=',True)]"/>
+    	           			<field name="spk_id" />	
+                            <field name="tanggal_distribusi"/>		
+    	           			<field name="dealer_sale_order_id" /> 
+    	           			<field name="state"/>
+               			</group>
+    					<notebook>
+    						<page string="Pengembalian" attrs="{'invisible': [('tanggal_kembali','=',False)]}">
+    							<group>
+    								<group>
+    									<field name="reason_kembali" readonly="1"></field>
+    									<field name="tanggal_kembali" readonly="1"></field>
+    								</group>
+    								<group/>
+    							</group>
+    						</page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                    </group>
+                                    <group>                         
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+    					</notebook>
+                    </sheet>
+                </form>
+             </field>
+      </record>
+                
+     
+	
+		
+		<record model="ir.actions.act_window" id="dealer_register_spk_action">
+		    <field name="name">Dealer Register Memo</field>
+		    <field name="res_model">dealer.register.spk.line</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		</record>
+       	<menuitem action="dealer_register_spk_action" id="menu_dealer_register_spk" parent="dym_dealer_menu.showroom_configuration_menu" />
+	</data>
+</openerp>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_sale_order_graph">
+            <field name="name">sale.order.graph</field>
+            <field name="model">sale.order.report</field>
+            <field name="arch" type="xml">
+                <graph string="Sale Order" type="pivot">
+                    <field name="price_total" type="measure"/>
+                    <field name="state" type="col"/>
+                </graph>
+            </field>
+        </record>
+
+      
+        <record id="filter_sale_order_categori_so" model="ir.filters">
+            <field name="name">Categori</field>
+            <field name="model_id">sale.order.report</field>
+            <field name="domain">[('state','=','done')]</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['categ_id'], 'col_group_by': ['branch_id']}</field>
+        </record>
+        
+        
+        <record id="filter_sale_order_product_so" model="ir.filters">
+            <field name="name">Product Service</field>
+            <field name="model_id">sale.order.report</field>
+            <field name="domain">[('state','=','done')]</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['product_id'], 'col_group_by': ['branch_id']}</field>
+        </record>
+
+        <!-- <record id="filter_sale_order_mekanik_so" model="ir.filters">
+            <field name="name">Kinerja Mekanik</field>
+            <field name="model_id">sale.order.report</field>
+            <field name="domain">[('state','=','done')]</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['branch_id','mekanik_id'], 'col_group_by': ['categ_id','categ_id_2']}</field>
+        </record> -->
+
+        <!-- <record id="filter_sale_order_sa_rekap" model="ir.filters">
+            <field name="name">Kinerja SA (Rekap)</field>
+            <field name="model_id">sale.order.report</field>
+            <field name="domain">[('state','=','done')]</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['branch_id','sa_id'], 'col_group_by': ['categ_id','categ_id_2']}</field>
+        </record> -->
+
+        <!-- <record id="filter_sale_order_sa_detail" model="ir.filters">
+            <field name="name">Kinerja SA (Detail)</field>
+            <field name="model_id">sale.order.report</field>
+            <field name="domain">[('state','=','done')]</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['branch_id','sa_id','lot_id','so_name'], 'col_group_by': ['categ_id','categ_id_2']}</field>
+        </record> -->
+        
+        <record id="filter_sale_order_type_so" model="ir.filters">
+            <field name="name">Service Category</field>
+            <field name="model_id">sale.order.report</field>
+            <field name="domain">[('state','=','done')]</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['type'], 'col_group_by': ['branch_id']}</field>
+        </record>
+        
+        <record id="filter_sale_order_unit_entry_per_type_motor" model="ir.filters">
+            <field name="name">Unit Entry by Sales Person</field>
+            <field name="model_id">sale.order.report</field>
+            <field name="domain">[('state','=','done')]</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['employee_id','partner_id','date_order','so_name'], 'col_group_by': ['categ_id']}</field>
+        </record>
+
+       <record id="view_sale_order_search" model="ir.ui.view">
+        <field name="name">report.sale.order.search</field>
+        <field name="model">sale.order.report</field>
+        <field name="arch" type="xml">
+            <search string="sale Orders">
+                <filter string="Quotations" name="quotes" domain="[('state','=','draft')]"/>
+                <filter string="Orders" name="orders" domain="[('state','=','done')]"/>
+                <field name="employee_id"/>
+                <field name="partner_id"/>
+                <!-- <field name="no_pol"/> -->
+                <field name="product_id"/>
+                <field name="state"/>
+                <group expand="0" string="Extended Filters">
+                    <field name="user_id"/>
+                    <field name="date_order"/>
+                </group>
+                <group expand="1" string="Group By">
+                    <filter string="Type" name="group_partner_id" context="{'group_by':'type'}"/>
+                    <separator/>
+                    <filter string="Order Month" context="{'group_by':'date_order:month'}" help="Order of Day"/>
+                    <filter string="Branch" context="{'group_by':'branch_id'}" help="Branch"/>
+                    <filter string="Sales Person" context="{'group_by':'employee_id'}" help="Sale Order"/>
+                    <!-- <filter string="Sales Advisor" context="{'group_by':'sa_id'}" help="Mekanik"/> -->
+                    <!-- <filter string="No Polisi" context="{'group_by':'no_pol'}" help="No Polisi"/> -->
+                    <filter string="State" context="{'group_by':'state'}" help="State"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sale_order_report_all" model="ir.actions.act_window">
+        <field name="name">Sale Order</field>
+        <field name="res_model">sale.order.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="view_sale_order_graph"></field>
+        <field name="domain">[('is_mybranch','=',True)]</field>
+        <field name="context">{'search_default_orders': 1, 'group_by_no_leaf':1,'group_by':[]}</field>
+        
+    </record>
+    
+    <menuitem id="base.next_id_74" name="Sale Order" parent="base.menu_reporting" sequence="12"/>
+    <menuitem action="action_sale_order_report_all" id="menu_sale_order_all" parent="base.next_id_74" sequence="16"/>
+
+  
+    </data>
+</openerp>

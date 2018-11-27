@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_penerimaan_bpkb_template">
+    <style type="text/css">
+        .tag_container{
+            margin: auto;
+            margin-bottom:50px;
+            border: 1px solid black;
+        }
+        .no_border{
+            border: 0px !important;
+        }
+        .margin_bottom{
+            margin-top: 5px !important;
+            margin-bottom: 5px !important;
+        }
+        .border_top{
+            border-top: 1px solid black !important;
+        }
+        .border_bottom{
+            border-bottom: 1px solid black !important;
+        }
+        .line_height{
+        }
+        .page,
+        .header,
+        .footer,
+        .table {
+            font-size: 12px !important;
+        }
+        .hr {
+            border-top: 1px solid black !important;
+        }
+        .text_up{
+            text-transform: uppercase;
+        }
+        .text_bold{
+            font-weight: bold;
+        }
+        .text_head{
+            font-size: 16px;
+        }
+        .table_titikdua{
+            text-align:center;
+            width:30px
+        }
+        .table_margintop{
+            margin-top: 20px !important;
+        }
+    </style>
+    <t t-call="report.html_container">    
+        <t t-foreach="docs" t-as="o">
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h4><t t-esc="company.name"/></h4>
+                        <t t-if="company.jenis_npwp=='terpusat'">
+                            <t t-if="company.street">
+                                <span t-field="company.street"/>
+                            </t>
+                            <t t-if="not company.street">
+                                <span t-field="company.partner_id.street"/>
+                            </t>
+                            <br/>
+                            <t t-if="company.state_id">
+                                <span t-field="company.state_id.name"/>
+                            </t>
+                            <t t-if="not company.state_id">
+                                <span t-field="company.partner_id.state_id.name"/>
+                            </t>                        
+                            <t t-if="company.phone">
+                                <span> - </span><span t-field="company.phone"/>
+                            </t>
+                            <t t-if="not company.phone">
+                                <span> - </span><span t-field="company.partner_id.phone"/>
+                            </t>
+                        </t>
+                        <t t-if="company.jenis_npwp=='percabang'">
+                            <span t-field="o.branch_id.npwp_street"/>
+                        </t>
+                        <br/>
+                        <t t-if="o.branch_id.npwp">
+                            NPWP: <span t-field="o.branch_id.npwp"/>                    
+                        </t>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="pull-right">
+                            <h4><t t-esc="o.branch_id.name"/></h4>
+                            <t t-if="o.branch_id.street">
+                                <span t-field="o.branch_id.street"/>
+                            </t>
+                            <t t-if="not o.branch_id.street">
+                                <span t-field="o.branch_id.partner_id.street"/>
+                            </t>
+                            <br/>
+                            <t t-if="o.branch_id.state_id">
+                                <span t-field="o.branch_id.state_id.name"/>
+                            </t>
+                            <t t-if="not o.branch_id.state_id">
+                                <span t-field="o.branch_id.partner_id.state_id.name"/>
+                            </t>                        
+                            <t t-if="o.branch_id.phone">
+                                <span> - </span><span t-field="o.branch_id.phone"/>
+                            </t>
+                            <t t-if="not o.branch_id.phone">
+                                <span> - </span><span t-field="o.branch_id.partner_id.phone"/>
+                            </t>                      
+                            <br/>
+                            No<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>: <span t-field="o.name"/><br/>                
+                            Tanggal : <span t-field="o.tgl_terima"/>
+                        </div>
+                    </div>
+                </div>
+                <hr style="margin-top:0px !important; border-color:black !important;"/>
+            </div>
+            <div class="page">
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <h4><u>TANDA TERIMA BPKB DARI BIRO JASA/SAMSAT</u></h4>
+                    </div>
+                    <div class="col-xs-8">
+                        <table>
+                            <tr>
+                                <td>Telah diterima dari</td>
+                                <td class="table_titikdua">:</td>
+                                <td class="text_up"><span t-field="o.partner_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td>Sebanyak</td>
+                                <td class="table_titikdua"></td>
+                                <td>
+                                    <t t-esc="len(o.penerimaan_line)"/> buah BPKB dengan data sebagai berikut :
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-xs-12">
+                        <table class="table table-condensed" style="margin-bottom:0px !important;">
+                            <thead>
+                                <tr>
+                                    <th class="border_top"><strong>No</strong></th>
+                                    <th class="border_top"><strong>No. Nota</strong></th>
+                                    <th class="border_top"><strong>No. Rangka</strong></th>
+                                    <th class="border_top"><strong>No. Mesin</strong></th>
+                                    <th class="border_top"><strong>Nama Pemilik</strong></th>
+                                    <th class="border_top"><strong>No. BPKB</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="no" t-value="0"/>
+                                <t t-foreach="o.penerimaan_line" t-as="line">
+                                    <t t-set="no" t-value="no+1"/>
+                                    <tr>
+                                        <td class=""><t t-esc="no"/></td>
+                                        <td class=""><t t-esc="o.branch_id.get_customer_invoice(line.name.dealer_sale_order_id)"/></td>
+                                        <td class=""><span t-field="line.name.name"/></td>
+                                        <td class=""><span t-field="line.name.chassis_no"/></td>
+                                        <td class=""><span t-field="line.customer_stnk.name"/></td>
+                                        <td class=""><span t-field="line.no_bpkb"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <hr style="margin-top:0px !important; margin-bottom:5px !important; border-color:black !important;"/>
+                <div class="row">
+                    <div class="col-xs-12">
+                        Atas perhatian dan kerjasamanya kami ucapkan terimakasih.
+                    </div>
+                    <div class="col-xs-6" style="margin-bottom:10px;">
+                        <br/>Diterima Oleh,<br/><br/><br/><br/><br/>(____________________)
+                    </div>
+                    <div class="col-xs-6 text-center" style="margin-bottom:10px;">
+                        <span t-field="o.branch_id.state_id.name"/> <span t-field="o.tgl_terima"/><br/>
+                        Diserahkan Oleh,<br/><br/><br/><br/><br/>(____________________)
+                    </div>
+                    <br/>
+                    <div class="col-xs-12 text-right">
+                        <span style="font-size: 11px;"><t t-esc="user.name"/> <t t-esc="o.branch_id.get_waktu_local()"/></span>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

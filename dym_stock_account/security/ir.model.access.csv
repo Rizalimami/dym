@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_product_price_branch_all,dym_product_price_branch all,model_product_price_branch,,1,1,1,1
+access_product_cost_adjustment,access_product_cost_adjustment,model_product_cost_adjustment,,1,1,1,1

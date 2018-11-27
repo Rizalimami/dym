@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym2_register_prepaid_form_view">
+            <field name="name">dym2.register.prepaid.form.view</field>
+            <field name="model">dym2.register.prepaid</field>
+            <field name="arch" type="xml">
+                <form string="Register Prepaid">
+                    <div class="oe_title">
+                        <h2>
+                            <label string="Register Prepaid"/>              
+                            <field name="name" class="oe_inline" readonly="1"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <field name="register_type" readonly="1" />
+                        <field name="receive_id" domain="[('asset_prepaid','=','prepaid')]" readonly="1" />
+                        <field name="date" readonly="1" />
+                    </group>
+                    <field colspan="4" name="transfer_ids" nolabel="1">
+                        <tree editable="bottom" create="false">
+                            <field name="prepaid_id" options="{'no_create': True,'no_open': True}" invisible="1" />
+                            <field name="description" required="1" />
+                            <field name="price_unit" invisible="1" />
+                            <field name="price_unit_show" />
+                            <field name="asset_owner" options="{'no_create': True,'no_open': True}" required="1" />
+                            <field name="responsible_id" options="{'no_create': True,'no_open': True}" required="1" />
+                            <field name="asset_user" options="{'no_create': True,'no_open': True}" required="0" />
+                            <field name="method" invisible="1" />
+                            <field name="method_time" invisible="1" />
+                            <field name="asset_categ_id" required="1" options="{'no_create': True,'no_open': True}" />
+                            <field name="branch_id" required="1" options="{'no_create': True,'no_open': True}" />
+                            <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" />
+                            <field name="analytic_2" required="1" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                            <field name="analytic_3" required="1" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                            <field name="analytic_4" required="1" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                            <field name="document_date" required="1" />
+                            <field name="prorata" invisible="1" />
+                            <field name="open_asset" />
+                            <field name="first_day_of_month" invisible="1" />
+                            <field name="method_number" required="1" invisible="1" />
+                            <field name="method_period" required="1" invisible="1" />
+                            <field name="receive_line_id" invisible="1" />
+                            <field name="register_type" invisible="1" />
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="create_prepaid" string="Register" type="object" class="oe_highlight" /> or
+                        <button string="Discard" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="register_prepaid_wiz">
+            <field name="name">Register Prepaid</field>
+            <field name="res_model">dym2.register.prepaid</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="view_register_prepaid_tree_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym2_register_prepaid_form_view" />
+            <field name="act_window_id" ref="register_prepaid_wiz" />
+        </record>
+        <record model="ir.ui.view" id="dym_transfer_asset_form_view">
+            <field name="name">dym.transfer.asset.form.view</field>
+            <field name="model">dym.transfer.asset</field>
+            <field name="arch" type="xml">
+                <form string="Register Asset">
+                    <div class="oe_title">
+                        <h2>
+                            <label string="Register Asset"/>                
+                            <field name="name" class="oe_inline" readonly="1"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <field name="register_type" readonly="1" />
+                        <field name="receive_id" domain="[('asset_prepaid','=','asset')]" readonly="1" />
+                        <field name="date" readonly="1" />
+                    </group>
+                    <field colspan="4" name="transfer_ids" nolabel="1">
+                        <tree editable="bottom" create="false">
+                            <field name="product_id" invisible="1" options="{'no_create': True,'no_open': True}" />
+                            <field name="asset_id" options="{'no_create': True,'no_open': True}" invisible="1" />
+                            <field name="description" required="1" />
+                            <field name="price_unit" invisible="1" />
+                            <field name="price_unit_show" />
+                            <field name="asset_owner" options="{'no_create': True,'no_open': True}" required="1" />
+                            <field name="responsible_id" options="{'no_create': True,'no_open': True}" required="1" />
+                            <field name="asset_user" options="{'no_create': True,'no_open': True}" required="0" />
+                            <field name="method" invisible="1" />
+                            <field name="method_time" invisible="1" />
+                            <field name="asset_categ_id" required="1" options="{'no_create': True,'no_open': True}" />
+                            <field name="branch_id" required="1" options="{'no_create': True,'no_open': True}" />
+                            <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" />
+                            <field name="analytic_2" required="1" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                            <field name="analytic_3" required="1" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                            <field name="analytic_4" required="1" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                            <field name="location_id" required="1" options="{'no_create': True,'no_open': True}" />
+                            <field name="document_date" required="1" />
+                            <field name="prorata" invisible="1" />
+                            <field name="open_asset" />
+                            <field name="first_day_of_month" invisible="1" />
+                            <field name="method_number" required="1" invisible="1" />
+                            <field name="method_period" required="1" invisible="1" />
+                            <field name="receive_line_id" invisible="1" />
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="create_asset" string="Register" type="object" class="oe_highlight" /> or
+                        <button string="Discard" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="transfer_asset">
+            <field name="name">Register Asset</field>
+            <field name="res_model">dym.transfer.asset</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="view_transfer_asset_tree_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_transfer_asset_form_view" />
+            <field name="act_window_id" ref="transfer_asset" />
+        </record>
+        <record model="ir.ui.view" id="dym2_receive_asset_form_view_wiz">
+            <field name="name">dym2.receive.asset.form.view.wiz</field>
+            <field name="model">dym2.receive.asset</field>
+            <field name="arch" type="xml">
+                <form string="Receive Asset">
+                    <div class="oe_title">
+                        <h2>
+                            <label string="Receive Asset/Prepaid"/>             
+                            <field name="name" class="oe_inline" readonly="1"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <field name="asset_prepaid" readonly="1" />
+                        <field name="purchase_id" readonly="1" />
+                        <field name="date" readonly="1" />
+                    </group>
+                    <field colspan="4" name="receive_line_ids" nolabel="1">
+                        <tree editable="bottom" create="false">
+                            <field name="product_id" readonly="1" options="{'no_create': True,'no_open': True}" />
+                            <field name="description" required="1" />
+                            <field name="quantity" required="1" />
+                            <field name="purchase_line_id" invisible="1" />
+                            <field name="asset_receive_qty" string="Registered QTY" readonly="1" />
+                            <field name="price_unit" invisible="1" />
+                            <field name="price_unit_show" />
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="receive" string="Receive" type="object" class="oe_highlight" /> or
+                        <button string="Discard" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="receive_asset">
+            <field name="name">Receive Asset</field>
+            <field name="res_model">dym2.receive.asset</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="view_receive_asset_tree_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym2_receive_asset_form_view_wiz" />
+            <field name="act_window_id" ref="receive_asset" />
+        </record>
+        <record model="ir.ui.view" id="purchase_order_asset_form_view">
+            <field name="name">purchase.order.asset</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="dym_purchase_order.dym_approval_po_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='view_picking']" position="after">
+                    <button name="%(receive_asset)d" string="Receive Asset/Prepaid" type="action" class="oe_highlight" attrs="{'invisible': ['|','|','&amp;',('asset', '=', False),('prepaid', '=', False),('asset_receive','!=',False),('state','not in',['approved','except_invoice','done'])]}" />
+                </xpath>
+                <button name="view_picking" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|','|','|','|',('asset', '!=', False),('prepaid', '!=', False),('shipment_count', '=', 0),('shipped','!=',False),('state','!=','approved')]}</attribute>
+                </button>
+                <field name="approval_state" position="after">
+                    <field name="asset_receive_qty" invisible="1"></field>
+                    <field name="qty_asset" invisible="1"></field>
+                    <field name="asset_receive" invisible="1"></field>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="purchase_order_asset_2_stock_picking">
+            <field name="name">purchase.order.asset.stock.picking</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_2_stock_picking" />
+            <field name="arch" type="xml">
+                <button name="invoice_open" position="before">
+                    <button type="object" name="view_asset" class="oe_stat_button" icon="fa-truck" attrs="{'invisible': [('receive_count', '=', 0)]}">
+                        <field name="receive_count" widget="statinfo" string="In Receive" help="Receiving Assets" />
+                    </button>
+                </button>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="po_asset_prepaid_form_view">
+            <field name="name">purchase.order.asset.prepaid</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="dym_purchase_order.dym_branch_on_purchase_order_form_view" />
+            <field name="arch" type="xml">
+                <!-- aris -->
+                <field name="date_order" position="after">
+                    <field name="asset" on_change="onchange_asset_prepaid('asset',asset,prepaid,branch_id,order_line,purchase_order_type_id)" attrs="{'invisible': [('division','!=','Umum')]}" />
+                    <field name="prepaid" on_change="onchange_asset_prepaid('prepaid',asset,prepaid,branch_id,order_line,purchase_order_type_id)" attrs="{'invisible': [('division','!=','Umum')]}" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym2_receive_asset_form_view">
+            <field name="name">dym2.receive.asset.form.view</field>
+            <field name="model">dym2.receive.asset</field>
+            <field name="arch" type="xml">
+                <form string="Receive Asset">
+                    <header>
+                        <button name="receive" states='draft' string="Receive Asset" type="object" class="oe_highlight" />
+                        <button name="%(transfer_asset)d" string="Register Asset" type="action" class="oe_highlight" attrs="{'invisible': ['|','|',('asset_prepaid','!=','asset'),('asset_receive','!=',False),('state','!=','done')]}" />
+                        <button name="%(register_prepaid_wiz)d" string="Register Prepaid" type="action" class="oe_highlight" attrs="{'invisible': ['|','|',('asset_prepaid','!=','prepaid'),('asset_receive','!=',False),('state','!=','done')]}" />
+                        <button name="action_cancel" states="draft,done" string="Cancel" type="object" class="oe_highlight" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"red","posted":"blue"}' />
+                    </header>
+                    <sheet>
+                        <field name="asset_receive_qty" invisible="1"></field>
+                        <field name="qty_asset" invisible="1"></field>
+                        <field name="asset_receive" invisible="1"></field>
+                        <div class="oe_title">
+                            <h2>
+                                <label string="Receive Asset/Prepaid"/>             
+                                <field name="name" class="oe_inline" readonly="1"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <field name="asset_prepaid" on_change="onchange_asset_prepaid()" required="1" />
+                            <field name="purchase_id" required="1" on_change="onchange_purchase(purchase_id)" domain="[('asset_receive','=',False),(asset_prepaid,'!=',False),('state','=','approved')]" attrs="{'readonly': ['|',('state','!=','draft'),('asset_prepaid','=',False)]}" options="{'no_create': True,'no_open': True}" />
+                            <field name="date" readonly="1" />
+                        </group>
+                        <notebook>
+                            <page string="Receive Detail">
+                                <field colspan="4" name="receive_line_ids" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}">
+                                    <tree editable="bottom" create="false">
+                                        <field name="product_id" readonly="1" options="{'no_create': True,'no_open': True}" />
+                                        <field name="description" required="1" />
+                                        <field name="quantity" required="1" />
+                                        <field name="purchase_line_id" invisible="1" />
+                                        <field name="asset_receive_qty" string="Registered QTY" readonly="1" />
+                                        <field name="price_unit" invisible="1" />
+                                        <field name="price_unit_show" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                        <field name="confirm_uid" readonly="1"></field>
+                                        <field name="confirm_date" readonly="1"></field>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                        <field name="cancel_uid" readonly="1"></field>
+                                        <field name="cancel_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym2_receive_asset_tree">
+            <field name="name">dym2.receive.asset.tree</field>
+            <field name="model">dym2.receive.asset</field>
+            <field name="arch" type="xml">
+                <tree string="Receive Asset/Prepaid">
+                    <field name="name" />
+                    <field name="purchase_id" />
+                    <field name="asset_prepaid" />
+                    <field name="date" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_receive_asset_filter" model="ir.ui.view">
+            <field name="name">dym2.receive.asset.form.search</field>
+            <field name="model">dym2.receive.asset</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name='purchase_id' />
+                    <field name="name" />
+                    <field name="date" />
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="receive_asset_action">
+            <field name="name">Receive Asset/Prepaid</field>
+            <field name="res_model">dym2.receive.asset</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_receive_asset_filter" />
+        </record>
+        <record id="view_asset_tree_form" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym2_receive_asset_tree" />
+            <field name="act_window_id" ref="receive_asset_action" />
+        </record>
+        <record id="view_asset_form_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym2_receive_asset_form_view" />
+            <field name="act_window_id" ref="receive_asset_action" />
+        </record>
+        <record model="ir.ui.view" id="dym_receipt_asset_form_view">
+            <field name="name">dym.receipt.asset.form.view</field>
+            <field name="model">dym.transfer.asset</field>
+            <field name="arch" type="xml">
+                <form string="Register Asset">
+                    <header>
+                        <button name="create_asset" groups='dym_purchase_asset.group_dym_asset_create' states='draft' string="Create Assets" type="object" class="oe_highlight" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"red","posted":"blue"}' />
+                    </header>
+                    <!-- <sheet> -->
+                    <div class="oe_title">
+                        <h2>
+                            <label string="Register Asset"/>                
+                            <field name="name" class="oe_inline" readonly="1"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <field name="register_type" on_change="onchange_register_type()" required="1" attrs="{'readonly': [('state','!=','draft')]}" />
+                        <field name="receive_id" on_change="onchange_receive(receive_id)" domain="[('asset_receive','=',False),('state','=','done'),('asset_prepaid','=','asset'),('consolidated','=',True)]" options="{'no_create': True,'no_create_edit': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')],'invisible': [('register_type','!=','receive')],'required': [('register_type','=','receive')]}" />
+                        <field name="stock_branch_id" options="{'no_create': True,'no_create_edit': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')],'invisible': [('register_type','!=','stock')],'required': [('register_type','=','stock')]}" />
+                        <field name="payment_request_id" on_change="onchange_payment_request(payment_request_id)" domain="[('prepaid_state','=',False),('state','=','posted'),('payment_request_type','=','cip'), ('type','=','purchase')]" options="{'no_create': True,'no_create_edit': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')],'invisible': [('register_type','!=','payment_request')],'required': [('register_type','=','payment_request')]}" />
+                        <field name="cip_branch_id" on_change="onchange_cip_branch(cip_branch_id)" options="{'no_create': True,'no_create_edit': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')],'invisible': [('register_type','!=','cip')],'required': [('register_type','=','cip')]}" />
+                        <field name="invoice_id" on_change="onchange_supplier_invoice(invoice_id)" domain="[('cip_state','=',False),('state','in',['open','paid']),('is_cip','=',True)]" options="{'no_create': True,'no_create_edit': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')],'invisible': [('register_type','!=','supplier_invoice')],'required': [('register_type','=','supplier_invoice')]}" />
+                        <field name="date" readonly="1" />
+                    </group>
+                    <notebook>
+                        <!-- receive asset -->
+                        <page string="Register Detail" attrs="{'invisible':[('register_type','!=','receive')]}">
+                            <field colspan="4" name="transfer_ids" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}">
+                                <tree editable="bottom" create="false">
+                                    <field name="product_id" invisible="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="asset_id" options="{'no_create': True,'no_open': True}" invisible="1" />
+                                    <field name="description" required="1" />
+                                    <field name="price_unit" invisible="1" />
+                                    <field name="price_unit_show" />
+                                    <field name="asset_owner" options="{'no_create': True,'no_open': True}" required="1" />
+                                    <field name="responsible_id" options="{'no_create': True,'no_open': True}" required="1" />
+                                    <field name="asset_user" options="{'no_create': True,'no_open': True}" required="0" />
+                                    <field name="method" invisible="1" />
+                                    <field name="method_time" invisible="1" />
+                                    <field name="asset_categ_id" required="1" options="{'no_create': True,'no_open': True}" domain="[('type','=','fixed'),('cip','=',False)]" />
+                                    <field name="branch_id" required="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" />
+                                    <field name="analytic_2" required="1" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="analytic_3" required="1" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="analytic_4" required="1" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="location_id" required="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="document_date" required="1" />
+                                    <field name="prorata" invisible="1" />
+                                    <field name="open_asset" />
+                                    <field name="first_day_of_month" invisible="1" />
+                                    <field name="method_number" required="1" invisible="1" />
+                                    <field name="method_period" required="1" invisible="1" />
+                                    <field name="receive_line_id" invisible="1" />
+                                    <field name="register_type" invisible="1" />
+                                </tree>
+                            </field>
+                        </page>
+                        <!-- stock -->
+                        <page string="Register Detail" attrs="{'invisible':[('register_type','!=','stock')]}">
+                            <field colspan="4" name="transfer_ids2" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}">
+                                <tree editable="bottom">
+                                    <field name="stock_location_id" attrs="{'required': [('register_type','=','stock')]}" domain="[('branch_id','=',parent.stock_branch_id),('usage','in',['internal','nrfs'])]" options="{'no_create': True,'no_open': True}" />
+                                    <field name="product_id" attrs="{'required': [('register_type','=','stock')]}" domain="[('id','=',0)]" options="{'no_create': True,'no_open': True}" />
+                                    <field name="stock_lot_id" domain="[('id','=',0)]" options="{'no_create': True,'no_open': True}" />
+                                    <field name="asset_id" options="{'no_create': True,'no_open': True}" invisible="1" />
+                                    <field name="description" required="1" />
+                                    <field name="price_unit" />
+                                    <field name="price_unit_show" invisible="1" />
+                                    <field name="discount" />
+									<field name="dpp" />
+                                    <field name="asset_owner" options="{'no_create': True,'no_open': True}" required="1" />
+                                    <field name="responsible_id" options="{'no_create': True,'no_open': True}" required="1" />
+                                    <field name="asset_user" options="{'no_create': True,'no_open': True}" required="0" />
+                                    <field name="method" invisible="1" />
+                                    <field name="method_time" invisible="1" />
+                                    <field name="asset_categ_id" required="1" options="{'no_create': True,'no_open': True}" domain="[('type','=','fixed'),('cip','=',False)]" />
+                                    <field name="branch_id" required="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" />
+                                    <field name="analytic_2" required="1" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="analytic_3" required="1" domain="[('segmen','=',3),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="analytic_4" required="1" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="location_id" required="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="document_date" required="1" />
+                                    <field name="prorata" invisible="1" />
+                                    <field name="open_asset" />
+                                    <field name="first_day_of_month" invisible="1" />
+                                    <field name="method_number" required="1" invisible="1" />
+                                    <field name="method_period" required="1" invisible="1" />
+                                    <field name="receive_line_id" invisible="1" />
+                                    <field name="register_type" invisible="1" />
+                                </tree>
+                            </field>
+                        </page>
+                        <!-- payment request and supplier invoice -->
+                        <page string="Register Detail" attrs="{'invisible':[('register_type','not in',['payment_request','supplier_invoice'])]}">
+                            <field colspan="4" name="transfer_ids3" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}">
+                                <tree editable="bottom" create="false">
+                                    <field name="product_id" invisible="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="asset_id" options="{'no_create': True,'no_open': True}" invisible="1" />
+                                    <field name="description" required="1" />
+                                    <field name="price_unit" invisible="1" />
+                                    <field name="price_unit_show" />
+                                    <field name="asset_owner" options="{'no_create': True,'no_open': True}" required="1" />
+                                    <field name="responsible_id" options="{'no_create': True,'no_open': True}" required="1" />
+                                    <field name="asset_user" options="{'no_create': True,'no_open': True}" required="0" />
+                                    <field name="method" invisible="1" />
+                                    <field name="method_time" invisible="1" />
+                                    <field name="asset_categ_id" required="1" options="{'no_create': True,'no_open': True}" domain="[('type','=','fixed'),('cip','=',True)]" />
+                                    <field name="branch_id" required="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" />
+                                    <field name="analytic_2" required="1" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="analytic_3" required="1" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="analytic_4" required="1" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="location_id" required="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="document_date" required="1" />
+                                    <field name="prorata" invisible="1" />
+                                    <field name="open_asset" invisible="1" />
+                                    <field name="first_day_of_month" invisible="1" />
+                                    <field name="method_number" required="1" invisible="1" />
+                                    <field name="method_period" required="1" invisible="1" />
+                                    <field name="receive_line_id" invisible="1" />
+                                    <field name="pr_line_id" invisible="1" />
+                                    <field name="invoice_line_id" invisible="1" />
+                                    <field name="register_type" invisible="1" />
+                                </tree>
+                            </field>
+                        </page>
+                        <!-- CIP -->
+                        <page string="Register Detail" attrs="{'invisible':[('register_type','!=','cip')]}">
+                            <field colspan="4" name="transfer_ids4" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}">
+                                <tree editable="bottom">
+                                    <field name="product_id" invisible="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="asset_id" domain="[('branch_id','=',parent.cip_branch_id),('category_id.cip','=',True),('state','=','draft')]" options="{'no_create': True,'no_open': True}" attrs="{'required': [('register_type','=','cip')]}" />
+                                    <field name="description" required="1" />
+                                    <field name="price_unit" invisible="1" />
+                                    <field name="price_unit_show" />
+                                    <field name="asset_owner" options="{'no_create': True,'no_open': True}" required="1" />
+                                    <field name="responsible_id" options="{'no_create': True,'no_open': True}" required="1" />
+                                    <field name="asset_user" options="{'no_create': True,'no_open': True}" required="0" />
+                                    <field name="method" invisible="1" />
+                                    <field name="method_time" invisible="1" />
+                                    <field name="asset_categ_id" required="1" options="{'no_create': True,'no_open': True}" domain="[('type','=','fixed'),('cip','=',False)]" />
+                                    <field name="branch_id" required="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" />
+                                    <field name="analytic_2" required="1" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="analytic_3" required="1" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="analytic_4" required="1" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="location_id" required="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="document_date" required="1" />
+                                    <field name="prorata" invisible="1" />
+                                    <field name="open_asset" />
+                                    <field name="first_day_of_month" invisible="1" />
+                                    <field name="method_number" required="1" invisible="1" />
+                                    <field name="method_period" required="1" invisible="1" />
+                                    <field name="receive_line_id" invisible="1" />
+                                    <field name="pr_line_id" invisible="1" />
+                                    <field name="register_type" invisible="1" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Asset Items">
+                            <field colspan="4" name="asset_ids" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}">
+                                <tree edit="false" create="false">
+                                    <field name="name" />
+                                    <field name="code" />
+                                    <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                    <field name="category_id" />
+                                    <field name="asset_classification_id" />
+                                    <field name="purchase_date" />
+                                    <field name="purchase_id" />
+                                    <field name="invoice_id" />
+                                    <field name="purchase_value" />
+                                    <field name="value_residual" />
+                                    <field name="partner_id" />
+                                    <field name="state" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                    <field name="confirm_uid" readonly="1"></field>
+                                    <field name="confirm_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                    <field name="cancel_uid" readonly="1"></field>
+                                    <field name="cancel_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <!-- </sheet> -->
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_receipt_asset_tree">
+            <field name="name">dym.transfer.asset.tree</field>
+            <field name="model">dym.transfer.asset</field>
+            <field name="arch" type="xml">
+                <tree string="Register Asset">
+                    <field name="name" />
+                    <field name="register_type" />
+                    <field name="purchase_id" string="Purchase Number" />
+                    <field name="payment_request_id" string="Payment Request" />
+                    <field name="receive_id" />
+                    <field name="date" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_receipt_asset_filter" model="ir.ui.view">
+            <field name="name">dym.transfer.asset.form.search</field>
+            <field name="model">dym.transfer.asset</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name='purchase_id' />
+                    <field name="receive_id" />
+                    <field name="name" />
+                    <field name="date" />
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="receipt_asset_action">
+            <field name="name">Register Asset</field>
+            <field name="res_model">dym.transfer.asset</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_receipt_asset_filter" />
+        </record>
+        <record id="view_asset_tree_form" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_receipt_asset_tree" />
+            <field name="act_window_id" ref="receipt_asset_action" />
+        </record>
+        <record id="view_asset_form_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_receipt_asset_form_view" />
+            <field name="act_window_id" ref="receipt_asset_action" />
+        </record>
+        <record id="purchase_form_action_asset" model="ir.actions.act_window">
+            <field name="name">Purchase Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="context">{'menu': 'general_affair'}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation that will be converted into a purchase order.
+                </p>
+                <p>
+                    Use this menu to search within your purchase orders by references, supplier, products, etc. For each purchase order, you can track the related discussion with the supplier, control the products received and control the supplier invoices.
+                </p>
+            </field>
+        </record>
+        <record id="action_vendor_payment_general_affair" model="ir.actions.act_window">
+            <field name="name">Supplier Payments</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('journal_id.type', 'in', ['bank', 'cash']), ('type','=','payment'), ('division','in',('Unit','Sparepart','Umum')),('transaction_type','not in',['in','out',])]</field>
+            <field name="context">{'type':'payment','menu': 'general_affair'}</field>
+            <field name="view_id" eval="False" />
+            <field name="search_view_id" ref="account_voucher.view_voucher_filter_vendor_pay" />
+            <field name="target">current</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new supplier payment.
+                </p>
+                <p>
+                    Odoo helps you easily track payments you make and the remaining balances you need to pay your suppliers.
+                </p>
+            </field>
+        </record>
+        <record id="action_vendor_payment_tree_general_affair" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="action_vendor_payment_general_affair" />
+        </record>
+        <record id="action_vendor_payment_form_general_affair" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_voucher.view_vendor_payment_form" />
+            <field name="act_window_id" ref="action_vendor_payment_general_affair" />
+        </record>
+        <record id="action_invoice_tree2_ga" model="ir.actions.act_window">
+            <field name="name">Supplier Invoices</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field eval="False" name="view_id" />
+            <field name="domain">[('type','=','in_invoice')]</field>
+            <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase','menu': 'general_affair'}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to record a new supplier invoice.
+                </p>
+                <p>
+                    You can control the invoice from your supplier according to what you purchased or received. Odoo can also generate draft invoices automatically from purchase orders or receipts.
+                </p>
+            </field>
+        </record>
+        <record id="action_invoice_tree_ga" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_purchase_order.invoice_tree_v2" />
+            <field name="act_window_id" ref="action_invoice_tree2_ga" />
+        </record>
+        <menuitem action="purchase_form_action_asset" id="menu_purchase_asset_form" parent="dym_dealer_menu.ga_purchase_menu" sequence="20" />
+        <menuitem id="dym_receipt_asset_submenu_showroom" parent="dym_dealer_menu.ga_asset_menu" action="receipt_asset_action" sequence="1" />
+        <menuitem id="dym2_receive_asset_submenu_showroom" parent="dym_dealer_menu.ga_purchase_menu" action="receive_asset_action" sequence="50" />
+        <menuitem action="action_vendor_payment_general_affair" icon="STOCK_JUSTIFY_FILL" sequence="90" id="menu_action_vendor_payment_asset" parent="dym_dealer_menu.ga_purchase_menu" />
+        <menuitem action="action_invoice_tree2_ga" id="menu_action_invoice_tree_asset" parent="dym_dealer_menu.ga_purchase_menu" sequence="40" />
+    </data>
+</openerp>

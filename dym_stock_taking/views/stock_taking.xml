@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="dym_inventory_summary_tree_view">
+		    <field name="name">dym.inventory.summary.tree</field>
+		    <field name="model">dym.inventory.summary</field>
+		    <field name="arch" type="xml">
+		        <tree string="Summary">
+		            <field name="name"/>
+		            <field name="cutoff_date"/>
+		            <field name="warehouse_id"/>
+		        </tree>
+		     </field>
+		</record>
+		
+		<record id="view_inventory_summary_search" model="ir.ui.view">
+            <field name="name">dym.inventory.summary.search</field>
+            <field name="model">dym.inventory.summary</field>
+            <field name="arch" type="xml">
+                <search string="Search Summary">
+		            <field name="warehouse_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Periode" icon="terp-go-month" domain="[]" context="{'group_by':'cutoff_date'}"/>
+                        <filter string="Warehouse" icon="terp-go-month" domain="[]" context="{'group_by':'warehouse_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+		<record model="ir.ui.view" id="dym_inventory_summary_form_view">
+		    <field name="name">dym.inventory.summary.form</field>
+		    <field name="model">dym.inventory.summary</field>
+		    <field name="arch" type="xml">
+		    	<form string="Summary">
+		    		<header>
+		                <button name="start_opname"
+                            type="object"
+                            help="Start Stock Opname"
+                            string="Start Stock Opname"
+                            class="oe_highlight"
+                            attrs="{'invisible':['|',('opname_id','!=',False),('snapshot_id','=',False)]}"/>
+                        <button name="view_opname"
+                            type="object"
+                            help="View Stock Opname"
+                            string="View Stock Opname"
+                            class="oe_highlight"
+                            attrs="{'invisible':[('opname_id','=',False)]}"/>
+		    		</header>
+		    		<sheet>
+		                <field name="snapshot_first" invisible="1"/>
+		    			<div class="oe_title">                      
+		       				<h1>
+					            <label string="Summary"/>
+					 			<field name="name" class="oe_inline" readonly="1"/>	
+		    			    </h1>
+	                    </div>
+	                    <group>
+				    		<group>
+				    			<field name="warehouse_id" domain="[('branch_id','!=',False)]" options="{'no_open':True,'no_create':True}" attrs="{'readonly':[('snapshot_first','=',True)]}"/>
+					            <field name="division" required="1" attrs="{'readonly':[('snapshot_first','=',True)]}"/>
+					            <field name="cutoff_date" readonly="1"/>
+					            <field name="opname_id" invisible="1"/>
+					        </group>
+					    	<group>
+					    	</group>
+						</group>
+						<notebook>
+							<page string="Snapshot ke-1">
+		                        <button name="generate_inventory"
+		                            type="object"
+		                            help="Generate Inventory"
+		                            string="Generate Inventory" attrs="{'invisible':[('snapshot_first','=',True)]}"/>
+		                        <button name="set_snapshot"
+		                            type="object"
+		                            help="Snapshot"
+		                            class="oe_highlight"
+		                            string="Snapshot" attrs="{'invisible':[('snapshot_first','=',True)]}"/>
+		                        <button name="%(inventory_tag_report)d"
+		                            type="action"
+		                            help="Print Tag"
+		                            class="oe_highlight"
+		                            string="Print Tag" attrs="{'invisible':[('snapshot_first','=',False)]}"/>
+		                        <field name="line_ids" nolabel="1" widget="one2many_list">
+		                            <tree string="Inventory Line" editable="bottom" create="false" delete="false" edit="false">
+						                <field name="product_id"/>
+						                <field name="attribute_value_ids" widget="many2many_tags"/>
+						                <field name="lot_id"/>
+						                <field name="location_id"/>
+						                <field name="qty"/>
+		                            </tree>
+		                        </field>
+								<div class="oe_clear"/>
+							</page>
+							<page string="Snapshot ke-2">
+		                        <button name="generate_snapshot"
+		                            type="object"
+		                            help="Generate Snapshot"
+		                            string="Generate Snapshot" attrs="{'invisible':[('snapshot_first','=',False)]}"/>
+		                        <group>
+		                        	<group>
+		                        		<field name="snapshot_id" options="{'no_open':True,'no_create':True}" domain="[('summary_id','=',active_id)]"/>
+		                        	</group>
+		                        	<group/>
+		                        </group>
+		                        <field name="line_ids_second" nolabel="1" widget="one2many_list">
+		                            <tree string="Inventory Line" editable="bottom" create="false" delete="false" edit="false">
+						                <!-- <field name="snapshot_id" invisible="1"/> -->
+						                <field name="product_id"/>
+						                <field name="attribute_value_ids" widget="many2many_tags"/>
+						                <field name="location_id"/>
+						                <field name="lot_id"/>
+						                <field name="qty"/>
+		                            </tree>
+		                        </field>
+								<div class="oe_clear"/>
+							</page>
+							<page string="Blank Tag">
+		                        <button name="generate_tag"
+		                            type="object"
+		                            help="Generate Blank Tag"
+		                            string="Generate Blank Tag"/>
+		                        <button name="%(blank_tag_report)d"
+		                            type="action"
+		                            help="Print Blank Tag"
+		                            class="oe_highlight"
+		                            string="Print Blank Tag" attrs="{'invisible':[('total_generated','=',0)]}"/>
+		                        <group>
+		                        	<group>
+		                        		<field name="total_generated" invisible="1"/>
+		                        		<field name="amount_generate"/>
+		                        	</group>
+		                        	<group/>
+		                        </group>
+		                        <field name="tag_ids" nolabel="1" widget="one2many_list">
+		                            <tree string="Tag Line" editable="bottom" create="false" delete="false" edit="false">
+						                <field name="name"/>
+		                            </tree>
+		                        </field>
+								<div class="oe_clear"/>
+							</page>
+						</notebook>
+		    		</sheet>
+		    	</form>
+		    	
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="dym_inventory_summary_action">
+            <field name="name">Inventory Summary</field>
+            <field name="res_model">dym.inventory.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+        
+        <record id="dym_inventory_summary_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_inventory_summary_tree_view"/>
+            <field name="act_window_id" ref="dym_inventory_summary_action"/>
+        </record>
+        
+        <record id="dym_inventory_summary_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_inventory_summary_form_view"/>
+            <field name="act_window_id" ref="dym_inventory_summary_action"/>
+        </record>
+        
+        <menuitem id="dym_opname_master_menu" parent="account.menu_finance" name="Stock Opname" sequence="10"/>
+        <menuitem action="dym_inventory_summary_action" id="dym_inventory_summary_menu" parent="dym_opname_master_menu" sequence="1"/>
+		
+		<record model="ir.ui.view" id="dym_stock_opname_tree_view">
+		    <field name="name">dym.stock.opname.tree</field>
+		    <field name="model">dym.stock.opname</field>
+		    <field name="arch" type="xml">
+		        <tree string="Stock Opname"  create="0">
+		            <field name="name"/>
+		            <field name="date"/>
+		            <field name="warehouse_id"/>
+		            <field name="state"/>
+		        </tree>
+		     </field>
+		</record>
+		
+		<record id="view_stock_opname_search" model="ir.ui.view">
+            <field name="name">dym.stock.opname.search</field>
+            <field name="model">dym.stock.opname</field>
+            <field name="arch" type="xml">
+                <search string="Search Stock Opname">
+		            <field name="warehouse_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Periode" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Warehouse" icon="terp-go-month" domain="[]" context="{'group_by':'warehouse_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+		<record id="stock_opname_count_action" model="ir.actions.act_window">
+            <field name="name">wiz.stock.opname.count.action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wiz.stock.opname.count</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="stock_opname_count_form" model="ir.ui.view">
+            <field name="name">wiz.stock.opname.count.form</field>
+            <field name="model">wiz.stock.opname.count</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="opname_id" invisible="1"/>
+                    <field name="division" invisible="1"/>
+                    <field name="warehouse_id" invisible="1"/>
+                    <field name="count" invisible="1"/>
+                    <group>
+                    	<group>
+    						<field name="location_id" options="{'no_open':True, 'no_create':True}" domain="[('warehouse_id','=',warehouse_id),('usage','=','internal')]" required="1"/>
+    					</group>
+    					<group/>
+    				</group>
+    				<group>
+	    				<group>
+		    				<field name="product_id" options="{'no_open':True, 'no_create':True}" domain="['!',('categ_id','child_of','Unit')]" attrs="{'invisible':[('division','=','Unit')]}"/>
+		    				<field name="lot_id" options="{'no_open':True, 'no_create':True}" attrs="{'invisible':[('division','!=','Unit')]}"/>
+		    			</group>
+    					<group/>
+	    			</group>
+                    <field name="line_ids" nolabel="1" widget="one2many_list">
+                        <tree string="" editable="top" create="false">
+							<field name="no_tag" domain="[('summary_id.opname_id','=',parent.opname_id)]" attrs="{'required':[('standard_line_id','=',False),('blank_line_id','=',False)],'readonly':['|',('standard_line_id','!=',False),('blank_line_id','!=',False)]}"/>
+            				<field name="location_id" options="{'no_open':True, 'no_create':True}" domain="[('warehouse_id','=',parent.warehouse_id),('usage','=','internal')]" readonly="1"/>
+            				<field name="product_id" options="{'no_open':True, 'no_create':True}" readonly="1"/>
+							<field name="lot_id" readonly="1"/>
+							<field name="real_qty" readonly="1"/>
+							<field name="current_count" readonly="1"/>
+							<field name="qty_count" required="1"/>
+							<field name="total_count" readonly="1"/>
+							<field name="standard_line_id" invisible="1"/>
+							<field name="blank_line_id" invisible="1"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="save_count" string="Save" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+		<record model="ir.ui.view" id="dym_stock_opname_form_view">
+		    <field name="name">dym.stock.opname.form</field>
+		    <field name="model">dym.stock.opname</field>
+		    <field name="arch" type="xml">
+		    	<form string="Stock Opname" create="0">
+		    		<header>
+                        <button name="%(stock_opname_count_action)d"
+                            type="action"
+                            help="Start Count-1"
+                            string="Start Count-1"
+                            class="oe_highlight"
+                            context="{'count': 'count_1', 'warehouse_id': warehouse_id}"
+                            attrs="{'invisible':['|',('state','!=','draft'),('count_1','=',True)]}"/>
+                        <button name="%(stock_opname_count_action)d"
+                            type="action"
+                            help="Start Count-2"
+                            string="Start Count-2"
+                            class="oe_highlight"
+                            context="{'count': 'count_2', 'warehouse_id': warehouse_id}"
+                            attrs="{'invisible':['|','|',('state','!=','draft'),('count_2','=',True),('count_1','=',False)]}"/>
+                        <button name="%(stock_opname_count_action)d"
+                            type="action"
+                            help="Start Count-3"
+                            string="Start Count-3"
+                            class="oe_highlight"
+                            context="{'count': 'count_3', 'warehouse_id': warehouse_id}"
+                            attrs="{'invisible':['|','|','|',('state','!=','draft'),('count_3','=',True),('count_1','=',False),('count_2','=',False)]}"/>
+                        <button name="close_count_1"
+                            type="object"
+                            help="Close Count-1"
+                            string="Close Count-1"
+                            class="oe_highlight"
+                            context="{'count': 'count_1', 'warehouse_id': warehouse_id}"
+                            attrs="{'invisible':['|',('state','!=','draft'),('count_1','=',True)]}"/>
+                        <button name="close_count_2"
+                            type="object"
+                            help="Close Count-2"
+                            string="Close Count-2"
+                            class="oe_highlight"
+                            context="{'count': 'count_2', 'warehouse_id': warehouse_id}"
+                            attrs="{'invisible':['|','|',('state','!=','draft'),('count_2','=',True),('count_1','=',False)]}"/>
+                        <button name="close_count_3"
+                            type="object"
+                            help="Close Count-3"
+                            string="Close Count-3"
+                            class="oe_highlight"
+                            context="{'count': 'count_3', 'warehouse_id': warehouse_id}"
+                            attrs="{'invisible':['|','|','|',('state','!=','draft'),('count_3','=',True),('count_1','=',False),('count_2','=',False)]}"/>
+		                <button name="create_adjustment"
+                            type="object"
+                            help="Create Stock Adjustment"
+                            string="Create Stock Adjustment"
+                            class="oe_highlight"
+                            attrs="{'invisible':[('state','!=','approved')]}"/>
+                        <button name="view_adjustment"
+                            type="object"
+                            help="View Stock Adjustment"
+                            string="View Stock Adjustment"
+                            class="oe_highlight"
+                            attrs="{'invisible':[('state','!=','done')]}"/>
+						<!-- <button name="view_voucher" string="Pengakuan Voucher" type="object" class="oe_highlight" attrs="{'invisible': [('voucher_id','=',False)]}"/> -->
+		    			<button name="wkf_action_cancel" states="approved" string="Cancel" type="object" confirm="Apa anda yakin ingin membatalkan transaksi ini ?"/>
+		    			<field name="state" widget="statusbar" statusbar_visible="draft,waiting_for_approval,approved,done" statusbar_colors='{"draft":"red","done":"blue"}'/>
+		    		</header>
+		 			<field name="adjustment_id" invisible="1"/>	
+		 			<field name="count_1" invisible="1"/>	
+		 			<field name="count_2" invisible="1"/>	
+		 			<field name="count_3" invisible="1"/>	
+	    			<div class="oe_title">                      
+	       				<h1>
+				            <label string="Stock Opname"/>
+				 			<field name="name" class="oe_inline" readonly="1"/>	
+	    			    </h1>
+                    </div>
+                    <group>
+			    		<group>
+			    			<field name="warehouse_id"/>
+				            <field name="date"/>
+				        </group>
+				    	<group>
+			    			<field name="division"/>
+				        </group>
+					</group>
+					<notebook>
+						<page string="Inventory Line (Standard)">
+	                        <field name="line_ids" nolabel="1" widget="one2many_list" attrs="{'readonly':[('state','!=','draft')]}">
+	                            <tree string="Inventory Line" editable="bottom" create="false" delete="false">
+					                <field name="no_tag"/>
+					                <field name="product_id"/>
+					                <field name="attribute_value_ids" widget="many2many_tags"/>
+					                <field name="location_id"/>
+					                <field name="lot_id"/>
+					                <field name="qty"/>
+					                <field name="blank_tag"/>
+					                <field name="parent_count_1" invisible="1"/>
+					                <field name="parent_count_2" invisible="1"/>
+					                <field name="parent_count_3" invisible="1"/>
+					                <field name="count_1" attrs="{'readonly':[('parent_count_1','=',True)]}"/>
+					                <field name="count_2" attrs="{'readonly':['|',('parent_count_2','=',True),('parent_count_1','=',False)]}"/>
+					                <field name="count_3" attrs="{'readonly':['|','|',('parent_count_3','=',True),('parent_count_1','=',False),('parent_count_2','=',False)]}"/>
+					                <field name="variance"/>
+					                <field name="status"/>
+					                <field name="amount"/>
+	                            </tree>
+	                        </field>
+							<div class="oe_clear"/>
+						</page>
+						<page string="Inventory Line (Blank)">
+	                        <field name="line_blank_ids" nolabel="1" widget="one2many_list" attrs="{'readonly':[('state','!=','draft')]}">
+	                            <tree string="Inventory Line" editable="bottom">
+					                <field name="no_tag" domain="[('summary_id.opname_id','=',parent.id),('line_blank_id','=',False)]" options="{'no_open':True,'no_create':True}" />
+					                <field name="product_id"/>
+					                <field name="attribute_value_ids" widget="many2many_tags"/>
+					                <field name="location_id" domain="[('warehouse_id','=',parent.warehouse_id),('usage','=','internal')]" options="{'no_open':True,'no_create':True}"/>
+					                <field name="engine_number"/>
+					                <field name="chassis_number"/>
+					                <field name="qty"/>
+					                <field name="blank_tag"/>
+					                <field name="parent_count_1" invisible="1"/>
+					                <field name="parent_count_2" invisible="1"/>
+					                <field name="parent_count_3" invisible="1"/>
+					                <field name="count_1" attrs="{'readonly':[('parent_count_1','=',True)]}"/>
+					                <field name="count_2" attrs="{'readonly':['|',('parent_count_2','=',True),('parent_count_1','=',False)]}"/>
+					                <field name="count_3" attrs="{'readonly':['|','|',('parent_count_3','=',True),('parent_count_1','=',False),('parent_count_2','=',False)]}"/>
+					                <field name="variance"/>
+					                <field name="status"/>
+					                <field name="amount"/>
+	                            </tree>
+	                        </field>
+							<div class="oe_clear"/>
+						</page>
+						<page string="Summarize Information">
+							<group>
+								<group>
+					                <field name="total_qty_on_hand"/>
+					                <field name="total_count_1"/>
+					                <field name="total_count_2"/>
+					                <field name="total_count_3"/>
+								</group>
+								<group>
+					                <field name="total_variance"/>
+					                <field name="total_minus"/>
+					                <field name="total_plus"/>
+					                <field name="total_amount"/>
+					                <field name="total_amount_minus"/>
+					                <field name="total_amount_plus"/>
+								</group>
+							</group>
+							<div class="oe_clear"/>
+						</page>
+					</notebook>
+		    	</form>
+		    	
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="dym_stock_opname_action">
+            <field name="name">Stock Opname</field>
+            <field name="res_model">dym.stock.opname</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+        
+        <record id="dym_stock_opname_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_stock_opname_tree_view"/>
+            <field name="act_window_id" ref="dym_stock_opname_action"/>
+        </record>
+        
+        <record id="dym_stock_opname_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_stock_opname_form_view"/>
+            <field name="act_window_id" ref="dym_stock_opname_action"/>
+        </record>
+        
+        <menuitem action="dym_stock_opname_action" id="dym_stock_opname_menu" parent="dym_opname_master_menu" sequence="2"/>
+
+	</data>
+</openerp>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- PKB -->
+        <record id="paper_format_pkb" model="report.paperformat">
+            <field name="name">PKB Report Format</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Landscape</field>
+            <field name="format">custom</field>
+            <field name="page_height">215</field>
+            <field name="page_width">139</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report id="dym_pkb_report" string="Work Order" model="dym.work.order" report_type="qweb-pdf" name="dym_work_order.report_pkb_template" file="dym_work_order.report_pkb_template" />
+        <record id="dym_pkb_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_work_order.paper_format_pkb" />
+        </record>
+
+         <!-- WO Kecil -->
+        <record id="paper_format_wo_kecil" model="report.paperformat">
+            <field name="name">WO Report Kecil Format</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Portrait</field>
+            <field name="format">custom</field>
+            <field name="page_height">200</field>
+            <field name="page_width">75</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report id="dym_pkb_kecil_report" string="Work Order Kecil" model="dym.work.order" report_type="qweb-pdf" name="dym_work_order.report_pkb_kecil_template" file="dym_work_order.report_pkb_kecil_template" />
+        <record id="dym_pkb_kecil_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_work_order.paper_format_wo_kecil" />
+        </record>
+
+        <!-- Kuitansi Kecil -->
+        <record id="paper_format_kwitansi_kecil" model="report.paperformat">
+            <field name="name">Report Kuitansi Kecil Format</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Portrait</field>
+            <field name="format">custom</field>
+            <field name="page_height">200</field>
+            <field name="page_width">75</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report id="dym_kwitansi_kecil_report" string="Kuitansi Kecil" model="dym.work.order" report_type="qweb-pdf" name="dym_work_order.report_kwitansi_template" file="dym_work_order.report_kwitansi_template" />
+        <record id="dym_kwitansi_kecil_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_work_order.paper_format_kwitansi_kecil" />
+        </record>
+
+        <!-- NJB -->
+        <record id="paper_format_nota_jasa_bengkel" model="report.paperformat">
+            <field name="name">Report Nota Jasa Bengkel</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Portrait</field>
+            <field name="format">custom</field>
+            <field name="page_height">200</field>
+            <field name="page_width">75</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report id="dym_nota_jasa_bengkel_report" string="Nota Jasa Bengkel (NJB)" model="dym.work.order" report_type="qweb-pdf" name="dym_work_order.report_nota_jasa_bengkel_template" file="dym_work_order.report_nota_jasa_bengkel_template" />
+        <record id="dym_nota_jasa_bengkel_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_work_order.paper_format_nota_jasa_bengkel" />
+        </record>
+
+        <!-- NSC -->
+        <record id="paper_format_nsc" model="report.paperformat">
+            <field name="name">WO Report Nota Suku Cadang</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Portrait</field>
+            <field name="format">custom</field>
+            <field name="page_height">200</field>
+            <field name="page_width">75</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report id="dym_nsc_report" string="Nota Suku Cadang (NSC)" model="dym.work.order" report_type="qweb-pdf" name="dym_work_order.report_nsc_template" file="dym_work_order.report_nsc_template" />
+        <record id="dym_nsc_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_work_order.paper_format_nsc" />
+        </record>
+
+        <!-- Invoice WO -->
+        <record id="paper_format_invoice_wo" model="report.paperformat">
+            <field name="name">Invoice WO Report Format</field>
+            <field name="default" eval="True" />
+            <field name="orientation">Landscape</field>
+            <field name="format">custom</field>
+            <field name="page_height">215</field>
+            <field name="page_width">139</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">31</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report id="dym_invoice_wo_report" string="Invoice" model="dym.work.order" report_type="qweb-pdf" name="dym_work_order.report_invoice_wo_template" file="dym_work_order.report_invoice_wo_template" />
+        <record id="dym_invoice_wo_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_work_order.paper_format_invoice_wo" />
+        </record>
+
+        <!-- BAST Collecting Claim / KPB -->
+        <record id="paper_report_bast_kpbclaim" model="report.paperformat">
+            <field name="name">Paper Report BAST KPB/Claim</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="report_bast_kpbclaim"
+            string="Report BAST KPB/Claim"
+            model="dym.collecting.kpb"
+            report_type="qweb-pdf"
+            name="dym_work_order.template_report_bast_kpbclaim"
+            file="dym_work_order.template_report_bast_kpbclaim"
+            auto="False" 
+            menu="False"
+        />
+        <record id="report_bast_kpbclaim" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_work_order.paper_report_bast_kpbclaim"/>
+        </record>
+
+    </data>
+</openerp>

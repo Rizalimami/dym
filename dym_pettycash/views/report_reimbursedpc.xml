@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_reimbursedpc">
+    <style type="text/css">
+        .tag_container {
+            margin: auto;
+            margin-bottom: 50px;
+            border: 1px solid black;
+        }
+        .no_border {
+            border: 0px !important;
+        }    
+        .margin_bottom {
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+        }    
+        .border_top {
+            border-top: 1px solid black !important;
+        }   
+        .border_bottom {
+            border-bottom: 1px solid black !important;
+        }                    
+        .page,
+        .header,
+        .footer,
+        .table {
+            font-size: 12px !important;
+        }
+        .hr {
+            border-top: 1px solid black !important;
+        }
+        .text_up{
+            text-transform: uppercase;
+        }
+        .text_bold{
+            font-weight: bold;
+        }
+        .text_head{
+            font-size: 16px;
+        }
+        .table_titikdua{
+            text-align:center;
+            width:20px
+        }
+        .table_margintop{
+            margin-top: 20px !important;
+        }
+    </style>
+    <t t-call="report.html_container">
+        <t t-set="numpage" t-value="0"/>
+        <t t-set="totpage" t-value="len(docs)"/>
+        <t t-foreach="docs" t-as="o">
+            <t t-set="numpage" t-value="numpage+1"/>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <div class="page">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <span class="text_up text_head"><t t-esc="company.name"/></span><br/>
+                        <span>Cabang : <span t-field="o.branch_id.code" /> - <span t-field="o.branch_id.name" /></span>
+                    </div>
+                    <div class="col-xs-4">
+                        <span class="text_up text_head text_bold">Reimbursed Petty Cash Voucher</span><br/>
+                        <span><span t-field="o.name" /></span>
+                    </div>
+                </div>
+                <hr class="border_top"/>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <table>
+                            <tr>
+                                <td>Division</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.division"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table class="table table-condensed table_margintop">
+                            <thead>
+                                <tr>
+                                    <th><strong>No. PCO</strong></th>
+                                    <th><strong>Account</strong></th>
+                                    <th><strong>Description</strong></th>
+                                    <th class="text-right"><strong>Amount</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_amount" t-value="0"/>
+                                <t t-foreach="o.line_ids" t-as="line">
+                                    <t t-set="total_amount" t-value="total_amount+line.amount"/>                                    
+                                    <tr>
+                                        <td><span t-field="line.pettycash_id"/></td>
+                                        <td><span t-field="line.account_id"/></td>
+                                        <td><span t-field="line.name"/></td>
+                                        <td class="text-right"><span t-esc="'{0:,.2f}'.format(int(line.amount))"/></td>
+                                    </tr>
+                                </t>
+                                    <tr>
+                                        <td class="no_border border_top text-right" colspan="3">Total Amount :</td>
+                                        <td class="no_border border_top text-right"><t t-esc="'{0:,.2f}'.format(int(total_amount))"/></td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                        <span> Terbilang : <span t-esc="o.terbilang(total_amount)"/></span>
+                    </div>
+                </div>
+                <hr class="border_top"/>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <span>Cashier : </span><br/><br/><br/><br/><br/>
+                        <span><span t-esc="request.env.user.name"/></span><br/>
+                        <span><span t-esc="o.ubah_tanggal(o.branch_id.get_waktu_local())"/></span>
+                    </div>
+                    <div class="col-xs-3">
+                        <span>Approved by : </span><br/><br/><br/><br/><br/>
+                        <span><span t-field="o.confirm_uid"/></span><br/>
+                        <span><span t-esc="o.ubah_tanggal(o.confirm_date)"/></span>
+                    </div>
+                </div>
+                <hr class="border_top"/>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <table>
+                            <tr>
+                                <td>Lembar Ke-1</td>
+                                <td class="table_titikdua">:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Lembar Ke-2</td>
+                                <td class="table_titikdua">:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Lembar Ke-3</td>
+                                <td class="table_titikdua">:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Reprint</td>
+                                <td class="table_titikdua">:</td>
+                                <td><t t-esc="o.branch_id.get_cetakan_no('dym.reimbursed','dym_pettycash.report_reimbursedpc',o)"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-xs-4">
+                        <table>
+                            <tr>
+                                <td>Halaman</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-esc="numpage"/> / <span t-esc="totpage"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <hr class="border_top"/>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

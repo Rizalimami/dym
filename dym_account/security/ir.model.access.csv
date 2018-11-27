@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_partner_type_all, dym_partner_type all,model_dym_partner_type,base.group_user,1,1,1,1
+access_analytic_account_filter_all,dym_analytic_account_filter all,model_analytic_account_filter,base.group_user,1,1,1,1
+access_account_journal_adh,account.journal.adh,model_account_journal,dym_base_security.group_dym_adh,1,1,1,0
+access_account_invoice_adh,account.invoice.adh,model_account_invoice,dym_base_security.group_dym_adh,1,0,0,0
+

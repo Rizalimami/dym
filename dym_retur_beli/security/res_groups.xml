@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="group_retur_pembelian_showroom_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Retur Pembelian Showroom Menu</field>
+            <field name="menu_access" eval="[(4, ref('retur_beli_submenu'))]" />
+        </record>
+        <record id="group_retur_pembelian_workshop_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Retur Pembelian Workshop Menu</field>
+            <field name="menu_access" eval="[(4, ref('retur_beli_submenu_workshop'))]" />
+        </record>
+        <record id="group_retur_pembelian_general_affair_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Retur Pembelian General Affair Menu</field>
+            <field name="menu_access" eval="[(4, ref('retur_beli_submenu_ga'))]" />
+        </record>
+        <!-- Laporan Retur Pembelian -->
+        <!--
+        <record id="group_laporan_retur_pembelian_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Retur Pembelian Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_retur_pembelian_report')),(4, ref('menu_retur_pembelian_report_workshop'))]"/>  
+        </record>
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+            <field name="implied_ids" eval="[(4,ref('group_laporan_retur_pembelian_menu')),
+                                            ]"/> 
+        </record>
+        <record id="access_laporan_retur_pembelian_all" model="ir.model.access">
+            <field name="model_id" ref="model_dym_retur_beli_wizard"/>
+            <field name="name">dym_report_retur_beli_wizard all</field> 
+            <field name="perm_read">1</field> 
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field> 
+            <field name="perm_unlink">1</field> 
+        </record>
+        -->
+    </data>
+</openerp>

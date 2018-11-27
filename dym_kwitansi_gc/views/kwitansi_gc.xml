@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paper_kwitansi_gc" model="report.paperformat">
+            <field name="name">Kwitansi GC</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">custom</field>
+            <field name="page_height">139</field>
+            <field name="page_width">215</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">31</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="dym_kwitansi_gc_report"
+            string="Kwitansi GC"
+            model="dym.kwitansi.gc"
+            report_type="qweb-pdf"
+            name="dym_kwitansi_gc.report_kwitansi_gc_template"
+            file="dym_kwitansi_gc.report_kwitansi_gc_template"
+        />
+
+        <record id="dym_kwitansi_gc_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_kwitansi_gc.paper_kwitansi_gc"/>
+        </record>
+
+    </data>
+</openerp>

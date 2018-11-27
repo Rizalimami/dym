@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_adjust_frt_price" model="ir.ui.view">
+            <field name="name">Adjust FRT Price</field>
+            <field name="model">dym.frt.price.adjust</field>
+            <field name="arch" type="xml">
+                <form string="Adjust FRT Price">
+                    <group>
+                        <field name="frt_id" invisible="1" />
+                        <field name="branch_id" on_change="onchange_branch_id(branch_id, frt_id)" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                        <field name="new_price" />
+                    </group>
+                    <footer>
+                        <button name="adjust_price" string="_Apply" type="object" class="oe_highlight" /> or
+                        <button string="_Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_adjust_price" model="ir.actions.act_window">
+            <field name="name">Adjust FRT Price</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym.frt.price.adjust</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_adjust_frt_price" />
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

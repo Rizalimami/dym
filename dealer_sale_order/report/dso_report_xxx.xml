@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paper_format_invoice_dso" model="report.paperformat">
+            <field name="name">Invoice Dealer Sale Memo Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Landscape</field>
+            <field name="format">custom</field>
+            <field name="page_height">215</field>
+            <field name="page_width">139</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_invoice_dso_report"
+            string="Invoice"
+            model="dealer.sale.order"
+            report_type="qweb-pdf"
+            name="dealer_sale_order.report_invoice_dso_template"
+            file="dealer_sale_order.report_invoice_dso_template"
+        />
+
+        <record id="dym_invoice_dso_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_invoice_dso"/>
+        </record>
+
+        <record id="paper_format_kuitansi_cod" model="report.paperformat">
+            <field name="name">Kuitansi COD Dealer Sale Memo Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">31</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_kuitans_cod_dso_report"
+            string="Print Penagihan COD"
+            model="dealer.sale.order"
+            report_type="qweb-pdf"
+            name="dealer_sale_order.report_kuitansi_cod_dso_template"
+            file="dealer_sale_order.report_kuitansi_cod_dso_template"
+        />
+
+        <record id="dym_kuitans_cod_dso_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_kuitansi_cod"/>
+        </record>
+
+        <record id="paper_format_kuitansi_pelunasan_leasing" model="report.paperformat">
+            <field name="name">Kuitansi Pelunasan Leasing Dealer Sale Memo Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Landscape</field>
+            <field name="format">custom</field>
+            <field name="page_height">215</field>
+            <field name="page_width">139</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">31</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_kuitans_pelunasan_leasing_dso_report"
+            string="Print Pelunasan Leasing"
+            model="dealer.sale.order"
+            report_type="qweb-pdf"
+            name="dealer_sale_order.report_kuitansi_pelunasan_leasing_dso_template"
+            file="dealer_sale_order.report_kuitansi_pelunasan_leasing_dso_template"
+        />
+
+        <record id="dym_kuitans_pelunasan_leasing_dso_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_kuitansi_pelunasan_leasing"/>
+        </record>
+
+        <record id="paper_format_kuitansi_subsidi_leasing" model="report.paperformat">
+            <field name="name">Kuitansi Subsidi Leasing Dealer Sale Memo Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Landscape</field>
+            <field name="format">custom</field>
+            <field name="page_height">215</field>
+            <field name="page_width">139</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">31</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_kuitans_subsidi_leasing_dso_report"
+            string="Print Subsidi Leasing"
+            model="dealer.sale.order"
+            report_type="qweb-pdf"
+            name="dealer_sale_order.report_kuitansi_subsidi_leasing_dso_template"
+            file="dealer_sale_order.report_kuitansi_subsidi_leasing_dso_template"
+        />
+
+        <record id="dym_kuitans_subsidi_leasing_dso_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_kuitansi_subsidi_leasing"/>
+        </record>
+
+        <record id="paper_format_penagihan_leasing_report" model="report.paperformat">
+            <field name="name">Penagihan Leasing Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Landscape</field>
+            <field name="format">A4</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">40</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_penagihan_leasing_report"
+            string="Penagihan Leasing"
+            model="dealer.sale.order"
+            report_type="qweb-pdf"
+            name="dealer_sale_order.report_penagihan_leasing_template"
+            file="dealer_sale_order.report_penagihan_leasing_template"
+        />
+
+        <record id="dym_penagihan_leasing_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_penagihan_leasing_report"/>
+        </record>
+
+        <record id="paper_format_surat_kuasa_report" model="report.paperformat">
+            <field name="name">Surat Kuasa Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">26</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">29</field>
+            <field name="margin_right">29</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">21</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_surat_kuasa_report"
+            string="Surat Kuasa"
+            model="dealer.sale.order"
+            report_type="qweb-pdf"
+            name="dealer_sale_order.report_surat_kuasa_template"
+            file="dealer_sale_order.report_surat_kuasa_template"
+        />
+
+        <record id="dym_surat_kuasa_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_surat_kuasa_report"/>
+        </record>
+
+        
+
+
+        <!-- aris -->
+        <record id="paper_format_kuitansi_pembalik_report" model="report.paperformat">
+            <field name="name">Kuitansi Pembalik Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Landscape</field>
+            <field name="format">custom</field>
+            <field name="page_height">215</field>
+            <field name="page_width">139</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">31</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_kuitansi_pembalik_report"
+            string="Kuitansi Pembalik"
+            model="dealer.sale.order"
+            report_type="qweb-pdf"
+            name="dealer_sale_order.report_kuitansi_pembalik_template"
+            file="dealer_sale_order.report_kuitansi_pembalik_template"
+        />
+
+        <record id="dym_kuitansi_pembalik_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_kuitansi_pembalik_report"/>
+        </record>
+
+        <report
+            id="dym_kuitansi_mediator_report"
+            string="Kuitansi Mediator"
+            model="dealer.sale.order"
+            report_type="qweb-pdf"
+            name="dealer_sale_order.report_kuitansi_mediator_template"
+            file="dealer_sale_order.report_kuitansi_mediator_template"
+        />
+        <record id="dym_kuitansi_mediator_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_kuitansi_pembalik_report"/>
+        </record>
+
+        <!-- endofaris -->
+
+        <record id="paper_format_barcode_report" model="report.paperformat">
+            <field name="name">Barcode Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_barcode_report"
+            string="Barcode"
+            model="dealer.sale.order"
+            report_type="qweb-pdf"
+            name="dealer_sale_order.report_barcode_template"
+            file="dealer_sale_order.report_barcode_template"
+        />
+
+        <record id="dym_barcode_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_barcode_report"/>
+        </record>
+
+        <record id="paper_format_dealer_spk" model="report.paperformat">
+            <field name="name">Dealer Memo Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">custom</field>
+            <field name="page_height">356</field>
+            <field name="page_width">216</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_dealer_spk_report"
+            string="Dealer Memo"
+            model="dealer.spk"
+            report_type="qweb-pdf"
+            name="dealer_sale_order.report_dealer_spk_template"
+            file="dealer_sale_order.report_dealer_spk_template"
+        />
+
+        <record id="dym_dealer_spk_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_dealer_spk"/>
+        </record>
+
+        <record id="paper_format_dealer_so" model="report.paperformat">
+            <field name="name">Sales Order Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">31</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_dealer_so_report"
+            string="Sales Order"
+            model="dealer.sale.order"
+            report_type="qweb-pdf"
+            name="dealer_sale_order.report_dealer_so_template"
+            file="dealer_sale_order.report_dealer_so_template"
+        />
+
+        <record id="dym_dealer_so_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_dealer_so"/>
+        </record>
+
+        <record id="paper_format_lampiran_so" model="report.paperformat">
+            <field name="name">Lampiran Sales Memo Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">40</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="dym_dealer_so_lampiran_report"
+            string="Lampiran"
+            model="dealer.sale.order"
+            report_type="qweb-pdf"
+            name="dealer_sale_order.report_dealer_so_lampiran_template"
+            file="dealer_sale_order.report_dealer_so_lampiran_template"
+        />
+
+        <record id="dym_dealer_so_lampiran_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dealer_sale_order.paper_format_lampiran_so"/>
+        </record>
+    </data>
+</openerp>

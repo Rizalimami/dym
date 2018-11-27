@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>        
+        <record id="paper_format_payroll" model="report.paperformat">
+            <field name="name">Payroll Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="action_payroll_report"
+            string="Payroll"
+            model="dym.payslip.run"
+            report_type="qweb-pdf"
+            name="dym_payroll.report_payroll_template"
+            file="dym_payroll.report_payroll_template"
+            auto="False" 
+            menu="False"
+        />
+
+        <record id="action_payroll_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_payroll.paper_format_payroll"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_stock_picking_merge" model="ir.ui.view">
+            <field name="name">Merger Stock Picking</field>
+            <field name="model">stock.picking.merge</field>
+            <field name="arch" type="xml">
+                <form string="Merge Shipments">
+                    <group>
+                        <separator string="Are you sure you want to merge these shipments?" />
+                    </group>
+                    <footer>
+                        <button name="merge_shipments" string="Merge Shipments" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window name="Merge Shipments" res_model="stock.picking.merge" src_model="stock.picking" view_mode="form" target="new" multi="True" key2="client_action_multi" id="action_view_stock_picking_merge" />
+    </data>
+</openerp>

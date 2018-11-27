@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="proses_birojasa_up_form_view">
+            <field name="name">proses.birojasa.form</field>
+            <field name="model">dym.proses.birojasa</field>
+            <field name="inherit_id" ref="dym_opbal.proses_birojasa_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='proses_birojasa_line']" position="attributes">
+                    <attribute name="context">{'proses_biro_jasa_id':id, 'branch_id':branch_id}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='proses_birojasa_line']/tree/field[@name='total_tagihan']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='proses_birojasa_line']/tree/field[@name='is_opbal']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='proses_birojasa_line']/tree/field[@name='margin']" position="before">
+                    <field name="is_opbal" />
+                </xpath>
+                <xpath expr="//field[@name='proses_birojasa_line']/tree/field[@name='titipan']" position="before">
+                    <field name="total_tagihan_show" attrs="{'readonly': True}" sum="Total Tagihan"/>
+                </xpath>
+                <xpath expr="//field[@name='proses_birojasa_line']/tree/field[@name='titipan']" position="attributes">
+                    <attribute name="sum">Total Titipan</attribute>
+                </xpath>
+                <xpath expr="//field[@name='proses_birojasa_line']/tree/field[@name='koreksi']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='total_koreksi']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='proses_birojasa_line']/tree/field[@name='margin']" position="after">
+                    <!-- <field name="proses_stnk_id" attrs="{'readonly': [('proses_stnk_id','=',True)]}" options="{'no_show':True,'no_create':True}"/> -->
+                    <field name="proses_stnk_id" options="{'no_show':True,'no_create':True}"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="amount_real" string="Tagihan Real" widget='monetary' options="{'currency_field': 'currency_id'}" required="[('state','!=','done')]" attrs="{'readonly':[('state','not in',['draft',''])]}" on_change="onchange_total_amount_real(amount_real,amount_total)"/>
+                    <field name="total_koreksi" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <template id="report_draft_advance_payment_template">
+        <style type="text/css">
+            .tag_container {
+                margin: auto;
+                margin-bottom: 50px;
+                border: 1px solid black;
+            }
+            .no_border {
+                border: 0px !important;
+            }    
+            .margin_bottom {
+                margin-bottom: 5px !important;
+                margin-top: 5px !important;
+            }    
+            .border_top {
+                border-top: 1px solid black !important;
+            }   
+            .border_bottom {
+                border-bottom: 1px solid black !important;
+            }                    
+            .page,
+            .header,
+            .footer,
+            .table {
+                font-size: 12px !important;
+            }
+            .hr {
+                border-top: 1px solid black !important;
+            }
+            .text_up{
+                text-transform: uppercase;
+            }
+            .text_bold{
+                font-weight: bold;
+            }
+            .text_head{
+                font-size: 16px;
+            }
+            .table_titikdua{
+                text-align:center;
+                width:20px
+            }
+            .table_margintop{
+                margin-top: 20px !important;
+            }
+        </style>
+        <t t-call="report.html_container">
+            <t t-set="numpage" t-value="0"/>
+            <t t-set="totpage" t-value="len(docs)"/>
+            <t t-foreach="docs" t-as="o">
+                <t t-set="numpage" t-value="numpage+1"/>
+                <t t-if="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id"></t>
+                </t>
+                <t t-if="not o or not 'company_id' in o">
+                    <t t-set="company" t-value="res_company"></t>
+                </t>
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <span class="text_up text_head"><t t-esc="company.name"/></span><br/>
+                            <span>Cabang : <span t-field="o.branch_id.code" /> - <span t-field="o.branch_id.name" /></span>
+                        </div>
+                        <div class="col-xs-4">
+                            <span class="text_up text_head text_bold">Advance Payment</span><br/>
+                            <span t-if="o.name!='/'" t-field="o.name" />
+                            <span t-if="o.name=='/'">DRAFT</span>
+                        </div>
+                    </div>
+                    <hr class="border_top"/>
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <table>
+                                <tr>
+                                    <td>Division</td>
+                                    <td class="table_titikdua">:</td>
+                                    <td><span t-field="o.division"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Payment Method</td>
+                                    <td class="table_titikdua">:</td>
+                                    <td><span t-field="o.payment_method"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Date</td>
+                                    <td class="table_titikdua">:</td>
+                                    <td><span t-esc="o.ubah_tanggal_2(o.date)"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Responsible</td>
+                                    <td class="table_titikdua">:</td>
+                                    <td>
+                                        <t t-if="o.employee_id.name_related">
+                                            <span t-field="o.employee_id.name_related"/>
+                                        </t>
+                                        <t t-if="not o.employee_id.name_related">
+                                            <span t-field="o.user_id.name"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>Total BS</td>
+                                    <td class="table_titikdua">:</td>
+                                    <td><span t-field="o.user_balance"/></td>
+                                </tr> -->
+                            </table>
+                        </div>
+                        <div class="col-xs-5">
+                            <table>
+                                <tr>
+                                    <td>Supplier</td>
+                                    <td class="table_titikdua">:</td>
+                                    <td><span t-esc="o.user_id.name"/></td>
+                                </tr>
+                                <t t-if="o.partner_bank_name">
+                                    <tr>
+                                        <td>Nama Rekening</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td>
+                                            <span t-field="o.partner_bank_name"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="o.partner_bank_id">
+                                    <tr>
+                                        <td>No. Rekening</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.partner_bank_id.acc_number"/></td>
+                                    </tr>
+                                </t>
+                                <t t-if="o.partner_bank_id">
+                                    <tr>
+                                        <td>Bank</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.partner_bank_id.bank_name"/></td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table class="table table-condensed table_margintop">
+                                <thead>
+                                    <tr>
+                                        <th><strong>No.</strong></th>
+                                        <th class="text-center"><strong>Keterangan</strong></th>
+                                        <th class="text-center"><strong>Jumlah</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><span t-field="o.description"/></td>
+                                        <td class="text-right"><span t-esc="'{0:,.2f}'.format(int(o.amount))"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no_border border_top text-right" colspan="2">Total Amount :</td>
+                                        <td class="no_border border_top text-right"><t t-esc="'{0:,.2f}'.format(int(o.amount))"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <span> Terbilang : <span t-esc="o.terbilang(o.amount)"/></span>
+                        </div>
+                    </div>
+                    <hr class="border_top"/>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <span>Approved by : </span><br/><br/><br/><br/><br/>
+                             <span>   
+                                <t t-if="o.approval_ids">                                 
+                                    <span t-if="o.approval_ids[0].pelaksana_id" t-esc="o.approval_ids[0].pelaksana_id.name"/><br/>
+                                    <!-- <span t-esc="o.ubah_tanggal(o.approval_ids[0].tanggal)"/><br/> -->
+                                    <t t-if="o.approval_ids[0].tanggal is not False">
+                                        <span t-esc="o.ubah_tanggal(o.approval_ids[0].tanggal)"/><br/>
+                                    </t>
+                                </t>
+                            </span><br/>
+                       </div>
+                        <div class="col-xs-5">
+                            <span>Finance : </span><br/><br/><br/><br/><br/>
+                            <span></span><br/>
+                            <span><span t-esc="o.ubah_tanggal(o.branch_id.get_waktu_local())"/></span>
+                        </div>
+                        <div class="col-xs-2">
+                            <span>Penerima : </span><br/><br/><br/><br/><br/>
+                            <span><span t-esc="o.employee_id.name_related"/></span><br/>
+                            <span><span t-esc="o.ubah_tanggal(o.branch_id.get_waktu_local())"/></span>
+                        </div>
+                    </div>
+                    <hr class="border_top"/>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <table>
+                                <tr>
+                                    <td>Lembar Ke-1</td>
+                                    <td class="table_titikdua">:</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Lembar Ke-2</td>
+                                    <td class="table_titikdua">:</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Lembar Ke-3</td>
+                                    <td class="table_titikdua">:</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Reprint</td>
+                                    <td class="table_titikdua">:</td>
+                                    <td><t t-esc="o.branch_id.get_cetakan_no('dym.advance.payment','dym_advance_payment.report_draft_advance_payment_template',o)"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-xs-4">
+                            <table>
+                                <tr>
+                                    <td>Halaman</td>
+                                    <td class="table_titikdua">:</td>
+                                    <td><span t-esc="numpage"/> / <span t-esc="totpage"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <hr class="border_top"/>
+                </div>
+            </t>
+        </t>
+    </template>
+</data>
+</openerp>

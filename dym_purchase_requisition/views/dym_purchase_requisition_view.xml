@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+    <record model="ir.ui.view" id="view_purchase_requisition_tree_inherit">
+        <field name="name">purchase.requisition.tree.inherit</field>
+        <field name="model">purchase.requisition</field>
+        <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_tree"/>
+        <field name="arch" type="xml">
+            <tree string="Call for Bids" position="replace">
+                <tree fonts="bold:message_unread==True" colors="grey:state == 'cancel';red:date_end and date_end&lt;current_date;black:date_end&gt;current_date;" string="Purchase Requisition">
+                    <field name="message_unread" invisible="1"/>
+                    <field name="name"/>
+                    <field name="date_end"/>
+                    <field name="ordering_date"/>
+                    <field name="user_id"/>
+                    <field name="branch_id"/>
+                    <field name="state"/>
+                </tree>
+            </tree>
+        </field>
+    </record>
+
+		<record model="ir.ui.view" id="dym_branch_on_purchase_requisition_form_view">
+            <field name="name">dym.branch.purchase.requisition.form</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="before">
+                    <field name="branch_id" required="True" on_change="onchange_branch_call_for_bid(branch_id)" attrs="{'readonly': [('state','not in',('draft'))]}" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                    <field name="division" required="True" attrs="{'readonly': [('state','not in',('draft'))]}"/>
+                </field>
+           	</field>
+      	</record>
+
+		<record id="dym_purchase_requisition_form_view" model="ir.ui.view">
+            <field name="name">dym_purchase_requisition_form_view</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+	            <data>
+					       <xpath expr="//button[@string='Request a Quotation']" position="attributes">
+		                <attribute name="attrs">{'invisible': ['|', ('line_ids','=',[]),('state', 'in', ('draft' ,'open','done','request_approval','cancel'))]}</attribute>
+		            </xpath>
+		            <xpath expr="//button[@name='open_rfq']" position="attributes">
+		                <attribute name="attrs">{'invisible': [('state', 'in', ('draft','request_approval','cancel'))]}</attribute>
+		            </xpath>
+	            	<xpath expr="//field[@name='purchase_ids']/tree" position="attributes">
+		                <attribute name="create">false</attribute>
+		            </xpath>
+	                <xpath expr="//field[@name='multiple_rfq_per_supplier']" position="after">
+	                	<field name="department_id" attrs="{'readonly': [('state','not in',('draft'))]}" invisible="1"/>
+                	</xpath>
+            		<xpath expr="//button[@name='cancel_requisition']" position="after">
+	        			<button name="%(report_purchase_requisition)d" string="Print" states="in_progress" type="action"/>
+	        		</xpath>
+	        		<xpath expr="//field[@name='product_id']" position="replace">
+						<field name="categ_id" on_change="category_change(categ_id,parent.branch_id,parent.division)" domain="[('name','=',parent.division)]" options="{'no_open':True,'no_create':True}"/>
+                      <field name="template_id" options="{'no_open':True,'no_create':True}" domain="['|',('categ_id','child_of',categ_id),('categ_id','child_of',parent.division)]" on_change="category_change(categ_id,parent.branch_id,parent.division, template_id)"/>
+	                    <field name="product_id" string="Variant" on_change="onchange_product_id(product_id,product_uom_id,parent.account_analytic_id,account_analytic_id,parent.schedule_date,schedule_date)" domain="[('product_tmpl_id','=',template_id),'|',('categ_id','child_of',categ_id),('categ_id','child_of',parent.division)]" required="1" context="{'branch_id':parent.branch_id,'attribute_only':True}" options="{'no_open':True,'no_create':True,'always_reload': True}"/>
+					</xpath>
+					
+          <xpath expr="//field[@name='product_qty']" position="attributes">
+            <attribute name="sum">Product QTY</attribute>     
+          </xpath>
+
+          <field name="picking_type_id" position="replace">
+            <field name="picking_type_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" domain="[('branch_id','=',branch_id),('code','=','incoming')]" context="{'default_branch_id': branch_id}"/>
+          </field>
+					<field name="origin" position="attributes">
+						<attribute name="attrs">{'readonly': [('state','not in',('draft'))]}</attribute>
+					</field>
+
+          <button name="purchase_cancel" position="attributes">
+            <attribute name="invisible">1</attribute>            
+          </button>
+          <button name="purchase_confirm" position="attributes">
+            <attribute name="invisible">1</attribute>            
+          </button>
+          <button name="purchase_approve" position="attributes">
+            <attribute name="invisible">1</attribute>            
+          </button>
+          <field name="name" position="attributes">
+            <attribute name="readonly">1</attribute>            
+          </field>
+          <label for="origin" class="oe_edit_only oe_inline" position="replace"/>
+          <label string="," attrs="{'invisible':[('origin','=',False)]}" position="replace"/>
+          <field name="origin" class="oe_inline" placeholder="e.g. PO0025" position="replace"/>
+          <!-- <button name="sent_suppliers" states="draft" string="Confirm Call" class="oe_highlight" position="attributes"> -->
+            <!-- <attribute name="string">Confirm Purchase Requisition</attribute> -->
+          <!-- </button> -->
+          <button name="open_bid" states="in_progress" string="Close Call for Bids" class="oe_highlight" position="attributes">
+            <attribute name="string">Close Purchase Requisition</attribute>
+          </button>
+          <button name="cancel_requisition" states="draft,in_progress" string="Cancel Call" position="attributes">
+            <attribute name="string">Cancel Purchase Requisition</attribute>
+          </button>
+                <field name="company_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="account_analytic_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="origin" placeholder="e.g. OP0025" attrs="{'readonly': [('state','not in',('draft'))]}" position="replace"/>
+                <field name="user_id" position="before">
+                    <field name="origin" placeholder="e.g. OP0025" attrs="{'readonly': [('state','not in',('draft'))]}"/>
+                </field>
+                <field name="exclusive" attrs="{'readonly': [('state','not in',('draft'))]}" position="replace"/>
+                <field name="multiple_rfq_per_supplier" attrs="{'readonly': [('state','not in',('draft'))]}" position="replace"/>
+                <field name="ordering_date" attrs="{'readonly': [('state','not in',('draft'))]}" position="replace"/>
+                <field name="schedule_date" attrs="{'readonly': [('state','not in',('draft'))]}" position="replace"/>
+                <field name="date_end" attrs="{'readonly': [('state','not in',('draft'))]}" position="replace"/>
+                <field name="picking_type_id" position="before">
+                    <field name="exclusive" attrs="{'readonly': [('state','not in',('draft'))]}"/>
+                      <field name="multiple_rfq_per_supplier" attrs="{'readonly': [('state','not in',('draft'))]}"/>
+                      <field name="date" readonly="1"/>
+                      <field name="date_end" attrs="{'readonly': [('state','not in',('draft'))]}"/>
+                      <field name="ordering_date" attrs="{'readonly': [('state','not in',('draft'))]}"/>
+                      <field name="schedule_date" attrs="{'readonly': [('state','not in',('draft'))]}"/>
+                </field>
+            	</data>
+        	</field>
+   		</record>
+   		
+   		<record model="ir.ui.view" id="dym_purchase_requisition_partner_form_view">
+            <field name="name">dym.purchase.requisition.partner.form</field>
+            <field name="model">purchase.requisition.partner</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_partner"/>
+            <field name="arch" type="xml">
+		    	<field name="partner_id" position="replace">
+	            	<group col="4">
+	            		<field name="partner_id" domain="['|','|','|',('principle','=','True'),('biro_jasa','=','True'),('forwarder','=','True'),('supplier','=','True')]" options="{'no_open':True,'no_create':True}"/>
+		    			<field name="purchase_order_type_id" options="{'no_open':True,'no_create_edit':True}" domain="[('category','=',division)]" on_change="purchase_order_type_id_change(purchase_order_type_id)" />
+			            <field name="end_date"/>
+			            <field name="start_date"/>
+			            <field name="division" on_change="onchange_division(division)" invisible="1"/>
+			    	</group>
+			    </field>
+           	</field>
+      	</record>
+      	
+		<record id="view_dym_purchase_requisition" model="ir.ui.view">
+            <field name="name">dym.purchase.requisition.search.view</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_filter"/>
+            <field name="arch" type="xml">
+            	<field name="name" position='after'>
+            		<field name='branch_id'/>
+                    <field name="division"/> 
+            	</field>
+              <field name="name" string="Call for Bids" position="attributes">
+                  <attribute name="string">Purchase Requisition</attribute>
+              </field>
+              <filter icon="terp-document-new" name="draft" string="New" position="attributes">
+                  <attribute name="help">New Purchase Requisition</attribute>
+              </filter>
+              <filter icon="terp-camera_test" string="Confirmed" position="attributes">
+                  <attribute name="help">Purchase Requisition in negotiation</attribute>
+              </filter>
+              <filter icon="terp-dialog-close" string="Closed Bids">
+                  <attribute name="help">Purchase Requisition where bids are closed</attribute>
+              </filter>
+            </field>
+        </record>    
+        
+    <record model="ir.actions.act_window" id="action_purchase_requisition_showroom">
+        <field name="name">Purchase Requisition</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.requisition</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{"search_default_user_id":uid,'menu': 'showroom'}</field>
+        <field name="domain">[('division','in',('Unit','Umum')),('asset','=',False),('prepaid','=',False)]</field>
+        <field name="search_view_id" ref="purchase_requisition.view_purchase_requisition_filter"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to start a new Purchase Requisition process. 
+          </p><p>
+            A Purchase Requisition is a procedure for generating competing offers from
+            different bidders. In the Purchase Requisition, you can record the
+            products you need to buy and generate the creation of RfQs to
+            suppliers. Once the bids have been registered, you can review and
+            compare them and you can validate some and cancel others.
+          </p>
+        </field>
+    </record>
+            
+    <record model="ir.actions.act_window" id="action_purchase_requisition_workshop">
+        <field name="name">Purchase Requisition</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.requisition</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{"search_default_user_id":uid,'menu': 'workshop'}</field>
+        <field name="domain">[('division','in',('Sparepart','Umum')),('asset','=',False),('prepaid','=',False)]</field>
+        <field name="search_view_id" ref="purchase_requisition.view_purchase_requisition_filter"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to start a new Purchase Requisition process. 
+          </p><p>
+            A Purchase Requisition is a procedure for generating competing offers from
+            different bidders. In the Purchase Requisition, you can record the
+            products you need to buy and generate the creation of RfQs to
+            suppliers. Once the bids have been registered, you can review and
+            compare them and you can validate some and cancel others.
+          </p>
+        </field>
+    </record>
+        		
+      	<menuitem id="menu_purchase_requisition_pro_mgt_1" sequence="2"
+        parent="dym_dealer_menu.showroom_purchase_menu"
+        action="action_purchase_requisition_showroom"/>
+
+      	<menuitem id="menu_purchase_requisition_pro_mgt_2" sequence="2"
+        parent="dym_dealer_menu.workshop_purchase_menu"
+        action="action_purchase_requisition_workshop"/>        	      	
+ 	</data>
+</openerp>
+       		

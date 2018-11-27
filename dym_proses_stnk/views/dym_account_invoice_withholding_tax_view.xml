@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+
+        <record id="dym_account_invoice_withholding_tree_view" model="ir.ui.view">
+            <field name="name">dym.account.invoice.withholding.tree</field>
+            <field name="model">dym.account.invoice.withholding</field>
+            <field name="arch" type="xml"> 
+                <tree string="Withholding Invoice">
+                    <field name="internal_number"/>
+                    <field name="name" string="Nomor Bukti Potong"/>
+                    <field name="date"/>
+                    <field name="type"/>
+                    <field name="tax_withholding_id"/>
+                    <field name="partner_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="amount" sum="Total" string="Jumlah PPh"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record> 
+
+         <record id="dym_account_invoice_withholding_form_view" model="ir.ui.view">
+            <field name="name">dym.account.invoice.withholding.form</field>
+            <field name="model">dym.account.invoice.withholding</field>
+            <field name="arch" type="xml"> 
+                <form string="Withholding Invoice">
+                    <field name="state" invisible="1"/>
+                    <header>
+                    </header>
+                    <sheet string="Withholding Invoice">
+                        <field name="type" invisible="0"/>
+                        <group>  
+                            <group>
+                                <field name="name" string="Nomor Bukti Potong"/>
+                                <field name="tax_withholding_id" domain="[('type_tax_use','in',('payment', 'all'))]"/>
+                                <field name="tax_base" string="Tax Base"/>
+                                <field name="amount" string="Jumlah PPh"/>
+                                <field name="move_line_id"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="internal_number"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <field name="comment" placeholder="Comment..."/>
+                    </sheet>
+                </form>
+            </field>
+        </record>   
+
+        <record model="ir.actions.act_window" id="action_dym_account_invoice_withholding">
+            <field name="name">Withholding Invoice OUT</field>
+            <field name="res_model">dym.account.invoice.withholding</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_dym_account_invoice_withholding" id="menu_dym_account_invoice_withholding" parent="account.menu_finance_bank_and_cash" sequence="11"/>
+
+     
+        <!-- Customer Receipt Form  -->
+        <record id="view_account_invoice_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                 <page string="Payments" position="before">
+                    <!-- Withholding serian retenciones sufridas -->
+                    <page string="Pemotongan PPh">
+                        <field name="withholding_ids" context="{'default_type':type}" />
+                    </page>
+                </page>
+                <field name="residual" position="after">
+                    <field name="withholdings_amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                    <field name="total_net" string="Total tagihan (Net)" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                </field>
+
+
+                
+            </field>
+        </record>
+
+
+        
+
+    </data>
+</openerp>

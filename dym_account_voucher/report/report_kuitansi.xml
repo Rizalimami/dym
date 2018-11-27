@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_kuitansi_template">
+    <style type="text/css">
+        .tag_container{
+            margin: auto;
+            margin-bottom:50px;
+            border: 1px solid black;
+        }
+        .no_border{
+            border: 0px !important;
+            line-height: 0.7 !important;
+        }
+        .margin_bottom{
+            margin-bottom: 5px !important;
+        }
+        .border_top{
+            border-top: 1px solid black !important;
+        }
+        .border_bottom{
+            border-bottom: 1px solid black !important;
+        }
+        .line_height{
+        }
+        .page, .header, .footer{
+            font-size:14px;
+            text-align: justify !important;
+        }
+        .font_12{
+            font-size:12px;
+        }
+        .font_16{
+            font-size:16px;
+        }
+    </style>
+    <t t-call="report.html_container">    
+        <t t-foreach="docs" t-as="o">
+            <div class="page font_16">
+                <t t-esc="o.update_data(o)"/>
+                <div style="top:1cm; left:6.3cm; position:absolute;" class='col-xs-5'>
+                    <span t-esc="o.branch_id.street + ' ' + o.branch_id.city_id.name"/>
+                </div>
+                <span t-field="o.kwitansi_id" style="top:1.3cm; left:18.1cm; position:absolute;"/>
+                <span t-field="o.number" style="top:1.8cm; left:18.1cm; position:absolute;"/>
+                <t t-set="top1" t-value="1.8"/>
+                <t t-foreach="o.get_list_number(o)" t-as="numb">
+                    <t t-set="top1" t-value="top1+0.5"/>
+                    <span t-esc="numb" t-att-style="'top: ' + str(top1) + 'cm; left:18.1cm; position:absolute'"/>
+                </t>
+
+                <span t-field="o.partner_id.name" style="top:4.3cm; left:6.3cm; position:absolute;"/>
+                <span t-esc="'%s %s' % (o.partner_id.street,o.partner_id.city_id.name)" style="top:5.3cm; left:6.3cm; position:absolute;"/>
+                <span style="top:6.3cm; left:6.3cm; position:absolute;">
+                    <t t-esc="o.get_terbilang(o.amount)"/>
+                </span>
+                <span t-field="o.name" style="top:7.3cm; left:6.3cm; position:absolute;"/>
+
+                <span t-field="o.amount" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;user.company_id.currency_id&quot;}" style="top:12cm; left:3cm; position:absolute; font-size:20px;"/>
+                <t t-set="kota_tanggal" t-value="o.partner_id.city_id.name + ', ' + o.branch_id.formatted_date(o.date)"/>
+                <span t-esc="kota_tanggal" style="top:11cm; left:18.1cm; position:absolute;"/>
+                <span style="top:13cm; left:1.5cm; position:absolute;">
+                    <t t-set="lists" t-value="o.get_list_engine(o)"/>
+                    <t t-if="lists">
+                        <div class="col-xs-9">
+                            <table class="table table-condensed" style="margin-bottom:0px !important;">
+                                <thead>
+                                    <tr>
+                                        <th class="no_border font_12"><strong>No. Mesin</strong></th>
+                                        <th class="no_border font_12"><strong>No. Rangka</strong></th>
+                                        <th class="no_border font_12"><strong>Warna</strong></th>
+                                        <th class="no_border font_12"><strong>Tahun</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="lists" t-as="lot">
+                                        <tr>
+                                            <td class="no_border font_12"><span t-field="lot.name"/></td>
+                                            <td class="no_border font_12"><span t-field="lot.chassis_code"/><span t-field="lot.chassis_no"/></td>
+                                            <td class="no_border font_12"><t t-esc="o.branch_id.get_attribute_name(lot.product_id)"/></td>
+                                            <td class="no_border font_12"><span t-field="lot.tahun"/></td>
+                                        </tr>
+                                    </t>                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </span>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

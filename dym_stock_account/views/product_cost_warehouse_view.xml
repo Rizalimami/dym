@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="dym_view_template_property_form_view">
+            <field name="name">dym.view.template.property.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock_account.view_template_property_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@string='- update']" position="replace"/>
+                <xpath expr="//label[@string='Cost Price']" position="replace"/>
+                <field name="standard_price" position="replace"/>
+            </field>
+        </record>
+
+        <!-- 
+        <record model="ir.ui.view" id="view_picking_form_create_manual">
+            <field name="name">dym.stock_account.stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="create_manual" invisible="1"/>
+                </field>
+             </field>
+        </record>
+        <record model="ir.ui.view" id="dym_product_product_form_view">
+            <field name="name">dym.product.product</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            	<xpath expr="//page[@string='Audit Trail']" position="before">
+					<page string="Costing">
+						<group>
+							<field name="write_uid" readonly="1"></field>
+							<field name="write_date" readonly="1"></field>
+						</group>
+					</page>
+				</xpath>
+        	</field>
+        </record> -->
+
+
+        <!-- <record model="ir.ui.view" id="product_price_history_form">
+            <field name="name">product.price.history.form</field>
+            <field name="model">product.price.history</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form col="4" string="Product Price History">
+                    <field name="origin"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_price_history_tree" model="ir.ui.view">
+            <field name="name">product.price.history.tree</field>
+            <field name="model">product.price.history</field>
+            <field name="arch" type="xml">
+                <tree string="Product Price History">
+                    <field name="origin"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_product_price_history">
+            <field name="name">Product Price History</field>
+            <field name="res_model">product.price.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="dym_product_price_history_menu" parent="dym_costing_master_menu" name="Product Price History" sequence="11" action="action_product_price_history"></menuitem>  -->   
+
+        <record id="product_cost_adjustment_tree" model="ir.ui.view">
+            <field name="name">product.cost.adjustment.tree</field>
+            <field name="model">product.cost.adjustment</field>
+            <field name="arch" type="xml">
+                <tree colors="grey:state=='cancel';blue:state=='draft';" string="Product Cost Adjustment">
+                    <field name="create_date"/>
+                    <field name="approved_date"/>
+                    <field name="warehouse_id"/>
+                    <field name="product_id"/>
+                    <field name="current_cost_price"/>
+                    <field name="cost_price"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_cost_adjustment_form">
+            <field name="name">view.cost.adjustment.form</field>
+            <field name="model">product.cost.adjustment</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form col="4" string="Product Cost Adjustment">
+                	<header>
+                        <button name="wkf_request_approval" states="draft" string="RFA" type="object" class="oe_highlight"/>
+                        <button name="wkf_approval" states="waiting_for_approval" string="Approve" type="object" class="oe_highlight"/>
+                        <button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action" context="{'model_name':'product.cost.adjustment','update_value':{'approval_state':'r','state':'draft'}}"/>
+                        <button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'product.cost.adjustment','update_value':{'approval_state':'b','state':'draft'}}"/>
+                        <button name="confirm" states="approved" string="Post" type="object" class="oe_highlight"/>
+                        <button name="confirm_all" states="approved" string="Post all" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,waiting_for_approval,approved,done" statusbar_colors='{"draft":"red","done":"blue"}'/>
+                	</header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label string="Cost Adjustment"/>
+                                <field name="name" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                        	<group>
+                                <field name="branch_id" options="{'no_open':True, 'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+    	                        <field name="warehouse_id" options="{'no_open':True, 'no_create':True}" domain="[('branch_id', '=', 0)]" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="date" options="{'no_open':True, 'no_create':True}"/>
+                            </group>
+                            <group>
+                                <field name="division" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="product_id" options="{'no_open':True, 'no_create':True}" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="cost_price" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            	<field name="account_move_id"/>
+                                <field name="approval_state" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Approval">
+                                <field name="approval_ids">
+                                    <tree string="Approval" editable="bottom" create="false" edit="false" delete="false" >
+                                        <field name="group_id"/>
+                                        <field name="branch_id"/>
+                                        <field name="division"/>
+                                        <field name="limit"/>
+                                        <field name="sts"/>
+                                        <field name="reason"/>
+                                        <field name="pelaksana_id"/>
+                                        <field name="tanggal"/>
+                                    </tree>
+                                </field>
+                            </page> 
+                        	<page string="Audit Trail">
+                        		<group>
+    	                    		<group>
+    									<field name="create_uid" readonly="1"></field>
+    									<field name="create_date" readonly="1"></field>
+                                        <field name="confirm_uid" readonly="1"></field>
+                                        <field name="confirm_date" readonly="1"></field>
+    								</group>
+    								<group>
+    									<field name="write_uid" readonly="1"></field>
+    									<field name="write_date" readonly="1"></field>
+    								</group>
+    							</group>
+    						</page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_product_cost_adjustment">
+            <field name="name">Cost Adjustment</field>
+            <field name="res_model">product.cost.adjustment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="dym_costing_master_menu" parent="account.menu_finance" name="Costing" sequence="11"></menuitem>    
+        <menuitem action="action_product_cost_adjustment" id="menu_cost_adjustment"
+            parent="dym_costing_master_menu"
+            sequence="0"/>
+    </data>
+</openerp>

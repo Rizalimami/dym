@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="dym_advance_payment_branch_config_view" model="ir.ui.view">
+            <field name="name">dym.branch.config.advance.paymentview</field>
+            <field name="model">dym.branch.config</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_config_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <group string="Payment Request">
+                        <field name="dym_payment_request_account_id" />
+                    </group>
+                    <group string="Other Receivable">
+                        <field name="dym_other_receivable_account_id" />
+                    </group>
+                    <group string="Payable Writeoff">
+                        <field name="max_writeoff_payable" />
+                        <field name="writeoff_payable_account_id" />
+                    </group>
+                    <group string="Receivable Writeoff">
+                        <field name="max_writeoff_receivable" />
+                        <field name="writeoff_receivable_account_id" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

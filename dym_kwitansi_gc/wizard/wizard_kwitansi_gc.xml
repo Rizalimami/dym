@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Top menu item -->     
+        <record id="kwitansi_gc_wizard_view" model="ir.ui.view">
+            <field name="name">dym.kwitansi.gc.report.form</field>
+            <field name="model">dym.kwitansi.gc</field>
+            <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="partner_id" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                    </group>
+                    <group>
+                        <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="untuk_pembayaran" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                </group>
+                <notebook>
+                    <page string="Invoices">
+                        <field name="invoice_ids" required="1" domain="[('state','=','open'),('branch_id','=',branch_id),('partner_id','=',partner_id),('type','=','out_invoice'),('residual','&gt;',0)]" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="%(dym_kwitansi_gc_report)d" string="Print" type="action" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="dym_kwitansi_gc_action" model="ir.actions.act_window">
+            <field name="name">Kwitansi GC</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym.kwitansi.gc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            name="Kwitansi GC"
+            parent="dym_dealer_menu.showroom_report_menu"
+            action="dym_kwitansi_gc_action"
+            id="menu_kwitansi_gc"
+            sequence="6"/>
+        <menuitem
+            name="Kwitansi GC"
+            parent="dym_dealer_menu.workshop_report_menu"
+            action="dym_kwitansi_gc_action"
+            id="menu_kwitansi_gc_workshop"
+            sequence="6"/>
+
+    </data>
+</openerp>

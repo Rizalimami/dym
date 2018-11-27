@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Other Receivable Form  -->
+        <record id="view_sale_receipt_other_receivable_form" model="ir.ui.view">
+            <field name="name">account.voucher.form.other.receivable.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="dym_account_voucher.view_sale_receipt_other_receivable_form" />
+            <field name="arch" type="xml">
+                <!-- payment_option -->
+                <field name="type" position="after">
+                    <field name="payment_option" />
+                </field>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Pemotongan PPh">
+                        <field name="withholding_ids" context="{'default_type':type}">
+                            <form string="Withholding Voucher IN">
+                                <field name="state" invisible="1" />
+                                <header>
+                                </header>
+                                <sheet string="Withholding Voucher IN">
+                                    <field name="type" invisible="0" />
+                                    <group>
+                                        <group>
+                                            <field name="name" string="Nomor Bukti Potong" />
+                                            <field name="tax_withholding_id" domain="[('is_other_receivable','=',True),('type_tax_use','=','receipt')]" />
+                                            <field name="tax_base" string="Tax Base" />
+                                            <field name="amount" string="Jumlah PPh" />
+                                            <field name="move_line_id" />
+                                            <field name="partner_id" />
+                                        </group>
+                                        <group>
+                                            <field name="date" />
+                                            <field name="internal_number" />
+                                            <field name="company_id" groups="base.group_multi_company" />
+                                        </group>
+                                    </group>
+                                    <field name="comment" placeholder="Comment..." />
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dealer_sale_order_analysis_all,dealer_sale_order_analysis all,model_dealer_sale_order_analysis,,1,1,1,1
+access_dealer_spk_report_all,dealer_spk_report all,model_dealer_spk_report,,1,1,1,1
+access_work_order_report_all,work_order_report all,model_work_order_report,,1,1,1,1
+access_dym_stock_unit_report_all,dym_stock_unit_report all,model_dym_stock_unit_report,,1,1,1,1

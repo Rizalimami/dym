@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_barcode_template">
+            <style type="text/css">
+            .tag_container {
+                margin: auto;
+                margin-bottom: 50px;
+                border: 1px solid black;
+            }
+
+            .no_border {
+                border: 0px !important;
+                line-height: 0.7 !important;
+            }
+
+            .margin_bottom {
+                margin-bottom: 5px !important;
+            }
+
+            .border_top {
+                border-top: 1px solid black !important;
+            }
+
+            .border_bottom {
+                border-bottom: 1px solid black !important;
+            }
+
+            .line_height {}
+
+            .page,
+            .header,
+            .footer {
+                font-size: 12px;
+                padding-left: 10px;
+            }
+            </style>
+            <t t-call="report.html_container">
+                <t t-set="detail_barcode" t-value="[1,2,3,4,5,6]" />
+                <t t-set="normal_barcode" t-value="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]" />
+                <t t-foreach="docs" t-as="o">
+                    <t t-foreach="o.dealer_sale_order_line" t-as="line">
+                        <div class="page">
+                            <t t-foreach="detail_barcode" t-as="x">
+                                <div class="col-xs-4" style="border:1px #333 dashed;padding-top:10px;padding-bottom:10px;padding-left:0px;padding-right:10px;">
+                                    <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('Code128', line.lot_id.name, 2500, 250)" />
+                                    <br/>
+                                    <div style="margin-left:25px;">
+                                        MH1<span t-field="line.lot_id.chassis_no" />/<span t-field="line.lot_id.name" />
+                                        <br/>Type/No. Pol: <span t-field="line.product_id.name" />
+                                        <br/>Nama: <span t-field="line.lot_id.customer_stnk.name" />
+                                        <br/>Alamat: <span t-field="line.lot_id.customer_stnk.street" /> RT <span t-field="line.lot_id.customer_stnk.rt" />/<span t-field="line.lot_id.customer_stnk.rw" /> <span t-field="line.lot_id.customer_stnk.mobile" />
+                                        <br/>
+                                        <br/>Tgl. Pembelian:
+                                        <t t-esc="o.branch_id.formatted_date(o.date_order)" />
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-foreach="normal_barcode" t-as="x">
+                                <div class="col-xs-4" style="border:1px #333 dashed;padding-top:10px;padding-bottom:10px;padding-left:0px;padding-right:10px;">
+                                    <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('Code128', line.lot_id.name, 2500, 450)" />
+                                    <br/>
+                                    <div style="margin-left:25px;font-size:14px !important;">
+                                        MH1<span t-field="line.lot_id.chassis_no" />
+                                        <br/>
+                                        <span t-field="line.lot_id.name" />
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

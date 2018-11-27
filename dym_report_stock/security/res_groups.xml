@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">  	
+
+    	
+<!-- Report Stock Unit -->	
+	
+        <record id="group_report_stock_unit_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Report Stock Unit Read</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_unit_report'))]"/>  
+        </record> 
+                      
+        <record id="group_report_stock_unit_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Report Stock Unit Update</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_unit_report'))]"/>   
+			<field name="implied_ids" eval="[(4, ref('group_report_stock_unit_read'))]"/>            	            	
+        </record>
+	      
+        <record id="group_report_stock_unit_show_valuation" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Report Stock Unit Show Valuation</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_unit_report'))]"/>   
+            <field name="implied_ids" eval="[(4, ref('group_report_stock_unit_read'))]"/>                               
+        </record> 
+        
+<!-- Report Stock Sparepart -->	
+	
+        <record id="group_report_stock_sparepart_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Report Stock Sparepart Read</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_report_sparepart'))]"/>  
+        </record> 
+                            
+        <record id="group_report_stock_sparepart_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Report Stock Sparepart Update</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_report_sparepart'))]"/>   
+			<field name="implied_ids" eval="[(4, ref('group_report_stock_sparepart_read'))]"/>            	            	
+        </record>
+
+<!-- Report Stock Sparepart --> 
+    
+        <record id="group_report_stock_extras_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Report Stock KSU Read</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_report_extras'))]"/>  
+        </record> 
+                            
+        <record id="group_report_stock_extras_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Report Stock KSU Update</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_report_extras'))]"/>   
+            <field name="implied_ids" eval="[(4, ref('group_report_stock_extras_read'))]"/>                              
+        </record>
+
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[(4,ref('group_report_stock_sparepart_read')),
+											(4,ref('group_report_stock_sparepart_update')),
+											(4,ref('group_report_stock_unit_read')),
+											(4,ref('group_report_stock_unit_update')),
+                                            (4,ref('group_report_stock_extras_read')),
+                                            (4,ref('group_report_stock_extras_update')),
+
+											]"/> 
+		</record>                                                                                                    
+    </data>
+</openerp>

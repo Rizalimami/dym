@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <record id="config_approval_jel" model="dym.approval.config">
+            <field name="name">Journal Eliminasi</field>        	        	
+            <field name="form_id" ref="dym_journal_elimination.model_dym_journal_elimination"/> 
+            <field name="code"> </field>
+            <field name="type">biaya</field>
+        </record>                                                                                                                    
+    </data>
+</openerp>
+            

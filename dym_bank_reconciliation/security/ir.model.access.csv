@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_bank_reconciliation_all,dym_bank_reconciliation all,model_dym_bank_reconciliation,,1,1,1,1
+access_dym_bank_reconciliation_line_all,dym_bank_reconciliation_line all,model_dym_bank_reconciliation_line,,1,1,1,1

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="group_dym_bank_book_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Bank Book Read</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_bank_book_menu'))
+                                            ]" />
+        </record>
+        <record id="access_dym_bank_book_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_book" />
+            <field name="name">dym_bank_book read</field>
+            <field name="group_id" ref="group_dym_bank_book_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_move_line_read" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line" />
+            <field name="name">account_move_line read</field>
+            <field name="group_id" ref="group_dym_bank_book_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="group_dym_bank_book_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Bank Book Update</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_bank_book_menu'))
+                                            ]" />
+            <field name="implied_ids" eval="[(4, ref('group_dym_bank_book_read'))]" />
+        </record>
+        <record id="access_dym_bank_book_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_book" />
+            <field name="name">dym_bank_book update</field>
+            <field name="group_id" ref="group_dym_bank_book_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="access_move_line_update" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line" />
+            <field name="name">account_move_line update</field>
+            <field name="group_id" ref="group_dym_bank_book_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="group_dym_bank_book_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Bank Book Delete</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_bank_book_menu'))
+                                            ]" />
+            <field name="implied_ids" eval="[(4, ref('group_dym_bank_book_read'))]" />
+        </record>
+        <record id="access_dym_bank_book_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_book" />
+            <field name="name">dym_bank_book delete</field>
+            <field name="group_id" ref="group_dym_bank_book_delete" />
+            <field name="perm_unlink">1</field>
+        </record>
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+            <field name="implied_ids" eval="[(4,ref('group_dym_bank_book_read')),
+                                            (4,ref('group_dym_bank_book_update')),
+                                            (4,ref('group_dym_bank_book_delete'))]" />
+        </record>
+    </data>
+</openerp>

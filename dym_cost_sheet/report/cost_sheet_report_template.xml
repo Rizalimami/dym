@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="cost_sheet_report_template">
+    <style type="text/css">
+        .tag_container{
+            margin: auto;
+            margin-bottom:50px;
+            border: 1px solid black;
+        }
+        .no_border{
+            border: 0px !important;
+            line-height: 0.7 !important;
+        }
+        .margin_bottom{
+            margin-top: 5px !important;
+            margin-bottom: 5px !important;
+        }
+        .border_top{
+            border-top: 1px solid black !important;
+        }
+        .border_bottom{
+            border-bottom: 1px solid black !important;
+        }
+        .line_height{
+        }
+        .page, .header, .footer{
+            font-size:12px;
+        }
+    </style>
+    <t t-call="report.html_container">    
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"></t>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"></t>
+        </t>
+        <t t-foreach="docs" t-as="o">
+            <div class="page">
+                <div class="oe_structure"/>
+                <div class="col-xs-6">
+                    <h4><t t-esc="company.name"/></h4>
+                    <t t-if="company.jenis_npwp=='terpusat'">
+                        <t t-if="company.street">
+                            <span t-field="company.street"/>
+                        </t>
+                        <t t-if="not company.street">
+                            <span t-field="company.partner_id.street"/>
+                        </t>
+                        <br/>
+                        <t t-if="company.state_id">
+                            <span t-field="company.state_id.name"/>
+                        </t>
+                        <t t-if="not company.state_id">
+                            <span t-field="company.partner_id.state_id.name"/>
+                        </t>                        
+                        <t t-if="company.phone">
+                            <span> - </span><span t-field="company.phone"/>
+                        </t>
+                        <t t-if="not company.phone">
+                            <span> - </span><span t-field="company.partner_id.phone"/>
+                        </t>
+                    </t>
+                    <t t-if="company.jenis_npwp=='percabang'">
+                        <span t-field="o.branch_id.npwp_street"/>
+                    </t>
+                    <br/>
+                    <t t-if="o.branch_id.npwp">
+                        NPWP: <span t-field="o.branch_id.npwp"/>                    
+                    </t>
+                </div>
+                <div class="col-xs-6">
+                    <div class="pull-right">
+                        <h4><t t-esc="o.branch_id.name"/></h4>
+                        <t t-if="o.branch_id.street">
+                            <span t-field="o.branch_id.street"/>
+                        </t>
+                        <t t-if="not o.branch_id.street">
+                            <span t-field="o.branch_id.partner_id.street"/>
+                        </t>
+                        <br/>
+                        <t t-if="o.branch_id.state_id">
+                            <span t-field="o.branch_id.state_id.name"/>
+                        </t>
+                        <t t-if="not o.branch_id.state_id">
+                            <span t-field="o.branch_id.partner_id.state_id.name"/>
+                        </t>                        
+                        <t t-if="o.branch_id.phone">
+                            <span> - </span><span t-field="o.branch_id.phone"/>
+                        </t>
+                        <t t-if="not o.branch_id.phone">
+                            <span> - </span><span t-field="o.branch_id.partner_id.phone"/>
+                        </t>
+                    </div>
+                </div>
+                <div class="col-xs-12 text-center mb32"><h4>COST SHEET</h4></div>
+                <div class="row mt32 mb32">
+                    <div class="col-xs-3">
+                        <strong>Nomor Jual</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.nomor_faktur_jual"/>
+                    </div>
+                    <div class="col-xs-2">
+                        <strong>Tipe Motor</strong>
+                    </div>
+                    <div class="col-xs-3">                        
+                        : <span t-field="o.tipe_motor"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Tanggal Jual</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <t t-esc="o.branch_id.formatted_date(o.tanggal_faktur_jual)"/>
+                    </div>
+                    <div class="col-xs-2">
+                        <strong>Tunai / Kredit</strong>
+                    </div>
+                    <div class="col-xs-3">                        
+                        : <span t-field="o.tunai_kredit"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Nama Konsumen</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.nama_konsumen"/>
+                    </div>
+                    <div class="col-xs-2">
+                        <strong>Sales Person</strong>
+                    </div>
+                    <div class="col-xs-3">                        
+                        : <span t-field="o.marketing_counter"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Alamat</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.alamat"/>
+                    </div>
+                </div>      
+                <div class="row mt32 mb32">
+                    <strong>Penjualan Motor</strong><br/>
+                    <div class="col-xs-7">Harga Jual Motor<br/>
+                        <div class="col-xs-5">
+                            <span>Harga Jual</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.harga_jual_motor" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Disc. Konsumen</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.discount_konsumen" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Disc. Prog Intern</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.discount_prog_intern" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Disc. Prog Extern</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.discount_prog_extern" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <strong>Netto Jual</strong>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.netto_jual" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>PPN Keluaran</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.ppn_keluaran" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                    </div>
+                    <div class="col-xs-5">Harga Beli Motor<br/>
+                        <div class="col-xs-5">
+                            <span>Harga Standar</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.harga_standar" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>PPN Masukan</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.ppn_masukan" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt32 mb32">
+                    <div class="col-xs-3">
+                        <strong>Selisih Penjualan</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.selisih_penjualan" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                    </div>
+                    <div class="col-xs-5"><![CDATA[&nbsp;]]></div>
+                    <div class="col-xs-3">
+                        <strong>Selisih PPN</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.selisih_ppn" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                    </div>
+                </div>
+                <div class="row mt32 mb32">
+                    <div class="col-xs-7"><strong>STNK</strong><br/>
+                        <div class="col-xs-5">
+                            <span>Harga STNK MD</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.harga_stnk_md" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Harga STNK Birojasa</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.harga_stnk_birojasa" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Tambahan Pendapatan BBN</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.tambahan_pendapatan_bbn" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Tambahan Biaya BBN</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.tambahan_biaya_bbn" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <strong>Selisih STNK</strong>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.selisih_stnk" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                    </div>
+                    <div class="col-xs-5"><strong>Broker</strong><br/>
+                        <div class="col-xs-5">
+                            <span>Biaya Broker</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_broker" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt32 mb32">
+                    <div class="col-xs-7"><strong>Profit</strong><br/>
+                        <div class="col-xs-5">
+                            <span>Profit Penjualan (GP)</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.profit_penjualan" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Subsidi Leasing OI</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.subsidi_leasing_oi" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Insentif Leasing</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.insentif_leasing" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                    </div>
+                    <div class="col-xs-5"><strong>Biaya Lain-lain</strong><br/>
+                        <t t-foreach="o.dym_biaya_lain" t-as="biaya_lain">
+                            <div class="col-xs-7">
+                                <span><t t-esc="biaya_lain.name"/></span>
+                            </div>
+                            <div class="col-xs-5">                        
+                                : <span t-field="biaya_lain.value" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                            </div>
+                        </t>
+                        <!-- <div class="col-xs-5">
+                            <span>Biaya Materai</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_materai" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya PDI</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_pdi" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya Gesekan</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_gesekan" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya SCTK</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_sctk" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya Aksesois</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_aksesoris" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya Angkut</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_angkut" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya Kirim</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_kirim" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya Insentif</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_insentif" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div> -->
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Biaya Lain-lain</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.biaya_lain" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                    </div>
+                    <div class="col-xs-5"><![CDATA[&nbsp;]]></div>
+                    <div class="col-xs-3">
+                        <strong>Profit Lain-lain</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.profit_lain" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                    </div>
+                    <div class="col-xs-5"><![CDATA[&nbsp;]]></div>
+                    <div class="col-xs-3">
+                        <strong>Net Profit</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.net_profit" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                    </div>
+                </div>
+                <div class="row mt32 mb32">
+                    <div class="col-xs-7">
+                        <strong>Dibuat Oleh,</strong>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <strong><span t-field="o.create_uid"/></strong>
+                    </div>
+                    <div class="col-xs-5">
+                        <strong>Diketahui,</strong>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <strong><span t-field="o.confirm_uid"/></strong>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </t>
+</template>
+
+<template id="cost_sheet_report_template_dso">
+    <style type="text/css">
+        .tag_container{
+            margin: auto;
+            margin-bottom:50px;
+            border: 1px solid black;
+        }
+        .no_border{
+            border: 0px !important;
+            line-height: 0.7 !important;
+        }
+        .margin_bottom{
+            margin-top: 5px !important;
+            margin-bottom: 5px !important;
+        }
+        .border_top{
+            border-top: 1px solid black !important;
+        }
+        .border_bottom{
+            border-bottom: 1px solid black !important;
+        }
+        .line_height{
+        }
+        .page, .header, .footer{
+            font-size:12px;
+        }
+    </style>
+    <t t-call="report.html_container">  
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"></t>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"></t>
+        </t>  
+        <t t-foreach="docs" t-as="o">
+            <div class="page">
+                <div class="oe_structure"/>
+                <div class="col-xs-6">
+                    <h4><t t-esc="company.name"/></h4>
+                    <t t-if="company.street">
+                        <span t-field="company.street"/>
+                    </t>
+                    <t t-if="not company.street">
+                        <span t-field="company.partner_id.street"/>
+                    </t>
+                    <br/>
+                    <t t-if="company.state_id">
+                        <span t-field="company.state_id.name"/>
+                    </t>
+                    <t t-if="not company.state_id">
+                        <span t-field="company.partner_id.state_id.name"/>
+                    </t>                        
+                    <t t-if="company.phone">
+                        <span> - </span><span t-field="company.phone"/>
+                    </t>
+                    <t t-if="not company.phone">
+                        <span> - </span><span t-field="company.partner_id.phone"/>
+                    </t>
+                    <br/>
+                    <t t-if="o.branch_id.npwp">
+                        NPWP : <span t-field="o.branch_id.npwp"/>                   
+                    </t>
+                </div>
+                <div class="col-xs-6">
+                    <div class="pull-right">
+                        <h4><t t-esc="o.branch_id.name"/></h4>
+                        <t t-if="o.branch_id.street">
+                            <span t-field="o.branch_id.street"/>
+                        </t>
+                        <t t-if="not o.branch_id.street">
+                            <span t-field="o.branch_id.partner_id.street"/>
+                        </t>
+                        <br/>
+                        <t t-if="o.branch_id.state_id">
+                            <span t-field="o.branch_id.state_id.name"/>
+                        </t>
+                        <t t-if="not o.branch_id.state_id">
+                            <span t-field="o.branch_id.partner_id.state_id.name"/>
+                        </t>                        
+                        <t t-if="o.branch_id.phone">
+                            <span> - </span><span t-field="o.branch_id.phone"/>
+                        </t>
+                        <t t-if="not o.branch_id.phone">
+                            <span> - </span><span t-field="o.branch_id.partner_id.phone"/>
+                        </t>
+                    </div>
+                </div>
+                <div class="col-xs-12 text-center mb32"><h4>COST SHEET</h4></div>
+                <div class="row mt32 mb32">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <strong>Nomor Jual</strong>
+                        </div>
+                        <div class="col-xs-4">                        
+                            : <span t-field="o.nomor_faktur_jual"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <strong>Nomor Beli</strong>
+                        </div>
+                        <div class="col-xs-3">                        
+                            : <span t-field="o.nomor_faktur_beli"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <strong>Tanggal Jual</strong>
+                        </div>
+                        <div class="col-xs-4">                        
+                            : <t t-esc="o.branch_id.formatted_date(o.tanggal_faktur_jual)"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <strong>Tanggal Beli</strong>
+                        </div>
+                        <div class="col-xs-3">
+                            : <t t-if="o.tanggal_faktur_beli"><t t-esc="o.branch_id.formatted_date(o.tanggal_faktur_beli)"/></t>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <strong>Nomor Mesin</strong>
+                        </div>
+                        <div class="col-xs-4">                        
+                            : <span t-field="o.nomor_mesin"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <strong>Sistem Pembelian</strong>
+                        </div>
+                        <div class="col-xs-3">                        
+                            : <span t-field="o.sistem_pembelian"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <strong>Nomor Rangka</strong>
+                        </div>
+                        <div class="col-xs-4">                        
+                            : <span t-field="o.nomor_rangka"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <strong>Tipe Motor</strong>
+                        </div>
+                        <div class="col-xs-3">                        
+                            : <span t-field="o.tipe_motor"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <strong>Nama Konsumen</strong>
+                        </div>
+                        <div class="col-xs-4">                        
+                            : <span t-field="o.nama_konsumen"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <strong>Tunai / Kredit</strong>
+                        </div>
+                        <div class="col-xs-3">                        
+                            : <span t-field="o.tunai_kredit"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <strong>Alamat</strong>
+                        </div>
+                        <div class="col-xs-4">                        
+                            : <span t-field="o.alamat"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <strong>Sales Person</strong>
+                        </div>
+                        <div class="col-xs-3">                        
+                            : <span t-field="o.marketing_counter"/>
+                        </div>
+                    </div>
+                </div>      
+                <div class="row mt32 mb32">
+                    <strong>Penjualan Motor</strong><br/>
+                    <div class="col-xs-7">Harga Jual Motor<br/>
+                        <div class="col-xs-5">
+                            <span>Harga Jual</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.harga_jual_motor" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Disc. Konsumen</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.discount_konsumen" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Disc. Prog Intern</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.discount_prog_intern" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Disc. Prog Extern</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.discount_prog_extern" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <strong>Netto Jual</strong>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.netto_jual" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>PPN Keluaran</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.ppn_keluaran" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                    </div>
+                    <div class="col-xs-5">Harga Beli Motor<br/>
+                        <div class="col-xs-5">
+                            <span>Harga Standar</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.harga_standar" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>PPN Masukan</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.ppn_masukan" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <strong>Selisih Penjualan</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.selisih_penjualan" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                    </div>
+                    <div class="col-xs-5"><![CDATA[&nbsp;]]></div>
+                    <div class="col-xs-3">
+                        <strong>Selisih PPN</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.selisih_ppn" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                    </div>
+                </div>
+                <div class="row mt32 mb32">
+                    <div class="col-xs-7"><strong>STNK</strong><br/>
+                        <div class="col-xs-5">
+                            <span>Harga STNK MD</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.harga_stnk_md" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Harga STNK Birojasa</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.harga_stnk_birojasa" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Tambahan Pendapatan BBN</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.tambahan_pendapatan_bbn" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Tambahan Biaya BBN</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.tambahan_biaya_bbn" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <strong>Selisih STNK</strong>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.selisih_stnk" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                    </div>
+                    <div class="col-xs-5"><strong>Broker</strong><br/>
+                        <div class="col-xs-5">
+                            <span>Biaya Broker</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_broker" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt32 mb32">
+                    <div class="col-xs-7"><strong>Profit</strong><br/>
+                        <div class="col-xs-5">
+                            <span>Profit Penjualan (GP)</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.profit_penjualan" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Subsidi Leasing OI</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.subsidi_leasing_oi" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Insentif Leasing</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.insentif_leasing" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Beban Barang Subsidi</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.subsidi_barang" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                    </div>
+                    <div class="col-xs-5"><strong>Biaya Lain-lain</strong><br/>
+                        <t t-foreach="o.dym_biaya_lain" t-as="biaya_lain">
+                            <div class="col-xs-7">
+                                <span><t t-esc="biaya_lain.name"/></span>
+                            </div>
+                            <div class="col-xs-5">                        
+                                : <span t-field="biaya_lain.value" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                            </div>
+                        </t>
+                        <!-- <div class="col-xs-5">
+                            <span>Biaya Materai</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_materai" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya PDI</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_pdi" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya Gesekan</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_gesekan" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya SCTK</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_sctk" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya Aksesois</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_aksesoris" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya Angkut</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_angkut" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya Kirim</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_kirim" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div>
+                        <div class="col-xs-5">
+                            <span>Biaya Insentif</span>
+                        </div>
+                        <div class="col-xs-7">                        
+                            : <span t-field="o.biaya_insentif" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                        </div> -->
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Biaya Lain-lain</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.biaya_lain" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                    </div>
+                    <div class="col-xs-5"><![CDATA[&nbsp;]]></div>
+                    <div class="col-xs-3">
+                        <strong>Profit Lain-lain</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.profit_lain" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                    </div>
+                    <div class="col-xs-5"><![CDATA[&nbsp;]]></div>
+                    <div class="col-xs-3">
+                        <strong>Net Profit</strong>
+                    </div>
+                    <div class="col-xs-4">                        
+                        : <span t-field="o.net_profit" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                    </div>
+                </div>
+                <div class="row mt32 mb32">
+                    <div class="col-xs-7">
+                        <strong>Dibuat Oleh,</strong>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <strong><span t-field="o.create_uid"/></strong>
+                    </div>
+                    <div class="col-xs-5">
+                        <strong>Diketahui,</strong>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <strong><span t-field="o.confirm_uid"/></strong>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

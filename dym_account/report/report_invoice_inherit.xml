@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_trialbalance_inherit" inherit_id="account.report_trialbalance">
+            <xpath expr="//table[@class='table table-condensed']" position="replace">
+                <table class="table table-condensed small small">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Account</th>
+                            <th>AnalyticR</th>
+                            <th class="text-right">Debit</th>
+                            <th class="text-right">Credit</th>
+                            <th class="text-right">Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="res_company.lines(data['form'])" t-as="childrenaccount">
+                            <t t-if="childrenaccount['type'] == 'view'">
+                                <t t-set="style" t-value="'font-weight:bold;'" />
+                            </t>
+                            <t t-if="childrenaccount['type'] != 'view'">
+                                <t t-set="style" t-value="'font-weight:normal;'" />
+                            </t>
+                            <td>
+                                <span t-att-style="style" t-esc="childrenaccount['code']" />
+                            </td>
+                            <td>
+                                <span style="color: white;" t-esc="'.' * (childrenaccount['level'] - 1)" />
+                                <span t-att-style="style" t-esc="childrenaccount['name']" />
+                            </td>
+                            <td>
+                                <span t-att-style="style" t-esc="childrenaccount['analytic']" />
+                            </td>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="childrenaccount['debit']" />
+                            </td>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="childrenaccount['credit']" />
+                            </td>
+                            <td class="text-right">
+                                <span t-att-style="style" t-esc="formatLang(childrenaccount['balance'], currency_obj=res_company.currency_id)" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>
+        </template>
+        <template id="report_ledger_inherit" inherit_id="account.report_generalledger">
+            <xpath expr="//table[@class='table table-condensed']" position="replace">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Date</th>
+                            <th>JRNL</th>
+                            <th>Analytic</th>
+                            <th>Partner</th>
+                            <th>Ref</th>
+                            <th>Move</th>
+                            <th>Entry Label</th>
+                            <th>Counterpart</th>
+                            <th>Debit</th>
+                            <th>Credit</th>
+                            <th>Balance</th>
+                            <th t-if="data['form']['amount_currency']">Currency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="get_children_accounts(o)" t-as="childrenaccount">
+                            <tr style="font-weight: bold;">
+                                <td colspan="8">
+                                    <span style="color: white;" t-esc="'..'* (childrenaccount['level'] - 1)" />
+                                    <span t-esc="childrenaccount['code']" />
+                                    <span t-esc="childrenaccount['name']" />
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="formatLang(sum_debit_account(childrenaccount), digits=get_digits(dp='Account'), currency_obj=res_company.currency_id)" />
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="formatLang(sum_credit_account(childrenaccount), digits=get_digits(dp='Account'), currency_obj=res_company.currency_id)" />
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="formatLang(sum_balance_account(childrenaccount), digits=get_digits(dp='Account'), currency_obj=res_company.currency_id)" />
+                                </td>
+                                <td class="text-right" t-if="data['form']['amount_currency']">
+                                    <span t-esc="formatLang(sum_currency_amount_account(childrenaccount), digits=get_digits(dp='Account')) if sum_currency_amount_account(childrenaccount) > 0.00 else ''" />
+                                </td>
+                            </tr>
+                            <tr t-foreach="lines(childrenaccount)" t-as="line">
+                                <td><span t-esc="formatLang(line['ldate'], date=True)" /></td>
+                                <td><span t-esc="line['lcode']" /></td>
+                                <td><span t-esc="o.get_analytic(line['lid'])" /></td>
+                                <td><span t-esc="line['partner_name']" /></td>
+                                <td><span t-if="line['lref']" t-esc="line['lref']" /></td>
+                                <td><span t-esc="line['move']" /></td>
+                                <td><span t-esc="line['lname']" /></td>
+                                <td><span t-esc="line['line_corresp'].replace(',',', ')" /></td>
+                                <td class="text-right">
+                                    <span t-esc="formatLang(line['debit'], digits=get_digits(dp='Account'), currency_obj=res_company.currency_id)" />
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="formatLang(line['credit'], digits=get_digits(dp='Account'), currency_obj=res_company.currency_id)" />
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="formatLang(line['progress'], digits=get_digits(dp='Account'), currency_obj=res_company.currency_id)" />
+                                </td>
+                                <td class="text-right" t-if="data['form']['amount_currency']">
+                                    <span t-esc="formatLang(line['amount_currency'], digits=get_digits(dp='Account')) if line['amount_currency'] > 0.00 else ''" />
+                                    <span t-esc="line['currency_code'] if line['amount_currency'] > 0.00 else ''" />
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </xpath>
+        </template>
+    </data>
+</openerp>

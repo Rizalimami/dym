@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="barang_pindahan_report_template">
+    <t t-call="report.html_container">    
+        <t t-call="report.internal_layout">
+            <div class="page">
+                <div class="oe_structure"/>
+                <h2>Laporan Pindahan Barang</h2>
+
+                <div class="row mt32 mb32">
+                    <div class="col-xs-12">
+                        <strong>Company:</strong><br/>
+                        <t t-if="company">
+                            <span t-esc="company"/>
+                        </t>
+                        <t t-if="not company">
+                            <span>-</span>
+                        </t>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Branch:</strong><br/>
+                        <t t-if="branch_id">
+                            <span t-esc="branch_id"/>
+                        </t>
+                        <t t-if="not branch_id">
+                            <span>-</span>
+                        </t>
+                    </div>
+                </div>                
+                <t t-if="not lots">
+                    <h3><span>Record Not Found</span></h3>
+                </t>
+                <table class="table table-condensed" t-if="lots">
+                    <thead>
+                        <tr>
+                            <th><strong>Branch</strong></th>
+                            <th><strong>Product</strong></th>
+                            <th><strong>Engine Number</strong></th>
+                            <th><strong>Chassis Number</strong></th>
+                            <th><strong>Location Now</strong></th>
+                            <th><strong>Location Before</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="current_product" t-value="0"/>
+                        <t t-foreach="lots" t-as="res">
+                            <t t-set="location_before" t-value="res.get_location_before(res.id)"/>
+                            <!-- <t t-if="location_before != '-'"> -->
+                                <t t-if="res.product_id.id!=current_product">
+                                    <t t-set="current_product" t-value="res.product_id.id"/>
+                                    <tr>
+                                        <td colspan="6"><strong><t t-esc="res.product_id.name"/></strong></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>
+                                        <span><span t-field="res.branch_id"/></span>
+                                    </td>
+                                    <td>
+                                        <span><t t-esc="res.product_id.name"/></span>
+                                    </td>
+                                    <td>
+                                        <span><span t-field="res.name"/></span>
+                                    </td>
+                                    <td>
+                                        <span><t t-esc="res.chassis_code"/><t t-esc="res.chassis_no"/></span>
+                                    </td>
+                                    <td>
+                                        <span><t t-esc="res.location_id.location_id.name"/>/<t t-esc="res.location_id.name"/></span>
+                                    </td>
+                                    <td>
+                                        <span><t t-esc="location_before"/></span>
+                                    </td>
+                                </tr>
+                            <!-- </t> -->
+                        </t>
+                    </tbody>
+                </table>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

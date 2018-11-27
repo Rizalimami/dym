@@ -1,0 +1,345 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="1">
+        <record model="ir.module.category" id="module_category_dym">
+            <field name="name">Daya Motor</field>
+            <field name="description">Main roles...</field>
+            <field name="sequence">9</field>
+        </record>
+        <record model="ir.module.category" id="module_category_dym_extra">
+            <field name="name">Daya Motor Extra</field>
+            <field name="description">Extra roles</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="group_dym_accounting_dept_head" model="res.groups">
+            <field name="name">Accounting Dept Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_accounting_ho" model="res.groups">
+            <field name="name">Accounting HO</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_accounting_inventory" model="res.groups">
+            <field name="name">Accounting Inventory</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_accounting_sec_head" model="res.groups">
+            <field name="name">Accounting Sec Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_accounting_sub_dept_head" model="res.groups">
+            <field name="name">Accounting Sub Dept Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_admin_banking" model="res.groups">
+            <field name="name">Admin Banking</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_admin_h1" model="res.groups">
+            <field name="name">Admin H1</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_admin_h23" model="res.groups">
+            <field name="name">Admin H23</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_aftersales_div_head" model="res.groups">
+            <field name="name">Aftersales Div Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_app_finance_ap" model="res.groups">
+            <field name="name">App Finance AP</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_app_finance_stnk" model="res.groups">
+            <field name="name">App Finance STNK</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_app_incentive" model="res.groups">
+            <field name="name">App Incentive</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_app_opex" model="res.groups">
+            <field name="name">App OPEX</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_area_manager" model="res.groups">
+            <field name="name">Area Manager</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_area_supervisor" model="res.groups">
+            <field name="name">Area Supervisor</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_branch_control" model="res.groups">
+            <field name="name">Branch Control</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_ceo" model="res.groups">
+            <field name="name">CEO</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_adh" model="res.groups">
+            <field name="name">ADH</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_counter_part" model="res.groups">
+            <field name="name">Counter Part</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_counter_sales" model="res.groups">
+            <field name="name">Counter Sales</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_fatb_div_head" model="res.groups">
+            <field name="name">FATB Div Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_finance_dept_head" model="res.groups">
+            <field name="name">Finance Dept Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_finance_sec_head" model="res.groups">
+            <field name="name">Finance Sec Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_finance_sub_dept_head" model="res.groups">
+            <field name="name">Finance Sub Dept Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_ga_administrasi" model="res.groups">
+            <field name="name">GA Administrasi</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_ga_purchasing" model="res.groups">
+            <field name="name">GA Purchasing</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_hr_staff" model="res.groups">
+            <field name="name">HR Staff</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_hrga_dept_head" model="res.groups">
+            <field name="name">HRGA Dept Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_it_dept_head" model="res.groups">
+            <field name="name">IT Dept Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_it_helpdesk" model="res.groups">
+            <field name="name">IT Helpdesk</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_inventory_h1" model="res.groups">
+            <field name="name">Inventory H1</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_inventory_h23" model="res.groups">
+            <field name="name">Inventory H23</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_kasir_h1" model="res.groups">
+            <field name="name">Kasir H1</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_kasir_h123" model="res.groups">
+            <field name="name">Kasir H123</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_kasir_h23" model="res.groups">
+            <field name="name">Kasir H23</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_kepala_bengkel" model="res.groups">
+            <field name="name">Kepala Bengkel</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_kepala_cabang" model="res.groups">
+            <field name="name">Kepala Cabang</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_kepala_depo" model="res.groups">
+            <field name="name">Kepala Depo</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_kepala_mekanik" model="res.groups">
+            <field name="name">Kepala Mekanik</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_marketing_analyst_unit" model="res.groups">
+            <field name="name">Marketing Analyst Unit</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_marketing_executive" model="res.groups">
+            <field name="name">Marketing Executive</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_marketing_sub_div_head" model="res.groups">
+            <field name="name">Marketing Sub Div Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_marketing_trainee" model="res.groups">
+            <field name="name">Marketing Trainee</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_mekanik" model="res.groups">
+            <field name="name">Mekanik</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_mekanik_magang" model="res.groups">
+            <field name="name">Mekanik Magang</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_operation_div_head" model="res.groups">
+            <field name="name">Operation Div Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_operation_sub_div_head" model="res.groups">
+            <field name="name">Operation Sub Div Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_operation_support_div_head" model="res.groups">
+            <field name="name">Operation Support Div Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_pic_ap" model="res.groups">
+            <field name="name">PIC AP</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_pic_incentive" model="res.groups">
+            <field name="name">PIC Incentive</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_pic_opex" model="res.groups">
+            <field name="name">PIC OPEX</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_pic_purchasing" model="res.groups">
+            <field name="name">PIC Purchasing</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_pic_stnk" model="res.groups">
+            <field name="name">PIC STNK</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_pic_tax" model="res.groups">
+            <field name="name">PIC TAX</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_part_acc_analyst" model="res.groups">
+            <field name="name">Part Acc Analyst</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_part_acc_dept_head" model="res.groups">
+            <field name="name">Part Acc Dept Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_sales_advisor" model="res.groups">
+            <field name="name">Sales Advisor</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_section_banking" model="res.groups">
+            <field name="name">Section Banking</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_service_dept_head" model="res.groups">
+            <field name="name">Service Dept Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_service_sub_dept_head" model="res.groups">
+            <field name="name">Service Sub Dept Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_sub_dept_head_aftersales" model="res.groups">
+            <field name="name">Sub Dept Head Aftersales</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_tax_dept_head" model="res.groups">
+            <field name="name">Tax Dept Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_tax_ho" model="res.groups">
+            <field name="name">Tax HO</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_treasury_sec_head" model="res.groups">
+            <field name="name">Treasury Sec Head</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_treasury_staff" model="res.groups">
+            <field name="name">Treasury Staff</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+        <record id="group_dym_workshop_analyst" model="res.groups">
+            <field name="name">Workshop Analyst</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="module_category_dym" />
+        </record>
+    </data>
+</openerp>

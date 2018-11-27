@@ -1,0 +1,4 @@
+import res_partner
+# import branch_config
+import insurance_batch_import
+import insurance_batch_import_approval

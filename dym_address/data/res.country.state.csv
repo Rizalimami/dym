@@ -1,0 +1,35 @@
+id,code,country_id/id,name
+dym_address.province_id_1100,1100,base.id,NANGGROE ACEH DARUSSALAM
+dym_address.province_id_1200,1200,base.id,SUMATERA UTARA
+dym_address.province_id_1300,1300,base.id,SUMATERA BARAT
+dym_address.province_id_1400,1400,base.id,RIAU
+dym_address.province_id_1500,1500,base.id,JAMBI
+dym_address.province_id_1600,1600,base.id,SUMATERA SELATAN
+dym_address.province_id_1700,1700,base.id,BENGKULU
+dym_address.province_id_1800,1800,base.id,LAMPUNG
+dym_address.province_id_1900,1900,base.id,BANGKA BELITUNG
+dym_address.province_id_2100,2100,base.id,KEPULAUAN RIAU
+dym_address.province_id_3100,3100,base.id,DKI JAKARTA
+dym_address.province_id_3200,3200,base.id,JAWA BARAT
+dym_address.province_id_3300,3300,base.id,JAWA TENGAH
+dym_address.province_id_3400,3400,base.id,D I YOGYAKARTA
+dym_address.province_id_3500,3500,base.id,JAWA TIMUR
+dym_address.province_id_3600,3600,base.id,BANTEN
+dym_address.province_id_5100,5100,base.id,BALI
+dym_address.province_id_5200,5200,base.id,NUSA TENGGARA BARAT
+dym_address.province_id_5300,5300,base.id,NUSA TENGGARA TIMUR
+dym_address.province_id_6100,6100,base.id,KALIMANTAN BARAT
+dym_address.province_id_6200,6200,base.id,KALIMANTAN TENGAH
+dym_address.province_id_6300,6300,base.id,KALIMANTAN SELATAN
+dym_address.province_id_6400,6400,base.id,KALIMANTAN TIMUR
+dym_address.province_id_6500,6500,base.id,KALIMANTAN UTARA
+dym_address.province_id_7100,7100,base.id,SULAWESI UTARA
+dym_address.province_id_7200,7200,base.id,SULAWESI TENGAH
+dym_address.province_id_7300,7300,base.id,SULAWESI SELATAN
+dym_address.province_id_7400,7400,base.id,SULAWESI TENGGARA
+dym_address.province_id_7500,7500,base.id,GORONTALO
+dym_address.province_id_7600,7600,base.id,SULAWESI BARAT
+dym_address.province_id_8100,8100,base.id,MALUKU
+dym_address.province_id_8200,8200,base.id,MALUKU UTARA
+dym_address.province_id_9100,9100,base.id,IRIAN JAYA BARAT
+dym_address.province_id_9400,9400,base.id,PAPUA

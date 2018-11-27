@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_purchase_discount_distribute" model="ir.ui.view">
+            <field name="name">Purchase Discount Distribute</field>
+            <field name="model">purchase.discount.distribute</field>
+            <field name="arch" type="xml">
+                <form string="Distribute Discount">
+                    <label string="You are going to distribute global discount given by supplier. Please select to which product in the invoice are you going to distribute it." />
+                    <newline/>
+                    <group>
+                        <group>
+                            <field name="discount_amount" />
+                        </group>
+                        <group>
+                            <field name="discount_type" />
+                        </group>
+                    </group>
+                    <field name="invoice_line" options="{'no_create':True,'no_delete':True,'no_open':True}">
+                        <tree string="invoice_line" editable="bottom">
+                            <field name="invoice_line_id" readonly="1" />
+                            <field name="sequence" invisible="1" />
+                            <field name="invoice_id" invisible="1" />
+                            <field name="uos_id" invisible="1" />
+                            <field name="product_id" readonly="1" />
+                            <field name="quantity" readonly="1" />
+                            <field name="discount" sum="Discount" />
+                            <field name="price_unit" readonly="1" sum="Price" />
+                            <field name="price_subtotal" readonly="1" sum="Total" />
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="distribute_it" string="Save" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_purchase_discount_distribute" model="ir.actions.act_window">
+            <field name="name">Purchase Discount Distribute</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.discount.distribute</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_purchase_discount_distribute" />
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

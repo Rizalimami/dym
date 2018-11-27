@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_branch_config_bank_transfer_form_view">
+            <field name="name">dym.branch.config.bank.transfer.form.view</field>
+            <field name="model">dym.branch.config</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_config_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <group string="Bank Transfer" col="2">
+                        <field name="bank_transfer_fee_account_id" />
+                        <field name="banktransfer_mit" />
+                        <field name="bank_withdrawal_mit_account_id" attrs="{'invisible':[('banktransfer_mit','=',False)],'required': [('banktransfer_mit','=',True)]}" />
+                        <field name="bank_deposit_mit_account_id" attrs="{'invisible':[('banktransfer_mit','=',False)],'required': [('banktransfer_mit','=',True)]}" />
+                        <field name="bank_transfer_mit_account_id" attrs="{'invisible':[('banktransfer_mit','=',False)],'required': [('banktransfer_mit','=',True)]}" />
+                        <field name="bank_account_in_default" />
+                        <field name="bank_account_out_default" />
+                    </group>
+                </xpath>
+                <xpath expr="//form/sheet" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <record id="dym_branch_config_dsr" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dsr"/>
+        </record>
+    
+        <record id="dym_branch_config_djj" model="dym.branch.config">
+           <field name="branch_id" ref="branch_djj"/>
+        </record>
+    
+        <record id="dym_branch_config_djb" model="dym.branch.config">
+           <field name="branch_id" ref="branch_djb"/>
+        </record>
+    
+        <record id="dym_branch_config_djs" model="dym.branch.config">
+           <field name="branch_id" ref="branch_djs"/>
+        </record>
+    
+        <record id="dym_branch_config_djm" model="dym.branch.config">
+           <field name="branch_id" ref="branch_djm"/>
+        </record>
+    
+        <record id="dym_branch_config_dju" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dju"/>
+        </record>
+    
+        <record id="dym_branch_config_dsm" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dsm"/>
+        </record>
+    
+        <record id="dym_branch_config_dsg" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dsg"/>
+        </record>
+    
+        <record id="dym_branch_config_dsb" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dsb"/>
+        </record>
+    
+        <record id="dym_branch_config_dsp" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dsp"/>
+        </record>
+    
+        <record id="dym_branch_config_dsk" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dsk"/>
+        </record>
+    
+        <record id="dym_branch_config_dup" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dup"/>
+        </record>
+    
+        <record id="dym_branch_config_duk" model="dym.branch.config">
+           <field name="branch_id" ref="branch_duk"/>
+        </record>
+    
+        <record id="dym_branch_config_dle" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dle"/>
+        </record>
+    
+        <record id="dym_branch_config_dlp" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlp"/>
+        </record>
+    
+        <record id="dym_branch_config_dlm" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlm"/>
+        </record>
+    
+        <record id="dym_branch_config_dlh" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlh"/>
+        </record>
+    
+        <record id="dym_branch_config_dlx" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlx"/>
+        </record>
+    
+        <record id="dym_branch_config_dll" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dll"/>
+        </record>
+    
+        <record id="dym_branch_config_dld" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dld"/>
+        </record>
+    
+        <record id="dym_branch_config_dlf" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlf"/>
+        </record>
+    
+        <record id="dym_branch_config_dlv" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlv"/>
+        </record>
+    
+        <record id="dym_branch_config_dlq" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlq"/>
+        </record>
+    
+        <record id="dym_branch_config_dlc" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlc"/>
+        </record>
+    
+        <record id="dym_branch_config_dly" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dly"/>
+        </record>
+    
+        <record id="dym_branch_config_dlw" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlw"/>
+        </record>
+    
+        <record id="dym_branch_config_dlu" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlu"/>
+        </record>
+    
+        <record id="dym_branch_config_dlt" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlt"/>
+        </record>
+    
+        <record id="dym_branch_config_dls" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dls"/>
+        </record>
+    
+        <record id="dym_branch_config_dlo" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlo"/>
+        </record>
+    
+        <record id="dym_branch_config_dln" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dln"/>
+        </record>
+    
+        <record id="dym_branch_config_dlk" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlk"/>
+        </record>
+    
+        <record id="dym_branch_config_dlj" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlj"/>
+        </record>
+    
+        <record id="dym_branch_config_dli" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dli"/>
+        </record>
+    
+        <record id="dym_branch_config_dlg" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlg"/>
+        </record>
+    
+        <record id="dym_branch_config_dlb" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlb"/>
+        </record>
+    
+        <record id="dym_branch_config_dla" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dla"/>
+        </record>
+    
+        <record id="dym_branch_config_dlr" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlr"/>
+        </record>
+    
+        <record id="dym_branch_config_hho" model="dym.branch.config">
+           <field name="branch_id" ref="branch_hho"/>
+        </record>
+    
+        <record id="dym_branch_config_mml" model="dym.branch.config">
+           <field name="branch_id" ref="branch_mml"/>
+        </record>
+    
+        <record id="dym_branch_config_dbl" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dbl"/>
+        </record>
+    
+        <record id="dym_branch_config_dbk" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dbk"/>
+        </record>
+    
+        <record id="dym_branch_config_dbb" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dbb"/>
+        </record>
+    
+        <record id="dym_branch_config_dbs" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dbs"/>
+        </record>
+    
+        <record id="dym_branch_config_dbt" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dbt"/>
+        </record>
+    
+        <record id="dym_branch_config_dds" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dds"/>
+        </record>
+    
+        <record id="dym_branch_config_ddc" model="dym.branch.config">
+           <field name="branch_id" ref="branch_ddc"/>
+        </record>
+    
+        <record id="dym_branch_config_ddb" model="dym.branch.config">
+           <field name="branch_id" ref="branch_ddb"/>
+        </record>
+    
+        <record id="dym_branch_config_dda" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dda"/>
+        </record>
+    
+        <record id="dym_branch_config_ddd" model="dym.branch.config">
+           <field name="branch_id" ref="branch_ddd"/>
+        </record>
+    
+        <record id="dym_branch_config_dde" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dde"/>
+        </record>
+    
+        <record id="dym_branch_config_ddg" model="dym.branch.config">
+           <field name="branch_id" ref="branch_ddg"/>
+        </record>
+    
+        <record id="dym_branch_config_ddm" model="dym.branch.config">
+           <field name="branch_id" ref="branch_ddm"/>
+        </record>
+    
+        <record id="dym_branch_config_ddj" model="dym.branch.config">
+           <field name="branch_id" ref="branch_ddj"/>
+        </record>
+    
+        <record id="dym_branch_config_ddt" model="dym.branch.config">
+           <field name="branch_id" ref="branch_ddt"/>
+        </record>
+    
+        <record id="dym_branch_config_ddi" model="dym.branch.config">
+           <field name="branch_id" ref="branch_ddi"/>
+        </record>
+    
+        <record id="dym_branch_config_dxk" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dxk"/>
+        </record>
+    
+        <record id="dym_branch_config_dxt" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dxt"/>
+        </record>
+    
+        <record id="dym_branch_config_dxs" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dxs"/>
+        </record>
+    
+        <record id="dym_branch_config_dxg" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dxg"/>
+        </record>
+    
+        <record id="dym_branch_config_dxb" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dxb"/>
+        </record>
+    
+        <record id="dym_branch_config_dxn" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dxn"/>
+        </record>
+    
+        <record id="dym_branch_config_dwt" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dwt"/>
+        </record>
+    
+        <record id="dym_branch_config_dwr" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dwr"/>
+        </record>
+    
+        <record id="dym_branch_config_dwp" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dwp"/>
+        </record>
+    
+        <record id="dym_branch_config_dwo" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dwo"/>
+        </record>
+    
+        <record id="dym_branch_config_dwk" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dwk"/>
+        </record>
+    
+        <record id="dym_branch_config_dws" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dws"/>
+        </record>
+    
+        <record id="dym_branch_config_dwg" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dwg"/>
+        </record>
+    
+        <record id="dym_branch_config_dwm" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dwm"/>
+        </record>
+    
+        <record id="dym_branch_config_dwn" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dwn"/>
+        </record>
+    
+        <record id="dym_branch_config_ddu" model="dym.branch.config">
+           <field name="branch_id" ref="branch_ddu"/>
+        </record>
+    
+        <record id="dym_branch_config_dlz" model="dym.branch.config">
+           <field name="branch_id" ref="branch_dlz"/>
+        </record>
+    
+        <record id="dym_branch_config_hhp" model="dym.branch.config">
+           <field name="branch_id" ref="branch_hhp"/>
+        </record>
+    </data>
+  </openerp>

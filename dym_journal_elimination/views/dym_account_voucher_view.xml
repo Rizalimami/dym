@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_bank_transaction_out_intercompany_ref_form_inherit">
+            <field name="name">dym.bank.out.intercompany</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="dym_bank_in_out.view_bank_transaction_out_form" />
+            <field name="arch" type="xml">
+                <field name="reference" position="after">
+                    <field name="intercom_ref_id" readonly="1" options="{'no_create': True,'no_open':True}"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_bank_transaction_in_intercompany_ref_form_inherit">
+            <field name="name">dym.bank.in.intercompany</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="dym_bank_in_out.view_bank_transaction_in_form" />
+            <field name="arch" type="xml">
+                <field name="reference" position="after">
+                    <field name="intercom_ref_id" options="{'no_create': True,'no_open':True}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">  	
+    	
+<!-- Laporan Penerimaan Unit -->	
+        <record id="group_laporan_penerimaan_unit_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Penerimaan Unit Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_penerimaan_unit_report'))]"/>  
+        </record>         
+   
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[(4,ref('group_laporan_penerimaan_unit_menu'))
+                                            ]"/> 
+		</record>              
+        <record id="access_laporan_penerimaan_unit_all" model="ir.model.access">
+            <field name="model_id" ref="model_dym_report_penerimaan_unit_wizard"/>
+            <field name="name">dym_report_penerimaan_unit_wizard all</field> 
+            <field name="perm_read">1</field> 
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field> 
+            <field name="perm_unlink">1</field> 
+        </record>                                                                              
+    </data>
+</openerp>

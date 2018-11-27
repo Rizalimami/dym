@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="template_report_bast_kpbclaim">
+    <style type="text/css">
+        .tag_container {
+            margin: auto;
+            margin-bottom: 50px;
+            border: 1px solid black;
+        }
+        
+        .no_border {
+            border: 0px !important;
+        }
+        
+        .margin_bottom {
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+        }
+        
+        .border_top {
+            border-top: 1px solid black !important;
+        }
+        
+        .border_bottom {
+            border-bottom: 1px solid black !important;
+        }
+                        
+        .page,
+        .header,
+        .footer,
+        .table {
+            font-size: 10px !important;
+        }
+
+        .hr {
+            border-top: 1px solid black !important;
+        }
+
+        .text_up{
+            text-transform: uppercase;
+        }
+
+        .text_bold{
+            font-weight: bold;
+        }
+
+        .text_head{
+            font-size: 14px;
+        }
+
+        .table_titikdua{
+            text-align:center;
+            width:20px;
+        }
+
+        .table_margintop{
+            margin-top: 20px !important;
+        }
+
+        .tableap td, .tableap th {
+            padding: 0px !important;
+        }
+
+    </style>
+    <t t-call="report.html_container">
+		<t t-foreach="docs" t-as="o">
+        	<t t-if="o and 'company_id' in o"><t t-set="company" t-value="o.company_id"></t></t>
+		    <t t-if="not o or not 'company_id' in o"><t t-set="company" t-value="res_company"></t></t>
+            <div class="page">
+            	<div class="row">
+                    <div class="col-xs-7">
+                        <span class="text_up text_head"><t t-esc="company.name"/> - <span t-field="o.branch_id.name" /></span><br/>
+                        <span><span t-field="o.branch_id.street"/></span>
+                    </div>
+
+                    <div class="col-xs-5">
+                        <span class="text_up text_head text_bold">BERITA ACARA SERAH TERIMA</span><br/>
+                        <table>
+                            <tr>
+                                <td width="50">Nomor</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.name" /></td>
+                            </tr>
+                            <tr>
+                                <td width="50">Tanggal</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.date" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <hr class="border_top"/>
+
+                <div class="row">
+                    <div class="col-xs-7">
+                        <table>
+                            <tr>
+                                <td width="80">Kepada Yth.</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.supplier_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td width="80">Kode AHM MD</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.branch_id.ahm_code"/></td>
+                            </tr>
+                            <tr>
+                                <td width="80">Alamat</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.supplier_id.street"/></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="col-xs-5">
+                        <table>
+                            <tr>
+                                <td width="80">No. Claim MD</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span t-field="o.supplier_ref"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+	            <div class="row">
+	                <div class="col-xs-12">
+	                    <table class="table tableap table_margintop">
+	                        <thead>
+	                            <tr>
+	                                <td width="20"><strong>No.</strong></td>
+                                    <td><strong>Kategori</strong></td>
+	                                <td><strong>KPB Ke</strong></td>
+	                                <td><strong>Qty</strong></td>
+	                                <td><strong>Jasa</strong></td>
+                                    <t t-if="use_oli"><td><strong>Oli</strong></td></t>
+                                    <td><strong>Kompensasi Oli</strong></td>
+                                    <td><strong>Total Jasa</strong></td>
+                                    <t t-if="use_oli"><td><strong>Total Oli</strong></td></t>
+                                    <td><strong>Total Kompensasi Oli</strong></td>
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+                                <t t-set="no" t-value="0"/>
+                                <t t-foreach="o.collecting_line2" t-as="line">
+                                    <t t-set="no" t-value="no+1"/>
+                                    <tr>
+                                        <td width="20"><t t-esc="no"/></td>
+                                        <td><span t-field="line.categ"/></td>
+                                        <td><span t-field="line.kpb_ke"/></td>
+                                        <td><span t-field="line.qty"/></td>
+                                        <td><span t-field="line.jasa"/></td>
+                                        <t t-if="use_oli"><td><span t-field="line.oli"/></td></t>
+                                        <td><span t-field="line.kompensasi"/></td>
+                                        <td><span t-field="line.total_jasa"/></td>
+                                        <t t-if="use_oli"><td><span t-field="line.total_oli"/></td></t>
+                                        <td><span t-field="line.total_kompensasi"/></td>
+                                    </tr>
+                                </t>
+
+	                        </tbody>
+	                    </table>
+	                </div>
+	            </div>
+
+                <hr class="border_top"/>
+
+                <div class="row">
+                    <div class="col-xs-4">
+                       <span>Diserahkan Oleh:</span><br/><br/><br/><br/>
+                       <span><b><span t-esc="o._get_adh(o.branch_id.id)"/></b></span><br/>
+                       Tanggal: <span t-field="o.date"/><br/>
+                    </div>
+
+                    <div class="col-xs-4">
+                       <span>Telah diterima dengan kondisi baik dan lengkap oleh:</span><br/><br/><br/><br/>
+                       <span><b>Bagian KPB Main Dealer</b></span><br/>
+                    </div>
+
+                </div>
+
+                <hr class="border_top"/>
+
+                <div class="row">
+                    <div class="col-xs-7">
+                        Lembar ke-1 Arsip Cabang / Lembar ke-2 Main Dealer
+                    </div>
+                </div>
+
+	        </div>
+	    </t>
+	</t>
+</template>
+</data>
+</openerp>

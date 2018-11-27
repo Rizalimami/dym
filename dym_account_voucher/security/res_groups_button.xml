@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Customer Payment RFA  -->
+        <record id="group_dym_account_voucher_rfa" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">CPA Validate/RFA</field>
+        </record>
+        <!-- Customer Payment Cancel Approval -->
+        <record id="group_dym_account_voucher_cancel_approval" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">CPA Cancel Approval</field>
+        </record>
+        <!-- Customer Payment Approve -->
+        <record id="group_dym_account_voucher_approve_approval" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">CPA Approve Approval</field>
+        </record>
+        <!-- Customer Payment Cancel -->
+        <record id="group_dym_account_voucher_cancel_receipt" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">CPA Cancel Receipt</field>
+        </record>
+        <!-- Customer Payment Reconcile -->
+        <record id="group_dym_account_voucher_reconcile" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">CPA Unreconcile</field>
+        </record>
+        <!-- Customer Payment Set to Draft -->
+        <record id="group_dym_account_voucher_to_draft" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">CPA Set to Draft</field>
+        </record>
+        <!-- Supplier Payment RFA  -->
+        <record id="group_dym_account_voucher_supplier_rfa" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">SPA RFA</field>
+        </record>
+        <!-- Supplier Payment Cancel Approval -->
+        <record id="group_dym_account_voucher_cancel_supplier_approval" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">SPA Cancel Approval</field>
+        </record>
+        <!-- Supplier Payment Unreconcile -->
+        <record id="group_dym_account_voucher_supplier_unreconcile" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">SPA Unreconcile</field>
+        </record>
+        <!-- Supplier Payment Cancel Voucher -->
+        <record id="group_dym_account_voucher_cancel_voucher" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">SPA Cancel Voucher</field>
+        </record>
+        <!-- Supplier Payment Confirm -->
+        <record id="group_dym_account_voucher_supplier_confirm_after_approval" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">SPA Confirm After Approval</field>
+        </record>
+        <record id="base.group_system" model="res.groups">
+            <field name="implied_ids" eval="[
+                (4,ref('group_dym_account_voucher_rfa')),
+                (4,ref('group_dym_account_voucher_cancel_approval')),
+                (4,ref('group_dym_account_voucher_approve_approval')),
+                (4,ref('group_dym_account_voucher_cancel_receipt')),
+                (4,ref('group_dym_account_voucher_to_draft')),
+                (4,ref('group_dym_account_voucher_supplier_rfa')),
+                (4,ref('group_dym_account_voucher_cancel_supplier_approval')),
+                (4,ref('group_dym_account_voucher_supplier_unreconcile')),
+                (4,ref('group_dym_account_voucher_cancel_voucher')),                                                                
+                ]">
+            </field>
+        </record>
+    </data>
+</openerp>

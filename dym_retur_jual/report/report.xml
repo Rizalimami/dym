@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paper_format_retur_penjualan" model="report.paperformat">
+            <field name="name">Retur Penjualan Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">31</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_retur_penjualan_report"
+            string="Retur Penjualan"
+            model="dym.retur.jual"
+            report_type="qweb-pdf"
+            name="dym_retur_jual.report_retur_jual_template"
+            file="dym_retur_jual.report_retur_jual_template"
+        />
+
+        <record id="dym_retur_penjualan_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_retur_jual.paper_format_retur_penjualan"/>
+        </record>
+
+    </data>
+</openerp>

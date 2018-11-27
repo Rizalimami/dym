@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="dym_branch_config_stock_view" model="ir.ui.view">
+            <field name="name">dym.branch.config.stock.view</field>
+            <field name="model">dym.branch.config</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_config_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <group string="Penerimaan Gudang">
+                        <field name="freight_cost_journal_id" domain="[('type','=','purchase')]" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

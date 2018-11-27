@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_penerimaan_faktur_all,dym_penerimaan_faktur all,model_dym_penerimaan_faktur,,1,1,1,1
+access_dym_penerimaan_faktur_line_all,dym_penerimaan_faktur_line all,model_dym_penerimaan_faktur_line,,1,1,1,1
+access_dym_penyerahan_faktur_all,dym_penyerahan_faktur all,model_dym_penyerahan_faktur,,1,1,1,1
+access_dym_penyerahan_faktur_line_all,dym_penyerahan_faktur_line all,model_dym_penyerahan_faktur_line,,1,1,1,1
+access_dym_permohonan_faktur_all,dym_permohonan_faktur all,model_dym_permohonan_faktur,,1,1,1,1
+access_dym_permohonan_faktur_reject,access_dym_permohonan_faktur_reject,model_dym_permohonan_faktur_reject,,1,0,0,0

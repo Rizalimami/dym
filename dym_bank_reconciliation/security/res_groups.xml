@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="group_dym_bank_reconciliation_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Bank Reconciliation Read</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_bank_reconciliation_menu'))
+                                            ]" />
+        </record>
+        <record id="access_dym_bank_reconciliation_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_reconciliation" />
+            <field name="name">dym_bank_reconciliation read</field>
+            <field name="group_id" ref="group_dym_bank_reconciliation_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_dym_bank_reconciliation_line_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_reconciliation_line" />
+            <field name="name">dym_bank_reconciliation_line read</field>
+            <field name="group_id" ref="group_dym_bank_reconciliation_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_move_line_read" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line" />
+            <field name="name">account_move_line read</field>
+            <field name="group_id" ref="group_dym_bank_reconciliation_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="group_dym_bank_reconciliation_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Bank Reconciliation Update</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_bank_reconciliation_menu'))
+                                            ]" />
+            <field name="implied_ids" eval="[(4, ref('group_dym_bank_reconciliation_read'))]" />
+        </record>
+        <record id="access_dym_bank_reconciliation_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_reconciliation" />
+            <field name="name">dym_bank_reconciliation update</field>
+            <field name="group_id" ref="group_dym_bank_reconciliation_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="access_dym_bank_reconciliation_line_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_reconciliation_line" />
+            <field name="name">dym_bank_reconciliation_line update</field>
+            <field name="group_id" ref="group_dym_bank_reconciliation_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="access_move_line_update" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line" />
+            <field name="name">account_move_line update</field>
+            <field name="group_id" ref="group_dym_bank_reconciliation_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="group_dym_bank_reconciliation_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Bank Reconciliation Delete</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_bank_reconciliation_menu'))
+                                            ]" />
+            <field name="implied_ids" eval="[(4, ref('group_dym_bank_reconciliation_read'))]" />
+        </record>
+        <record id="access_dym_bank_reconciliation_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_reconciliation" />
+            <field name="name">dym_bank_reconciliation delete</field>
+            <field name="group_id" ref="group_dym_bank_reconciliation_delete" />
+            <field name="perm_unlink">1</field>
+        </record>
+        <record id="access_dym_bank_reconciliation_line_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_reconciliation_line" />
+            <field name="name">dym_bank_reconciliation_line delete</field>
+            <field name="group_id" ref="group_dym_bank_reconciliation_delete" />
+            <field name="perm_unlink">1</field>
+        </record>
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+            <field name="implied_ids" eval="[(4,ref('group_dym_bank_reconciliation_read')),
+                                            (4,ref('group_dym_bank_reconciliation_update')),
+                                            (4,ref('group_dym_bank_reconciliation_delete'))]" />
+        </record>
+    </data>
+</openerp>

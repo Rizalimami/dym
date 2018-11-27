@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+
+        <record id="dym_transaction_withholding_tree_view" model="ir.ui.view">
+            <field name="name">dym.transaction.withholding.tree</field>
+            <field name="model">dym.transaction.withholding</field>
+            <field name="arch" type="xml"> 
+                <tree string="Withholding Tax">
+                    <field name="internal_number"/>
+                    <field name="name" string="Nomor Bukti Potong"/>
+                    <field name="date"/>
+                    <field name="type" invisible="1"/>
+                    <field name="tax_withholding_id"/>
+                    <field name="partner_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="amount" sum="Total" string="Jumlah PPh"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record> 
+
+         <record id="dym_transaction_withholding_form_view" model="ir.ui.view">
+            <field name="name">dym.transaction.withholding.form</field>
+            <field name="model">dym.transaction.withholding</field>
+            <field name="arch" type="xml"> 
+                <form string="Withholding">
+                    <field name="state" invisible="1"/>
+                    <header>
+                    </header>
+                    <sheet string="Withholding">
+                        <field name="type" invisible="0"/>
+                        <group>  
+                            <group>
+                                <field name="name" string="Nomor Bukti Potong"/>
+                                <field name="tax_withholding_id" domain="[('type_tax_use','in',('payment', 'all'))]"/>
+                                <field name="tax_base" string="Tax Base"/>
+                                <field name="amount" string="Jumlah PPh"/>
+                                <field name="move_line_id"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="internal_number"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <field name="comment" placeholder="Comment..."/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="dym_settlement_wh_form_view">
+            <field name="name">dym.settlement.wh.form</field>
+            <field name="model">dym.settlement</field>
+            <field name="inherit_id" ref="view_dym_settlement_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="withholdings_amount" readonly="1" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                    <field name="total_net" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_transaction_withholding">
+            <field name="name">Withholding</field>
+            <field name="res_model">dym.transaction.withholding</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="dym_aging_spk_report_report" string="Report Aging SPK" model="dym.aging.spk.report" report_type="qweb-pdf" name="dym_aging_spk_report.aging_spk_report_template" file="dym_aging_spk_report.aging_spk_report_template" />
+    </data>
+</openerp>

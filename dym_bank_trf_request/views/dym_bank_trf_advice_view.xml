@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="bank_trf_advice_tree_view" model="ir.ui.view">
+            <field name="name">bank.trf.advice.tree.view</field>
+            <field name="model">bank.trf.advice</field>
+            <field eval="1" name="priority" />
+            <field name="arch" type="xml">
+                <tree create="false">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="transfer_date" />
+                    <field name="branch_id" options='{"no_open":True}' />
+                    <field name="branch_destination_id" />
+                    <field name="payment_from_id" />
+                    <field name="payment_to_id" />
+                    <field name="amount" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="bank_trf_advice_form_view" model="ir.ui.view">
+            <field name="name">bank.trf.advice.form.view</field>
+            <field name="model">bank.trf.advice</field>
+            <field name="arch" type="xml">
+                <form string="Bank Transfer Advice">
+                    <header>
+                        <button name="action_submit" states="approved" string="Submit to Bank Transfer" type="object" class="oe_highlight" groups="dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_app_incentive,dym_base_security.group_dym_app_opex,dym_base_security.group_dym_app_finance_stnk" />
+                        <button name="action_rfa" states="confirmed" string="RFA" type="object" class="oe_highlight" groups="dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_app_incentive,dym_base_security.group_dym_app_opex,dym_base_security.group_dym_app_finance_stnk" />
+                        <button name="action_cancel" states="draft,confirmed,approved,done" string="Cancel" type="object" class="" groups="dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_app_incentive,dym_base_security.group_dym_app_opex,dym_base_security.group_dym_app_finance_stnk" />
+                        <button name="action_confirm" states="draft" string="Confirm" type="object" class="oe_highlight" groups="dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_app_incentive,dym_base_security.group_dym_app_opex,dym_base_security.group_dym_pic_stnk,dym_base_security.group_dym_app_finance_stnk" />
+                        <button name="action_reset_draft" states="cancel" string="Reset to Draft" type="object" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors='{"shipping_except":"red","invoice_except":"red","waiting_date":"blue"}' />
+                    </header>
+                    <sheet>
+                        <div class="oe_right oe_button_box" name="import_buttons">
+                            <button name="open_barcode_interface" attrs="{'invisible':[('state','!=','draft')]}" type="object" class="oe_stock_scan_button"><img src="/stock/static/src/img/scan.png" class="oe_stock_scan_image oe_stock_scan_image_btn" /></button>
+                        </div>
+                        <div class="oe_title">
+                            <label string="Number" />
+                            <h2>
+                                <field name="name" readonly="1"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="id" invisible="1" />
+                                <field name="revision_number" readonly="1" attrs="{'invisible':[('revision_number','=',0)]}" />
+                                <field name="company_id" attrs="{'readonly':['|',('revision_number','!=',0),('state','!=','draft')]}" />
+                                <field name="branch_id" attrs="{'readonly':['|',('revision_number','!=',0),('state','!=','draft')]}" />
+                                <field name="payment_from_id" attrs="{'readonly':[('state','!=','draft')]}" />
+                            </group>
+                            <group>
+                                <field name="date" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="transfer_date" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="branch_destination_id" attrs="{'readonly':['|',('revision_number','!=',0),('state','!=','draft')]}" />
+                                <field name="payment_to_id" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="description" attrs="{'readonly':[('state','!=','draft')]}" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Details">
+                                <field name="bank_trf_request_ids">
+                                    <tree string="Request List" create="false" edit="false" delete="false">
+                                        <field name="name" />
+                                        <field name="partner_id" />
+                                        <field name="date_request" />
+                                        <field name="date_due" />
+                                        <field name="amount" />
+                                        <button name="action_remove" icon="STOCK_CANCEL" type="object" string="Remove" context="{'active_id':active_id}" />
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="amount" class="oe_subtotal_footer_separator" attrs="{'readonly':[('state','!=','draft')]}" />
+                                </group>
+                                <div class="oe_clear" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="bank_trf_advice_search_view" model="ir.ui.view">
+            <field name="name">bank.trf.advice.search.view</field>
+            <field name="model">bank.trf.advice</field>
+            <field name="arch" type="xml">
+                <search string="Bank Transfer Advice">
+                    <field name="name" string="Reference" />
+                    <field name="branch_id" />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-partner" domain="[]" context="{'group_by':'branch_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="bank_trf_advice_action">
+            <field name="name">Bank Transfer Advice</field>
+            <field name="res_model">bank.trf.advice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="view_id" ref="bank_trf_advice_tree_view" />
+            <!-- <field name="view_mode">tree_account_move_line_quickadd,form</field> -->
+            <field name="search_view_id" ref="bank_trf_advice_search_view" />
+        </record>
+        <menuitem action="bank_trf_advice_action" id="bank_trf_advice_menu" parent="bank_trf_request_submenu" sequence="1" />
+    </data>
+</openerp>

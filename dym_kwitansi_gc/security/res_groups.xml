@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Reporting Kwitansi GC -->
+        <!--
+        <record id="group_report_kwitansi_gc_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Report Kwitansi GC Showroom Menu</field>
+            <field name="menu_access" eval="[(4, ref('menu_kwitansi_gc')),
+                                            ]"/>
+        </record>
+        <record id="group_report_kwitansi_gc_read_workshop" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Report Kwitansi GC Workshop Menu</field>
+            <field name="menu_access" eval="[(4, ref('menu_kwitansi_gc_workshop')),
+                                            ]"/>
+        </record>
+        -->
+    </data>
+</openerp>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_pettycash_all,dym_pettycash all,model_dym_pettycash,,1,1,1,1
+access_dym_pettycash_line_all,dym_pettycash_line all,model_dym_pettycash_line,,1,1,1,1
+access_dym_reimbursed_all,dym_reimbursed all,model_dym_reimbursed,,1,1,1,1
+access_dym_reimbursed_line_all,dym_reimbursed_line all,model_dym_reimbursed_line,,1,1,1,1
+access_dym_pettycash_in_all,dym_pettycash_in all,model_dym_pettycash_in,,1,1,1,1
+access_dym_pettycash_in_line_all,dym_pettycash_line all,model_dym_pettycash_in_line,,1,1,1,1
+access_dym_pettycash_in_full_refund_reason_all,dym_pettycash_in_full_refund_reason all,model_dym_pettycash_in_full_refund_reason,,1,1,1,1

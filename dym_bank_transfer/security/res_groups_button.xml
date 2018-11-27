@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    
+<!-- Bank Transfer RFA  -->
+		
+        <record id="group_dym_bank_transfer_rfa" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Bank Transfer RFA</field>
+            <field name="implied_ids" eval="[(4, ref('group_bank_transfer_read'))]"/>
+        </record>     
+        
+        <record id="access_dym_bank_transfer_out_rfa" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line"/>
+            <field name="name">dym_bank_transfer_rfa_approval_line read</field>
+            <field name="group_id" ref="group_dym_bank_transfer_rfa"/>
+            <field name="perm_create">1</field>
+        </record>
+               
+        <record id="access_dym_bank_transfer_rfa_write" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_transfer"/>
+            <field name="name">dym_bank_transfer_rfa write</field>
+            <field name="group_id" ref="group_dym_bank_transfer_rfa"/>
+            <field name="perm_write">1</field>
+        </record>
+                
+<!-- Bank Transfer Cancel Approval -->
+		
+        <record id="group_dym_bank_transfer_cancel_approval" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Bank Transfer Cancel Approval</field>
+            <field name="implied_ids" eval="[(4, ref('group_bank_transfer_read'))]"/>
+        </record>
+          
+        <record id="access_dym_bank_transfer_cancel_approval_write" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line"/>
+            <field name="name">dym_bank_transfer_cancel_approval_line write</field>
+            <field name="group_id" ref="group_dym_bank_transfer_cancel_approval"/>
+            <field name="perm_write">1</field>
+        </record>
+                
+        <record id="access_dym_bank_transfer_cancel_write" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_transfer"/>
+            <field name="name">dym_bank_transfer_cancel write</field>
+            <field name="group_id" ref="group_dym_bank_transfer_cancel_approval"/>
+            <field name="perm_write">1</field>
+        </record>   
+        
+<!-- Bank Transfer Approve -->
+		
+        <record id="group_dym_bank_transfer_approve_approval" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Bank Transfer Approve Approval</field>
+            <field name="implied_ids" eval="[(4, ref('group_bank_transfer_read'))]"/>
+        </record>
+          
+        <record id="access_dym_bank_transfer_approve_approval_write" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line"/>
+            <field name="name">dym_bank_transfer_approve_approval_line write</field>
+            <field name="group_id" ref="group_dym_bank_transfer_approve_approval"/>
+            <field name="perm_write">1</field>
+        </record>
+                
+        <record id="access_dym_bank_transfer_approve_write" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_transfer"/>
+            <field name="name">dym_bank_transfer_approve write</field>
+            <field name="group_id" ref="group_dym_bank_transfer_approve_approval"/>
+            <field name="perm_write">1</field>
+        </record>       
+        
+        <record id="access_dym_bank_transfer_approve_account_move" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="name">dym_bank_transfer_approve_account_move update</field> 
+            <field name="group_id" ref="group_dym_bank_transfer_approve_approval"/>  
+            <field name="perm_create">1</field> 
+        </record> 
+          
+        <record id="access_dym_bank_transfer_approve_account_move_line" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line"/>
+            <field name="name">dym_bank_transfer_approve_account_move_line update</field> 
+            <field name="group_id" ref="group_dym_bank_transfer_approve_approval"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field>
+        </record>     
+        
+        <record id="access_dym_bank_transfer_line_approve" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_transfer_line"/>
+            <field name="name">dym_bank_transfer_line__approve write</field> 
+            <field name="group_id" ref="group_dym_bank_transfer_approve_approval"/>  
+            <field name="perm_write">1</field> 
+        </record>    
+               
+        <record id="access_dym_bank_transfer_approve_reimbursed" model="ir.model.access">
+            <field name="model_id" ref="dym_pettycash.model_dym_reimbursed"/>
+            <field name="name">dym_bank_transfer_reimbursed_approve write</field> 
+            <field name="group_id" ref="group_dym_bank_transfer_approve_approval"/>  
+            <field name="perm_write">1</field> 
+        </record> 
+                
+<!-- Bank Transfer Confirm -->
+		
+        <record id="group_dym_bank_transfer_confirm_approval" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Bank Transfer Confirm</field>
+            <field name="implied_ids" eval="[(4, ref('group_bank_transfer_read'))]"/>
+        </record>
+        
+          
+        <record id="access_dym_bank_transfer_confirm_approval_write" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line"/>
+            <field name="name">dym_bank_transfer_confirm_approval_line write</field>
+            <field name="group_id" ref="group_dym_bank_transfer_confirm_approval"/>
+            <field name="perm_write">1</field>
+        </record>
+                
+        <record id="access_dym_bank_transfer_confirm_write" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_transfer"/>
+            <field name="name">dym_bank_transfer_confirm write</field>
+            <field name="group_id" ref="group_dym_bank_transfer_confirm_approval"/>
+            <field name="perm_write">1</field>
+        </record>       
+        
+        <record id="access_dym_bank_transfer_confirm_account_move" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="name">dym_bank_transfer_confirm_account_move update</field> 
+            <field name="group_id" ref="group_dym_bank_transfer_confirm_approval"/>  
+            <field name="perm_create">1</field> 
+        </record> 
+          
+        <record id="access_dym_bank_transfer_confirm_account_move_line" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line"/>
+            <field name="name">dym_bank_transfer_confirm_account_move_line update</field> 
+            <field name="group_id" ref="group_dym_bank_transfer_confirm_approval"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field>
+        </record>     
+        
+        <record id="access_dym_bank_transfer_line_confirm" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_transfer_line"/>
+            <field name="name">dym_bank_transfer_line_confirm write</field> 
+            <field name="group_id" ref="group_dym_bank_transfer_confirm_approval"/>  
+            <field name="perm_write">1</field> 
+        </record>    
+               
+        <record id="access_dym_bank_transfer_confirm_reimbursed" model="ir.model.access">
+            <field name="model_id" ref="dym_pettycash.model_dym_reimbursed"/>
+            <field name="name">dym_bank_transfer_reimbursed_confirm write</field> 
+            <field name="group_id" ref="group_dym_bank_transfer_confirm_approval"/>  
+            <field name="perm_write">1</field> 
+        </record>
+                 
+<!-- Bank Transfer Cancel -->
+		
+        <record id="group_dym_bank_transfer_cancel" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Bank Transfer Cancel</field>
+            <field name="implied_ids" eval="[(4, ref('group_bank_transfer_read'))]"/>
+        </record>
+                
+        <record id="access_dym_bank_transfer_cancel_2_write" model="ir.model.access">
+            <field name="model_id" ref="model_dym_bank_transfer"/>
+            <field name="name">dym_bank_transfer_cancel write</field>
+            <field name="group_id" ref="group_dym_bank_transfer_cancel"/>
+            <field name="perm_write">1</field>
+        </record>  
+                
+        <!--<record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[(4,ref('group_dym_bank_transfer_rfa')),
+											 (4,ref('group_dym_bank_transfer_out_cancel_approval')),
+											 (4,ref('group_dym_bank_transfer_out_approve_approval')),
+											 (4,ref('group_dym_bank_transfer_cancel'))
+				]">
+			</field> 
+		</record> -->                          
+    </data>
+</openerp>

@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_outstanding_kpb_form_wizard_view" model="ir.ui.view">
+            <field name="name">dym.outstanding.kpb.wizard.form</field>
+            <field name="model">dym.work.order</field>
+            <field name="arch" type="xml">
+                <form string="Work OrderZ">
+                    <header>
+                        <field name="state" invisible='1' widget="statusbar" statusbar_visible="draft,open,approved,done" statusbar_colors='{"draft":"red","approved":"blue"}' />
+                    </header>
+                    <sheet>
+                        <h1>
+                        <div class="oe_title">                      
+                            <label string="Work Order"/>                
+                            <field name="name" class="oe_inline" readonly='1'/> 
+                        </div>
+                    </h1>
+                        <group col="2" colspan="2">
+                            <group>
+                                <field name="branch_id" readonly='1' options="{'no_show':True,'no_create':True,'no_open':True}" />
+                            </group>
+                            <group>
+                                <field name="division" readonly='1' />
+                            </group>
+                            <group>
+                                <label for="type" />
+                                <div>
+                                    <field name="type" class="oe_inline" readonly='1' />
+                                    <field name="kpb_ke" attrs="{'required': [('type','==','KPB')]}" class="oe_inline" readonly='1' />
+                                    <field name="prev_work_order_id" attrs="{'invisible': [('type','!=','WAR')]}" class="oe_inline" readonly='1' />
+                                </div>
+                                <field name="lot_id" required='1' />
+                                <field name="chassis_no" readonly="1" />
+                                <field name="customer_name" required='1' />
+                                <field name="date" required='1' readonly="1" />
+                                <label for="tanggal_pembelian" />
+                                <div>
+                                    <field name="tanggal_pembelian" attrs="{'required': [('type','==','KPB')]}" class="oe_inline" on_change="onchange_tanggal(tanggal_pembelian,date)" />
+                                    <field name="days" readonly='1' class="oe_inline"></field>
+                                    <label string="Hari" class="oe_inline" />
+                                </div>
+                                <field name="tipe_buku" />
+                                <field name="kode_buku" attrs="{'required': [('type','==','KPB')]}" />
+                                <field name="nama_buku" attrs="{'required': [('type','==','KPB')]}" />
+                                <field name="dealer_penjual" />
+                                <field name="km" required='1' />
+                                <field name="jenis_oli" widget="radio" />
+                                <field name="kpb_collected" invisible="1" />
+                                <field name="kpb_collected_date" invisible="1" />
+                                <field name="collected_ok_not" required="1" attrs="{'readonly': [('kpb_collected','=','collected')]}" />
+                            </group>
+                            <group>
+                                <field name="stampel_ahass" widget="radio" />
+                                <field name="stampel_dealer_depan" widget="radio" />
+                                <field name="stampel_dealer_belakang" widget="radio" />
+                                <field name="tt_pemilik" widget="radio" />
+                                <field name="km_cek" widget="radio" />
+                                <field name="tgl_beli_cek" widget="radio" />
+                                <field name="tgl_service_cek" widget="radio" />
+                                <field name="chassis_no_cek" widget="radio" />
+                                <field name="engine_no_cek" widget="radio" />
+                                <field name="no_buk_cek" widget="radio" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="dym_collected_ok" string="Ok" type="object" class="oe_highlight" /> or
+                        <button string="Discard" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_outstanding_kpb_tree_view">
+            <field name="name">dym.outstanding.kpb.tree</field>
+            <field name="model">dym.work.order</field>
+            <field name="arch" type="xml">
+                <tree string="Work Order">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="lot_id" />
+                    <field name="chassis_no" />
+                    <field name="type" />
+                    <field name="kpb_ke" />
+                    <field name="km" />
+                    <field name="state" invisible='1' />
+                    <field name="kpb_collected" />
+                    <field name="kpb_collected_date" />
+                    <button name="dym_outstanding_kpb_wizard" type="object" string="Indext" icon="gtk-index" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_outstanding_kpb_action_view">
+            <field name="name">Outstanding KPB Data</field>
+            <field name="res_model">dym.work.order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('type','=','KPB'),('kpb_collected','!=','collected'),('state','=','open')]</field>
+        </record>
+        <record id="dym_outstanding_kpb_action_view_tree" model="ir.actions.act_window.view">
+            <field eval="4" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_outstanding_kpb_tree_view" />
+            <field name="act_window_id" ref="dym_outstanding_kpb_action_view" />
+        </record>
+        <record id="dym_outstanding_kpb_action_view_form" model="ir.actions.act_window.view">
+            <field eval="5" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_outstanding_kpb_form_wizard_view" />
+            <field name="act_window_id" ref="dym_outstanding_kpb_action_view" />
+        </record>
+
+        <record id="dym_outstanding_claim_form_wizard_view" model="ir.ui.view">
+            <field name="name">dym.outstanding.claim.wizard.form</field>
+            <field name="model">dym.work.order</field>
+            <field name="arch" type="xml">
+                <form string="Work Order">
+                    <header>
+                        <field name="state" invisible='1' widget="statusbar" statusbar_visible="draft,open,approved,done" statusbar_colors='{"draft":"red","approved":"blue"}' />
+                    </header>
+                    <sheet>
+                        <h1>
+                            <div class="oe_title">                      
+                                <label string="Work Order"/>                
+                                <field name="name" class="oe_inline" readonly='1'/> 
+                            </div>
+                        </h1>
+                        <group col="2" colspan="2">
+                            <group>
+                                <field name="branch_id" readonly='1' options="{'no_show':True,'no_create':True,'no_open':True}" />
+                            </group>
+                            <group>
+                                <field name="division" readonly='1' />
+                            </group>
+                            <group>
+                                <label for="type" />
+                                <div>
+                                    <field name="type" class="oe_inline" readonly='1' />
+                                    <field name="kpb_ke" attrs="{'required': [('type','==','KPB')]}" class="oe_inline" readonly='1' />
+                                    <field name="prev_work_order_id" attrs="{'invisible': [('type','!=','WAR')]}" class="oe_inline" readonly='1' />
+                                </div>
+                                <field name="lot_id" required='1' />
+                                <field name="chassis_no" readonly="1" />
+                                <field name="customer_name" required='1' />
+                                <field name="date" required='1' readonly="1" />
+                                <label for="tanggal_pembelian" />
+                                <div>
+                                    <field name="tanggal_pembelian" attrs="{'required': [('type','==','KPB')]}" class="oe_inline" on_change="onchange_tanggal(tanggal_pembelian,date)" />
+                                    <field name="days" readonly='1' class="oe_inline"></field>
+                                    <label string="Hari" class="oe_inline" />
+                                </div>
+                                <field name="tipe_buku" />
+                                <field name="kode_buku" attrs="{'required': [('type','==','KPB')]}" />
+                                <field name="nama_buku" attrs="{'required': [('type','==','KPB')]}" />
+                                <field name="dealer_penjual" />
+                                <field name="km" required='1' />
+                                <field name="jenis_oli" widget="radio" invisible="1"/>
+                                <field name="kpb_collected" invisible="1" />
+                                <field name="kpb_collected_date" invisible="1" />
+                                <field name="collected_ok_not" string="Status Claim" required="1" attrs="{'readonly': [('kpb_collected','=','collected')]}" />
+                            </group>
+                            <group>
+                                <!--
+                                <field name="stampel_ahass" widget="radio" />
+                                <field name="stampel_dealer_depan" widget="radio" />
+                                <field name="stampel_dealer_belakang" widget="radio" />
+                                <field name="tt_pemilik" widget="radio" />
+                                <field name="km_cek" widget="radio" />
+                                <field name="tgl_beli_cek" widget="radio" />
+                                <field name="tgl_service_cek" widget="radio" />
+                                <field name="chassis_no_cek" widget="radio" />
+                                <field name="engine_no_cek" widget="radio" />
+                                <field name="no_buk_cek" widget="radio" />
+                                -->
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="dym_collected_ok" string="Ok" type="object" class="oe_highlight" /> or
+                        <button string="Discard" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_outstanding_claim_tree_view">
+            <field name="name">dym.outstanding.claim.kpb.tree</field>
+            <field name="model">dym.work.order</field>
+            <field name="arch" type="xml">
+                <tree string="Work Order">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="lot_id" />
+                    <field name="chassis_no" />
+                    <field name="type" />
+                    <field name="kpb_ke" invisible="1"/>
+                    <field name="km" />
+                    <field name="state" invisible='1' />
+                    <field name="kpb_collected" string="Claim Collected"/>
+                    <field name="kpb_collected_date" string="Claim Collected Date"/>
+                    <button name="dym_outstanding_claim_wizard" type="object" string="Indext" icon="gtk-index" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_outstanding_claim_action_view">
+            <field name="name">Outstanding Claim Data</field>
+            <field name="res_model">dym.work.order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('type','=','CLA'),('kpb_collected','!=','collected'),('state','=','open')]</field>
+        </record>
+        <record id="dym_outstanding_claim_action_view_tree" model="ir.actions.act_window.view">
+            <field eval="6" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_outstanding_claim_tree_view" />
+            <field name="act_window_id" ref="dym_outstanding_claim_action_view" />
+        </record>
+        <record id="dym_outstanding_claim_action_view_form" model="ir.actions.act_window.view">
+            <field eval="7" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_outstanding_claim_form_wizard_view" />
+            <field name="act_window_id" ref="dym_outstanding_claim_action_view" />
+        </record>
+
+
+        <!-- Collecting KPB -->
+        <record model="ir.ui.view" id="dym_collecting_kpb_tree_view">
+            <field name="name">dym.collecting_kpb.tree</field>
+            <field name="model">dym.collecting.kpb</field>
+            <field name="arch" type="xml">
+                <tree string="Collecting KPB">
+                    <field name="name" />
+                    <field name="branch_id" />
+                    <field name="date" />
+                    <field name="amount_total" />
+                    <field name="supplier_id" />
+                    <field name="date_kirim_md" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_collecting_kpb_form_wizard_view">
+            <field name="name">dym.collecting_kpb.form</field>
+            <field name="model">dym.collecting.kpb</field>
+            <field name="arch" type="xml">
+                <form string="Collecting Claim/KPBx">
+                    <header>
+                        <button name="invoice_create" states="draft" string="Validate" class="oe_highlight" groups="dym_base_security.group_dym_adh" />
+                        <button name="%(report_bast_kpbclaim)d" string="Print BAST" type="action" class="oe_highlight" />
+                        <button name="view_invoice" type="object" states="open,done" string="View Invoice" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,open,done" statusbar_colors="{&quot;draft&quot;:&quot;red&quot;,&quot;open&quot;:&quot;blue&quot;}"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <div class="oe_title">                      
+                                <label string="Collecting KPB" attrs="{'invisible':[('type','!=','KPB')]}"/>              
+                                <label string="Collecting Claim" attrs="{'invisible':[('type','!=','CLA')]}"/>              
+                                <field name="name" class="oe_inline"/>  
+                            </div>
+                        </h1>
+                        <group col="2" colspan="2">
+                            <group>
+                                <field name="branch_id" on_change="onchange_branch_collecting(branch_id,type)" attrs="{'readonly': [('state','!=','draft')]}" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                            </group>
+                            <group>
+                                <field name="division" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="supplier_id"/>
+                                <field name="use_oli" string="Oli" on_change="onchange_branch_collecting(branch_id,type)" attrs="{'invisible':[('type','!=','KPB')]}"/>
+                                <field name="use_sparepart" string="Sparepart" invisible="1"/>
+                                <field name="use_kompensasi" on_change="onchange_branch_collecting(branch_id,type)" attrs="{'invisible':[('type','!=','KPB')]}"/>
+                                <!-- <field name="use_oli" string="Oli/Sparepart" attrs="{'invisible':[('type','!=','KPB')]}" /> -->
+                                <!-- <field name="use_kompensasi" attrs="{'invisible':[('type','!=','KPB')]}" /> -->
+                            </group>
+                            <group>
+                                <field name="type" readonly="1"/>
+                                <field name="date" readonly="1"/>
+                                <field name="supplier_ref" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="date_kirim_md" />
+                            </group>
+                        </group>
+                        <notebook colspan="5">
+                            <page string="Collecting Line">
+                                <div attrs="{'invisible': [('type','!=','CLA')]}">
+                                    <field colspan="4" name="collecting_line" nolabel="1" widget="one2many_list" readonly="1">
+                                        <tree string="" editable="top" create="false" delete="false">
+                                            <field name="categ" readonly="0"/>
+                                            <field name="kpb_ke" readonly="0" invisible="1"/>
+                                            <field name="qty"/>
+                                            <field name="jasa" sum="total" invisible="1"/>
+                                            <field name="oli" sum="total" string="Sparepart" invisible="1"/>
+                                            <field name="kompensasi" sum="total" invisible="1"/>
+                                            <field name="total_jasa" readonly="0" sum="total"/>
+                                            <field name="total_oli" readonly="0" sum="total" string="Total Sparepart"/>
+                                            <field name="total_kompensasi" readonly="0" sum="total" invisible="1"/>
+                                            <field name="amount" readonly="1" sum="total" invisible="1"/>
+                                            <field name="wo_ids" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                                <div attrs="{'invisible': [('type','!=','KPB')]}">
+                                    <field colspan="4" name="collecting_line1" nolabel="1" widget="one2many_list" readonly="1" attrs="{'invisible': ['|',('use_oli','=',False),('use_kompensasi','=',False)]}">
+                                        <tree string="" editable="top" create="false" delete="false">
+                                            <field name="categ" readonly="0"/>
+                                            <field name="kpb_ke" readonly="0"/>
+                                            <field name="qty"/>
+                                            <field name="jasa" sum="total"/>
+                                            <field name="oli" sum="total" string="Oli"/>
+                                            <field name="kompensasi" sum="total"/>
+                                            <field name="total_jasa" readonly="0" sum="total"/>
+                                            <field name="total_oli" readonly="0" sum="total"/>
+                                            <field name="total_kompensasi" readonly="0" sum="total"/>
+                                            <field name="amount" readonly="1" sum="total" invisible="1"/>
+                                            <field name="wo_ids" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                    <field colspan="4" name="collecting_line2" nolabel="1" widget="one2many_list" readonly="1" attrs="{'invisible': ['|',('use_oli','=',True),('use_kompensasi','=',False)]}">
+                                        <tree string="" editable="top" create="false" delete="false">
+                                            <field name="categ" readonly="0"/>
+                                            <field name="kpb_ke" readonly="0"/>
+                                            <field name="qty"/>
+                                            <field name="jasa" sum="total"/>
+                                            <field name="oli" sum="total" invisible="1"/>
+                                            <field name="kompensasi" sum="total"/>
+                                            <field name="total_jasa" readonly="0" sum="total"/>
+                                            <field name="total_oli" readonly="0" sum="total" invisible="1"/>
+                                            <field name="total_kompensasi" readonly="0" sum="total"/>
+                                            <field name="amount" readonly="1" sum="total" invisible="1"/>
+                                            <field name="wo_ids" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                    <field colspan="4" name="collecting_line3" nolabel="1" widget="one2many_list" readonly="1" attrs="{'invisible': ['|',('use_oli','=',False),('use_kompensasi','=',True)]}">
+                                        <tree string="" editable="top" create="false" delete="false">
+                                            <field name="categ" readonly="0"/>
+                                            <field name="kpb_ke" readonly="0"/>
+                                            <field name="qty"/>
+                                            <field name="jasa" sum="total"/>
+                                            <field name="oli" sum="total"/>
+                                            <field name="kompensasi" sum="total" invisible="1"/>
+                                            <field name="total_jasa" readonly="0" sum="total"/>
+                                            <field name="total_oli" readonly="0" sum="total"/>
+                                            <field name="total_kompensasi" readonly="0" sum="total" invisible="1"/>
+                                            <field name="amount" readonly="1" sum="total" invisible="1"/>
+                                            <field name="wo_ids" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                    <field colspan="4" name="collecting_line4" nolabel="1" widget="one2many_list" readonly="1" attrs="{'invisible': ['|',('use_oli','=',True),('use_kompensasi','=',True)]}">
+                                        <tree string="" editable="top" create="false" delete="false">
+                                            <field name="categ" readonly="0"/>
+                                            <field name="kpb_ke" readonly="0"/>
+                                            <field name="qty"/>
+                                            <field name="jasa" sum="total"/>
+                                            <field name="oli" sum="total" invisible="1"/>
+                                            <field name="kompensasi" sum="total" invisible="1"/>
+                                            <field name="total_jasa" readonly="0" sum="total"/>
+                                            <field name="total_oli" readonly="0" sum="total" invisible="1"/>
+                                            <field name="total_kompensasi" readonly="0" sum="total" invisible="1"/>
+                                            <field name="amount" readonly="1" sum="total" invisible="1"/>
+                                            <field name="wo_ids" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="taxes_ids" widget="many2many_tags" options="{'no_show':True,'no_create':True,'no_open':True}" attrs="{'readonly': [('state','!=','draft')],'invisible': [('use_kompensasi','=',False)]}"/>
+                                    <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'invisible': [('use_kompensasi','=',False)]}"/>
+                                    <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'invisible': [('use_kompensasi','=',False)]}"/>
+                                    <field name="amount_jasa" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_oli" string="Total Oli" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'invisible': ['|',('type','!=','KPB'),('use_oli','=',False)]}"/>
+                                    <field name="amount_sparepart" string="Total Sparepart" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'invisible': [('type','!=','CLA')]}"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_total" string="Total Collecting KPB" attrs="{'invisible':[('type','!=','KPB')]}"/>
+                                        <label for="amount_total" string="Total Collecting Claim" attrs="{'invisible':[('type','!=','CLA')]}"/>
+                                        <button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                    </div>
+                                    <field name="amount_total" nolabel="1" widget="monetary" class="oe_subtotal_footer_separator" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_wo" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="1"/>
+                                    <field name="amount_outstanding" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="1"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </page>
+                            <page string="Work Order">                                
+                                <field colspan="4" name="work_order_ids" nolabel="1" widget="one2many_list" attrs="{'invisible':[('type','!=','KPB')],'readonly': [('state','!=','draft')]}">
+                                    <tree string="" editable="top" edit="false" create="false">
+                                        <field name="name"/>
+                                        <field name="date"/>
+                                        <field name="lot_id"/>
+                                        <field name="type"/>
+                                        <field name="tipe_motor"/>
+                                        <field name="kpb_ke" />
+                                        <field name="km"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="kpb_collected"/>
+                                        <field name="kpb_collected_date"/>
+                                        <field name="amount_total" sum="Total"/>
+                                    </tree>
+                                </field>
+                                <field colspan="4" name="work_order_ids2" nolabel="1" widget="one2many_list" attrs="{'invisible':[('type','!=','CLA')],'readonly': [('state','!=','draft')]}">
+                                    <tree string="" editable="top" edit="false" create="false">
+                                        <field name="name"/>
+                                        <field name="date"/>
+                                        <field name="lot_id"/>
+                                        <field name="type"/>
+                                        <field name="tipe_motor"/>
+                                        <field name="kpb_ke" invisible="1"/>
+                                        <field name="km"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="kpb_collected"/>
+                                        <field name="kpb_collected_date"/>
+                                        <field name="amount_total" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"/>
+                                        <field name="create_date" readonly="1"/>
+                                        <field name="confirm_uid" readonly="1"/>
+                                        <field name="confirm_date" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"/>
+                                        <field name="write_date" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_dym_collecting_kpb_search" model="ir.ui.view">
+            <field name="name">dym.collecting.kpb.search</field>
+            <field name="model">dym.collecting.kpb</field>
+            <field name="arch" type="xml">
+                <search string="Search Collecting KPB">
+                    <field name='name' />
+                    <field name='branch_id' />
+                    <field name='type' />
+                    <field name='division' />
+                    <field name='supplier_id' />
+                    <field name='supplier_ref' />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-go-month" domain="[]" context="{'group_by':'branch_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="dym_collecting_kpb_action_view">
+            <field name="name">Collecting KPB Data</field>
+            <field name="res_model">dym.collecting.kpb</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','KPB')]</field>
+            <field name="context">{'default_type': 'KPB'}</field>
+        </record>
+        <record id="dym_collecting_kpb_action_view_tree" model="ir.actions.act_window.view">
+            <field eval="0" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_collecting_kpb_tree_view" />
+            <field name="act_window_id" ref="dym_collecting_kpb_action_view" />
+        </record>
+        <record id="dym_collecting_kpb_action_view_form" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_collecting_kpb_form_wizard_view" />
+            <field name="act_window_id" ref="dym_collecting_kpb_action_view" />
+        </record>
+
+        <!-- Collecting Claim -->
+        <record model="ir.ui.view" id="dym_collecting_claim_tree_view">
+            <field name="name">dym.collecting_claim.tree</field>
+            <field name="model">dym.collecting.kpb</field>
+            <field name="arch" type="xml">
+                <tree string="Collecting Claim">
+                    <field name="name" string="Collecting Claim"/>
+                    <field name="branch_id" />
+                    <field name="date" />
+                    <field name="amount_total" string="Total Collecting Claim"/>
+                    <field name="supplier_id" />
+                    <field name="date_kirim_md" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_collecting_claim_form_wizard_view">
+            <field name="name">dym.collecting_claim.form</field>
+            <field name="model">dym.collecting.kpb</field>
+            <field name="arch" type="xml">
+                <form string="Collecting Claim">
+                    <header>
+                        <button name="invoice_create" states="draft" string="Validate" class="oe_highlight" groups="dym_base_security.group_dym_adh"/>
+                        <button name="%(report_bast_kpbclaim)d" string="Print BAST" type="action" class="oe_highlight" />
+                        <button name="view_invoice" type="object" states="open,done" string="View Invoice" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,open,done" statusbar_colors="{&quot;draft&quot;:&quot;red&quot;,&quot;open&quot;:&quot;blue&quot;}"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <div class="oe_title">                      
+                                <label string="Collecting KPB" attrs="{'invisible':[('type','!=','KPB')]}"/>              
+                                <label string="Collecting Claim" attrs="{'invisible':[('type','!=','CLA')]}"/>              
+                                <field name="name" class="oe_inline"/>  
+                            </div>
+                        </h1>
+                        <group col="2" colspan="2">
+                            <group>
+                                <field name="branch_id" on_change="onchange_branch_collecting(branch_id,type)" attrs="{'readonly': [('state','!=','draft')]}" options="{'no_show':True,'no_create':True,'no_open':True}"/>
+                            </group>
+                            <group>
+                                <field name="division" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="supplier_id"/>
+                                <field name="use_oli" string="Oli" attrs="{'invisible':[('type','!=','KPB')]}"/>
+                                <field name="use_sparepart" string="Sparepart" invisible="1"/>
+                                <field name="use_kompensasi" attrs="{'invisible':[('type','!=','KPB')]}"/>
+                                <!-- <field name="use_oli" string="Oli/Sparepart" attrs="{'invisible':[('type','!=','KPB')]}" /> -->
+                                <!-- <field name="use_kompensasi" attrs="{'invisible':[('type','!=','KPB')]}" /> -->
+                            </group>
+                            <group>
+                                <field name="type" readonly="1"/>
+                                <field name="date" readonly="1"/>
+                                <field name="supplier_ref" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="date_kirim_md" />
+                            </group>
+                        </group>
+                        <notebook colspan="5">
+                            <page string="Collecting Line">
+                                <div attrs="{'invisible': [('type','!=','CLA')]}">
+                                    <field colspan="4" name="collecting_line" nolabel="1" widget="one2many_list" readonly="1">
+                                        <tree string="" editable="top" create="false" delete="false">
+                                            <field name="categ" readonly="0"/>
+                                            <field name="kpb_ke" readonly="0" invisible="1"/>
+                                            <field name="qty"/>
+                                            <field name="jasa" sum="total" invisible="1"/>
+                                            <field name="oli" sum="total" string="Sparepart" invisible="1"/>
+                                            <field name="kompensasi" sum="total" invisible="1"/>
+                                            <field name="total_jasa" readonly="0" sum="total"/>
+                                            <field name="total_oli" readonly="0" sum="total" string="Total Sparepart"/>
+                                            <field name="total_kompensasi" readonly="0" sum="total" invisible="1"/>
+                                            <field name="amount" readonly="1" sum="total" invisible="1"/>
+                                            <field name="wo_ids" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                                <div attrs="{'invisible': [('type','!=','KPB')]}">
+                                    <field colspan="4" name="collecting_line1" nolabel="1" widget="one2many_list" readonly="1" attrs="{'invisible': ['|',('use_oli','=',False),('use_kompensasi','=',False)]}">
+                                        <tree string="" editable="top" create="false" delete="false">
+                                            <field name="categ" readonly="0"/>
+                                            <field name="kpb_ke" readonly="0"/>
+                                            <field name="qty"/>
+                                            <field name="jasa" sum="total"/>
+                                            <field name="oli" sum="total" string="Oli"/>
+                                            <field name="kompensasi" sum="total"/>
+                                            <field name="total_jasa" readonly="0" sum="total"/>
+                                            <field name="total_oli" readonly="0" sum="total"/>
+                                            <field name="total_kompensasi" readonly="0" sum="total"/>
+                                            <field name="amount" readonly="1" sum="total" invisible="1"/>
+                                            <field name="wo_ids" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                    <field colspan="4" name="collecting_line2" nolabel="1" widget="one2many_list" readonly="1" attrs="{'invisible': ['|',('use_oli','=',True),('use_kompensasi','=',False)]}">
+                                        <tree string="" editable="top" create="false" delete="false">
+                                            <field name="categ" readonly="0"/>
+                                            <field name="kpb_ke" readonly="0"/>
+                                            <field name="qty"/>
+                                            <field name="jasa" sum="total"/>
+                                            <field name="oli" sum="total" invisible="1"/>
+                                            <field name="kompensasi" sum="total"/>
+                                            <field name="total_jasa" readonly="0" sum="total"/>
+                                            <field name="total_oli" readonly="0" sum="total" invisible="1"/>
+                                            <field name="total_kompensasi" readonly="0" sum="total"/>
+                                            <field name="amount" readonly="1" sum="total" invisible="1"/>
+                                            <field name="wo_ids" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                    <field colspan="4" name="collecting_line3" nolabel="1" widget="one2many_list" readonly="1" attrs="{'invisible': ['|',('use_oli','=',False),('use_kompensasi','=',True)]}">
+                                        <tree string="" editable="top" create="false" delete="false">
+                                            <field name="categ" readonly="0"/>
+                                            <field name="kpb_ke" readonly="0"/>
+                                            <field name="qty"/>
+                                            <field name="jasa" sum="total"/>
+                                            <field name="oli" sum="total"/>
+                                            <field name="kompensasi" sum="total" invisible="1"/>
+                                            <field name="total_jasa" readonly="0" sum="total"/>
+                                            <field name="total_oli" readonly="0" sum="total"/>
+                                            <field name="total_kompensasi" readonly="0" sum="total" invisible="1"/>
+                                            <field name="amount" readonly="1" sum="total" invisible="1"/>
+                                            <field name="wo_ids" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                    <field colspan="4" name="collecting_line4" nolabel="1" widget="one2many_list" readonly="1" attrs="{'invisible': ['|',('use_oli','=',True),('use_kompensasi','=',True)]}">
+                                        <tree string="" editable="top" create="false" delete="false">
+                                            <field name="categ" readonly="0"/>
+                                            <field name="kpb_ke" readonly="0"/>
+                                            <field name="qty"/>
+                                            <field name="jasa" sum="total"/>
+                                            <field name="oli" sum="total" invisible="1"/>
+                                            <field name="kompensasi" sum="total" invisible="1"/>
+                                            <field name="total_jasa" readonly="0" sum="total"/>
+                                            <field name="total_oli" readonly="0" sum="total" invisible="1"/>
+                                            <field name="total_kompensasi" readonly="0" sum="total" invisible="1"/>
+                                            <field name="amount" readonly="1" sum="total" invisible="1"/>
+                                            <field name="wo_ids" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="taxes_ids" widget="many2many_tags" options="{'no_show':True,'no_create':True,'no_open':True}" attrs="{'readonly': [('state','!=','draft')],'invisible': [('use_kompensasi','=',False)]}"/>
+                                    <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'invisible': [('use_kompensasi','=',False)]}"/>
+                                    <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'invisible': [('use_kompensasi','=',False)]}"/>
+                                    <field name="amount_jasa" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_oli" string="Total Oli" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'invisible': ['|',('type','!=','KPB'),('use_oli','=',False)]}"/>
+                                    <field name="amount_sparepart" string="Total Sparepart" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'invisible': [('type','!=','CLA')]}"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_total" string="Total Collecting KPB" attrs="{'invisible':[('type','!=','KPB')]}"/>
+                                        <label for="amount_total" string="Total Collecting Claim" attrs="{'invisible':[('type','!=','CLA')]}"/>
+                                        <button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                    </div>
+                                    <field name="amount_total" nolabel="1" widget="monetary" class="oe_subtotal_footer_separator" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_wo" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="1"/>
+                                    <field name="amount_outstanding" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="1"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </page>
+                            <page string="Work Order">                                
+                                <field colspan="4" name="work_order_ids" nolabel="1" widget="one2many_list" attrs="{'invisible':[('type','!=','KPB')],'readonly': [('state','!=','draft')]}">
+                                    <tree string="" editable="top" edit="false" create="false">
+                                        <field name="name"/>
+                                        <field name="date"/>
+                                        <field name="lot_id"/>
+                                        <field name="type"/>
+                                        <field name="tipe_motor"/>
+                                        <field name="kpb_ke" />
+                                        <field name="km"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="kpb_collected" string="Claim Collected"/>
+                                        <field name="kpb_collected_date" string="Claim Collected Date"/>
+                                        <field name="amount_total" sum="Total" string="Total WO"/>
+                                    </tree>
+                                </field>
+                                <field colspan="4" name="work_order_ids2" nolabel="1" widget="one2many_list" attrs="{'invisible':[('type','!=','CLA')],'readonly': [('state','!=','draft')]}">
+                                    <tree string="" editable="top" edit="false" create="false">
+                                        <field name="name"/>
+                                        <field name="date"/>
+                                        <field name="lot_id"/>
+                                        <field name="type"/>
+                                        <field name="tipe_motor"/>
+                                        <field name="kpb_ke" invisible="1"/>
+                                        <field name="km"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="kpb_collected" string="Claim Collected"/>
+                                        <field name="kpb_collected_date" string="Claim Collected Date"/>
+                                        <field name="amount_total" sum="Total" string="Total WO"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"/>
+                                        <field name="create_date" readonly="1"/>
+                                        <field name="confirm_uid" readonly="1"/>
+                                        <field name="confirm_date" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"/>
+                                        <field name="write_date" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_collecting_claim_action_view">
+            <field name="name">Collecting Claim Data</field>
+            <field name="res_model">dym.collecting.kpb</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','CLA')]</field>
+            <field name="context">{'default_type': 'CLA'}</field>
+        </record>
+        <record id="dym_collecting_claim_action_view_tree" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_collecting_claim_tree_view" />
+            <field name="act_window_id" ref="dym_collecting_claim_action_view" />
+        </record>
+        <record id="dym_collecting_claim_action_view_form" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_collecting_claim_form_wizard_view" />
+            <field name="act_window_id" ref="dym_collecting_claim_action_view" />
+        </record>
+
+
+        <!--
+        <record model="ir.actions.act_window" id="dym_outstanding_claim_action_view">
+            <field name="name">Outstanding Claim Data</field>
+            <field name="res_model">dym.work.order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('type','=','CLA'),('kpb_collected','!=','collected'),('state','=','open')]</field>
+        </record>
+        <record id="dym_outstanding_claim_action_view_tree" model="ir.actions.act_window.view">
+            <field eval="6" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_outstanding_claim_tree_view" />
+            <field name="act_window_id" ref="dym_outstanding_claim_action_view" />
+        </record>
+        <record id="dym_outstanding_claim_action_view_form" model="ir.actions.act_window.view">
+            <field eval="7" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_outstanding_claim_form_wizard_view" />
+            <field name="act_window_id" ref="dym_outstanding_claim_action_view" />
+        </record>
+        -->
+
+
+        <menuitem id="dym_outstanding_kpb_menu_item" name="Outstanding KPB" parent="dym_dealer_menu.workshop_collecting_menu_kpb" sequence="1" action="dym_outstanding_kpb_action_view" />
+        <menuitem id="dym_collecting_kpb_menu_item" name="Collecting KPB" parent="dym_dealer_menu.workshop_collecting_menu_kpb" sequence="2" action="dym_collecting_kpb_action_view" />
+        <menuitem id="dym_outstanding_claim_menu_item" name="Outstanding Claim" parent="dym_dealer_menu.workshop_collecting_menu_claim" sequence="1" action="dym_outstanding_claim_action_view" />
+        <menuitem id="dym_collecting_claim_menu_item" name="Collecting Claim" parent="dym_dealer_menu.workshop_collecting_menu_claim" sequence="2" action="dym_collecting_claim_action_view" />
+    </data>
+</openerp>

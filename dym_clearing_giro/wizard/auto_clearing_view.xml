@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="auto_clearing_form" model="ir.ui.view">
+            <field name="name">auto.clearing.form</field>
+            <field name="model">auto.clearing</field>
+            <field name="arch" type="xml">
+                <form string="Search">
+                    <p>Anda akan membuat clearing otomatis. Semua dokumen bank transfer yang statusnya done akan ditarik di dokumen Clearing Bank. Silahkan tekan bobol <b>Process</b> untuk melanjutkan.</p>
+                    <group>
+                        <field name="company_id" />
+                        <field name="branch_id" />
+                    </group>
+                    <footer>
+                        <button string="Process" name="action_process" type="object" class="oe_highlight" />
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="auto_clearing_action" model="ir.actions.act_window">
+            <field name="name">Open Clearing</field>
+            <field name="res_model">auto.clearing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem action="auto_clearing_action" id="dym_auto_clearing_menu" parent="dym_clearing_giro_menu_submenu" sequence="10"/>
+    </data>
+</openerp>

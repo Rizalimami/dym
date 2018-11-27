@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paper_format_po" model="report.paperformat">
+            <field name="name">Purchase Order Report Format</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">24</field>
+            <field name="margin_bottom">31</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+        <report id="dym_invoice_po_report" string="Purchase Order" model="purchase.order" report_type="qweb-pdf" name="dym_purchase_order.report_po_template" file="dym_purchase_order.report_po_template" />
+        <record id="dym_invoice_po_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_purchase_order.paper_format_po" />
+        </record>
+    </data>
+</openerp>

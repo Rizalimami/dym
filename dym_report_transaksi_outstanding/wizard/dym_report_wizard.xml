@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+    <record id="view_report_transaksi_outstanding_wizard" model="ir.ui.view">
+		<field name="name">Print Laporan Transaksi Outstanding</field>
+		<field name="model">dym.report.transaksi.outstanding.wizard</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+	        <form string="Laporan Transaksi Outstanding">
+	        	<group col="4" colspan="4">
+					<field name="option" required="1" invisible="1"/>
+	   				<label for="start_date" string="Transaction Date"/>	
+	   				<div>
+	   					<field name="trx_start_date" class="oe_inline"/> - <field name="trx_end_date" class="oe_inline"/>
+	   				</div>
+	          	</group>
+	          
+				<notebook colspan="5">
+		      		<page string="Branches">
+						<field name="branch_ids" colspan="4" nolabel="1"/>
+		      		</page>
+		           	<page string="Supplier">
+		          		<field name="partner_ids" colspan="4" nolabel="1"/>
+		          	</page>
+	        	</notebook>
+	          	<footer>
+	            	<button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1}" class="oe_highlight"/>s
+	            	or <button string="Cancel" class="oe_link" special="cancel"/>
+	          	</footer>
+	          	
+	        </form>
+    	</field>
+    </record>
+
+    <record id="action_report_transaksi_outstanding_wizard" model="ir.actions.act_window">
+		<field name="name">Laporan Transaksi Outstanding</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">dym.report.transaksi.outstanding.wizard</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_report_transaksi_outstanding_wizard"/>
+        <field name="context">{'option': 'invoice'}</field>
+		<field name="target">new</field>
+    </record>
+
+	<menuitem id="menu_transaksi_outstanding_report" parent="dym_dealer_menu.backoffice_report_menu" sequence="10" action="action_report_transaksi_outstanding_wizard"/>
+
+	</data>
+</openerp>

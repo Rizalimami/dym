@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_reverse_entries_wiz" model="ir.ui.view">
+            <field name="name">Reverse Entries</field>
+            <field name="model">reverse.journal</field>
+            <field name="arch" type="xml">
+                <form string="Reverse Entries">
+                    <group>
+                        <separator string="Are you sure you want to reverse these entries?" />
+                    </group>
+                    <footer>
+                        <button name="reverse" string="Reverse Entries" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window name="Reverse Entries" res_model="reverse.journal" src_model="account.move" view_mode="form" target="new" multi="True" key2="client_action_multi" id="action_view_reverse_journal" />
+    </data>
+</openerp>

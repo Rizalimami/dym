@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_check_service_form_view">
+            <field name="name">dym.check.service.form</field>
+            <field name="model">dym.check.service</field>
+            <field name="arch" type="xml">
+                <form string="Check Service" create="false">
+                    <sheet>
+                        <group col="4">
+                            <field name="customer_id" options="{'no_show':True,'no_create':True}" on_change="field_change(service_type,branch_id,lot_id,due_date,customer_id)" domain="['|','|','|',('customer','=',True),('direct_customer','=',True),('is_group_customer','=',True),('is_customer_depo','=',True)]" />
+                            <field name="lot_id" on_change="field_change(service_type,branch_id,lot_id,due_date,customer_id)" options="{'no_open':True,'no_create':True}" />
+                            <field name="service_type" on_change="field_change(service_type,branch_id,lot_id,due_date,customer_id)" />
+                            <field name="branch_id" on_change="field_change(service_type,branch_id,lot_id,due_date,customer_id)" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                            <field name="due_date" on_change="field_change(service_type,branch_id,lot_id,due_date,customer_id)" />
+                        </group>
+                        <field name="work_order_ids" readonly="True">
+                            <tree string="Work Order">
+                                <field name="name" string="No WO" />
+                                <field name="type" />
+                                <field name="date" string="Tanggal Service Terakhir" />
+                                <field name="tgl_service_kembali" />
+                                <field name="service_date_remaining" />
+                                <field name="customer_name" string="Customer" />
+                                <field name="no_pol" string="No Polisi" />
+                                <field name="engine_number" string="No Mesin" />
+                                <field name="mobile" string="Mobile" />
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_check_service_action">
+            <field name="name">Check Sevice</field>
+            <field name="res_model">dym.check.service</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <!-- <field name="context" eval="{'default_categ_id': ref('dym_product.categ_sparepart')}"/> -->
+        </record>
+        <menuitem name="Check Service" parent="dym_dealer_menu.workshop_sales_menu" sequence="1" id="dym_check_service_menu" action="dym_check_service_action" />
+        <record model="ir.ui.view" id="dym_days_revisit_tree">
+            <field name="name">dym.days.revisit.tree</field>
+            <field name="model">dym.days.revisit</field>
+            <field eval="1" name="priority" />
+            <field name="arch" type="xml">
+                <tree string="Days Re-visit" create="false" delete="false" editable="top">
+                    <field name="name" />
+                    <field name="due_date" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_days_revisit_form">
+            <field name="name">dym.days.revisit.form</field>
+            <field name="model">dym.days.revisit</field>
+            <field name="arch" type="xml">
+                <form string="Days Re-visit" create="false" delete="false">
+                    <group>
+                        <field name="name" />
+                        <field name="due_date" />
+                    </group>
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_dym_days_revisit">
+            <field name="name">Config Days Re-visit</field>
+            <field name="res_model">dym.days.revisit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Config Days Re-visit" parent="dym_dealer_menu.workshop_configuration_menu" sequence="8" id="dym_days_revisit_menuitem" action="action_dym_days_revisit" />
+    </data>
+</openerp>

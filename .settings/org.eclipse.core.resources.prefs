@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//account_move_report/__openerp__.py=utf-8
+encoding//account_move_report/report/account_move_html.py=utf-8
+encoding//account_move_voucher/models/account_move.py=utf-8
+encoding//dealer_sale_order/models/dealer_sale_order.py=utf-8
+encoding//dym_account/models/account_tax.py=utf-8
+encoding//dym_retur_jual/models/account_invoice.py=utf-8

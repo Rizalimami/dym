@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_pit_tree_view">
+            <field name="name">dym.pit.tree.view</field>
+            <field name="model">dym.pit</field>
+            <field name="arch" type="xml">
+                <tree string="Pit">
+                    <field name="name" />
+                    <field name="branch_id" />
+                    <field name="active" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_pit_form_view">
+            <field name="name">dym.pit.form</field>
+            <field name="model">dym.pit</field>
+            <field name="arch" type="xml">
+                <form string="Form Pit">
+                    <label for="name" class="oe_edit_only" />
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group col="2" colspan="2">
+                        <group>
+                            <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                            <field name="pit_type" />
+                            <field name="active" />
+                        </group>
+                        <group>
+                            <field name="mekanik_ids" widget="many2many_tags" options="{'no_open':True,'no_create_edit':True}" domain="[('branch_id','=',branch_id),('active','=',True),('job_id.mekanik','=',True')]" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_dym_pit">
+            <field name="name">Pit</field>
+            <field name="res_model">dym.pit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Master Pit" parent="dym_dealer_menu.workshop_configuration_menu" sequence="8" id="dym_pit_menuitem" action="action_dym_pit" />
+    </data>
+</openerp>

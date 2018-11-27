@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+        <record id="res_users_inherit" model="ir.ui.view">
+	        <field name="name">res.users.form.inherit</field>
+	        <field name="model">res.users</field>
+	        <field name='inherit_id' ref='base.view_users_form'/>
+	        <field name="arch" type="xml">
+	        	<page string="Access Rights" position='after'>
+	        		<page string='User Logs'>
+	        			<field name='user_log_ids' nolabel='1'>
+	        				<tree>
+	        					<field name='user_id'/>
+	        					<field name='sign_in'/>
+	        					<field name='sign_out'/>
+	        					<field name='session_id' invisible='1'/>
+	        				</tree>
+	        			</field>
+	        		</page>
+	        	</page>
+	        </field>
+        </record>
+    </data>
+</openerp>

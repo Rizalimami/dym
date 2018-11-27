@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_checkgyro_generate_line_form" model="ir.ui.view">
+            <field name="name">dym.checkgyro.generate.line.form</field>
+            <field name="model">dym.checkgyro.generate.line</field>
+            <field name="arch" type="xml">
+                <form string="Import Vouchers">
+                    <group>
+                        <group>
+                            <field name="checkgyro_id" readonly="1" />
+                            <field name="journal_id"/>
+                            <field name="prefix" />
+                            <field name="padding" />
+                        </group>
+                        <group>
+                            <field name="number_start" />
+                            <field name="number_end" />
+                            <field name="pages" />
+                        </group>
+                    </group>
+                    <!--
+                    <field name="line_ids">
+                        <tree string="List Voucher">
+                            <field name="number" />
+                            <field name="date" />
+                            <field name="due_date_payment" />
+                            <field name="amount" />
+                            <field name="net_amount" />
+                            <field name="withholdings_amount" />
+                            <field name="state" />
+                        </tree>
+                    </field>
+                    -->
+                    <footer>
+                        <button string="Generate Numbers" name="generate_numbers" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_dym_checkgyro_generate_line_form" model="ir.actions.act_window">
+            <field name="name">Generate Check/Giro Lines</field>
+            <field name="res_model">dym.checkgyro.generate.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="dym_checkgyro_generate_line_form" />
+            <field name="target">new</field>
+            <field name="context">{}</field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_holiday_year_tree">
+			<field name="name">Holiday Tree</field>
+			<field name="model">hr.holiday.year</field>
+			<field name="arch" type="xml">
+				<tree string="Holiday Establishment">
+					<field name="year" />
+					<field name="month" />
+					<field name="name" />
+					<field name="date_start" />
+					<field name="date_stop" />
+					<field name="note" />
+				</tree>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_holiday_year_form">
+			<field name="name">Holiday Form</field>
+			<field name="model">hr.holiday.year</field>
+			<field name="arch" type="xml">
+				<form string="Holiday Establishment">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group>
+                        	<group>
+								<field name="date_start" />
+								<field name="date_stop" />
+                        	</group>
+                        	<group>
+								<field name="year" />
+								<field name="month" />
+                        	</group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+								<field name="note" nolabel="1" />
+                            </page>
+                        </notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_holiday_year_search">
+			<field name="name">Holiday Search</field>
+			<field name="model">hr.holiday.year</field>
+			<field name="arch" type="xml">
+				<search string="Holiday Establishment">
+					<field name="name" />
+					<field name="date_start" />
+					<field name="date_stop" />
+					<newline />
+					<group expand="False" string="Group By..." groups="base.group_extended">
+						<filter name="year" string="Year" icon="terp-go-year" domain="[]" context="{'group_by':'year'}" />
+						<filter name="month" string="Month" icon="terp-go-month" domain="[]" context="{'group_by':'month'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_holiday_year_calendar">
+			<field name="name">Holiday Calendar</field>
+			<field name="model">hr.holiday.year</field>
+			<field name="type">calendar</field>
+			<field name="arch" type="xml">
+				<calendar string="Calendar View" date_start="date_start" date_stop="date_stop" color="name">
+					<field name="name" />
+				</calendar>
+			</field>
+		</record>
+		<record id="act_menu_holiday_year" model="ir.actions.act_window">
+			<field name="name">Holiday Establishment</field>
+			<field name="res_model">hr.holiday.year</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,calendar</field>
+			<field eval="False" name="filter" />
+			<field name="view_id" ref="view_holiday_year_calendar" />
+			<field name="context">{"search_default_year":1,"search_default_month":1,}</field>
+			<field name="search_view_id" ref="view_holiday_year_search" />
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new holiday.
+              </p><p>
+                Manage all holiday in a year.
+              </p>
+            </field>
+		</record>
+		<menuitem name='Holiday Establishment' id='menu_holiday_year' parent='base.menu_res_company_global' action="act_menu_holiday_year" />
+		<menuitem id="menu_holiday_management" name="Holiday Establishment" parent="hr.menu_hr_configuration" sequence="100" />
+		<menuitem name='Holiday Establishment' id='menu_holiday_establishment' parent='menu_holiday_management' action="act_menu_holiday_year" />
+	</data>
+</openerp>

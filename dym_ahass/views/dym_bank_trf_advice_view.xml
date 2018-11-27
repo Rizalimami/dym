@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="bank_trf_advice_tree_view" model="ir.ui.view">
+            <field name="name">bank.trf.advice.tree.view</field>
+            <field name="model">bank.trf.advice</field>
+            <field name="inherit_id" ref="dym_bank_trf_request.bank_trf_advice_tree_view" />
+            <field eval="1" name="priority" />
+            <field name="arch" type="xml">
+                <field name="branch_destination_id" position="after">
+                    <field name="branch_via_id" />
+                </field>
+            </field>
+        </record>
+        <record id="bank_trf_advice_form_view" model="ir.ui.view">
+            <field name="name">bank.trf.advice.form.view</field>
+            <field name="model">bank.trf.advice</field>
+            <field name="inherit_id" ref="dym_bank_trf_request.bank_trf_advice_form_view" />
+            <field name="arch" type="xml">
+                <field name="branch_destination_id" position="after">
+                    <field name="branch_via_id" />
+                </field>
+            </field>
+        </record>
+        <record id="bank_trf_advice_search_view" model="ir.ui.view">
+            <field name="name">bank.trf.advice.search.view</field>
+            <field name="model">bank.trf.advice</field>
+            <field name="inherit_id" ref="dym_bank_trf_request.bank_trf_advice_search_view" />
+            <field name="arch" type="xml">
+                <field name="branch_id" position="after">
+                    <field name="branch_via_id" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

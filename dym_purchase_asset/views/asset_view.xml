@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_purchase_asset_add" model="ir.ui.view">
+            <field name="name">account.asset.category</field>
+            <field name="model">account.asset.category</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_category_form" />
+            <field name="arch" type="xml">
+                <group string="Analytic Information" position="replace">
+                    <group groups="analytic.group_analytic_accounting" string="Analytic Information">
+                        <field name="analytic_1" options="{'no_create': True,'no_open':True}" required="1" domain="[('segmen','=',1),('type','=','normal'),('state','not in',('close','cancelled')),('company_id','=',company_id)]" on_change="change_reset('analytic_1')" />
+                        <field name="analytic_2" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" on_change="change_reset('analytic_2')" />
+                        <field name="analytic_3" domain="[('segmen','=',3),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" on_change="change_reset('analytic_3')" />
+                        <field name="account_analytic_id" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" string="Account Analytic Cost Center" required="1" />
+                    </group>
+                </group>
+                <field name="journal_id" position="after">
+                    <field name="journal_acq_id" />
+                </field>
+                <field name="company_id" position="attributes">
+                    <attribute name="on_change">change_reset('company')</attribute>
+                </field>
+                <field name="name" position="after">
+                    <field name="code" required="1" />
+                    <field name="type" required="1" />
+                    <field name="cip" />
+                    <field name="asset_classification_id" readonly='1' />
+                </field>
+                <field name="open_asset" position="after">
+                    <field name="first_day_of_month" />
+                </field>
+                <field name="method_period" position="after">
+                    <field name="yearly_prorate" />
+                </field>
+                <field name="method_number" position="attributes">
+                    <attribute name="on_change">onchange_method_number(method_number, yearly_prorate)</attribute>
+                </field>
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_asset_asset_tree_inherit" model="ir.ui.view">
+            <field name="name">account.asset.asset</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_tree" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="code" />
+                </field>
+                <tree string="Assets" position="attributes">
+                    <attribute name="colors">blue:(state == 'draft');grey:(state in ['close','sold','scrap'])</attribute>
+                </tree>
+            </field>
+        </record>
+        <record id="view_tambah_value_asset" model="ir.ui.view">
+            <field name="name">Tambah Value Asset</field>
+            <field name="model">dym2.asset.tambah.value</field>
+            <field name="arch" type="xml">
+                <form string="Tambah Value Asset">
+                    <group>
+                        <field name="asset_id" invisible="1" />
+                        <field name="value" />
+                    </group>
+                    <footer>
+                        <button name="tambah_value" string="_Tambah" type="object" class="oe_highlight" /> or
+                        <button string="_Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_tambah_value" model="ir.actions.act_window">
+            <field name="name">Tambah Value Asset</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym2.asset.tambah.value</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_tambah_value_asset" />
+            <field name="target">new</field>
+        </record>
+        <record id="view_transfer_beban_asset" model="ir.ui.view">
+            <field name="name">Transfer Pembebanan Asset</field>
+            <field name="model">dym2.asset.transfer.beban</field>
+            <field name="arch" type="xml">
+                <form string="Transfer Pembebanan Asset/Prepaid">
+                    <group>
+                        <group>
+                            <field name="asset_id" invisible="1" />
+                            <field name="branch_id" on_change="change_reset('branch')" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                        </group>
+                        <group>
+                            <field name="analytic_2" required="1" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled'))]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="change_reset('analytic_2')" />
+                            <field name="analytic_3" required="1" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="change_reset('analytic_3')" />
+                            <field name="analytic_4" required="1" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="transfer_beban" string="_Transfer" type="object" class="oe_highlight" /> or
+                        <button string="_Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_transfer_beban" model="ir.actions.act_window">
+            <field name="name">Transfer Pembebanan Asset</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym2.asset.transfer.beban</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_transfer_beban_asset" />
+            <field name="target">new</field>
+        </record>
+        <record id="view_asset_asset_add" model="ir.ui.view">
+            <field name="name">account.asset.asset</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_form" />
+            <field name="arch" type="xml">
+                <button name="set_to_close" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <button name="validate" position="attributes">
+                    <attribute name="confirm">This will confirm asset and create acquisition journal, do you want to continue?</attribute>
+                </button>
+                <button name="set_to_close" position="after">
+                    <button name="wkf_request_approval" states="open" string="Set to Close" type="object" class="oe_highlight" />
+                    <button name="wkf_approval" states="waiting_for_approval" string="Approve" type="object" class="oe_highlight" />
+                    <button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action" context="{'model_name':'account.asset.asset','update_value':{'approval_state':'r','state':'open'}}" />
+                    <button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'account.asset.asset','update_value':{'approval_state':'b','state':'open'}}" />
+                    <button name="confirm" states="approved" string="Close Asset" type="object" class="oe_highlight" />
+                </button>
+                <xpath expr="/form/sheet/group" position="before">
+                    <group>
+                        <group>
+                            <field name="asset_owner" attrs="{'readonly': [('state','not in','draft')]}" options="{'no_open':True,'no_create':True}" required="1" />
+                        </group>
+                        <group>
+                            <field name="division" attrs="{'readonly': [('state','not in','draft')]}" />
+                        </group>
+                    </group>
+                </xpath>
+                <field name="category_id" position="after">
+                    <field name="asset_classification_id" readonly="1"></field>
+                </field>
+                <field name="purchase_date" position="attributes">
+                    <attribute name="string">Effective Date</attribute>
+                </field>
+                <field name="purchase_date" position="after">
+                    <field name="gl_date" />
+                    <field name="acq_move_id" />
+                    <field name="branch_id" options="{'no_open':True,'no_create':True}" required="1" attrs="{'readonly': [('state','not in','draft')]}" on_change="change_reset('branch')" />
+                    <field name="asset_user" attrs="{'readonly': [('state','not in','draft')]}" options="{'no_open':True,'no_create':True}" required="0" />
+                </field>
+                <!-- <button name="validate" position="after">
+                     	<button name="%(action_transfer_beban)d" string="Transfer Beban" type="action" attrs="{'invisible': ['|',('state','!=','open'),('parent_id','!=',False)]}"/>
+		        </button> -->
+                <button name="validate" position="attributes">
+                    <attribute name="groups">dym_purchase_asset.group_dym_asset_confirm</attribute>
+                </button>
+                <button name="set_to_close" position="attributes">
+                    <attribute name="groups">dym_purchase_asset.group_dym_asset_close</attribute>
+                </button>
+                <button name="set_to_draft" position="attributes">
+                    <attribute name="groups">dym_purchase_asset.group_dym_asset_draft</attribute>
+                </button>
+                <field name="code" position="replace" />
+                <field name="name" position="before">
+                    <field name="code" readonly="1" class="oe_inline" style="width: 6em" /> -
+                </field>
+                <field name="partner_id" position="replace" />
+                <field name="prorata" position="after">
+                    <field name="first_day_of_month" attrs="{'readonly': [('state','not in','draft')]}" />
+                </field>
+                <field name="method" position="attributes">
+                    <attribute name="groups">dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_hrga_dept_head,dym_base_security.group_dym_marketing_analyst_unit,dym_base_security.group_dym_operation_sub_div_head,dym_base_security.group_dym_operation_support_div_head,dym_base_security.group_dym_treasury_sec_head</attribute>
+                </field>
+                <label for="method_time" position="replace"></label>
+                <field name="method_time" position="replace">
+                </field>
+                <field name="method" position="after">
+                    <field name="method_time" attrs="{'readonly': [('state','not in','draft')]}" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_hrga_dept_head,dym_base_security.group_dym_marketing_analyst_unit,dym_base_security.group_dym_operation_sub_div_head,dym_base_security.group_dym_operation_support_div_head,dym_base_security.group_dym_treasury_sec_head"></field>
+                    <label for="method_time" invisible="1" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_hrga_dept_head,dym_base_security.group_dym_marketing_analyst_unit,dym_base_security.group_dym_operation_sub_div_head,dym_base_security.group_dym_operation_support_div_head,dym_base_security.group_dym_treasury_sec_head"></label>
+                </field>
+                <!--<button name="535" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</button>-->
+                <field name="value_residual" position="replace">
+                    <label for="value_residual" />
+                    <div>
+                        <field name="value_residual" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_inline" />
+                        <button name="%(action_tambah_value)d" string="⇒ Tambah" type="action" class="oe_link" invisible="1" />
+                    </div>
+                    <field name="real_purchase_value" readonly="1" />
+                    <field name="real_purchase_date" readonly="1" />
+                    <field name="yearly_prorate" />
+                </field>
+                <field name="purchase_value" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <xpath expr="//page[@string='General']" position="after">
+                    <page string="Other Info">
+                        <group>
+                            <field name="partner_id" string="Vendor" options="{'no_create':True}" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="product_id" options="{'no_create':True}" attrs="{'readonly': [('state','not in','draft')]}" />
+                            <field name="responsible_id" options="{'no_create':True}" attrs="{'readonly': [('state','not in','draft')]}" required="1" />
+                            <field name="cost_centre_id" invisible="1" />
+                            <field name="location_id" attrs="{'readonly': [('state','not in','draft')]}" domain="[('branch_id','=',branch_id),('usage','=','internal')]" required="1" />
+                        </group>
+                        <separator string="Purchase Info" />
+                        <group>
+                            <field name="categ_type" invisible="1" />
+                            <field name="purchase_id" readonly="1" />
+                            <field name="receive_id" readonly="1" />
+                            <field name="invoice_id" readonly="1" />
+                        </group>
+                        <separator string="Account" />
+                        <group>
+                            <field name="account_asset_id" />
+                            <field name="account_depreciation_id" />
+                            <field name="account_expense_depreciation_id" />
+                        </group>
+                        <separator string="Transfer Pembebanan History" />
+                        <field name="beban_history_ids" nolabel="1" widget="one2many_list" readonly="1">
+                            <tree string="Transfer Line">
+                                <field name="date" />
+                                <field name="branch_from" />
+                                <field name="branch_to" />
+                            </tree>
+                        </field>
+                        <separator string="Penambahan Value History" invisible="1" />
+                        <field name="tambah_value_history_ids" nolabel="1" widget="one2many_list" readonly="1" invisible="1">
+                            <tree string="Penambahan Line">
+                                <field name="date" />
+                                <field name="value" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@string='Notes']" position="after">
+                    <page string="Approval">
+                        <field name="approval_ids">
+                            <tree string="Approval" editable="bottom" create="false" edit="false" delete="false">
+                                <field name="group_id" />
+                                <field name="branch_id" />
+                                <field name="division" />
+                                <field name="limit" />
+                                <field name="sts" />
+                                <field name="reason" />
+                                <field name="pelaksana_id" />
+                                <field name="tanggal" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                                <field name="confirm_uid" readonly="1"></field>
+                                <field name="confirm_date" readonly="1"></field>
+                                <field name="confirm_close_uid" readonly="1"></field>
+                                <field name="confirm_close_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                                <field name="approved_uid" readonly="1"></field>
+                                <field name="approved_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                
+                <field name="method_progress_factor" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                
+                <field name="method_number" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name="first_day_of_month" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <field name="prorata" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <field name="method_period" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <button name="compute_depreciation_board" position="attributes">
+                    <attribute name="context">{'parent_asset_id': id}</attribute>
+                </button>
+                <xpath expr="//tree/field[@name='depreciation_date']" position="after">
+                    <field name="asset_id" readonly="1" />
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="account_asset.action_account_asset_asset_form">
+            <field name="domain">[('categ_type','=','fixed')]</field>
+        </record>
+        <record model="ir.actions.act_window" id="account_asset.action_account_asset_asset_tree">
+            <field name="domain">[('categ_type','=','fixed')]</field>
+        </record>
+        <record model="ir.ui.view" id="asset_classification_form_view">
+            <field name="name">dym.asset.classification.form</field>
+            <field name="model">dym.asset.classification</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="2" colspan="2">
+                        <field name="name" required="1" />
+                        <field name="code" required="1" />
+                        <field name="categ_id" required="1" widget="many2many_tags" />
+                    </group>
+                    <notebook colspan="5">
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="asset_classification_tree_view">
+            <field name="name">dym.asset.classification.tree</field>
+            <field name="model">dym.asset.classification</field>
+            <field name="arch" type="xml">
+                <tree string="" create="true">
+                    <field name="name" required="1" />
+                    <field name="code" required="1" />
+                    <field name="categ_id" widget="many2many_tags" invisible="1" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_asset_classification_filter" model="ir.ui.view">
+            <field name="name">dym.asset.classification.list.select</field>
+            <field name="model">dym.asset.classification</field>
+            <field name="arch" type="xml">
+                <search string="Search Asset Class">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="categ_id" />
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="asset_classification_action">
+            <field name="name">Asset Classification</field>
+            <field name="res_model">dym.asset.classification</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_asset_classification_filter" />
+        </record>
+        <record id="view_asset_filter" model="ir.ui.view">
+            <field name="name">account.asset.asset.list.select</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_search" />
+            <field name="arch" type="xml">
+                <field name='partner_id' position='replace' />
+                <field name="name" position='after'>
+                    <field name="branch_id" />
+                    <field name="code" />
+                    <field name='partner_id' string='Vendor' />
+                </field>
+            </field>
+        </record>
+        <record id="add_method_number_to_tree" model="ir.ui.view">
+            <field name="name">account.asset.category.tree</field>
+            <field name="model">account.asset.category</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_category_tree" />
+            <field name="arch" type="xml">
+                <field name="name" position='after'>
+                    <field name="method_number" />
+                </field>
+            </field>
+        </record>
+        <menuitem id="ga_report_menu" parent="dym_dealer_menu.general_affair_top_menu" name="Report" sequence="35"></menuitem>
+        <menuitem id="asset_classification_submenu" parent="dym_dealer_menu.ga_configuration_menu" action="asset_classification_action" sequence="2" />
+        <menuitem parent="dym_dealer_menu.ga_asset_menu" id="menu_action_account_asset_asset_form_ga" sequence="2" action="account_asset.action_account_asset_asset_form" />
+        <menuitem parent="dym_dealer_menu.ga_configuration_menu" id="menu_action_account_asset_asset_list_normal_ga" action="account_asset.action_account_asset_asset_list_normal" sequence="1" />
+        <menuitem parent="dym_dealer_menu.ga_asset_menu" id="menu_action_account_asset_asset_tree_ga" sequence="3" action="account_asset.action_account_asset_asset_tree" />
+    </data>
+</openerp>

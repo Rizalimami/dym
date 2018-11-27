@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="view_report_cash" model="ir.ui.view">
+      <field name="name">Print Report Cash</field>
+      <field name="model">dym.report.cash</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Laporan Cash">
+          <group>
+          	<field name="option" required="1"/>
+          	<field name="status" attrs="{'invisible':[('option','!=','Outstanding EDC')]}"/>
+          	<field name="journal_id"  attrs="{'invisible':[('option','!=','Petty Cash')],'required':[('option','=','Petty Cash')]}"></field>        
+          		<label for="start_date" string="Tanggal"/>	
+			<div>
+				<field name="start_date" required="1" class="oe_inline"/> s/d <field name="end_date" class="oe_inline"/>
+			</div>   
+          </group>
+          
+          <notebook colspan="5">
+	          <page string="Branchs" attrs="{'invisible':[('option','=','Petty Cash')]}"> 
+	          	 <field name="branch_ids" colspan="4" nolabel="1"/>
+	          </page>   
+	          <page string="Jornals"  attrs="{'invisible':[('option','=','Petty Cash')]}">
+	         	  <field name="journal_ids" colspan="4" nolabel="1"/>
+	          </page>	                         	
+        </notebook>
+          <footer>
+         
+            <button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1,'options':option}" class="oe_highlight"/>
+            or <button string="Cancel" class="oe_link" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_report_cash_wizard" model="ir.actions.act_window">
+      <field name="name">Cash</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">dym.report.cash</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_report_cash"/>
+      <field name="target">new</field>
+    </record>
+
+	 <menuitem id="menu_report_cash"  parent="dym_dealer_menu.backoffice_report_menu" sequence="3"  action="action_report_cash_wizard"/>	
+
+  </data>
+</openerp>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym2_analisa_penyusutan">
+            <field name="name">dym2.analisa.penyusutan.form</field>
+            <field name="model">dym2.analisa.penyusutan</field>
+            <field name="arch" type="xml">
+                <form string="Analisa Penyusutan Asset" create="false">
+                    <sheet>
+                        <group col="4">
+                            <field name="branch_id" on_change="field_change(branch_id,month,year)" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                            <label for="month" string="Periode" />
+                            <div>
+                                <field name="month" class="oe_inline" on_change="field_change(branch_id,month,year)" />
+                                <field name="year" class="oe_inline" on_change="field_change(branch_id,month,year)" />
+                            </div>
+                        </group>
+                        <field name="asset_category_ids" readonly="True">
+                            <tree string="Work Order">
+                                <field name="name" sting="Category" />
+                                <field name="analisa_cost" />
+                                <field name="analisa_depreciated" />
+                                <field name="analisa_current_depre_1" />
+                                <field name="analisa_current_depre_0" />
+                                <field name="analisa_nbv" />
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym2_analisa_penyusutan_action">
+            <field name="name">Analisa Penyusutan Asset</field>
+            <field name="res_model">dym2.analisa.penyusutan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+        <menuitem name="Analisa Penyusutan Asset" parent="dym_dealer_menu.ga_asset_menu" sequence="100" id="dym2_analisa_penyusutan_menu" action="dym2_analisa_penyusutan_action" />
+    </data>
+</openerp>

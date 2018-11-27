@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_invoice_custom_final" inherit_id="account.report_invoice">
+            <xpath expr="//t[@t-call='report.html_container']" position="replace">
+                <style type="text/css">
+                .tag_container {
+                    margin: auto;
+                    margin-bottom: 50px;
+                    border: 1px solid black;
+                }
+                
+                .no_border {
+                    border: 0px !important;
+                }
+                
+                .margin_bottom {
+                    margin-bottom: 5px !important;
+                    margin-top: 5px !important;
+                }
+                
+                .border_top {
+                    border-top: 1px solid black !important;
+                    margin-top: 5px !important;
+                    margin-bottom: 5px !important;
+                }
+                
+                .border_bottom {
+                    border-bottom: 1px solid black !important;
+                }
+                                
+                .page,
+                .header,
+                .footer,
+                .table {
+                    font-size: 12px !important;
+                }
+
+                .hr {
+                    border-top: 1px solid black !important;
+                }
+
+                .text_up{
+                    text-transform: uppercase;
+                }
+
+                .text_bold{
+                    font-weight: bold;
+                }
+
+                .text_head{
+                    font-size: 14px;
+                }
+
+                .table_titikdua{
+                    text-align:center;
+                    width:20px;
+                }
+
+                .table_margintop{
+                    margin-top: 20px !important;
+                }
+
+                .tableap td, .tableap th {
+                    padding: 0px !important;
+                }
+                </style>
+                <t t-call="report.html_container">
+                    <t t-set="numpage" t-value="0" />
+                    <t t-set="totpage" t-value="len(docs)" />
+                    <t t-foreach="docs" t-as="o">
+                        <t t-set="numpage" t-value="numpage+1"/>
+                        <t t-if="o and 'company_id' in o"><t t-set="company" t-value="o.company_id"></t></t>
+                        <t t-if="not o or not 'company_id' in o"><t t-set="company" t-value="res_company"></t></t>
+                        <div class="page">
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <span class="text_up text_head text_bold"><t t-esc="company.name"/></span><br/>
+                                    <span>CABANG : <span t-field="o.branch_id.code" /> - <span t-field="o.branch_id.name" /></span><br/>
+                                    <span>ALAMAT : <span t-field="o.branch_id.street" /></span><br/>
+                                    <span>NPWP : <span t-field="o.branch_id.npwp" /></span>
+                                </div>
+                                <div class="col-xs-5" align="center">
+                                    <span class="text_up text_head text_bold">
+                                        <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Invoice</span>
+                                    <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">Pro-Forma</span>
+                                    <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
+                                    <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+                                    <span t-if="o.type == 'out_refund'">Refund</span>
+                                    <span t-if="o.type == 'in_refund'">Supplier Refund</span>
+                                    <span t-if="o.type == 'in_invoice'">Invoice Receive Note</span>
+                                    </span>
+                                    <br/>
+                                    <span><span t-field="o.number" /></span>
+                                </div>
+                            </div>
+                            <hr class="border_top" />
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <table>
+                                        <tr>
+                                            <td width="120">Supplier / Customer</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="o.partner_id" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Alamat</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td>
+                                                <t t-if="o.partner_id.street"><span t-field="o.partner_id.street" /> </t>
+                                                <t t-if="o.partner_id.street2"><span t-field="o.partner_id.street2" /> </t>
+                                                <t t-if="o.partner_id.rt">RT <span t-field="o.partner_id.rt" /> </t>
+                                                <t t-if="o.partner_id.rw">RW <span t-field="o.partner_id.rw" /> </t>
+                                                <t t-if="o.partner_id.kelurahan"><span t-field="o.partner_id.kelurahan" /> </t>
+                                                <t t-if="o.partner_id.kecamatan"><span t-field="o.partner_id.kecamatan" /> </t>
+                                                <t t-if="o.partner_id.city_id.name"><span t-field="o.partner_id.city_id.name" /> </t>
+                                                <t t-if="o.partner_id.state_id.name"><span t-field="o.partner_id.state_id.name" /> </t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>No. Invoice</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td>
+                                                <t t-if="o.supplier_invoice_number" >
+                                                    <span t-field="o.supplier_invoice_number" />
+                                                </t>
+                                                <t t-if="not o.supplier_invoice_number" >-</t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tgl Invoice</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="o.document_date" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tgl Jatuh Tempo</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="o.date_due" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-xs-5">
+                                    <table>
+                                        <tr>
+                                            <td>Tgl Reg Invoice</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="o.date_invoice" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>No. DSM</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-esc="o.origin" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Payment Term</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="o.payment_term" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <table class="table tableap table_margintop">
+                                        <thead>
+                                            <tr>
+                                                <th><strong>No.</strong></th>
+                                                <th><strong>Tipe Produk</strong></th>
+                                                <th><strong>Nama Produk</strong></th>
+                                                <th><strong>Warna</strong></th>
+                                                <th><strong>Unit</strong></th>
+                                                <th><strong>Harga Per Unit</strong></th>
+                                                <th><strong>Total Pembelian</strong></th>
+                                                <th><strong>Disc Cash</strong></th>
+                                                <th><strong>Disc Program</strong></th>
+                                                <th><strong>Disc Lain-lain</strong></th>
+                                                <th><strong>Subtotal</strong></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-set="no" t-value="0" />
+                                            <t t-set="total_qty" t-value="0"/>
+                                            <t t-set="total_pembelian" t-value="0"/>
+                                            <t t-set="total_disc_cash" t-value="0"/>
+                                            <t t-set="total_disc_program" t-value="0"/>
+                                            <t t-set="total_disc_lain" t-value="0"/>
+                                            <t t-set="total_subtotal" t-value="0"/>
+                                            <t t-foreach="o.invoice_line" t-as="line">
+                                                <t t-set="no" t-value="no+1" />
+                                                <t t-set="total_qty" t-value="total_qty+line.quantity"/>
+                                                <t t-set="total_pembelian" t-value="total_pembelian+(line.price_unit*line.quantity)"/>
+                                                <t t-set="total_disc_cash" t-value="total_disc_cash+line.discount_cash"/>
+                                                <t t-set="total_disc_program" t-value="total_disc_program+line.discount_program"/>
+                                                <t t-set="total_disc_lain" t-value="total_disc_lain+line.discount_lain"/>
+                                                <t t-set="total_subtotal" t-value="total_subtotal+line.price_subtotal"/>
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="no" />
+                                                    </td>
+                                                    <td>
+                                                        <t if="line.product_id">
+                                                            <span t-field="line.product_id.product_tmpl_id.name" />
+                                                        </t>
+                                                        <t if="not line.product_id">
+                                                            <span t-field="line.name" />
+                                                        </t>
+                                                    </td>
+                                                    <td>
+                                                        <t if="line.product_id">
+                                                            <span t-field="line.product_id.product_tmpl_id.default_code" />
+                                                        </t>
+                                                        <t if="not line.product_id">
+                                                            -
+                                                        </t>
+                                                    </td>
+                                                    <td><span t-field="line.product_id.attribute_value_ids.name" /></td>
+                                                    <td class="text-right"><span t-field="line.quantity" /></td>
+                                                    <td class="text-right"><span t-field="line.price_unit" /></td>
+                                                    <td class="text-right">
+                                                        <t t-esc="'{0:,.2f}'.format(int(line.price_unit*line.quantity))" />
+                                                    </td>
+                                                    <td class="text-right"><span t-field="line.discount_cash" /></td>
+                                                    <td class="text-right"><span t-field="line.discount_program" /></td>
+                                                    <td class="text-right"><span t-field="line.discount_lain" /></td>
+                                                    <td class="text-right"><span t-field="line.price_subtotal" /></td>
+                                                </tr>
+                                            </t>
+					     					<t t-set="withholding_amount" t-value="0"/>
+					             				<t t-foreach="o.withholding_ids" t-as="wh">
+                                                     <t t-set="withholding_amount" t-value="withholding_amount+wh.amount"/>
+                                                </t>
+                                            <tr>
+                                                <td style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;">Jumlah</td>
+                                                <td style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;"></td>
+                                                <td style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;"></td>
+                                                <td style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;"></td>
+                                                <td style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;" class="text-right"><t t-esc="'{0:,.2f}'.format(int(total_qty))"/></td>
+                                                <td style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;" class="text-right"></td>
+                                                <td style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;" class="text-right"><t t-esc="'{0:,.2f}'.format(int(total_pembelian))"/></td>
+                                                <td style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;" class="text-right"><t t-esc="'{0:,.2f}'.format(int(total_disc_cash))"/></td>
+                                                <td style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;" class="text-right"><t t-esc="'{0:,.2f}'.format(int(total_disc_program))"/></td>
+                                                <td style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;" class="text-right"><t t-esc="'{0:,.2f}'.format(int(total_disc_lain))"/></td>
+                                                <td style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="8" style="border-bottom: 0px !important;border-left: 0px !important;"></td>
+                                                <td colspan="2">DPP</td>
+                                                <td class="text-right"><t t-esc="'{0:,.2f}'.format(total_subtotal)" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="8" style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;"></td>
+                                                <td colspan="2">PPN</td>
+                                                <td class="text-right"><span t-field="o.amount_tax" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="8" style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;"></td>
+                                                <td colspan="2">BBN</td>
+                                                <td class="text-right"><span t-field="o.amount_bbn" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="8" style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;"></td>
+                                                <td colspan="2">Total</td>
+                                                <td class="text-right"><t t-esc="'{0:,.2f}'.format(total_subtotal+o.amount_tax+o.amount_bbn)"/></td>
+                                            </tr>
+					                        <tr>
+                                                <td colspan="8" style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;"></td>
+                                                <td colspan="2">PPh</td>
+                                                <td class="text-right" ><t t-esc="'{0:,.2f}'.format(withholding_amount)"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="8" style="border-bottom: 0px !important;border-left: 0px !important;border-top: 0px !important;"></td>
+                                                <td colspan="2">Total Tagihan (Net)</td>
+                                                <td class="text-right"><t t-esc="'{0:,.2f}'.format(total_subtotal+o.amount_tax+o.amount_bbn-withholding_amount)"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <hr class="border_top" />
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <table>
+                                        <tr>
+                                            <td width="120">Lembar Ke-1</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td>Finance</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lembar Ke-2</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td>Arsip Cabang</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lembar Ke-3</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reprint</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><t t-esc="o.branch_id.get_cetakan_no('account.invoice','dym_account.report_invoice_custom_final',o)"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-xs-5">
+                                    <table>
+                                        <tr>
+                                            <td>Tgl Cetak</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-esc="o.branch_id.get_waktu_local()" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dicetak Oleh</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-esc="request.env.user.name" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Disetujui Oleh</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="o.confirm_uid" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <hr class="border_top" />
+                        </div>
+                        <div class="footer">
+                            <div class="text-right">
+                                <tr>
+                                    <td>Halaman</td>
+                                    <td class="table_titikdua">:</td>
+                                    <td><span class="page"/> / <span class="topage"/></td>
+                                </tr>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+        <record id="paper_account_invoice_custom" model="report.paperformat">
+            <field name="name">Paper Account Invoice Custom</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">7</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+    </data>
+</openerp>

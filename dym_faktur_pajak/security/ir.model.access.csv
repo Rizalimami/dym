@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_faktur_pajak,access_dym_faktur_pajak,model_dym_faktur_pajak,,1,1,1,1
+access_dym_signature,access_dym_signature,model_dym_signature,,1,1,1,1
+access_dym_remark,access_dym_remark,model_dym_remark,,1,1,1,1
+access_dym_faktur_pajak_gabungan,access_dym_faktur_pajak_gabungan,model_dym_faktur_pajak_gabungan,,1,1,1,1
+access_dym_faktur_pajak_gabungan_line,access_dym_faktur_pajak_gabungan_line,model_dym_faktur_pajak_gabungan_line,,1,1,1,1
+access_dym_faktur_pajak_other,access_dym_faktur_pajak_other,model_dym_faktur_pajak_other,,1,1,1,1
+access_dym_faktur_pajak_out,access_dym_faktur_pajak_out,model_dym_faktur_pajak_out,,1,1,1,1

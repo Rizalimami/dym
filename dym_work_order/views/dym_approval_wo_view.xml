@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_reason_reject_wizard_wo_form_view">
+            <field name="name">dym_reason.reject.wizard.wo.form</field>
+            <field name="model">dym.reason.reject.approval.wo</field>
+            <field name="arch" type="xml">
+                <form string="REASON">
+                    <group>
+                        <field name="reason" />
+                    </group>
+                    <footer>
+                        <button name="dym_reject_approval" string="Revise" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_reason_reject_wizard_wo_action">
+            <field name="name">Reason Reject Work Order</field>
+            <field name="res_model">dym.reason.reject.approval.wo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="dym_approval_wo_form_view" model="ir.ui.view">
+            <field name="name">dym.approval.wo.form</field>
+            <field name="model">dym.work.order</field>
+            <field name="inherit_id" ref="dym_work_order.view_dym_work_order_form" />
+            <field name="arch" type="xml">
+                <button name="view_invoice" position="after">
+                    <!-- Yordan
+                    <button name="approval_request" states="draft" string="RFA" type="workflow" class="oe_highlight" />
+                    <button name="approval_approve" states="waiting_for_approval" string="Approve" type="workflow" class="oe_highlight" groups="dym_base_security.group_dym_kepala_bengkel"/>
+                    <button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action" context="{'model_name':'dym.work.order','next_workflow':'approval_reject'}" />
+                    <button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'dym.work.order','next_workflow':'approval_cancel'}" />
+                    -->
+                    <button name="approval_request" states="draft" string="RFA" type="workflow" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23" />
+                    <button name="approval_approve" states="waiting_for_approval" string="Approve" type="workflow" class="oe_highlight" groups="dym_base_security.group_dym_kepala_bengkel" />
+                    <button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action" context="{'model_name':'dym.work.order','next_workflow':'approval_reject'}" groups="dym_base_security.group_dym_kepala_bengkel" />
+                    <button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'dym.work.order','next_workflow':'approval_cancel'}" groups="dym_base_security.group_dym_kepala_bengkel" />
+                </button>
+                <field name="sa_id" position="after">
+                    <field name="approval_state" />
+                </field>
+                <xpath expr="//page[@string='Other Information']" position="after">
+                    <page string="Approval">
+                        <field name="approval_ids">
+                            <tree string="Approval" editable="bottom" create="false" edit="false" delete="false">
+                                <field name="group_id" />
+                                <field name="branch_id" />
+                                <field name="division" />
+                                <field name="limit" />
+                                <field name="sts" />
+                                <field name="reason" />
+                                <field name="pelaksana_id" />
+                                <field name="tanggal" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                                <field name="confirm_uid" readonly="1"></field>
+                                <field name="confirm_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+<!-- Stock Picking Type -->
+
+        <record id="group_stock_picking_type_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Picking Type Read</field>
+            <field name="menu_access" eval="[(4, ref('stock.menu_pickingtype')),
+            								]"/>
+        </record>
+
+        <record id="access_stock_picking_type_read" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+            <field name="name">stock_picking_type read</field>
+            <field name="group_id" ref="group_stock_picking_type_read"/>
+            <field name="perm_read">1</field>
+        </record>
+
+        <record id="group_stock_picking_type_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Picking Type Update</field>
+            <field name="menu_access" eval="[(4, ref('stock.menu_pickingtype')),
+            								]"/>
+			<field name="implied_ids" eval="[(4, ref('group_stock_picking_type_read'))]"/>
+        </record>
+
+        <record id="access_stock_picking_type_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+            <field name="name">stock_picking_type update</field> 
+            <field name="group_id" ref="group_stock_picking_type_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field> 
+        </record>
+
+        <record id="group_stock_picking_type_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Picking Type Delete</field>
+            <field name="menu_access" eval="[(4, ref('stock.menu_pickingtype')),
+            								]"/>
+			<field name="implied_ids" eval="[(4, ref('group_stock_picking_type_read'))]"/>            	            	
+        </record>
+
+		<record id="access_stock_picking_type_delete" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+            <field name="name">stock_picking_type delete</field>
+            <field name="group_id" ref="group_stock_picking_type_delete"/>
+            <field name="perm_unlink">1</field>
+        </record>
+		
+<!-- Stock Picking -->
+
+
+        <record id="group_internal_transfer_showroom_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Internal Transfer Showroom Menu</field> 
+            <field name="menu_access" eval="[(4, ref('dym_picking_internal_menu_showroom'))]"/>  
+        </record> 
+
+        <record id="group_internal_transfer_workshop_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Internal Transfer Workshop Menu</field> 
+            <field name="menu_access" eval="[(4, ref('dym_picking_internal_menu_workshop'))]"/>  
+        </record> 
+
+        <record id="group_stock_picking_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Picking Read</field>
+        </record>
+        
+        <record id="access_stock_picking_read" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="name">stock_picking read</field>
+            <field name="group_id" ref="group_stock_picking_read"/>
+            <field name="perm_read">1</field>
+        </record>
+		
+        <record id="access_stock_move_read" model="ir.model.access">
+            <field name="model_id" ref="model_stock_move"/>
+            <field name="name">stock_move read</field>
+            <field name="group_id" ref="group_stock_picking_read"/>  
+            <field name="perm_read">1</field>
+        </record>
+        
+        <record id="group_stock_picking_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Picking Update</field>
+			<field name="implied_ids" eval="[(4, ref('group_stock_picking_read'))]"/>
+        </record>
+        
+        <record id="access_stock_picking_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="name">stock_picking update</field> 
+            <field name="group_id" ref="group_stock_picking_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field> 
+        </record>      
+        
+        <record id="access_stock_move_update" model="ir.model.access">
+            <field name="model_id" ref="model_stock_move"/>
+            <field name="name">stock_move update</field> 
+            <field name="group_id" ref="group_stock_picking_update"/>  
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+		
+        <record id="group_stock_picking_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Picking Delete</field> 
+			<field name="implied_ids" eval="[(4, ref('group_stock_picking_read'))]"/>            	            	
+        </record>
+        
+		<record id="access_stock_picking_delete" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="name">stock_picking delete</field>
+            <field name="group_id" ref="group_stock_picking_delete"/>
+            <field name="perm_unlink">1</field>
+        </record>
+        
+        <record id="access_stock_move_delete" model="ir.model.access">
+            <field name="model_id" ref="model_stock_move"/>
+            <field name="name">stock_move delete</field>
+            <field name="group_id" ref="group_stock_picking_delete"/>
+            <field name="perm_unlink">1</field>
+        </record>
+        
+<!-- Master Warehouse-->	
+	
+        <record id="group_dym_warehouse_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Warehouse Read</field> 
+            <field name="menu_access" eval="[(4, ref('menu_warehouse_master'))
+            								 ]"/>  
+        </record>  
+              
+         <record id="access_dym_warehouse_read" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_move"/>
+            <field name="name">dym_warehouse read</field> 
+            <field name="group_id" ref="group_dym_warehouse_read"/>  
+            <field name="perm_read">1</field> 
+        </record>  
+                     
+        <record id="group_dym_warehouse_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Warehouse Update</field> 
+            <field name="menu_access" eval="[(4, ref('menu_warehouse_master'))
+            								  ]"/>  
+			<field name="implied_ids" eval="[(4, ref('group_dym_warehouse_read'))]"/>            	            	
+        </record>     
+
+		 <record id="access_dym_warehouse_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_warehouse"/>
+            <field name="name">dym_warehouse update</field> 
+            <field name="group_id" ref="group_dym_warehouse_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field>
+        </record>
+        
+		 <record id="access_dym_location_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_location"/>
+            <field name="name">dym_location update</field> 
+            <field name="group_id" ref="group_dym_warehouse_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field>
+        </record>  
+        
+       <record id="access_dym_ir_sequence_update" model="ir.model.access">
+            <field name="model_id" ref="base.model_ir_sequence"/>
+            <field name="name">dym_ir_sequence update</field> 
+            <field name="group_id" ref="group_dym_warehouse_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field>
+        </record>  
+        
+        <record id="access_dym_stock_picking_type_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+            <field name="name">dym_stock_picking_type update</field> 
+            <field name="group_id" ref="group_dym_warehouse_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field>
+        </record> 
+        
+        <record id="access_dym_stock_location_route_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_location_route"/>
+            <field name="name">dym_stock_location_route update</field> 
+            <field name="group_id" ref="group_dym_warehouse_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field>
+        </record>         
+                                
+        <record id="group_dym_warehouse_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Warehouse Delete</field> 
+            <field name="menu_access" eval="[(4, ref('menu_warehouse_master'))
+            								  ]"/>  
+			<field name="implied_ids" eval="[(4, ref('group_dym_warehouse_read'))]"/>            	            	
+        </record>
+
+        <record id="access_dym_warehouse_delete" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_warehouse"/>
+            <field name="name">dym_warehouse delete</field> 
+            <field name="group_id" ref="group_dym_warehouse_delete"/>  
+            <field name="perm_unlink">1</field> 
+        </record> 
+        
+<!-- Master Location-->	
+	
+        <record id="group_dym_location_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Location Read</field> 
+            <field name="menu_access" eval="[(4, ref('menu_location_master'))
+            								 ]"/>  
+        </record>  
+              
+         <record id="access_dym_location_read" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_location"/>
+            <field name="name">dym_location read</field> 
+            <field name="group_id" ref="group_dym_location_read"/>  
+            <field name="perm_read">1</field> 
+        </record>  
+                     
+        <record id="group_dym_location_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Location Update</field> 
+            <field name="menu_access" eval="[(4, ref('menu_location_master'))
+            								  ]"/>  
+			<field name="implied_ids" eval="[(4, ref('group_dym_location_read'))]"/>            	            	
+        </record>     
+
+		 <record id="access_dym_location_update1" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_location"/>
+            <field name="name">dym_location update</field> 
+            <field name="group_id" ref="group_dym_location_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field>
+        </record>
+                      
+        <record id="group_dym_location_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Location Delete</field> 
+            <field name="menu_access" eval="[(4, ref('menu_location_master'))
+            								  ]"/>  
+			<field name="implied_ids" eval="[(4, ref('group_dym_location_read'))]"/>            	            	
+        </record>
+
+        <record id="access_dym_location_delete" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_location"/>
+            <field name="name">dym_location delete</field> 
+            <field name="group_id" ref="group_dym_location_delete"/>  
+            <field name="perm_unlink">1</field> 
+        </record> 
+        
+<!-- Stock Move -->
+	
+        <record id="group_dym_stock_quant_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Quants Read</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_quant_master'))
+            								 ]"/>  
+        </record>  
+              
+         <record id="access_dym_stock_quant_read" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_quant"/>
+            <field name="name">dym_stock_quant read</field> 
+            <field name="group_id" ref="group_dym_stock_quant_read"/>  
+            <field name="perm_read">1</field> 
+        </record>  
+                     
+        <record id="group_dym_stock_quant_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Quants Update</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_quant_master'))
+            								  ]"/>  
+			<field name="implied_ids" eval="[(4, ref('group_dym_stock_quant_read'))]"/>            	            	
+        </record>     
+                      
+        <record id="group_dym_stock_quant_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Quants Delete</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_quant_master'))
+            								  ]"/>  
+			<field name="implied_ids" eval="[(4, ref('group_dym_stock_quant_read'))]"/>            	            	
+        </record>
+
+        <record id="access_dym_stock_quant_delete" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_quant"/>
+            <field name="name">dym_stock_quant delete</field> 
+            <field name="group_id" ref="group_dym_stock_quant_delete"/>  
+            <field name="perm_unlink">1</field> 
+        </record> 	
+        
+<!-- Good Receipt Note -->
+		
+         <record id="group_good_receipt_note_showroom_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Good Receipt Note Showroom Menu</field> 
+            <field name="menu_access" eval="[(4, ref('dym_stock_packing_menu_showroom_purchase'))]"/>  
+        </record> 
+
+        <record id="group_good_receipt_note_workshop_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Good Receipt Note Workshop Menu</field> 
+            <field name="menu_access" eval="[(4, ref('dym_stock_packing_menu_workshop_purchase'))]"/>  
+        </record> 
+
+        <record id="group_good_receipt_note_general_affair_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Good Receipt Note General Affair Menu</field> 
+            <field name="menu_access" eval="[(4, ref('dym_stock_packing_menu_ga_purchase'))]"/>  
+        </record> 
+
+        <!-- <record id="group_good_receipt_note_md_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Good Receipt Note MD Menu</field> 
+            <field name="menu_access" eval="[(4, ref('dym_stock_packing_md_menu'))]"/>  
+        </record>  -->
+
+        <record id="group_good_receipt_note_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Good Receipt Note Read</field>
+        </record>
+        
+        <record id="access_good_receipt_note_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing"/>
+            <field name="name">good_receipt_note read</field>
+            <field name="group_id" ref="group_good_receipt_note_read"/>
+            <field name="perm_read">1</field>
+        </record>
+        
+        <record id="access_good_receipt_note_line_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing_line"/>
+            <field name="name">good_receipt_note_line read</field>
+            <field name="group_id" ref="group_good_receipt_note_read"/>
+            <field name="perm_read">1</field>
+        </record>
+
+        <record id="access_good_receipt_note_read_stock_picking" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="name">good_receipt_note_stock_picking read</field>
+            <field name="group_id" ref="group_good_receipt_note_read"/>
+            <field name="perm_read">1</field>
+        </record>
+        
+        <record id="access_good_receipt_note_product_price_branch_read" model="ir.model.access">
+            <field name="model_id" ref="dym_stock_account.model_product_price_branch"/>
+            <field name="name">good_receipt_note_product_price_branch read</field>
+            <field name="group_id" ref="group_good_receipt_note_read"/>
+            <field name="perm_read">1</field>
+        </record>
+
+        <record id="group_good_receipt_note_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Good Receipt Note Update</field>
+            <field name="implied_ids" eval="[(4, ref('group_good_receipt_note_read'))]"/>
+        </record>
+        
+        <record id="access_good_receipt_note_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing"/>
+            <field name="name">good_receipt_note update</field> 
+            <field name="group_id" ref="group_good_receipt_note_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field> 
+        </record>
+        
+        <record id="access_good_receipt_note_account_move_update" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="name">good_receipt_note_account_move update</field> 
+            <field name="group_id" ref="group_good_receipt_note_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field> 
+        </record>
+
+        <record id="access_good_receipt_note_branch_update" model="ir.model.access">
+            <field name="model_id" ref="dym_branch.model_dym_branch"/>
+            <field name="name">good_receipt_note_branch update</field> 
+            <field name="group_id" ref="group_good_receipt_note_update"/>  
+            <field name="perm_write">1</field> 
+        </record>
+
+        <record id="access_good_receipt_note_stock_pack_op_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_pack_operation"/>
+            <field name="name">good_receipt_note_stock_pack_op update</field> 
+            <field name="group_id" ref="group_good_receipt_note_update"/>  
+            <field name="perm_write">1</field> 
+            <field name="perm_create">1</field> 
+        </record>
+
+        <record id="access_good_receipt_note_picking_type update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+            <field name="name">good_receipt_note_picking_type update update</field> 
+            <field name="group_id" ref="group_good_receipt_note_update"/>  
+            <field name="perm_write">1</field> 
+        </record>
+
+        <record id="access_good_receipt_note_line_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing_line"/>
+            <field name="name">good_receipt_note_line update</field>
+            <field name="group_id" ref="group_good_receipt_note_update"/>
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+		
+		<record id="access_good_receipt_note_product_price_branch_update" model="ir.model.access">
+            <field name="model_id" ref="dym_stock_account.model_product_price_branch"/>
+            <field name="name">good_receipt_note_product_price_branch update</field>
+            <field name="group_id" ref="group_good_receipt_note_update"/>
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field>
+        </record>
+		
+        <record id="group_good_receipt_note_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Good Receipt Note Delete</field> 
+			<field name="implied_ids" eval="[(4, ref('group_good_receipt_note_read'))]"/>            	            	
+        </record>
+        
+		<record id="access_good_receipt_note_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing"/>
+            <field name="name">good_receipt_note delete</field>
+            <field name="group_id" ref="group_good_receipt_note_delete"/>
+            <field name="perm_unlink">1</field>
+        </record>
+        
+        <record id="access_good_receipt_note_line_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing_line"/>
+            <field name="name">good_receipt_note_line delete</field>
+            <field name="group_id" ref="group_good_receipt_note_delete"/>
+            <field name="perm_unlink">1</field>
+        </record>
+                
+<!-- Delivery Note -->
+		
+        <record id="group_delivery_note_showroom_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Delivery Note Showroom Menu</field> 
+            <field name="menu_access" eval="[(4, ref('dym_stock_packing_menu_showroom_sales'))]"/>  
+        </record> 
+
+        <record id="group_delivery_note_workshop_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Delivery Note Workshop Menu</field> 
+            <field name="menu_access" eval="[(4, ref('dym_stock_packing_menu_workshop_sales'))]"/>  
+        </record> 
+
+        <record id="group_delivery_note_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Delivery Note Read</field>
+        </record>
+        
+        <record id="access_delivery_note_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing"/>
+            <field name="name">delivery_note read</field>
+            <field name="group_id" ref="group_delivery_note_read"/>
+            <field name="perm_read">1</field>
+        </record>
+        
+        <record id="access_delivery_note_line_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing_line"/>
+            <field name="name">delivery_note_line read</field>
+            <field name="group_id" ref="group_delivery_note_read"/>
+            <field name="perm_read">1</field>
+        </record>
+
+        <record id="access_delivery_note_read_stock_picking" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="name">good_delivery_note_stock_picking read</field>
+            <field name="group_id" ref="group_delivery_note_read"/>
+            <field name="perm_read">1</field>
+        </record>
+                
+        <record id="group_delivery_note_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Delivery Note Update</field>
+			<field name="implied_ids" eval="[(4, ref('group_delivery_note_read'))]"/>
+        </record>
+        
+        <record id="access_delivery_note_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing"/>
+            <field name="name">delivery_note update</field> 
+            <field name="group_id" ref="group_delivery_note_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field> 
+        </record>
+        
+        <record id="access_delivery_note_line_udate" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing_line"/>
+            <field name="name">delivery_note_line update</field>
+            <field name="group_id" ref="group_delivery_note_update"/>
+            <field name="perm_read">1</field>
+        </record>
+
+        <record id="group_delivery_note_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Delivery Note Delete</field> 
+			<field name="implied_ids" eval="[(4, ref('group_delivery_note_read'))]"/>            	            	
+        </record>
+        
+		<record id="access_delivery_note_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing"/>
+            <field name="name">delivery_note delete</field>
+            <field name="group_id" ref="group_delivery_note_delete"/>
+            <field name="perm_unlink">1</field>
+        </record>
+        
+        <record id="access_delivery_note_line_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing_line"/>
+            <field name="name">delivery_note_line delete</field>
+            <field name="group_id" ref="group_delivery_note_delete"/>
+            <field name="perm_read">1</field>
+        </record>
+                
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[
+											(4,ref('group_stock_picking_type_read')),
+											(4,ref('group_stock_picking_type_update')),
+											(4,ref('group_stock_picking_type_delete')),
+											(4,ref('group_stock_picking_read')),
+											(4,ref('group_stock_picking_update')),
+											(4,ref('group_stock_picking_delete')),
+											(4,ref('group_good_receipt_note_read')),
+											(4,ref('group_good_receipt_note_update')),
+											(4,ref('group_good_receipt_note_delete')),
+											(4,ref('group_delivery_note_read')),
+											(4,ref('group_delivery_note_update')),
+											(4,ref('group_delivery_note_delete')),			
+											]"/> 
+		</record>
+    </data>
+</openerp>

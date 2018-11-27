@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_view_analytic_entries_report_search" model="ir.ui.view">
+            <field name="name">dym.analytic.entries.report.search</field>
+            <field name="model">analytic.entries.report</field>
+            <field name="inherit_id" ref="account.view_analytic_entries_report_search" />
+            <field name="arch" type="xml">
+                <filter string="General Account" position="after">
+                    <filter string="Segmen Company" context="{'group_by':'analytic_1'}" />
+                    <filter string="Segmen Business Unit" context="{'group_by':'analytic_2'}" />
+                    <filter string="Segmen Branch" context="{'group_by':'analytic_3'}" />
+                    <filter string="Segmen Cost Center" context="{'group_by':'analytic_4'}" />
+                    <filter string="Branch Status" context="{'group_by':'branch_status'}" />
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>

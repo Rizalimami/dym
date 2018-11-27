@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="dym_serial_number_create_form_wizard_view">
+		    <field name="name">dym.serial.number.create.wizard.form</field>
+		    <field name="model">stock.production.lot</field>
+			<field name="priority">30</field>
+		    <field name="arch" type="xml">
+		    <form string="Add Serial Number">
+		            <group col="4">
+		                <field name="name" required="1" string="Engine No" on_change="name_onchange(product_id,name)"/>
+		                <field name="chassis_no" required="1" on_change="chassis_onchange(chassis_no)"/>
+		            	<field name="product_id" invisible="1" domain="[('categ_id','child_of','Unit')]"/>
+		            </group>
+		        </form>
+		    </field>
+		</record>
+
+    	<record id="dym_stock_inventory_form_view" model="ir.ui.view">
+			<field name="name">dym.stock.inventory</field>
+			<field name="model">stock.inventory</field>
+			<field name="inherit_id" ref="stock.view_inventory_form"/>
+			<field name="arch" type="xml">
+				<field name="location_id" position="before">
+					<field name="warehouse_id"/>
+					<field name="branch_id" invisible="1"/>
+		    		<field name="branch_destination_id"/>
+					<field name="division"/>
+				</field>			
+				<field name="location_id" position="attributes">
+					<attribute name="domain">[('warehouse_id','=',warehouse_id),('usage','=','internal')]</attribute>
+				</field>
+				<field name="company_id" position="after">
+					<field name="income_account" required="1"/>
+					<field name="loss_account" required="1"/>
+					<field name="analytic_1" options="{'no_create': True,'no_open':True}" attrs="{'readonly':[('state','not in','draft')]}" invisible="1"/>
+		        	<field name="analytic_2" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}"  attrs="{'readonly':[('state','not in','draft')]}"/>
+		        	<field name="analytic_3" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}"  attrs="{'readonly':[('state','not in','draft')]}"/>
+		        	<field name="analytic_4" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" string="Account Analytic Cost Center" required="0" attrs="{'readonly':[('state','not in','draft')]}"/>
+				</field>
+				<field name="prod_lot_id" position="attributes">
+					<attribute name="context">{'default_product_id': product_id, 'form_view_ref':'dym_stock_taking.dym_serial_number_create_form_wizard_view'}</attribute>
+				</field>
+				<field name="product_qty" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</field>
+				<field name="partner_id" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</field>
+				<field name="product_qty" position="before">
+					<field name="adjustment_qty"/>
+				</field>
+				<field name="theoretical_qty" position="before">
+					<field name="cost_price"/>
+				</field>
+
+				<button name="prepare_inventory" position="attributes">
+                   <attribute name="invisible">0</attribute>
+                </button>	
+                <button name="action_done" position="attributes">
+                    <attribute name="states">approved</attribute>
+                </button>
+				<button name="action_cancel_inventory" position="attributes">
+                    <attribute name="states">confirm,approved</attribute>
+                </button>
+                <field name="line_ids" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','not in',['draft','confirm'])]}</attribute>
+                </field>
+				<button name="prepare_inventory" position="before">
+                        <button name="wkf_request_approval" states="confirm" string="RFA" type="object" class="oe_highlight"/>
+                        <button name="wkf_approval" states="waiting_for_approval" string="Approve" type="object" class="oe_highlight"/>
+                        <button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action" context="{'model_name':'stock.inventory','update_value':{'approval_state':'r','state':'confirm'}}"/>
+                        <button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'stock.inventory','update_value':{'approval_state':'b','state':'confirm'}}"/>
+                </button>
+				<page string="Inventory Adjustments" position="after">
+                    <page string="Approval">
+                        <field name="approval_ids">
+                            <tree string="Approval" editable="bottom" create="false" edit="false" delete="false" >
+                                <field name="group_id"/>
+                                <field name="branch_id"/>
+                                <field name="division"/>
+                                <field name="limit"/>
+                                <field name="sts"/>
+                                <field name="reason"/>
+                                <field name="pelaksana_id"/>
+                                <field name="tanggal"/>
+                            </tree>
+                        </field>
+                    </page> 
+				</page>		
+			</field>
+		</record>
+	</data>
+</openerp>

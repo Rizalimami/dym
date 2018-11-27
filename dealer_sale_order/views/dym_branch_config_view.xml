@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="dealer_so_branch_config_view" model="ir.ui.view">
+            <field name="name">dym.branch.config.dealer.so.view</field>
+            <field name="model">dym.branch.config</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_config_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <group string="Dealer Sales Memo - Regular">
+                        <field name="dealer_so_journal_pelunasan_id" domain="[('type','=','sale')]" />
+                        <field name="dealer_so_journal_dp_id" domain="[('type','=','sale')]" invisible="1" />
+                        <field name="dealer_so_account_dp" invisible="1" />
+                        <field name="dealer_so_account_potongan_langsung_id" />
+                        <field name="dealer_so_account_potongan_subsidi_id" />
+                        <field name="dealer_so_account_potongan_subsidi_external_id" />
+                        <field name="dealer_so_journal_psmd_id" domain="[('type','=','sale')]" />
+                        <field name="dealer_so_journal_psfinco_id" domain="[('type','=','sale')]" />
+                        <field name="dealer_so_journal_bbnbeli_id" invisible="1" />
+                        <field name="dealer_so_journal_insentive_finco_id" domain="[('type','=','sale')]" invisible="1" />
+                        <field name="dealer_so_account_bbn_jual_id" />
+                        <field name="dealer_so_journal_bbmd_id" domain="[('type','=','sale')]" />
+                        <field name="dealer_so_journal_bbfinco_id" domain="[('type','=','sale')]" />
+                        <field name="dealer_so_journal_hc_id" domain="[('type','=','purchase')]" />
+                        <field name="dealer_so_account_sisa_subsidi_id" />
+                    </group>
+                    <group string="Dealer Sales Memo - Inter Company">
+                        <field name="dealer_so_journal_pic_id" domain="[('type','=','sale')]" />
+                        <field name="dealer_so_account_potongan_pic_id" />
+                        <field name="dealer_so_account_penjualan_pic_id" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

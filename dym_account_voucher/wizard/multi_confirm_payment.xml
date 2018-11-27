@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_multi_confirm_payment_wiz" model="ir.ui.view">
+            <field name="name">Confirm Voucher</field>
+            <field name="model">voucher.confirm</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Voucher">
+                    <group>
+                        <field name="reference" />
+                    </group>
+                    <footer>
+                        <button name="confirm_voucher" string="Confirm" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window name="Confirm Voucher" res_model="voucher.confirm" src_model="account.voucher" view_mode="form" target="new" multi="True" key2="client_action_multi" id="action_view_confirm_payment" />
+    </data>
+</openerp>

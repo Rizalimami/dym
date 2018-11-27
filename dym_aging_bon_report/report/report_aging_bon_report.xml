@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="aging_bon_report_template">
+    <t t-call="report.html_container">    
+        <t t-call="report.internal_layout">
+            <div class="page">
+                <div class="oe_structure"/>
+                <h2>Laporan Aging Bon</h2>
+
+                <div class="row mt32 mb32">
+                    <div class="col-xs-12">
+                        <strong>Company:</strong><br/>
+                        <t t-if="company">
+                            <span t-esc="company"/>
+                        </t>
+                        <t t-if="not company">
+                            <span>-</span>
+                        </t>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Branch:</strong><br/>
+                        <t t-if="branch_id">
+                            <span t-esc="branch_id"/>
+                        </t>
+                        <t t-if="not branch_id">
+                            <span>-</span>
+                        </t>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Division:</strong><br/>
+                        <t t-if="division">
+                            <span t-esc="division"/>
+                        </t>
+                        <t t-if="not division">
+                            <span>-</span>
+                        </t>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Employee:</strong><br/>
+                        <t t-if="user_id">
+                            <span t-esc="user_id"/>
+                        </t>
+                        <t t-if="not user_id">
+                            <span>-</span>
+                        </t>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>State:</strong><br/>
+                        <t t-if="state">
+                            <span t-esc="state"/>
+                        </t>
+                        <t t-if="not state">
+                            <span>-</span>
+                        </t>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>Due:</strong><br/>
+                        <t t-if="due">
+                            <span t-esc="due"/>
+                        </t>
+                        <t t-if="not due">
+                            <span>-</span>
+                        </t>
+                    </div>
+                </div>                
+                <t t-if="not bons">
+                    <h3><span>Bon Not Found</span></h3>
+                </t>
+                <table class="table table-condensed" t-if="bons">
+                    <thead>
+                        <tr>
+                            <th><strong>Branch</strong></th>
+                            <th><strong>Division</strong></th>
+                            <th><strong>Employee</strong></th>
+                            <th><strong>Advance Payment</strong></th>
+                            <th><strong>Due Date</strong></th>
+                            <th><strong>State</strong></th>
+                            <th><strong>Settlement</strong></th>
+                            <th><strong>Aging (Days)</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="current_user" t-value="0"/>
+                        <t t-set="current_division" t-value="a"/>
+                        <t t-foreach="bons" t-as="res">
+                            <t t-if="res.user_id.id!=current_user or res.division!=current_division">
+                                <t t-set="current_user" t-value="res.user_id.id"/>
+                                <t t-set="current_division" t-value="res.division"/>
+                                <tr>
+                                    <td colspan="7"><strong><t t-esc="res.user_id.name"/> / <t t-esc="res.division"/></strong></td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td>
+                                    <span><span t-field="res.branch_id"/></span>
+                                </td>
+                                <td>
+                                    <span><t t-esc="res.division"/></span>
+                                </td>
+                                <td>
+                                    <span><t t-esc="res.user_id.name"/></span>
+                                </td>
+                                <td>
+                                    <span><span t-field="res.name"/></span>
+                                </td>
+                                <td>
+                                    <span><t t-esc="res.date_due"/></span>
+                                </td>
+                                <td>
+                                    <span><t t-esc="res.state"/></span>
+                                </td>
+                                <td>
+                                    <span><t t-esc="res.get_settlement(res.id)"/></span>
+                                </td>
+                                <td>
+                                    <span><t t-esc="res.get_aging_date(res.date)"/></span>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

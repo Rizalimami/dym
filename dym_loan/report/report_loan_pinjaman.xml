@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="template_report_loan_pinjaman">
+            <style type="text/css">
+            .tag_container {
+                margin: auto;
+                margin-bottom: 50px;
+                border: 1px solid black;
+            }
+
+            .no_border {
+                border: 0px !important;
+            }
+
+            .margin_bottom {
+                margin-bottom: 5px !important;
+                margin-top: 5px !important;
+            }
+
+            .border_top {
+                border-top: 1px solid black !important;
+            }
+
+            .border_bottom {
+                border-bottom: 1px solid black !important;
+            }
+
+            .page,
+            .header,
+            .footer,
+            .table {
+                font-size: 12px !important;
+            }
+
+            .hr {
+                border-top: 1px solid black !important;
+            }
+
+            .text_up {
+                text-transform: uppercase;
+            }
+
+            .text_bold {
+                font-weight: bold;
+            }
+
+            .text_head {
+                font-size: 16px;
+            }
+
+            .table_titikdua {
+                text-align: center;
+                width: 20px;
+            }
+
+            .table_margintop {
+                margin-top: 20px !important;
+            }
+            </style>
+            <t t-call="report.html_container">
+                <t t-set="numpage" t-value="0" />
+                <t t-set="totpage" t-value="len(docs)" />
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="numpage" t-value="numpage+1" />
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"></t>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"></t>
+                    </t>
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <span class="text_up text_head"><t t-esc="company.name"/></span>
+                                <br/>
+                                <span>CABANG : <span t-field="o.branch_id.code" /> - <span t-field="o.branch_id.name" /></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <span class="text_up text_head text_bold">
+                            <span t-if="o.loan_type == 'Reklasifikasi'">REKLASIFIKASI HUTANG DF</span>
+                                <span t-if="o.loan_type == 'Piutang'">PIUTANG</span>
+                                <span t-if="o.loan_type == 'Pinjaman'">PINJAMAN</span>
+                                </span>
+                                <br/>
+                                <span><span t-field="o.name" /></span>
+                            </div>
+                        </div>
+                        <hr class="border_top" />
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <table>
+                                    <tr>
+                                        <td width="120">Division</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.division" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ke Partner</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.partner_id" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Type</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.loan_type" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-4">
+                                <table>
+                                    <tr>
+                                        <td>Effective Date</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.effective_date" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Due Date</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.first_due_date" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-condensed table_margintop">
+                                    <thead>
+                                        <tr>
+                                            <th>Account</th>
+                                            <th>Description</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span t-field="o.account_id" /></td>
+                                            <td><span t-field="o.memo" /></td>
+                                            <td align="right"><span t-esc="o.convert_thousand_separator(o.jumlah_loan)" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <span>Terbilang : <span t-esc="o.terbilang(o.jumlah_loan)"/></span>
+                            </div>
+                        </div>
+                        <hr class="border_top" />
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <span>Created By:</span>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <span t-esc="request.env.user.name" />
+                                <br/> Tanggal Cetak: <span t-esc="o.ubah_tanggal(o.branch_id.get_waktu_local())" />
+                                <br/>
+                            </div>
+                            <div class="col-xs-4">
+                                <span>Approved By:</span>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <span t-field="o.confirm_uid" />
+                                <br/> Tanggal Approve: <span t-esc="o.ubah_tanggal(o.confirm_date)" />
+                                <br/>
+                            </div>
+                        </div>
+                        <hr class="border_top" />
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <table>
+                                    <tr>
+                                        <td width="120">Lembar Ke-1</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lembar Ke-2</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lembar Ke-3</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Reprint</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-4">
+                                <table>
+                                    <tr>
+                                        <td>Halaman</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-esc="numpage" /> / <span t-esc="totpage" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <hr class="border_top" />
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

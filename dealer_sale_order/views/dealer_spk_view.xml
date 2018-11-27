@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dealer_reason_spk_cancel_wizard_form">
+            <field name="name">dealer.reason.cancel.spk.wizard</field>
+            <field name="model">dealer.reason.cancel.spk</field>
+            <field name="arch" type="xml">
+                <form string="REASON">
+                    <group>
+                        <field name="reason" />
+                    </group>
+                    <footer>
+                        <button name="action_post_cancel" string="Save" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="cancel_spk_wizard_action">
+            <field name="name">Reason Cancel</field>
+            <field name="res_model">dealer.reason.cancel.spk</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="view_spk_tree" model="ir.ui.view">
+            <field name="name">dealer.spk.tree</field>
+            <field name="model">dealer.spk</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <tree string="Dealer Memo" colors="grey:state=='cancel';blue:state in ('waiting_date','manual');red:state in ('invoice_except','shipping_except')">
+                    <field name="name" string="Dealer Memo Number" />
+                    <field name="branch_id" />
+                    <field name="is_pic" />
+                    <field name="date_order" />
+                    <field name="partner_id" />
+                    <field name="partner_cabang" />
+                    <field name='finco_id' />
+                    <field name="employee_id" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="dealer_spk_dealer_filter" model="ir.ui.view">
+            <field name="name">dealer.spk.filter</field>
+            <field name="model">dealer.spk</field>
+            <field name="arch" type="xml">
+                <search string="Search Dealer Memo">
+                    <field name="name" />
+                    <field name="partner_id" />
+                    <field name='branch_id' />
+                    <field name='division' />
+                    <field name='no_ktp' />
+                    <field name='finco_id' />
+                    <field name='employee_id' />
+                    <filter string="My" domain="[('user_id','=',uid)]" name="my_sale_orders_filter" />
+                    <separator/>
+                    <filter string="Draft" name="draft" domain="[('state','in',('draft','progress'))]" help="Sales Order that haven't yet been confirmed" />
+                    <filter string="Sales" name="sales" domain="[('state','in',('so'))]" />
+                    <filter string="Done" domain="[('state','=','done')]" help="Pra Sales Order done" />
+                    <group expand="0" string="Group By">
+                        <filter string="Salesperson" domain="[]" context="{'group_by':'user_id'}" />
+                        <filter string="Customer" domain="[]" context="{'group_by':'partner_id'}" />
+                        <filter string="Order Month" domain="[]" context="{'group_by':'date_order'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="spk_dealer_form" model="ir.ui.view">
+            <field name="name">dealer.spk.form</field>
+            <field name="model">dealer.spk</field>
+            <field name="arch" type="xml">
+                <form string="Sales Orders">
+                    <header>
+                        <button name="%(dym_dealer_spk_report)d" states="progress,so,done" string="Print Dealer Memo" type="action" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h1" />
+                        <button name="action_confirm_spk" states="draft" string="Confirm" class="oe_highlight" type="object" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h1" />
+                        <button name="%(cancel_spk_wizard_action)d" states="progress" string="Cancel Dealer Memo" class="oe_highlight" type="action" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h1" />
+                        <button name="action_create_so" states="progress" string="Create Sales Memo" class="oe_highlight" type="object" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h1" />
+                        <button name="action_view_so" states="so" string="View Sales Memo" type="object" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h1" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,progress,so,done" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label string="Dealer Memo"/>
+                                <field name="name" readonly="1"/>   
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="branch_id" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('name','!=',False)]}" />
+                                <field name="date_order" readonly="1" />
+                                <field name="partner_id" options="{'no_create': True}" attrs="{'readonly': [('state','not in','draft')]}" />
+                                <field name="partner_cabang" options="{'no_create': True,'no_open':True}" attrs="{'required':[('is_pic','=',True)],'readonly': [('state','not in','draft')]}" domain="[('partner_id','=',partner_id)]" />
+                                <field name="payable_receivable" readonly="1" />
+                                <field name="user_id" options="{'no_create': True,'no_open':True}" invisible="1" domain="[('branch_ids','=',branch_id)]" />
+                                <field name="employee_id" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('state','not in','draft')]}" required="1" />
+                                <field name='mt_khusus' attrs="{'invisible': [('mt_khusus','=',False)]}" readonly="1"/>
+                                <field name="section_id" options="{'no_create': True,'no_open':True}" domain="['|',('member_ids','=',employee_id),('user_id','=',employee_id)]" />
+                                <field name="register_spk_id" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('state','not in','draft')],'required': ['|',('employee_id','!=',False),('is_mandatory_spk','=',True)]}" domain="[('branch_id','=',branch_id),('state','=','open'),('sales_id','=',employee_id)]" />
+                                <field name="sales_source" options="{'no_create': True}"  attrs="{'readonly': [('state','not in','draft')]}" />
+                                <field name="is_credit" attrs="{'readonly': ['|',('state','not in','draft'),('is_pic','=',True)]}" />
+                                <field name="finco_id" options="{'no_create': True,'no_open':True}" attrs="{'readonly': ['|',('state','not in','draft'),('is_credit','=',False)],'invisible': [('is_credit','=',False)],'required': [('is_credit','=',True)]}" />
+                                <field name="finco_cabang" options="{'no_create': True,'no_open':True}" attrs="{'readonly': ['|',('state','not in','draft'),('is_credit','=',False)],'invisible': [('is_credit','=',False)]}" domain="[('partner_id','=',finco_id)]" />
+                            </group>
+                            <group>
+                                <field name="division" attrs="{'readonly': [('state','not in','draft')]}" />
+                                <field name="no_ktp" />
+                                <field name="cddb_id" widget="many2many_tags" options="{'no_create': True}" attrs="{'readonly': [('state','not in','draft')]}" domain="[('customer_id','=',partner_id)]" invisible="1" />
+                                <field name="alamat_kirim" attrs="{'readonly': [('state','not in','draft')]}" />
+                                <field name="is_mandatory_spk" invisible="1" />
+                                <field name="is_pic" />
+                                <field name="origin" placeholder="PO PIC" attrs="{'readonly': [('is_pic','=',False)],'required': [('is_pic','=',True)]}"/>
+                                <field name="pricelist_id" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('state','not in','draft')]}" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="delaer_memo_detail" string="Dealer Memo Detail">
+                                <field name="dealer_spk_line" attrs="{'readonly': [('state','not in','draft')]}">
+                                    <tree editable="top">
+                                        <field name="categ_id" />
+                                        <field name="template_id" options="{'no_open':True,'no_create':True}" domain="[ ('categ_id','child_of','Unit'), ('sale_ok','=',True)]" />
+                                        <field name="product_id" required="1" options="{'no_create': True,'no_open':True,'always_reload': True,'search_more':True}" string="Warna" context="{'branch_id':parent.branch_id,'attribute_only':True}" domain="[('product_tmpl_id','=',template_id), ('categ_id','child_of','Unit'), ('sale_ok','=',True)]" />
+                                        <field name="product_qty" />
+                                        <field name="is_bbn" />
+                                        <field name="partner_stnk_id" options="{'no_create': True,'no_open':True}" attrs="{'required':[('is_bbn','!=',False),('is_bbn','!=','T')],'readonly':[('is_bbn','!=',False),('is_bbn','=','T')]}" />
+                                        <field name="cddb_id" options="{'no_create': True}" domain="[('customer_id','=',partner_stnk_id)]" attrs="{'readonly':[('is_bbn','!=',False),('is_bbn','=','T')]}" />
+                                        <field name="tanda_jadi" />
+                                        <field name="uang_muka" />
+                                        <field name="discount_po" />
+                                        <field name="indent" />
+                                    </tree>
+                                </field>
+                                <div class="oe_clear" />
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                        <field name="confirm_uid" readonly="1"></field>
+                                        <field name="confirm_date" readonly="1"></field>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                        <field name="cancel_uid" readonly="1"></field>
+                                        <field name="cancel_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dealer_spk_action">
+            <field name="name">Dealer Memo</field>
+            <field name="res_model">dealer.spk</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="dealer_spk_action" id="menu_dealer_spk" parent="dym_dealer_menu.showroom_sales_menu" sequence="40" />
+    </data>
+</openerp>

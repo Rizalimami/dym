@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_dym_settlement_tree" model="ir.ui.view">
+            <field name="name">dym.settlement.tree</field>
+            <field name="model">dym.settlement</field>
+            <field name="arch" type="xml">
+                <tree string="Settlement">
+                    <field name="name" />
+                    <field name="advance_payment_id" />
+                    <field name="user_id" />
+                    <field name="date" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_settlement_search" model="ir.ui.view">
+            <field name="name">dym.settlement.select</field>
+            <field name="model">dym.settlement</field>
+            <field name="arch" type="xml">
+                <search string="Search Settlement">
+                    <field name="name" string="Reference" />
+                    <field name='division' />
+                    <field name="advance_payment_id" />
+                    <field name="branch_id" />
+                    <field name="user_id" />
+                    <field name="payment_method" />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-partner" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter string="Tanggal" icon="terp-go-month" domain="[]" context="{'group_by':'date'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="view_dym_settlement_form" model="ir.ui.view">
+            <field name="name">dym.settlement.form</field>
+            <field name="model">dym.settlement</field>
+            <field name="arch" type="xml">
+                <form string="Settlement">
+                    <header>
+                        <button name="%(settle_advance_payment_draft_report)d" states="draft,waiting_for_approval,approved" type="action" string="Print Draft" class="oe_highlight" icon="gtk-print" />
+                        <button name="%(report_settlement_done)d" type="action" states="done" string="Print Done" class="oe_highlight" icon="gtk-print" />
+                        <button name="confirm" states="approved" string="Confirm" type="workflow" class="oe_highlight" groups="dym_base_security.group_dym_treasury_sec_head"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved,done" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label string="Settlement"/>
+                                <field name="name" class="oe_inline" readonly="1"/> 
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="account_id" invisible="1" />
+                            <field name="journal_is_bank" invisible="1" />
+                            <group>
+                                <field name="advance_payment_id" on_change="onchange_avp_id(advance_payment_id)" class="oe_inline" options="{'no_create': True,'no_open':True}" domain="[('state','=','confirmed')]" attrs="{'readonly': [('state','not in','draft')]}" />
+                                <field name="date" class="oe_inline" attrs="{'readonly':['|',('state','!=','draft'),('allow_backdate','=',False)]}"/>
+                                <field name="type" class="oe_inline" attrs="{'readonly': [('state','not in','draft')]}" />
+                                <field name="payment_method" domain="[('branch_id','in',[branch_id, False]),('type','in',['bank', 'cash'])]" attrs="{'readonly': [('state','not in','draft')]}" options="{'no_create': True,'no_open':True}" />
+                                <field name="clearing_bank" attrs="{'readonly': [('state','not in','draft')],'invisible': [('journal_is_bank','=',False)]}" />
+                                <field name="amount_avp" invisible="1" />
+                                <field name="amount_avp_show" readonly="1" />
+                            </group>
+                            <group>
+                                <field name="branch_id" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('name','!=',False)]}" />
+                                <field name="division" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('state','not in','draft')]}" />
+                                <field name="user_id" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('state','not in','draft')]}" />
+                                <field name="employee_id" readonly="1" />
+                                <field name="description" attrs="{'readonly': [('state','not in','draft')]}" />
+                                <field name="allow_backdate" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Settlement Detail">
+                                <field name="settlement_line" attrs="{'readonly': [('state','not in','draft')]}">
+                                    <tree editable="bottom">
+                                        <field name="invoice_id" domain="[('state','=','open'),('type','=','in_invoice'),('branch_id','=',parent.branch_id),('partner_id','=',parent.user_id)]" options="{'no_create': True,'no_open':True}" />
+                                        <field name="voucher_id" domain="[('state','=','posted'),('type','in',['receipt','payment']),('branch_id','=',parent.branch_id),('partner_id','=',parent.user_id),'|',('number','=like','CDE-%'),('number','=like','SPA-%')]" options="{'no_create': True,'no_open':True}"/>
+                                        <!-- <field name="voucher_id" domain="[('state','=','posted'),('is_hutang_lain','=',True),('type','=','receipt'),('branch_id','=',parent.branch_id),('partner_id','=',parent.user_id)]" options="{'no_create': True,'no_open':True}" /> -->
+                                        <field name="account_id" options="{'no_create': True,'no_open':True}" />
+                                        <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" />
+                                        <field name="analytic_2" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" required="1" options="{'no_create': True,'no_open':True}" />
+                                        <field name="analytic_3" domain="[('segmen','=',3),('branch_id','=',parent.branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" required="1" options="{'no_create': True,'no_open':True}" />
+                                        <field name="analytic_account_id" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" required="1" options="{'no_create': True,'no_open':True}" />
+                                        <field name="amount" on_change="onchange_amount(amount,parent.type,parent.amount_avp)" />
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Pemotongan PPh">
+                                <field name="withholding_ids" context="{'default_type':type}">
+                                    <form string="Withholding">
+                                        <field name="state" invisible="1" />
+                                        <sheet string="Withholding">
+                                            <!-- <field name="type" invisible="0" /> -->
+                                            <group>
+                                                <group>
+                                                    <field name="name" string="Nomor Bukti Potong" />
+                                                    <field name="tax_withholding_id" domain="[('type_tax_use','=','payment')]" />
+                                                    <field name="tax_base" string="Tax Base" />
+                                                    <field name="amount" string="Jumlah PPh" />
+                                                    <field name="move_line_id" />
+                                                    <field name="partner_id" />
+                                                </group>
+                                                <group>
+                                                    <field name="date" />
+                                                    <field name="internal_number" />
+                                                    <field name="company_id" groups="base.group_multi_company" />
+                                                </group>
+                                            </group>
+                                            <field name="comment" placeholder="Comment..." />
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+
+                        </notebook>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="Total">
+                            <field name="amount_total" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                            <div class="oe_subtotal_footer_seperator oe_inline">
+                                <label for="amount_gap" />
+                            </div>
+                            <field name="amount_gap" nolabel="1" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                        </group>
+                        <div class="oe_clear" />
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_settlement">
+            <field name="name">Settlement Advance Payment</field>
+            <field name="res_model">dym.settlement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="dym_settlement_menuitem" name="Settlement Advance Payment" parent="dym_advance_payment_master_menu" action="dym_settlement" sequence="20" />
+    </data>
+</openerp>

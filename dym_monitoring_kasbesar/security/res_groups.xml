@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="group_dym_kas_besar_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Kas Besar Read</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_kas_besar_menu'))
+                                            ]" />
+        </record>
+        <record id="access_dym_kas_besar_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_kas_besar" />
+            <field name="name">dym_kas_besar read</field>
+            <field name="group_id" ref="group_dym_kas_besar_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_move_line_read" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line" />
+            <field name="name">account_move_line read</field>
+            <field name="group_id" ref="group_dym_kas_besar_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="group_dym_kas_besar_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Kas Besar Update</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_kas_besar_menu'))
+                                            ]" />
+            <field name="implied_ids" eval="[(4, ref('group_dym_kas_besar_read'))]" />
+        </record>
+        <record id="access_dym_kas_besar_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_kas_besar" />
+            <field name="name">dym_kas_besar update</field>
+            <field name="group_id" ref="group_dym_kas_besar_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="access_move_line_update" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line" />
+            <field name="name">account_move_line update</field>
+            <field name="group_id" ref="group_dym_kas_besar_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="group_dym_kas_besar_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Kas Besar Delete</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_kas_besar_menu'))
+                                            ]" />
+            <field name="implied_ids" eval="[(4, ref('group_dym_kas_besar_read'))]" />
+        </record>
+        <record id="access_dym_kas_besar_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_kas_besar" />
+            <field name="name">dym_kas_besar delete</field>
+            <field name="group_id" ref="group_dym_kas_besar_delete" />
+            <field name="perm_unlink">1</field>
+        </record>
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+            <field name="implied_ids" eval="[(4,ref('group_dym_kas_besar_read')),
+                                            (4,ref('group_dym_kas_besar_update')),
+                                            (4,ref('group_dym_kas_besar_delete'))]" />
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Pinjaman 2 Arah -->
+        <record id="group_dym_clearing_giro_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Clearing Bank Read</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_clearing_giro_menu'))
+                                            ]" />
+        </record>
+        <record id="access_dym_clearing_giro_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_clearing_giro" />
+            <field name="name">dym_clearing_giro read</field>
+            <field name="group_id" ref="group_dym_clearing_giro_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_move_line_read" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line" />
+            <field name="name">account_move_line read</field>
+            <field name="group_id" ref="group_dym_clearing_giro_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_dym_clearing_giro_approval_line_read" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line" />
+            <field name="name">dym_clearing_giro_approval_line read</field>
+            <field name="group_id" ref="group_dym_clearing_giro_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="group_dym_clearing_giro_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Clearing Bank Update</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_clearing_giro_menu'))
+                                            ]" />
+            <field name="implied_ids" eval="[(4, ref('group_dym_clearing_giro_read'))]" />
+        </record>
+        <record id="access_dym_clearing_giro_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_clearing_giro" />
+            <field name="name">dym_clearing_giro update</field>
+            <field name="group_id" ref="group_dym_clearing_giro_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="access_move_line_update" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line" />
+            <field name="name">account_move_line update</field>
+            <field name="group_id" ref="group_dym_clearing_giro_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="access_dym_clearing_giro_approval_line_update" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line" />
+            <field name="name">dym_clearing_giro_approval_line update</field>
+            <field name="group_id" ref="group_dym_clearing_giro_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="group_dym_clearing_giro_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Clearing Bank Delete</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_clearing_giro_menu'))
+                                            ]" />
+            <field name="implied_ids" eval="[(4, ref('group_dym_clearing_giro_read'))]" />
+        </record>
+        <record id="access_dym_clearing_giro_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_clearing_giro" />
+            <field name="name">dym_clearing_giro delete</field>
+            <field name="group_id" ref="group_dym_clearing_giro_delete" />
+            <field name="perm_unlink">1</field>
+        </record>
+        <record id="group_laporan_clearing_bank_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">Laporan Clearing Bank Menu</field>
+            <field name="menu_access" eval="[(4, ref('menu_clearing_bank_report'))]" />
+        </record>
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+            <field name="implied_ids" eval="[(4,ref('group_dym_clearing_giro_read')),
+                                            (4,ref('group_dym_clearing_giro_update')),
+                                            (4,ref('group_laporan_clearing_bank_menu')),
+                                            (4,ref('group_dym_clearing_giro_delete'))]" />
+        </record>
+        <!--
+        <record id="access_laporan_clearing_bank_all" model="ir.model.access">
+            <field name="model_id" ref="model_dym_report_clearing_bank_wizard" />
+            <field name="name">dym_report_clearing_bank_wizard all</field>
+            <field name="perm_read">1</field>
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+            <field name="perm_unlink">1</field>
+        </record>
+        -->
+    </data>
+</openerp>

@@ -1,0 +1,7 @@
+id,name,parent_id:id,type
+categ_extras,Extras,,view
+categ_extras_tools,Tools,categ_extras,normal
+categ_extras_spion,Spion,categ_extras,normal
+categ_extras_buku_service,Buku Service,categ_extras,normal
+categ_extras_battery,Battery,categ_extras,normal
+categ_extras_helm,Helm,categ_extras,normal

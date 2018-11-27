@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_ibanking_tree_view">
+            <field name="name">dym.ibanking.tree.view</field>
+            <field name="model">dym.ibanking</field>
+            <field name="arch" type="xml">
+                <tree string="List checkgyro" create="0">
+                    <field name="name" />
+                    <field name="file_name" />
+                    <field name="payment_from_id" />
+                    <field name="date" />
+                    <field name="amount_total" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_ibanking_form_view">
+            <field name="name">dym.ibanking.form.view</field>
+            <field name="model">dym.ibanking</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="act_confirm" states="draft" string="Confirm" type="object" class="oe_highlight"/>
+                        <button name="set_to_draft" states="cancel" string="Set to draft" type="object"/>
+                        <button name="%(dym_account_voucher.action_view_internet_banking)d" type="action" class="oe_highlight" states="confirm" string="Export Internet Banking" />
+                        <button name="act_cancel" states="draft,confirm,process" type="object" string="Cancel"/>
+                        <button name="act_cancel_post" states="done" type="object" string="Cancel iBanking" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_accounting_sec_head,dym_base_security.group_dym_accounting_sub_dept_head"/>
+                        <button name="%(dym_ibanking_done_action)d" states="process" type="action" class="oe_highlight" string="Process Done"/>
+                        <button name="%(print_ibanking)d" string="Print" states="confirm" type="action" class="oe_highlight" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,process,done" />
+                    </header>
+                    <sheet>
+                        <div class="oe_right oe_button_box" name="import_buttons">
+                        </div>
+                        <div class="oe_title">
+                            <h2>
+                                <label string="iBanking #" />             
+                                <field name="name" class="oe_inline" required="1" attrs="{'readonly':[('state','!=','draft')]}" />
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="branch_id" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="payment_from_id" required="1" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="bank" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="acc_number" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="kode_transaksi" attrs="{'readonly':[('state','!=','draft')]}" />
+                            </group>
+                            <group>
+                                <field name="division" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="date" required="1" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="amount_total" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="total_record" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="file_name" invisible="1" />
+                                <field name="data_file" filename="file_name" attrs="{'readonly':[('state','!=','draft')]}" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Ho to Branch">
+                                <field name="transfer_ids" attrs="{'readonly':[('state','!=','draft')]}" >
+                                    <tree colors="blue:state=='draft';black:state=='posted';grey:state=='cancel'" string="List Bank Transfer">
+                                        <field name="name" />
+                                        <field name="branch_id" />
+                                        <field name="payment_method" />
+                                        <field name="payment_from_id" />
+                                        <field name="date" />
+                                        <field name="receive_date" />
+                                        <field name="amount_show" sum="total" />
+                                        <field name="state" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Supplier Payment">
+                                <field name="voucher_ids" attrs="{'readonly':[('state','!=','draft')]}" >
+                                    <tree colors="blue:state=='draft';black:state=='posted';grey:state=='cancel'" string="List Bank Transfer">
+                                        <field name="number" />
+                                        <field name="branch_id" />
+                                        <field name="journal_id" />
+                                        <field name="bank_account" />
+                                        <field name="date" />
+                                        <field name="net_amount" sum="total" />
+                                        <field name="state" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_checkgyro_search" model="ir.ui.view">
+            <field name="name">checkgyro.list.select</field>
+            <field name="model">dym.ibanking</field>
+            <field name="arch" type="xml">
+                <search string="iBanking">
+                    <field name="name" />
+                    <group expand="0" string="Group By">
+                        <filter name="date" string="Date" domain="[]" context="{'group_by' : 'date'}" />
+                        <filter name="payment_from" string="Bank Account" domain="[]" context="{'group_by' : 'payment_from_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_ibanking_action">
+            <field name="name">iBanking</field>
+            <field name="res_model">dym.ibanking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_checkgyro_search" />
+            <field name="domain">[]</field>
+            <field name="context">{
+                'search_default_date':1,
+                'search_default_payment_from':1,
+            }</field>
+        </record>
+        <menuitem id="ibanking_submenu" name="iBanking" parent="dym_dealer_menu.backoffice_bankandcash_menu" sequence="5" />
+        <menuitem id="dym_ibanking_submenu" name="iBanking" parent="ibanking_submenu" action="dym_ibanking_action" sequence="4" groups='dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_treasury_staff' />
+    </data>
+</openerp>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="banktransfer_form_view">
+            <field name="name">dym.bank.transfer.form.view</field>
+            <field name="model">dym.bank.transfer</field>
+            <field name="inherit_id" ref="dym_bank_transfer.banktransfer_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='vouchers']" position="after">
+                    <page string="AHASS" attrs="{'invisible':[('transaction_type','!=','withdraw')]}">
+                        <group string="Titipan AHASS">
+                            <field name="deposit_ahass_ids" nolabel="1">
+                                <tree string="Titipan AHASS" editable="bottom">
+                                    <field name="deposit_ahass_id" />
+                                    <field name="name" />
+                                    <field name="date" />
+                                    <field name="branch_parent_id" />
+                                    <field name="branch_ahass_id" />
+                                    <field name="amount" />
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+                <field name="inter_branch_id" position="after">
+                    <field name="branch_via_id" attrs="{'invisible':[('transaction_type','!=','ho2branch')]}"/>
+                </field>
+                <page string="Journal Items" position="inside">
+                    <field name="move_ahass_id" invisible="1" />
+                    <group string="Journal Titipan AHASS" attrs="{'invisible': [('move_ahass_id','=',False)]}">
+                        <field name="move_ahass_ids" readonly="1" nolabel="1">
+                            <tree string="Journal Items">
+                                <field name="move_id" />
+                                <field name="branch_id" />
+                                <field name="ref" />
+                                <field name="date" />
+                                <field name="statement_id" />
+                                <field name="partner_id" />
+                                <field name="account_id" />
+                                <field name="name" />
+                                <field name="debit" />
+                                <field name="credit" />
+                                <field name="state" />
+                                <field name="reconcile_id" />
+                            </tree>
+                        </field>
+                    </group>
+                    <field name="move_piutang_induk_id" invisible="1" />
+                    <group string="Journal Piutang AHASS" attrs="{'invisible': [('move_piutang_induk_id','=',False)]}">
+                        <field name="move_piutang_induk_ids" readonly="1" nolabel="1">
+                            <tree string="Journal Items">
+                                <field name="move_id" />
+                                <field name="branch_id" />
+                                <field name="ref" />
+                                <field name="date" />
+                                <field name="statement_id" />
+                                <field name="partner_id" />
+                                <field name="account_id" />
+                                <field name="name" />
+                                <field name="debit" />
+                                <field name="credit" />
+                                <field name="state" />
+                                <field name="reconcile_id" />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>

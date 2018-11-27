@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paper_format_barang_pindahan" model="report.paperformat">
+            <field name="name">Barang Pindahan Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="dym_barang_pindahan_report_report"
+            string="Report Barang Pindahan"
+            model="dym.barang.pindahan.report"
+            report_type="qweb-pdf"
+            name="dym_barang_pindahan_report.barang_pindahan_report_template"
+            file="dym_barang_pindahan_report.barang_pindahan_report_template"
+        />
+
+        <record id="dym_barang_pindahan_report_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_barang_pindahan_report.paper_format_barang_pindahan"/>
+        </record>
+    </data>
+</openerp>

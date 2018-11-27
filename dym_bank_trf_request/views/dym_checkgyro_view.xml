@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_checkgyro_tree_view">
+            <field name="name">dym.checkgyro.tree.view</field>
+            <field name="model">dym.checkgyro</field>
+            <field name="inherit_id" ref="dym_bank_transfer.dym_checkgyro_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='journal_id']" position="after">
+                    <field name="advice_id" />
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_checkgyro_form_view">
+            <field name="name">dym.checkgyro.form.view</field>
+            <field name="model">dym.checkgyro</field>
+            <field name="inherit_id" ref="dym_bank_transfer.dym_checkgyro_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/form//field[@name='journal_id']" position="after">
+                    <field name="advice_id" />
+                </xpath>
+           </field>
+        </record>
+    </data>
+</openerp>

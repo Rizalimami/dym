@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Multi - Company Rules -->
+        <record model="ir.rule" id="dym_checkgyro_comp_rule">
+            <field name="name">Check Giro multi-company</field>
+            <field name="model_id" ref="model_dym_checkgyro" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+        <record model="ir.rule" id="dym_checkgyro_line_comp_rule">
+            <field name="name">Check Giro Line multi-company</field>
+            <field name="model_id" ref="model_dym_checkgyro_line" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+        <record id="dym_bank_transfer_branch_rule" model="ir.rule">
+            <field name="name">dym.bank.transfer branch rule</field>
+            <field name="model_id" ref="model_dym_bank_transfer" />
+            <field name="domain_force">[('branch_id','in',[b.id for b in user.area_id.branch_ids])]</field>
+        </record>
+    </data>
+</openerp>

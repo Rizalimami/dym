@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_import_incentive" model="ir.ui.view">
+            <field name="name">import.incentive.form</field>
+            <field name="model">import.incentive</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Incentive">
+                    <label string="The file that you import must contain the following fields: NOSIN, AMOUNT, COMPANY, BRANCH, FINANCE, FCODE, TGLCAIR, CDE" colspan="4" />
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="data" filename="name" />
+                        </group>
+                        <group>
+                            <field name="delimeter" />
+                            <field name="company_id" invisible="1" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" special="cancel" string="Cancel" />
+                        <button name="action_import" string="Import" type="object" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_import_incentive" model="ir.actions.act_window">
+            <field name="name">Import Incentive</field>
+            <field name="res_model">import.incentive</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_import_incentive" />
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_voucher_reimbursed_line,access_voucher_reimbursed_line,model_voucher_reimbursed_line,,1,1,1,1
+access_dym_reimbursed_bank,access_dym_reimbursed_bank,model_dym_reimbursed_bank,,1,1,1,1
+access_dym_reimbursed_bank_line,access_dym_reimbursed_bank_line,model_dym_reimbursed_bank_line,,1,1,1,1

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_res_partner_form_view2" model="ir.ui.view">
+            <field name="name">dym.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                            <label string="Customers"/> 
+                            <field name="default_code" placeholder="Partner Code" readonly="1" attrs="{'invisible':[('rel_code','!=',False)]}"/>
+                            <field name="rel_code" readonly="1" attrs="{'invisible':[('rel_code','=',False)]}"/> 
+                        </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" default_focus="1" placeholder="Name" />
+                                <field name='branch_id' required='1' options="{'no_create': True,'no_open': True}" placeholder='Branch' />
+                                <field name="no_ktp" on_change="onchange_punctuation(no_ktp)" required="1" />
+                                <field name="birthday" />
+                                <field name="mobile" on_change="change_nomor(mobile,phone)" required="1" />
+                                <field name="gender" />
+                            </group>
+                            <group>
+                                <field name="phone" on_change="change_nomor(mobile,phone)" />
+                                <field name="fax" />
+                                <field name="email" widget="email"></field>
+                                <field name="religion" />
+                                <field name="user_id" invisible="1" />
+                                <field name="employee_id" domain="[('branch_id','=?',branch_id),('job_id.salesman','=',True)]" />
+                            </group>
+                            <group>
+                                <label for="address" string="ID Address" />
+                                <div>
+                                    <field name="street" placeholder="Street..." on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" />
+                                    <div>
+                                        <field name="street2" placeholder="Street" style="width: 50%%" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" />
+                                        <field name="rt" placeholder="RT" style="width: 25%%" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" />
+                                        <field name="rw" placeholder="RW" style="width: 25%%" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" />
+                                        <field name="state_id" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" class="oe_no_button" placeholder="Province" style="width: 50%%" options='{"no_open": True}' />
+                                        <field name="city_id" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" placeholder="City" style="width: 50%%" required="1" />
+                                        <field name="kecamatan_id" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" placeholder="Kecamatan" style="width: 50%%" required="1" />
+                                        <field name="kecamatan" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" placeholder="Kecamatan" style="width: 50%%" />
+                                        <field name="zip_id" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" placeholder="ZIP" style="width: 50%%" options='{"no_open": True}' />
+                                        <field name="kelurahan" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" class="oe_no_button" placeholder="Kelurahan" style="width: 50%%" />
+                                    </div>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="kode_pajak_id" help="[1.] Digunakan untuk penyerahan BKP dan/atau JKP yang terutang PPN dan PPN nya dipungut oleh PKP Penjual yang melakukan penyerahan BKP dan/atau JKP [2.] Digunakan untuk penyerahan  BKP dan/atau JKP kepada Pemungut PPN Bendahara Pemerintah yang PPNnya dipungut oleh Pemungut PPN Bendahara, [3.] Digunakan untuk penyerahan  BKP dan/atau JKP kepada Pemungut PPN lainnya (selain Bendahara Pemerintah) yang PPNnya dipungut oleh PPN Lainnya (selain Bendahara Pemerintah), [4.] Digunakan untuk penyerahan BKP dan/atau JKP yang menggunakan DPP Nilai Lain yang PPNnya dipungut oleh PKP Penjual yang melakukan penyerahan BKP dan/atau JKP [5.] Digunakan untuk penyerahan lainnya yang PPNnya dipungut oleh PKP Penjual yang melakukan penyerahan BKP dan/atau JKP, dan penyerahan kepada orang pribadi pemegang paspor luar negeri (turis asing) sebagaimana dimaksud dalam Pasal 16E Undang-Undang Pajak Pertambahan Nilai, [6.] Digunakan untuk penyerahan BKP dan/atau JKP yang mendapat fasilitas PPN Tidak Dipungut atau Ditanggung Pemerintah (DTP) [7.] Digunakan untuk penyerahan BKP dan/atau JKP yang mendapat fasilitas Dibebaskan dari Pengenaan PPN [8.] digunakan untuk penyerahan BKP dan/atau JKP yang mendapat fasilitas dibebaskan dari pengenaan PPN (Pajak Pertambahan Nilai). [9.] Digunakan untuk penyerahan Aktiva Pasal 16D yang PPNnya dipungut oleh PKP Penjual yang melakukan penyerahan BKP" required="1" />
+                                <field name="tipe_faktur_pajak"/>
+                                <field name="pkp" on_change="onchange_pkp(pkp)" />
+                                <field name="tgl_kukuh" attrs="{'invisible': [('pkp','!=',True)]}" />
+                                <field name="npwp" on_change="npwp_onchange(npwp)" attrs="{'required': [('pkp','=',True)]}" />
+                                <field name="is_customer_depo" />
+                                <field name="member" />
+                                <field name="is_company" groups="base.group_no_one" />
+                            </group>
+                            <group>
+                                <label for="letter_address" string="Mail Address" />
+                                <div>
+                                    <field name="sama" string="Sama dengan header address" on_change="onchange_letter(sama,street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" /> Same with ID Address
+                                    <field name="street_tab" placeholder="Street..." attrs="{'invisible': [('sama','=', True)]}" />
+                                    <div>
+                                        <field name="street2_tab" placeholder="Street" style="width: 50%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="rt_tab" placeholder="RT" style="width: 25%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="rw_tab" placeholder="RW" style="width: 25%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="state_tab_id" class="oe_no_button" placeholder="Province" attrs="{'invisible': [('sama','=', True)]}" style="width: 50%%" options='{"no_open": True}' />
+                                        <field name="city_tab_id" placeholder="City" style="width: 50%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="kecamatan_tab_id" placeholder="Kecamatan" style="width: 50%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="kecamatan_tab" placeholder="Kecamatan" style="width: 50%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="zip_tab_id" placeholder="ZIP" style="width: 50%%" options='{"no_open": True}' attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="kelurahan_tab" class="oe_no_button" placeholder="Kelurahan" style="width: 50%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                    </div>
+                                </div>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name='internal_notes' string="Internal Notes">
+                                <field name="comment" placeholder="Put an internal note..." />
+                            </page>
+                            <page string="CDDB">
+                                <field name="cddb_line" context="{'customer_id': active_id}">
+                                    <tree string="CDDB">
+                                        <field name="cddb_code"></field>
+                                        <field name="name" />
+                                        <field name="no_ktp" />
+                                        <field name="no_hp" />
+                                        <field name="agama_id" />
+                                        <field name="pendidikan_id" />
+                                        <field name="pekerjaan_id" />
+                                        <field name="pengeluaran_id" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Kartu Keluarga" attrs="{'invisible':[('is_company','=',True)]}">
+                                <group>
+                                    <field name="no_kk" />
+                                </group>
+                                <field name="kartukeluarga_ids">
+                                    <tree string="Kartu Keluarga" editable="bottom">
+                                        <field name="name" />
+                                        <field name="nik" />
+                                        <field name="tgl_lahir" />
+                                        <field name="hub" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Detail Pekerjaan">
+                                <group>
+                                    <group>
+                                        <field name="nama_pt" string="Nama Perusahaan" />
+                                        <label for="street_pt" string="Alamat Perusahaan" />
+                                        <div>
+                                            <field name="street_pt" placeholder="Street..." />
+                                            <div>
+                                                <field name="street2_pt" placeholder="Street" style="width: 50%%" />
+                                                <field name="rt_pt" placeholder="RT" style="width: 25%%" />
+                                                <field name="rw_pt" placeholder="RW" style="width: 25%%" />
+                                                <field name="state_pt_id" class="oe_no_button" placeholder="Province" style="width: 50%%" options='{"no_open": True}' />
+                                                <field name="city_pt_id" placeholder="City" style="width: 50%%" />
+                                                <field name="kecamatan_pt_id" placeholder="Kecamatan" style="width: 50%%" />
+                                                <field name="kecamatan_pt" placeholder="Kecamatan" style="width: 50%%" />
+                                                <field name="zip_pt_id" placeholder="ZIP" style="width: 50%%" options='{"no_open": True}' />
+                                                <field name="kelurahan_pt" class="oe_no_button" placeholder="Kelurahan" style="width: 50%%" />
+                                            </div>
+                                        </div>
+                                        <field name="bidang_usaha_id" options="{'no_create': True,'no_open': True}" />
+                                    </group>
+                                    <group/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_partner_customer_tree_view3">
+            <field name="name">dym.partner.customer.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Customers">
+                    <field name="name" />
+                    <field name="rel_code" />
+                    <field name="phone" />
+                    <field name="mobile" />
+                    <field name="email" />
+                    <field name="user_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_customer_only_filter" model="ir.ui.view">
+            <field name="name">customer.only.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name='branch_id' />
+                    <field name="name" />
+                    <field name="no_ktp" />
+                    <filter string="Branches" name="branch_ids" />
+                    <filter string="Principle" name="principle" domain="[('principle','=',True)]" />
+                    <filter string="Biro Jasa" name="biro_jasa" domain="[('biro_jasa','=',True)]" />
+                    <filter string="Forwarder" name="forwarder" domain="[('forwarder','=',True)]" />
+                    <filter string="General Supplier" name="supplier" domain="[('supplier','=',True)]" />
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_partner_customer_action_view">
+            <field name="name">Customers</field>
+            <field name="res_model">res.partner</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('direct_customer','!=',False)]</field>
+            <field name="context" eval="{'form_name': 'Customers','search_default_branch_ids':1}" />
+            <field name="search_view_id" ref="view_customer_only_filter" />
+        </record>
+        <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+            <field name="context">{'search_default_principle':1,'search_default_biro_jasa':1,'search_default_forwarder':1,'search_default_supplier':1}</field>
+        </record>
+        <record id="view_res_partner_customer_tree" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_partner_customer_tree_view3" />
+            <field name="act_window_id" ref="dym_partner_customer_action_view" />
+        </record>
+        <record id="view_res_partner_customer_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_res_partner_form_view2" />
+            <field name="act_window_id" ref="dym_partner_customer_action_view" />
+        </record>
+        <menuitem id="dym_partner_customer_submenu" name="Customers" parent="dym_dealer_menu.showroom_sales_menu" action="dym_partner_customer_action_view" sequence="20" />
+        <menuitem id="dym_partner_customer_submenu_workshop" name="Customers" parent="dym_dealer_menu.workshop_sales_menu" action="dym_partner_customer_action_view" sequence="20" />
+        <menuitem id="menu_supplier_for_ga" name="Suppliers" parent="dym_dealer_menu.ga_purchase_menu" action="base.action_partner_supplier_form" sequence="1" />
+    </data>
+</openerp>

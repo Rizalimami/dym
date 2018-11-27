@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_hutang_komisi_all,dym_hutang_komisi all,model_dym_hutang_komisi,,1,1,1,1
+access_dym_hutang_komisi_line_all,dym_hutang_komisi_line all,model_dym_hutang_komisi_line,,1,1,1,1
+access_dym_program_subsidi_all,dym_program_subsidi all,model_dym_program_subsidi,,1,1,1,1
+access_dym_program_subsidi_line_all,dym_program_subsidi_line all,model_dym_program_subsidi_line,,1,1,1,1
+access_dym_subsidi_barang_all,dym_subsidi_barang all,model_dym_subsidi_barang,,1,1,1,1
+access_dym_subsidi_barang_line_all,dym_subsidi_barang_line all,model_dym_subsidi_barang_line,,1,1,1,1

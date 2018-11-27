@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paper_format_proposal_event" model="report.paperformat">
+            <field name="name">Register Activity Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">31</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report
+            id="dym_proposal_event_report"
+            string="Register Activity"
+            model="dym.proposal.event"
+            report_type="qweb-pdf"
+            name="dym_proposal_event.report_proposal_event"
+            file="dym_proposal_event.report_proposal_event"
+        />
+
+        <record id="dym_proposal_event_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_proposal_event.paper_format_proposal_event"/>
+        </record>
+
+    </data>
+</openerp>

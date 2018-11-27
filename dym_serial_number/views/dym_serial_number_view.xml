@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="master_serial_number_tree" model="ir.ui.view">
+            <field name="name">master.serial.number.tree</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_tree" />
+            <field name="arch" type="xml">
+                <field name="ref" position="after">
+                    <field name="customer_stnk" />
+                </field>
+            </field>
+        </record>
+        <record id="master_serial_number" model="ir.ui.view">
+            <field name="name">master.serial.number.form</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form" />
+            <field name="arch" type="xml">
+                <field name="product_id" position="before">
+                    <field name="chassis_no" />
+                    <field name="chassis_code" />
+                    <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                    <field name="division" />
+                    <field name="sale_order_id" />
+                    <field name="customer_invoice_id" />
+                </field>
+                <xpath expr='//group[@name="main_group"]' position='inside'>
+                    <group col="2">
+                        <field name="tahun" on_change="tahun_change(tahun)" />
+                        <field name="state" />
+                        <field name="state_stnk" />
+                        <field name="reserved" />
+                        <field name="receipt_id" />
+                        <field name="location_id" />
+                        <field name="customer_reserved" />
+                        <field name="ready_for_sale" />
+                        <field name="picking_id" />
+                        <field name="original_location_id" />
+                    </group>
+                    <group string="Purchase" col="4" colspan="4">
+                        <field name="purchase_order_id" />
+                        <field name="no_sipb" />
+                        <field name="no_ship_list" />
+                        <field name="no_faktur" />
+                        <field name="supplier_id" />
+                        <field name="po_date" />
+                        <field name="expedisi_id" />
+                        <field name="receive_date" />
+                        <field name="freight_cost" />
+                    </group>
+                    <group string="SALES MD" col="4" colspan="4">
+                        <field name="dealer_id" />
+                        <field name="tgl_cetak_faktur" invisible="1" />
+                        <field name="sales_md_date" />
+                        <field name="tgl_mohon_faktur" invisible="1" />
+                        <field name="do_md_date" />
+                    </group>
+                    <group string="SALES DEALER" col="4" colspan="4">
+                        <field name="invoice_date" />
+                        <field name="do_date" />
+                        <field name="customer_id" />
+                        <field name="finco_id" />
+                        <field name="finco_cabang" />
+                        <field name="customer_stnk" />
+                        <field name="jenis_penjualan" />
+                        <field name="dp" />
+                        <field name="tenor" />
+                        <field name="cicilan" />
+                    </group>
+                    <group name="stnk_dan_bpkb" string="STNK DAN BPKB" col="4" colspan="4">
+                        <field name="biro_jasa_id" />
+                        <field name="tgl_faktur" />
+                        <field name="faktur_stnk" />
+                        <field name="tgl_terima" />
+                        <field name="tgl_notice" />
+                        <field name="no_notice" />
+                        <field name="tgl_stnk" />
+                        <field name="no_stnk" />
+                        <field name="tgl_bpkb" />
+                        <field name="no_bpkb" />
+                        <field name="no_polisi" on_change="no_pol_onchange(no_polisi)" />
+                    </group>
+                    <group string="WORKSHOP" col="4" colspan="4">
+                        <field name="kode_buku" />
+                        <field name="nama_buku" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_lot_filter" model="ir.ui.view">
+            <field name="name">stock.production.lot.list.select</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.search_product_lot_filter" />
+            <field name="arch" type="xml">
+                <field name='name' position='replace' />
+                <field name="product_id" position='after'>
+                    <field name='name' string='No Engine' />
+                    <field name="customer_stnk" />
+                    <field name="no_polisi" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

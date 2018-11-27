@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_invoice_wo_template">
+            <style type="text/css">
+            .tag_container {
+                margin: auto;
+                margin-bottom: 50px;
+                border: 1px solid black;
+            }
+            
+            .no_border {
+                border: 0px !important;
+                line-height: 0.7 !important;
+            }
+            
+            .margin_bottom {
+                margin-bottom: 5px !important;
+            }
+            
+            .border_top {
+                border-top: 1px solid black !important;
+            }
+            
+            .border_bottom {
+                border-bottom: 1px solid black !important;
+            }
+            
+            .line_height {}
+            
+            .page,
+            .header,
+            .footer {
+                font-size: 12px;
+            }
+            </style>
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"></t>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"></t>
+                    </t>
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4><t t-esc="company.name"/></h4>
+                                <t t-if="company.street">
+                                    <span t-field="company.street" />
+                                </t>
+                                <t t-if="not company.street">
+                                    <span t-field="company.partner_id.street" />
+                                </t>
+                                <br/>
+                                <t t-if="company.state_id">
+                                    <span t-field="company.state_id.name" />
+                                </t>
+                                <t t-if="not company.state_id">
+                                    <span t-field="company.partner_id.state_id.name" />
+                                </t>
+                                <t t-if="o.branch_id.phone">
+                                    <span> - </span><span t-field="company.phone" />
+                                </t>
+                                <t t-if="not o.branch_id.phone">
+                                    <span> - </span><span t-field="company.partner_id.phone" />
+                                </t>
+                                <br/>
+                                <t t-if="company.vat">
+                                    NPWP : <span t-field="company.vat" />
+                                </t>
+                                <t t-if="not company.vat">
+                                    NPWP : <span t-field="company.partner_id.npwp" />
+                                </t>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="pull-right">
+                                    <h4><t t-esc="o.branch_id.name"/></h4>
+                                    <t t-if="o.branch_id.street">
+                                        <span t-field="o.branch_id.street" />
+                                    </t>
+                                    <t t-if="not o.branch_id.street">
+                                        <span t-field="o.branch_id.partner_id.street" />
+                                    </t>
+                                    <br/>
+                                    <t t-if="o.branch_id.state_id">
+                                        <span t-field="o.branch_id.state_id.name" />
+                                    </t>
+                                    <t t-if="not o.branch_id.state_id">
+                                        <span t-field="o.branch_id.partner_id.state_id.name" />
+                                    </t>
+                                    <t t-if="o.branch_id.phone">
+                                        <span> - </span><span t-field="o.branch_id.phone" />
+                                    </t>
+                                    <t t-if="not o.branch_id.phone">
+                                        <span> - </span><span t-field="o.branch_id.partner_id.phone" />
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="margin-top:0px !important; border-color:black !important;" />
+                    </div>
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <h4><u>INVOICE SERVICE</u></h4>
+                            </div>
+                            <div class="col-xs-4">
+                                <table class="table table-condensed margin_bottom">
+                                    <tr>
+                                        <td class="no_border">No. Faktur</td>
+                                        <td class="no_border">
+                                            :
+                                            <t t-esc="o.get_no_invoice(o.name)" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no_border">Tanggal</td>
+                                        <td class="no_border">
+                                            :
+                                            <t t-esc="o.get_tanggal_invoice(o.name)" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-4">
+                                <table class="table table-condensed margin_bottom">
+                                    <tr>
+                                        <td class="no_border">Kepada </td>
+                                        <td class="no_border">
+                                            : <span t-field="o.customer_id.name" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no_border">Jenis Motor </td>
+                                        <td class="no_border">
+                                            : <span t-field="o.product_id.description" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no_border">No. Polisi </td>
+                                        <td class="no_border">
+                                            : <span t-field="o.no_pol" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-4">
+                                <table class="table table-condensed margin_bottom">
+                                    <tr>
+                                        <td class="no_border">No. Reff</td>
+                                        <td class="no_border">
+                                            : <span t-field="o.name" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no_border">Mekanik</td>
+                                        <td class="no_border">
+                                            : <span t-field="o.mekanik_id.name" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no_border">KM </td>
+                                        <td class="no_border">
+                                            : <span t-field="o.km" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-condensed" style="margin-bottom:0px !important;">
+                                    <thead>
+                                        <tr>
+                                            <th class="border_top"><strong>Kode Barang / Jasa</strong></th>
+                                            <th class="border_top"><strong>Nama Barang / Jasa</strong></th>
+                                            <th class="border_top text-center"><strong>Qty</strong></th>
+                                            <th class="border_top text-center"><strong>Discount</strong></th>
+                                            <th class="border_top text-center"><strong>Harga</strong></th>
+                                            <th class="border_top text-center"><strong>Subtotal</strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="total_service" t-value="0" />
+                                        <t t-foreach="o.work_lines" t-as="line">
+                                            <t t-if="line.categ_id == 'Service'">
+                                                <t t-set="total_service" t-value="total_service+((line.product_qty*line.price_unit)-line.discount-line.discount_program-line.discount_bundle)" />
+                                                <tr>
+                                                    <td class=""><span t-field="line.product_id.name" /></td>
+                                                    <td class=""><span t-field="line.product_id.description" /></td>
+                                                    <td class="text-center"><span t-field="line.product_qty" /></td>
+                                                    <td class="text-right">
+                                                        <t t-esc="line.discount_program+line.discount+line.discount_bundle" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}' />
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <t t-esc="line.price_unit" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}' />
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <t t-esc="(line.product_qty*line.price_unit)-line.discount-line.discount_program-line.discount_bundle" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}' />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <tr>
+                                            <td class="border_top" colspan="10"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-xs-8">
+                                <strong>
+	                    	Terbilang<br/>
+	                    	## <t t-esc="o.get_terbilang(total_service)"/> ##
+	                    </strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <td class="no_border text-right"><strong>Total</strong></td>
+                                        <td class="no_border text-right">
+                                            <span t-esc="total_service" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}' />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <td class="no_border text-center">Dibuat Oleh
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <t t-esc="user.name" />
+                                        </td>
+                                        <td class="no_border text-center">Verifikasi
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>(______________)</td>
+                                        <td class="no_border text-center">Diterima Oleh
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>(______________)</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-12 text-right">
+                                <span style="font-size: 11px;"><t t-esc="user.name"/> <t t-esc="o.branch_id.get_waktu_local()"/></span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <!-- Page Sparepart -->
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"></t>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"></t>
+                    </t>
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4><t t-esc="company.name"/></h4>
+                                <t t-if="company.street">
+                                    <span t-field="company.street" />
+                                </t>
+                                <t t-if="not company.street">
+                                    <span t-field="company.partner_id.street" />
+                                </t>
+                                <br/>
+                                <t t-if="company.state_id">
+                                    <span t-field="company.state_id.name" />
+                                </t>
+                                <t t-if="not company.state_id">
+                                    <span t-field="company.partner_id.state_id.name" />
+                                </t>
+                                <t t-if="o.branch_id.phone">
+                                    <span> - </span><span t-field="company.phone" />
+                                </t>
+                                <t t-if="not o.branch_id.phone">
+                                    <span> - </span><span t-field="company.partner_id.phone" />
+                                </t>
+                                <br/>
+                                <t t-if="company.vat">
+                                    NPWP : <span t-field="company.vat" />
+                                </t>
+                                <t t-if="not company.vat">
+                                    NPWP : <span t-field="company.partner_id.npwp" />
+                                </t>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="pull-right">
+                                    <h4><t t-esc="o.branch_id.name"/></h4>
+                                    <t t-if="o.branch_id.street">
+                                        <span t-field="o.branch_id.street" />
+                                    </t>
+                                    <t t-if="not o.branch_id.street">
+                                        <span t-field="o.branch_id.partner_id.street" />
+                                    </t>
+                                    <br/>
+                                    <t t-if="o.branch_id.state_id">
+                                        <span t-field="o.branch_id.state_id.name" />
+                                    </t>
+                                    <t t-if="not o.branch_id.state_id">
+                                        <span t-field="o.branch_id.partner_id.state_id.name" />
+                                    </t>
+                                    <t t-if="o.branch_id.phone">
+                                        <span> - </span><span t-field="o.branch_id.phone" />
+                                    </t>
+                                    <t t-if="not o.branch_id.phone">
+                                        <span> - </span><span t-field="o.branch_id.partner_id.phone" />
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="margin-top:0px !important; border-color:black !important;" />
+                    </div>
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <h4><u>INVOICE SPAREPART</u></h4>
+                            </div>
+                            <div class="col-xs-4">
+                                <table class="table table-condensed margin_bottom">
+                                    <tr>
+                                        <td class="no_border">No. Faktur</td>
+                                        <td class="no_border">
+                                            :
+                                            <t t-esc="o.get_no_invoice(o.name)" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no_border">Tanggal</td>
+                                        <td class="no_border">
+                                            :
+                                            <t t-esc="o.get_tanggal_invoice(o.name)" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-4">
+                                <table class="table table-condensed margin_bottom">
+                                    <tr>
+                                        <td class="no_border">Kepada </td>
+                                        <td class="no_border">
+                                            : <span t-field="o.customer_id.name" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no_border">Jenis Motor </td>
+                                        <td class="no_border">
+                                            : <span t-field="o.product_id.description" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no_border">No. Polisi </td>
+                                        <td class="no_border">
+                                            : <span t-field="o.no_pol" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-4">
+                                <table class="table table-condensed margin_bottom">
+                                    <tr>
+                                        <td class="no_border">No. Reff</td>
+                                        <td class="no_border">
+                                            : <span t-field="o.name" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no_border">Mekanik</td>
+                                        <td class="no_border">
+                                            : <span t-field="o.mekanik_id.name" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no_border">KM </td>
+                                        <td class="no_border">
+                                            : <span t-field="o.km" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-condensed" style="margin-bottom:0px !important;">
+                                    <thead>
+                                        <tr>
+                                            <th class="border_top"><strong>Kode Barang / Jasa</strong></th>
+                                            <th class="border_top"><strong>Nama Barang / Jasa</strong></th>
+                                            <th class="border_top text-center"><strong>Qty</strong></th>
+                                            <th class="border_top text-center"><strong>Discount</strong></th>
+                                            <th class="border_top text-center"><strong>Harga</strong></th>
+                                            <th class="border_top text-center"><strong>Subtotal</strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="total_sparepart" t-value="0" />
+                                        <t t-foreach="o.work_lines" t-as="line">
+                                            <t t-if="line.categ_id == 'Sparepart'">
+                                                <t t-set="total_sparepart" t-value="total_sparepart+((line.product_qty*line.price_unit)-line.discount-line.discount_program-line.discount_bundle)" />
+                                                <tr>
+                                                    <td class=""><span t-field="line.product_id.name" /></td>
+                                                    <td class=""><span t-field="line.product_id.description" /></td>
+                                                    <td class="text-center"><span t-field="line.product_qty" /></td>
+                                                    <td class="text-right">
+                                                        <t t-esc="line.discount_program+line.discount+line.discount_bundle" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}' />
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <t t-esc="line.price_unit" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}' />
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <t t-esc="(line.product_qty*line.price_unit)-line.discount-line.discount_program-line.discount_bundle" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}' />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <tr>
+                                            <td class="border_top" colspan="10"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-xs-8">
+                                <strong>
+	                    	Terbilang<br/>
+	                    	## <t t-esc="o.get_terbilang(total_sparepart)"/> ##
+	                    </strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <td class="no_border text-right"><strong>Total</strong></td>
+                                        <td class="no_border text-right">
+                                            <span t-esc="total_sparepart" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}' />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <td class="no_border text-center">Dibuat Oleh
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <t t-esc="user.name" />
+                                        </td>
+                                        <td class="no_border text-center">Verifikasi
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>(______________)</td>
+                                        <td class="no_border text-center">Diterima Oleh
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>(______________)</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-12 text-right">
+                                <span style="font-size: 11px;"><t t-esc="user.name"/> <t t-esc="o.branch_id.get_waktu_local()"/></span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

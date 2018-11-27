@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="print_bank_transfer" string="bank_transfer" model="dym.bank.transfer" name="rml.dym.bank.transfer" rml="dym_bank_transfer/report/dym_bank_transfer_report.rml" auto="False" menu="False" />
+        <record id="paper_format_btr" model="report.paperformat">
+            <field name="name">Bank Transfer Report Format</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report id="print_bank_transfer" string="bank_transfer" model="dym.bank.transfer" report_type="qweb-pdf" name="dym_bank_transfer.report_btr_template" file="dym_bank_transfer.report_btr_template" />
+        <record id="print_bank_transfer" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_bank_transfer.paper_format_btr" />
+        </record>
+        <!--HO to Branch-->
+        <report id="print_bank_transfer_ho_to_branch" string="bank_transfer" model="dym.bank.transfer" name="rml.dym.bank.transfer" rml="dym_bank_transfer/report/dym_bank_transfer_ho_to_branch_report.rml" auto="False" menu="False" />
+        <record id="paper_format_btr_ho_to_branch" model="report.paperformat">
+            <field name="name">Bank Transfer Report Format</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">23</field>
+            <field name="dpi">90</field>
+        </record>
+        <report id="print_bank_transfer_ho_to_branch" string="bank_transfer" model="dym.bank.transfer" report_type="qweb-pdf" name="dym_bank_transfer.report_btr_ho_to_branch_template" file="dym_bank_transfer.report_btr_ho_to_branch_template" />
+        <record id="print_bank_transfer_ho_to_branch" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_bank_transfer.paper_format_btr_ho_to_branch" />
+        </record>
+        <report id="print_ibanking" string="Print" model="dym.ibanking" report_type="qweb-pdf" file="dym_bank_transfer.report_ibanking" name="dym_bank_transfer.report_ibanking" />
+        <record id="print_ibanking" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_report_custom.paperformat_a4" />
+        </record>
+    </data>
+</openerp>

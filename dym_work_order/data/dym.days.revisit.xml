@@ -1,0 +1,16 @@
+<openerp>
+    <data noupdate="1">
+        <record id="TYPE_1" model="dym.days.revisit">
+            <field name="name">KPB</field>
+            <field name="due_date">30</field>
+        </record>
+        <record id="TYPE_2" model="dym.days.revisit">
+            <field name="name">REG</field>
+            <field name="due_date">30</field>
+        </record>
+        <record id="TYPE_3" model="dym.days.revisit">
+            <field name="name">WAR</field>
+            <field name="due_date">30</field>
+        </record>
+    </data>
+</openerp>

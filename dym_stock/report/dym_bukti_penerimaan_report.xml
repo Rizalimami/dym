@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="dym_bpb_report_template">
+            <style type="text/css">
+            .tag_container {
+                    margin: auto;
+                    margin-bottom: 50px;
+                    border: 1px solid black;
+                }
+                
+                .no_border {
+                    border: 0px !important;
+                }
+                
+                .margin_bottom {
+                    margin-bottom: 5px !important;
+                    margin-top: 5px !important;
+                }
+                
+                .border_top {
+                    border-top: 1px solid black !important;
+                }
+                
+                .border_bottom {
+                    border-bottom: 1px solid black !important;
+                }
+                                
+                .page,
+                .header,
+                .footer,
+                .table {
+                    font-size: 12px !important;
+                }
+
+                .hr {
+                    border-top: 1px solid black !important;
+                }
+
+                .text_up{
+                    text-transform: uppercase;
+                }
+
+                .text_bold{
+                    font-weight: bold;
+                }
+
+                .text_head{
+                    font-size: 16px;
+                }
+
+                .table_titikdua{
+                    text-align:center;
+                    width:20px
+                }
+
+                .table_margintop{
+                    margin-top: 20px !important;
+                }*/
+            </style>
+            <t t-call="report.html_container">
+                <t t-set="check_split" t-value="0" />
+                <t t-set="numpage" t-value="0"/>
+                <t t-set="totpage" t-value="0"/>
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="check_split" t-value="o.check_split()" />
+                    <t t-set="numpage" t-value="numpage+1"/>
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"></t>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"></t>
+                    </t>
+
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <span class="text_up text_head"><t t-esc="company.name"/></span><br/>
+                                <span>CABANG : <span t-field="o.rel_branch_id.code" /> - <span t-field="o.rel_branch_id.name" /></span><br/>
+                                <span>ALAMAT : <span t-field="o.rel_branch_id.street" /></span><br/>
+                                <span>NPWP : <span t-field="o.rel_branch_id.npwp" /></span>
+                            </div>
+                            <div class="col-xs-7" align="center">
+                                <span class="text_up text_head text_bold">
+                                    <span t-if="o.rel_picking_type_id.code in ('incoming',interbranch_in)">
+                                GOODS RECEIPT NOTE</span>
+                                    <span t-if="o.rel_picking_type_id.code not in ('incoming',interbranch_in)">
+                                GOODS RECEIPT NOTE</span>
+                                </span><br/>
+                                <span><span t-field="o.name" /></span>
+                            </div>
+                        </div>
+
+                        <hr class="border_top" />
+                        
+                        <div class="row">
+                            <div class="col-xs-7">
+                                <table>
+                                    <tr>
+                                        <td width="120">Partner</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.rel_partner_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alamat</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td>
+                                            <t t-if="o.rel_partner_id.street"><span t-field="o.rel_partner_id.street"/> </t>
+                                            <t t-if="o.rel_partner_id.street2"><span t-field="o.rel_partner_id.street2"/> </t>
+                                            <t t-if="o.rel_partner_id.rt">RT <span t-field="o.rel_partner_id.rt"/> </t>
+                                            <t t-if="o.rel_partner_id.rw">RW <span t-field="o.rel_partner_id.rw"/> </t>
+                                            <t t-if="o.rel_partner_id.kelurahan"><span t-field="o.rel_partner_id.kelurahan"/> </t>
+                                            <t t-if="o.rel_partner_id.kecamatan"><span t-field="o.rel_partner_id.kecamatan"/> </t>
+                                            <t t-if="o.rel_partner_id.city_id.name"><span t-field="o.rel_partner_id.city_id.name"/> </t>
+                                            <t t-if="o.rel_partner_id.state_id.name"><span t-field="o.rel_partner_id.state_id.name"/> </t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. Invoice</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="sj_no"/></td>
+                                        (replace)
+                                        <td><span t-field="o.no_faktur"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tgl Invoice</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.sj_date"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. PO</td>
+                                        <td  class="table_titikdua">:</td>
+                                        <td><span t-field="o.picking_id.origin" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-5">
+                                <table>
+                                    <tr>
+                                        <td width="120">Tgl. GRN</td>
+                                        <td  class="table_titikdua">:</td>
+                                        <td><span t-field="o.date" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. SJ Supplier</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.sj_no"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tgl SJ Supplier</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.sj_date"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ekspedisi</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.expedition_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. Polisi Pengirim</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.plat_number_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Driver</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span t-field="o.driver_id"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-condensed table_margintop">
+                                    <thead>
+                                        <tr t-if="o.rel_division=='Unit'">
+                                            <th><strong>No</strong></th>
+                                            <th><strong>Tipe Produk</strong></th>
+                                            <th><strong>Nama Produk</strong></th>
+                                            <th><strong>Warna</strong></th>
+                                            <th><strong>No Mesin</strong></th>
+                                            <th><strong>No Rangka</strong></th>
+                                            <th><strong>Qty</strong></th>
+                                            <th><strong>Tahun Rakit</strong></th>
+                                            <th><strong>Lokasi</strong></th>
+                                            <th><strong>Status</strong></th>
+                                        </tr>
+                                        <tr t-if="o.rel_division!='Unit'">
+                                            <th><strong>No</strong></th>
+                                            <th><strong>Part. No</strong></th>
+                                            <th><strong>Deskripsi Item</strong></th>
+                                            <th><strong>Qty</strong></th>
+                                            <th><strong>Lokasi</strong></th>
+                                            <th><strong>Status</strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="total_qty" t-value="0" />
+                                        <t t-set="number" t-value="0" />
+                                        <t t-set="qty" t-value="1" />
+                                        <t t-foreach="o.packing_line" t-as="line">
+                                            <t t-set="number" t-value="number + 1" />
+                                            <!-- <t t-if="(not line.product_id.categ_id.isParentName('Extras') and check_split==1) or check_split==0"> -->
+                                            <t t-if="(not line.product_id.categ_id.isParentName('Extras') and check_split==1) or check_split==0">
+                                                <t t-set="total_qty" t-value="total_qty+line.quantity" />
+                                                <tr t-if="o.rel_division=='Unit'">
+                                                    <td class=""><span t-esc="number" /></td>
+                                                    <td class=""><span t-field="line.product_id.name" /></td>
+                                                    <td class=""><span t-esc="o.get_product_name(line.product_id.product_tmpl_id.display_name)"/></td>
+                                                    <td class="">
+                                                        <t t-esc="o.rel_branch_id.get_attribute_name(line.product_id)" />
+                                                    </td>
+                                                    <td class=""><span t-field="line.serial_number_id.name" /></td>
+                                                    <td class=""><span t-field="line.serial_number_id.chassis_no" /></td>
+                                                    <td class=""><span t-esc="qty" /></td>
+                                                    <td class=""><span t-field="line.serial_number_id.tahun" /></td>
+                                                    <td class=""><span t-field="line.destination_location_id.name" /></td>
+                                                    <td class="">
+                                                        <t t-if="line.ready_for_sale == False">
+                                                            NRFS
+                                                        </t>
+                                                        <t t-if="line.ready_for_sale == True">
+                                                            RFS
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                                <tr t-if="o.rel_division!='Unit'">
+                                                    <td class=""><span t-esc="number" /></td>
+                                                    <td class=""><span t-field="line.product_id.name" /></td>
+                                                    <td class=""><span t-esc="o.get_product_name(line.product_id.product_tmpl_id.display_name)"/></td>
+                                                    <td class=""><span t-field="line.quantity" /></td>
+                                                    <td class=""><span t-field="line.destination_location_id.name" /></td>
+                                                    <td class="">
+                                                        <t t-if="line.ready_for_sale == False">
+                                                            NRFS
+                                                        </t>
+                                                        <t t-if="line.ready_for_sale == True">
+                                                            RFS
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <tr t-if="o.rel_division=='Unit'">
+                                            <td class="border_top border_bottom" colspan="6"><strong>Total Qty</strong></td>
+                                            <td class="border_top border_bottom" colspan="4"><strong><t t-esc="total_qty"/></strong></td>
+                                        </tr>
+                                        <tr t-if="o.rel_division!='Unit'">
+                                            <td class="border_top border_bottom" colspan="4"><strong>Total Qty</strong></td>
+                                            <td class="border_top border_bottom" colspan="2"><strong><t t-esc="total_qty"/></strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7">
+                                <table>
+                                    <tr>
+                                        <td width="120">Lembar ke - 1</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span>Finance</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="120">Lembar ke - 2</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span>Arsip Cabang</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="120">Reprint</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span> <t t-esc="o.rel_branch_id.get_cetakan_no('dym.stock.packing','dym_stock.dym_bpb_report_template',o)"/></span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-5">
+                                <table>
+                                    <tr>
+                                        <td width="120">Tgl. Cetak</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span><t t-esc="o.rel_branch_id.get_waktu_local()"/></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="120">Dicetak oleh</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span><t t-esc="user.name"/></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="120">Disetujui oleh</td>
+                                        <td class="table_titikdua">:</td>
+                                        <td><span><t t-esc="user.name"/></span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <hr class="border_bottom" />
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="text-right">
+                            <tr>
+                                <td>Halaman</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span class="page"/> / <span class="topage"/></td>
+                            </tr>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

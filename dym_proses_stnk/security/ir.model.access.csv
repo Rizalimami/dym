@@ -1,0 +1,18 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_lokasi_bpkb_all,dym_lokasi_bpkb all,model_dym_lokasi_bpkb,,1,1,1,1
+access_dym_lokasi_stnk_all,dym_lokasi_stnk all,model_dym_lokasi_stnk,,1,1,1,1
+access_dym_mutasi_bpkb_all,dym_mutasi_bpkb all,model_dym_mutasi_bpkb,,1,1,1,1
+access_dym_mutasi_bpkb_line_all,dym_mutasi_bpkb_line all,model_dym_mutasi_bpkb_line,,1,1,1,1
+access_dym_mutasi_stnk_all,dym_mutasi_stnk all,model_dym_mutasi_stnk,,1,1,1,1
+access_dym_mutasi_stnk_line_all,dym_mutasi_stnk_line all,model_dym_mutasi_stnk_line,,1,1,1,1
+access_dym_penerimaan_bpkb_all,dym_penerimaan_bpkb all,model_dym_penerimaan_bpkb,,1,1,1,1
+access_dym_penerimaan_bpkb_line_all,dym_penerimaan_bpkb_line all,model_dym_penerimaan_bpkb_line,,1,1,1,1
+access_dym_penerimaan_stnk_all,dym_penerimaan_stnk all,model_dym_penerimaan_stnk,,1,1,1,1
+access_dym_penerimaan_stnk_line_all,dym_penerimaan_stnk_line all,model_dym_penerimaan_stnk_line,,1,1,1,1
+access_dym_proses_birojasa_all,dym_proses_birojasa all,model_dym_proses_birojasa,,1,1,1,1
+access_dym_proses_birojasa_line_all,dym_proses_birojasa_line all,model_dym_proses_birojasa_line,,1,1,1,1
+access_dym_proses_stnk_all,dym_proses_stnk all,model_dym_proses_stnk,,1,1,1,1
+access_dym_proses_birojasa_withholding,dym_proses_birojasa_withholding all,model_dym_proses_birojasa_withholding,,1,1,1,1
+access_account_invoice_withholding,account_invoice_withholding all,model_dym_account_invoice_withholding,,1,1,1,1
+access_account_tax_code,account_tax_code all,account.model_account_tax_code,,1,1,1,1
+access_dym_batal_birojasa,dym_batal_birojasa all,model_dym_batal_birojasa,,1,1,1,1

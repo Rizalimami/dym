@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_ibanking">
+            <style type="text/css">
+            .tag_container {
+                margin: auto;
+                margin-bottom: 50px;
+                border: 1px solid black;
+            }
+
+            .no_border {
+                border: 0px !important;
+            }
+
+            .margin_bottom {
+                margin-bottom: 5px !important;
+                margin-top: 5px !important;
+            }
+
+            .border_top {
+                border-top: 1px solid black !important;
+            }
+
+            .border_bottom {
+                border-bottom: 1px solid black !important;
+            }
+
+            .page,
+            .header,
+            .footer,
+            .table {
+                font-size: 12px !important;
+            }
+
+            .hr {
+                border-top: 1px solid black !important;
+            }
+
+            .text_up {
+                text-transform: uppercase;
+            }
+
+            .text_bold {
+                font-weight: bold;
+            }
+
+            .text_head {
+                font-size: 16px;
+            }
+
+            .table_titikdua {
+                text-align: center;
+                width: 20px
+            }
+
+            .table_margintop {
+                margin-top: 20px !important;
+            }
+            </style>
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"></t>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"></t>
+                    </t>
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span class="text_up text_head"><t t-esc="company.name"/></span>
+                                <br/>
+                                <span class="text_up text_head">Report Banking Multi Payment - <span t-field="o.name"/> - <span t-field="o.file_name"/></span>
+                                <br/>
+                            </div>
+                        </div>
+                        <hr class="border_top" />
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table_margintop">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center"><strong>No. Bukti</strong></th>
+                                            <th class="text-center"><strong>Tgl Tempo</strong></th>
+                                            <th class="text-center"><strong>Sumber</strong></th>
+                                            <th class="text-center"><strong>Bank</strong></th>
+                                            <th class="text-center"><strong>Supplier</strong></th>
+                                            <th class="text-center"><strong>Pemilik Rekening</strong></th>
+                                            <th class="text-center"><strong>No. Rekening</strong></th>
+                                            <th class="text-center"><strong>Jumlah</strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-if="len(o.transfer_ids)>0">
+                                            <t t-foreach="o.transfer_ids" t-as="line">
+                                                <tr>
+                                                    <td><span t-field="line.name" /></td>
+                                                    <td><span t-field="line.date" /></td>
+                                                    <td><span t-esc="o.get_rek_bank_sup_own(line.payment_from_id_ho2branch.id)[0]" /></td>
+                                                    <td><span t-esc="o.get_rek_bank_sup_own(line.line_ids[0].payment_to_id.id)[1]" /></td>
+                                                    <td><span t-esc="o.get_rek_bank_sup_own(line.line_ids[0].payment_to_id.id)[2]" /></td>
+                                                    <td><span t-esc="o.get_rek_bank_sup_own(line.line_ids[0].payment_to_id.id)[3]" /></td>
+                                                    <td><span t-esc="o.get_rek_bank_sup_own(line.line_ids[0].payment_to_id.id)[0]" /></td>
+                                                    <td class="text-right"><span t-esc="'{0:,.2f}'.format(int(line.amount))" /></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <t t-if="len(o.voucher_ids)>0">
+                                            <t t-foreach="o.voucher_ids" t-as="line">
+                                                <tr>
+                                                    <td><span t-field="line.number" /></td>
+                                                    <td><span t-field="line.due_date_payment" /></td>
+                                                    <td><span t-esc="o.get_rek_bank_sup_own(line.journal_id.id)[0]" /></td>
+                                                    <td><span t-esc="line.bank_account.bank.bic" /></td>
+                                                    <td><span t-esc="line.bank_account.partner_id.name" /></td>
+                                                    <td><span t-esc="line.bank_account.owner_name" /></td>
+                                                    <td><span t-esc="line.bank_account.acc_number" /></td>
+                                                    <td class="text-right"><span t-esc="'{0:,.2f}'.format(int(line.net_amount))" /></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <tr>
+                                            <td class="no_border border_top" colspan="3">Total Records:
+                                                <t t-esc="o.total_record" />
+                                            </td>
+                                            <td class="no_border border_top text-right" colspan="4">Total Amount :</td>
+                                            <td class="no_border border_top text-right">
+                                                <t t-esc="'{0:,.2f}'.format(int(o.amount_total))" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <span>Dibuat oleh: </span>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <span>_____________________</span>
+                            </div>
+                            <div class="col-xs-6">
+                                <span>Approved by: </span>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <span>_____________________</span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

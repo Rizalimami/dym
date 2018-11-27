@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="inventory_tag_template">
+	<style type="text/css">
+		.tag_container{
+			margin: auto;
+			margin-bottom:50px;
+			border: 1px solid black;
+			height:420px;
+			max-height:420px;
+		}
+		.no_border{
+			border: 0px !important;
+		}
+		.table_border{
+			border: 1px solid black !important;
+		}
+		.page{
+			font-size: 10px;
+			margin-top:30px;
+		}
+	</style>
+	<t t-call="report.html_container">    
+		<t t-foreach="docs" t-as="o" style="margin-top:30px">
+			<!-- <t t-call="report.internal_layout"> -->
+				
+					<div class="page"> 
+						
+						<t t-set="number" t-value="0" />
+							<t t-foreach="o.line_ids" t-as="line">
+								
+								<t t-set="number" t-value="number+1" />
+								<t t-esc="number" />
+								<t t-esc="number%4" />
+								<t t-if="number%4==0">
+
+									<div style="page-break-after: always;margin-top:100px;">
+										<p style="margin-top:200px;">
+										</p>
+										<div class="tag_container col-xs-5">
+											<br/>[Stated Inventory Tag]
+											<br/>
+											<br/>
+											<table class="table table-condensed">
+												<tr>
+													<td class="no_border">Item</td>
+													<td class="no_border"> : </td>
+													<td class="no_border">
+														<span t-field="line.product_id"/>
+													</td>
+													<td class="no_border text-right">Tag No.</td>
+												</tr>
+												<tr>
+													<td class="no_border">Location</td>
+													<td class="no_border"> : </td>
+													<td class="no_border">
+														<span t-field="line.location_id"/>
+													</td>
+													<td class="no_border text-right">
+														<span t-field="line.no_tag"/>
+													</td>
+												</tr>
+											</table>
+											<table class="table table-condensed">
+												<thead>
+													<tr>
+														<th class="table_border text-center"><strong>Count-1</strong></th>
+														<th class="table_border text-center"><strong>Count-2</strong></th>
+														<th class="table_border text-center"><strong>Count-3</strong></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+													</tr>
+													<tr>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+													</tr>
+													<tr>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+													</tr>
+												</tbody>
+											</table>
+											<table class="table table-condensed">
+												<tr>
+													<td class="no_border text-center">Count-1<br/><br/><br/><br/><br/>(_________________)</td>
+													<td class="no_border text-center">Count-2<br/><br/><br/><br/><br/>(_________________)</td>
+													<td class="no_border text-center">Count-3<br/><br/><br/><br/><br/>(_________________)</td>
+												</tr>
+											</table>
+										</div>
+										<div class="col-xs-1">
+										</div>
+									</div>
+								</t>
+
+
+								<t t-if="number%4!=0">
+									<!-- <div style="page-break-after: always"> -->
+										<div class="tag_container col-xs-5">
+											<br/>[Stated Inventory Tag]
+											<br/>
+											<br/>
+											<table class="table table-condensed">
+												<tr>
+													<td class="no_border">Item</td>
+													<td class="no_border"> : </td>
+													<td class="no_border">
+														<span t-field="line.product_id"/>
+													</td>
+													<td class="no_border text-right">Tag No.</td>
+												</tr>
+												<tr>
+													<td class="no_border">Location</td>
+													<td class="no_border"> : </td>
+													<td class="no_border">
+														<span t-field="line.location_id"/>
+													</td>
+													<td class="no_border text-right">
+														<span t-field="line.no_tag"/>
+													</td>
+												</tr>
+											</table>
+											<table class="table table-condensed">
+												<thead>
+													<tr>
+														<th class="table_border text-center"><strong>Count-1</strong></th>
+														<th class="table_border text-center"><strong>Count-2</strong></th>
+														<th class="table_border text-center"><strong>Count-3</strong></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+													</tr>
+													<tr>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+													</tr>
+													<tr>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+														<td class="table_border"><![CDATA[&nbsp;]]></td>
+													</tr>
+												</tbody>
+											</table>
+											<table class="table table-condensed">
+												<tr>
+													<td class="no_border text-center">Count-1<br/><br/><br/><br/><br/>(_________________)</td>
+													<td class="no_border text-center">Count-2<br/><br/><br/><br/><br/>(_________________)</td>
+													<td class="no_border text-center">Count-3<br/><br/><br/><br/><br/>(_________________)</td>
+												</tr>
+											</table>
+										</div>
+										<div class="col-xs-1">
+										</div>
+									<!-- </div> -->
+								</t>
+
+
+
+							</t>
+					</div>
+			<!-- </t> -->
+		</t>
+	</t>
+</template>
+
+
+<template id="blank_tag_template">
+	<style type="text/css">
+		.tag_container{
+			margin: auto;
+			margin-bottom:50px;
+			border: 1px solid black;
+		}
+		.no_border{
+			border: 0px !important;
+		}
+		.table_border{
+			border: 1px solid black !important;
+		}
+		.page{
+			font-size: 10px;
+		}
+	</style>
+	<t t-call="report.html_container">    
+		<t t-foreach="docs" t-as="o">
+			<!-- <t t-call="report.internal_layout"> -->
+				<div class="page">            	
+					<t t-foreach="o.tag_ids" t-as="line">
+						<div class="tag_container col-xs-5">
+							<br/>[Blank Inventory Tag]
+							<br/>
+							<br/>
+							<table class="table table-condensed">
+								<tr>
+									<td class="no_border">Item</td>
+									<td class="no_border"> : </td>
+									<td class="no_border">
+										<![CDATA[&nbsp;]]>
+									</td>
+									<td class="no_border text-right">Tag No.</td>
+								</tr>
+								<tr>
+									<td class="no_border">Location</td>
+									<td class="no_border"> : </td>
+									<td class="no_border">
+										<![CDATA[&nbsp;]]>
+									</td>
+									<td class="no_border text-right">
+										<span t-field="line.name"/>
+									</td>
+								</tr>
+							</table>
+							<table class="table table-condensed">
+								<thead>
+									<tr>
+										<th class="table_border text-center"><strong>Count-1</strong></th>
+										<th class="table_border text-center"><strong>Count-2</strong></th>
+										<th class="table_border text-center"><strong>Count-3</strong></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="table_border"><![CDATA[&nbsp;]]></td>
+										<td class="table_border"><![CDATA[&nbsp;]]></td>
+										<td class="table_border"><![CDATA[&nbsp;]]></td>
+									</tr>
+									<tr>
+										<td class="table_border"><![CDATA[&nbsp;]]></td>
+										<td class="table_border"><![CDATA[&nbsp;]]></td>
+										<td class="table_border"><![CDATA[&nbsp;]]></td>
+									</tr>
+									<tr>
+										<td class="table_border"><![CDATA[&nbsp;]]></td>
+										<td class="table_border"><![CDATA[&nbsp;]]></td>
+										<td class="table_border"><![CDATA[&nbsp;]]></td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="table table-condensed">
+								<tr>
+									<td class="no_border text-center">Count-1<br/><br/><br/><br/><br/>(_________________)</td>
+									<td class="no_border text-center">Count-2<br/><br/><br/><br/><br/>(_________________)</td>
+									<td class="no_border text-center">Count-3<br/><br/><br/><br/><br/>(_________________)</td>
+								</tr>
+							</table>
+						</div>
+						<div class="col-xs-1">
+						</div>
+					</t>
+				</div>
+			<!-- </t> -->
+		</t>
+	</t>
+</template>
+</data>
+</openerp>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <record id="seq_bank_trf_advice_type" model="ir.sequence.type">
+            <field name="name">Bank Transfer Advice</field>
+            <field name="code">bank.trf.advice</field>
+        </record>
+        <record id="seq_bank_trf_advice" model="ir.sequence">
+            <field name="name">Bank Transfer Advice</field>
+            <field name="code">bank.trf.advice</field>
+            <field name="prefix">BTA/%(year)s/</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</openerp>

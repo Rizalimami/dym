@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+		<record model="ir.ui.view" id="dym_branch_config_retur_form_view">
+		    <field name="name">dym.branch.config.retur.form.view</field>
+		    <field name="model">dym.branch.config</field>
+		    <field name="inherit_id" ref="dym_branch.dym_branch_config_form_view"/>
+		    <field name="arch" type="xml">	
+                <xpath expr="/form/sheet/group" position="after">                  
+					<group string="Loan">
+						<field name="dym_journal_loan_pinjaman"/>
+						<field name="dym_journal_loan_pinjaman_pendek"/>
+						<field name="dym_journal_loan_pinjaman_intercompany"/>
+						<field name="dym_journal_loan_piutang"/>
+						<field name="dym_journal_loan_reklasifikasi"/>
+						<field name="dym_journal_loan_bunga_pinjaman"/>
+						<field name="dym_journal_loan_bunga_piutang"/>
+						<field name="dym_journal_loan_bunga_reklasifikasi"/>
+					</group>                  
+                </xpath>				
+		    </field>
+		</record>
+	</data>
+</openerp>
+															

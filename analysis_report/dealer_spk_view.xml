@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_spk_report_filter" model="ir.ui.view">
+            <field name="name">dealer.spk.list.select</field>
+            <field name="model">dealer.spk.report</field>
+            <field name="arch" type="xml">
+                <search string="Search Memo">
+                    <field name='branch_id' />
+                    <group expand="0" string="Group By">
+                        <filter string="Product" icon="terp-partner" domain="[]" context="{'group_by':'product_id'}" />
+                        <filter string="Branch" icon="terp-go-month" domain="[]" context="{'group_by':'branch_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="view_spk_tree_report" model="ir.ui.view">
+            <field name="name">dealer.spk.report</field>
+            <field name="model">dealer.spk.report</field>
+            <field eval="112" name="priority" />
+            <field name="arch" type="xml">
+                <tree string="Memo" create="false">
+                    <field name="branch_id" />
+                    <field name="date" />
+                    <field name="partner_id" />
+                    <field name="finco_id" />
+                    <field name="employee_id" />
+                    <field name="product_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_dealer_spk_report" model="ir.actions.act_window">
+            <field name="name">Memo</field>
+            <field name="res_model">dealer.spk.report</field>
+            <field name="view_id" ref="view_spk_tree_report" />
+            <field name="view_mode">tree_dealer_spk_report</field>
+            <field name="domain">[('is_mybranch','=',True)]</field>
+            <field name="search_view_id" ref="view_spk_report_filter" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Select the branch and product you want to fill.
+                </p>
+                <p>
+                    Report Memo
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_dealer_spk_report" parent="dym_dealer_menu.showroom_report_menu" sequence="1" action="action_dealer_spk_report" />
+    </data>
+</openerp>

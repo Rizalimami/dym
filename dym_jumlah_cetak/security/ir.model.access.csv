@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_jumlah_cetak_all,dym_dym_jumlah_cetak all,model_dym_jumlah_cetak,,1,1,1,1

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_consolidate_invoice_form" model="ir.ui.view">
+            <field name="name">consolidate.invoice.form</field>
+            <field name="model">consolidate.invoice</field>
+            <field name="inherit_id" ref="dym_hpp.view_consolidate_invoice_form" />
+            <field name="arch" type="xml">
+                <div class="oe_title" position="before">
+                    <field name="show_picking_info" invisible="1" />
+                    <div class="alert alert-danger" attrs="{'invisible':[('show_picking_info','=',False)]}">
+                        <strong>Warning!</strong> Tidak ditemukan picking untuk invoice ini, mungkin karena data picking diambil dari system lama (opbal). Klik 'Picking Opbal' jika data memang dari Opbal
+                    </div>
+                </div>
+                <field name='invoice_id' position='replace'>
+                    <field name="invoice_id" domain="[('type','=','in_invoice'),('branch_id','=',branch_id),('division','=',division),('state','=','open'),('partner_id','=',partner_id),('consolidated','=',False)]" attrs="{'required':[('asset','=',False)]}" options='{"no_open": True, "no_create": True}' />
+                </field>
+                    <field name='picking_id' position='after'>
+                       <field name="picking_opbal" attrs="{'invisible':[('show_picking_info','=',False)]}"/>
+                    </field>
+                <field name='picking_id' position='attributes'>
+                    <attribute name="attrs">{'required':[('asset','=',False),('picking_opbal','=',False)], 'invisible':['|',('asset','=',True),'&amp;',('picking_opbal','=',True),('show_picking_info','=',True)]}</attribute>
+                </field>
+                <field name="consolidate_line" position="attributes">
+                    <attribute name="context">{'default_picking_opbal':picking_opbal}</attribute>
+                    <attribute name="required">False</attribute>
+                </field>
+                <xpath expr="//field[@name='consolidate_line']/tree/field[@name='price_subtotal']" position="after">
+                    <field name="picking_opbal" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='consolidate_line']/tree/field[@name='name']" position="attributes">
+                    <attribute name="on_change"></attribute>
+                </xpath>
+                <xpath expr="//field[@name='consolidate_line']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="on_change"></attribute>
+                </xpath>
+                <xpath expr="//field[@name='consolidate_line']/tree/field[@name='template_id']" position="attributes">
+                    <attribute name="on_change"></attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='consolidate_line']/tree/field[@name='product_uom']" position="attributes">
+                    <attribute name="on_change"></attribute>
+                </xpath>
+                <xpath expr="//field[@name='consolidate_line']/tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="on_change"></attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
+

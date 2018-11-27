@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_transfer_request_group" model="ir.ui.view">
+            <field name="name">Bank Transfer Request Grup</field>
+            <field name="model">bank.trf.request.group</field>
+            <field name="arch" type="xml">
+                <form string="Merge Transfer Requests">
+                    <notebook>
+                        <page string='General'>
+                            <group>
+                                <group>
+                                    <field name="company_id" options="{'no_create': True}" />
+                                    <field name="branch_id" options="{'no_create': True}" />
+                                    <field name="payment_from_id" options="{'no_create': True}" />
+                                    <field name="transfer_date" />
+                                </group>
+                                <group>
+                                    <field name="branch_destination_id" options="{'no_create': True}" />
+                                    <field name="bank_dest_type" />
+                                    <field name="payment_to_id" options="{'no_create': True}" />
+                                    <field name="amount" />
+                                </group>
+                            </group>
+                            <group attrs="{'invisible':[
+                                '|','|','|','|','|',
+                                ('company_id','=',False),
+                                ('branch_id','=',False),
+                                ('payment_from_id','=',False),
+                                ('branch_destination_id','=',False),
+                                ('payment_to_id','=',False),
+                                ('amount','%lt;=',0),
+                                ]}">
+                                <group>
+                                    <field name="merge_mode" required="1" />
+                                </group>
+                                <group>
+                                    <field name="advice_id" attrs="{
+                                        'invisible':[('merge_mode','!=','existing')],
+                                        'required':[('merge_mode','=','existing')],
+                                    }" />
+                                </group>
+                            </group>
+                        </page>
+                        <page string='Detail'>
+                            <field name="bank_trf_request_ids">
+                                <tree string="Request List">
+                                    <field name="name" />
+                                    <field name="partner_id" />
+                                    <field name="date_request" />
+                                    <field name="date_due" />
+                                    <field name="amount" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="merge_trf_requests" string="Merge Transfer Requests" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window name="Merge Transfer Requests" context="{'search_default_draft': 1, 'search_default_approved': False}" res_model="bank.trf.request.group" src_model="bank.trf.request" view_mode="form" target="new" multi="True" key2="client_action_multi" id="action_view_transfer_request_group" />
+    </data>
+</openerp>

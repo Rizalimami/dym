@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_stock_picking_form_view">
+            <field name="name">dym.stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[1]" position="before">
+                    <field name="is_returned" invisible="1" />
+                    <field name="return_oos" invisible="1" />
+                    <div class="alert alert-danger" role="alert" attrs="{'invisible':['|',('return_oos','!=','transferred partial'),('is_returned','=',False)]}">
+                        <span class="glyphicon glyphicon-info-sign pull-left" style="margin-right: 15px;"></span>
+                        <strong>Perhatian!</strong> OOS ini telah diretur <strong>PARTIAL</strong>.<br/>
+                        Silahkan untuk Nomor Mesin yang tidak diretur, diproses lebih lanjut.
+                    </div>
+                    <div class="alert alert-danger" role="alert" attrs="{'invisible':['|',('return_oos','=','transferred partial'),('is_returned','=',False)]}">
+                        <span class="glyphicon glyphicon-info-sign pull-left" style="margin-right: 15px;"></span>
+                        <strong>Perhatian!</strong> Dealer Sale Memo ini telah diretur.
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

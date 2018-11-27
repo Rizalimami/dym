@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sale_order_dealer_form" model="ir.ui.view">
+            <field name="name">dealer.sale.order.form</field>
+            <field name="model">dealer.sale.order</field>
+            <field name="inherit_id" ref="dealer_sale_order.sale_order_dealer_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[1]" position="before">
+                    <field name="is_returned" invisible="1" />
+                    <field name="return_oos" invisible="1" />
+                    <div class="alert alert-danger" role="alert" attrs="{'invisible':['|',('return_oos','!=','transferred partial'),('is_returned','=',False)]}">
+                        <span class="glyphicon glyphicon-info-sign pull-left" style="margin-right: 15px;"></span>
+                        <strong>Perhatian!</strong> Dealer Sale Memo ini telah diretur <strong>PARTIAL</strong>.<br/>
+                        Silahkan untuk Nomor Mesin yang tidak diretur, diproses lebih lanjut.
+                    </div>
+                    <div class="alert alert-danger" role="alert" attrs="{'invisible':['|',('return_oos','=','transferred partial'),('is_returned','=',False)]}">
+                        <span class="glyphicon glyphicon-info-sign pull-left" style="margin-right: 15px;"></span>
+                        <strong>Perhatian!</strong> Dealer Sale Memo ini telah diretur.
+                    </div>
+                </xpath>
+                <xpath expr="//sheet/group/group[1]" position="inside">
+                    <field name="return_id" readonly="1" />
+                </xpath>
+                <xpath expr="//button[@name='action_create_do']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|','|',('is_returned','=',True),('picking_dummy','!=',False),('state','not in',('progress','done'))]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

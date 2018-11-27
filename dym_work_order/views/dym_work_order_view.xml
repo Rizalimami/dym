@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_product_template_service_category_form_view">
+            <field name="name">dym.product.template.service.category.form</field>
+            <field name="model">product.template</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Variants']" position="before">
+                    <page string="Category Service" attrs="{'invisible':[('type','!=','service')]}">
+                        <field name="service_category_ids" />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_customer_form_wizard_view">
+            <field name="name">dym.customer.wizard.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label string="Customers"/> 
+                                <field name="default_code" placeholder="Partner Code" readonly="1" attrs="{'invisible':[('rel_code','!=',False)]}"/>
+                                <field name="rel_code" readonly="1" attrs="{'invisible':[('rel_code','=',False)]}"/> 
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" default_focus="1" placeholder="Name" />
+                                <field name='branch_id' required='1' options="{'no_create': True,'no_open': True}" placeholder='Branch' />
+                                <field name="no_ktp" on_change="onchange_punctuation(no_ktp)" required="1" />
+                                <field name="member" />
+                                <field name="birthday" />
+                                <field name="mobile" on_change="change_nomor(mobile,phone)" required="1" />
+                                <field name="gender" />
+                            </group>
+                            <group>
+                                <field name="phone" on_change="change_nomor(mobile,phone)" />
+                                <field name="fax" />
+                                <field name="email" widget="email"></field>
+                                <field name="religion" />
+                                <field name="user_id" />
+                            </group>
+                            <group>
+                                <label for="address" string="Address" />
+                                <div>
+                                    <field name="street" placeholder="Street..." on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" />
+                                    <div>
+                                        <field name="street2" placeholder="Street" style="width: 50%%" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" />
+                                        <field name="rt" placeholder="RT" style="width: 25%%" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" />
+                                        <field name="rw" placeholder="RW" style="width: 25%%" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" />
+                                        <field name="state_id" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" class="oe_no_button" placeholder="Province" style="width: 50%%" options='{"no_open": True}' />
+                                        <field name="city_id" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" placeholder="City" style="width: 50%%" required="1" />
+                                        <field name="kecamatan_id" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" placeholder="Kecamatan" style="width: 50%%" required="1" />
+                                        <field name="kecamatan" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" placeholder="Kecamatan" style="width: 50%%" />
+                                        <field name="zip_id" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" placeholder="ZIP" style="width: 50%%" options='{"no_open": True}' />
+                                        <field name="kelurahan" on_change="onchange_address(street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" class="oe_no_button" placeholder="Kelurahan" style="width: 50%%" />
+                                    </div>
+                                </div>
+                            </group>
+                            <group>
+                                <label for="letter_address" string="Letter Address" />
+                                <div>
+                                    <field name="sama" string="Sama dengan header address" on_change="onchange_letter(sama,street,street2,rt,rw,state_id,city_id,kecamatan_id,kecamatan,zip_id,kelurahan)" />
+                                    <field name="street_tab" placeholder="Street..." attrs="{'invisible': [('sama','=', True)]}" />
+                                    <div>
+                                        <field name="street2_tab" placeholder="Street" style="width: 50%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="rt_tab" placeholder="RT" style="width: 25%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="rw_tab" placeholder="RW" style="width: 25%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="state_tab_id" class="oe_no_button" placeholder="Province" attrs="{'invisible': [('sama','=', True)]}" style="width: 50%%" options='{"no_open": True}' />
+                                        <field name="city_tab_id" placeholder="City" style="width: 50%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="kecamatan_tab_id" placeholder="Kecamatan" style="width: 50%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="kecamatan_tab" placeholder="Kecamatan" style="width: 50%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="zip_tab_id" placeholder="ZIP" style="width: 50%%" options='{"no_open": True}' attrs="{'invisible': [('sama','=', True)]}" />
+                                        <field name="kelurahan_tab" class="oe_no_button" placeholder="Kelurahan" style="width: 50%%" attrs="{'invisible': [('sama','=', True)]}" />
+                                    </div>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="kode_pajak_id" help="[1.] Digunakan untuk penyerahan BKP dan/atau JKP yang terutang PPN dan PPN nya dipungut oleh PKP Penjual yang melakukan penyerahan BKP dan/atau JKP [2.] Digunakan untuk penyerahan  BKP dan/atau JKP kepada Pemungut PPN Bendahara Pemerintah yang PPNnya dipungut oleh Pemungut PPN Bendahara, [3.] Digunakan untuk penyerahan  BKP dan/atau JKP kepada Pemungut PPN lainnya (selain Bendahara Pemerintah) yang PPNnya dipungut oleh PPN Lainnya (selain Bendahara Pemerintah), [4.] Digunakan untuk penyerahan BKP dan/atau JKP yang menggunakan DPP Nilai Lain yang PPNnya dipungut oleh PKP Penjual yang melakukan penyerahan BKP dan/atau JKP [5.] Digunakan untuk penyerahan lainnya yang PPNnya dipungut oleh PKP Penjual yang melakukan penyerahan BKP dan/atau JKP, dan penyerahan kepada orang pribadi pemegang paspor luar negeri (turis asing) sebagaimana dimaksud dalam Pasal 16E Undang-Undang Pajak Pertambahan Nilai, [6.] Digunakan untuk penyerahan BKP dan/atau JKP yang mendapat fasilitas PPN Tidak Dipungut atau Ditanggung Pemerintah (DTP) [7.] Digunakan untuk penyerahan BKP dan/atau JKP yang mendapat fasilitas Dibebaskan dari Pengenaan PPN [8.] digunakan untuk penyerahan BKP dan/atau JKP yang mendapat fasilitas dibebaskan dari pengenaan PPN (Pajak Pertambahan Nilai). [9.] Digunakan untuk penyerahan Aktiva Pasal 16D yang PPNnya dipungut oleh PKP Penjual yang melakukan penyerahan BKP" required="1" />
+                                <field name="tipe_faktur_pajak"/>
+                                <field name="pkp" on_change="onchange_pkp(pkp)" />
+                                <field name="tgl_kukuh" attrs="{'invisible': [('pkp','!=',True)]}" />
+                                <field name="npwp" on_change="npwp_onchange(npwp)" attrs="{'required': [('pkp','=',True)]}" />
+                                <field name="is_customer_depo" />
+                                <field name="is_company" groups="base.group_no_one" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name='internal_notes' string="Internal Notes">
+                                <field name="comment" placeholder="Put an internal note..." />
+                            </page>
+                            <page string="CDDB">
+                                <field name="cddb_line" context="{'customer_id': active_id}">
+                                    <tree string="CDDB">
+                                        <field name="cddb_code"></field>
+                                        <field name="name" />
+                                        <field name="no_ktp" />
+                                        <field name="no_hp" />
+                                        <field name="agama_id" />
+                                        <field name="pendidikan_id" />
+                                        <field name="pekerjaan_id" />
+                                        <field name="pengeluaran_id" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Kartu Keluarga">
+                                <group>
+                                    <field name="no_kk" />
+                                </group>
+                                <field name="kartukeluarga_ids">
+                                    <tree string="Kartu Keluarga" editable="bottom">
+                                        <field name="name" />
+                                        <field name="nik" />
+                                        <field name="tgl_lahir" />
+                                        <field name="hub" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_dym_work_order_search" model="ir.ui.view">
+            <field name="name">dym.work.order.search</field>
+            <field name="model">dym.work.order</field>
+            <field name="arch" type="xml">
+                <search string="Search WO">
+                    <field name='name' />
+                    <field name='branch_id' />
+                    <field name='division' />
+                    <field name='type' />
+                    <field name='customer_id' />
+                    <field name='lot_id' />
+                    <filter name="state_draft" string="Draft" domain="[('state','=','draft')]" />
+                    <filter name="state_in_progress" string="In Progress" domain="[('state','not in',('done','cancel'))]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-go-month" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter string="State" icon="terp-go-month" domain="[]" context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_serial_number_form_wizard_view">
+            <field name="name">dym.serial.number.wizard.form</field>
+            <field name="model">stock.production.lot</field>
+            <field name="arch" type="xml">
+                <form string="Form Add WO">
+                    <group col="4">
+                        <field name="name" string="Engine No" on_change="name_onchange(product_id,name)" />
+                        <field name="chassis_no" on_change="chassis_onchange(chassis_no)" />
+                        <field name="product_id" domain="[('categ_id','child_of','Unit')]" on_change="nosin_onchange(name)" />
+                        <field name="no_polisi" on_change="no_pol_onchange(no_polisi)" />
+                        <field name="nama_buku" on_change="nama_buku_onchange(nama_buku)" />
+                        <field name="customer_stnk" required="True" context="{'form_view_ref':'dym_work_order.dym_customer_form_wizard_view'}" />
+                        <field name="kode_buku" on_change="kode_buku_onchange(kode_buku)" />
+                        <field name="customer_id" required="True" context="{'form_view_ref':'dym_work_order.dym_customer_form_wizard_view'}" />
+                        <field name="state" invisible="True" />
+                    </group>
+                    <notebook>
+                        <page string="Work Order">
+                            <field name="work_order_ids" nolabel="1" colspan="4">
+                                <tree string="Work Order">
+                                    <field name="name" />
+                                    <field name="date" />
+                                    <field name="type" />
+                                    <field name="km" />
+                                    <field name="no_pol" on_change="no_pol_onchange(no_pol)" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_stock_move_tree_all">
+            <field name="sequence" eval="3" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="stock.view_production_lot_tree" />
+            <field name="act_window_id" ref="stock.action_production_lot_form" />
+        </record>
+        <record model="ir.actions.act_window.view" id="action_stock_move_form_all">
+            <field name="sequence" eval="4" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock.view_production_lot_form" />
+            <field name="act_window_id" ref="stock.action_production_lot_form" />
+        </record>
+        <record id="view_dym_work_order_tree" model="ir.ui.view">
+            <field name="name">work.order.tree</field>
+            <field name="model">dym.work.order</field>
+            <field name="arch" type="xml">
+                <tree string="Work Order">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="type" />
+                    <field name="customer_id" />
+                    <field name="customer_transaksi" />
+                    <field name="no_pol" />
+                    <field name="tipe_konsumen" />
+                    <field name="pit_id" />
+                    <field name="mekanik_id" />
+                    <field name="amount_total" />
+                    <field name="state" />
+                    <field name="state_wo" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_dym_work_order_form" model="ir.ui.view">
+            <field name="name">work.order.form1</field>
+            <field name="model">dym.work.order</field>
+            <field name="arch" type="xml">
+                <form string="Work Order">
+                    <header>
+                        <button name="start_stop_wo" type="object" string="Start Stop WO" attrs="{'invisible': ['|', ('state_wo','=','finish'), ('state','!=', 'approved')]}" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23"/>
+                        <button name="picking_done" string="Picking Done" type="workflow" class="oe_highlight" attrs="{'invisible': ['|','|',('state_wo','!=', 'finish'),('shipped','!=',False), ('state','!=', 'approved')]}" groups="base.group_system"/>
+                        <button name="view_picking" string="Supply Products" type="object" attrs="{'invisible': ['|',('shipped','=',True), ('state','!=', 'approved')]}" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23,dym_base_security.group_dym_inventory_h23"/>
+                        <button name="view_picking_slip" type="object" attrs="{'invisible': [('type_wo','!=',True)]}" string="View Picking" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23,dym_base_security.group_dym_kasir_h1"/>
+                        <button name="invoice_create_wo" type="object" states="finished" string="Create invoice" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23"/>
+                        <button name="view_invoice" type="object" attrs="{'invisible': ['|',('state','not in',['open','except_invoice','done']),('type','=','WAR')]}" string="View Invoice" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23,dym_base_security.group_dym_kasir_h1"/>
+                        <button name="picking_ok" states="except_picking" string="Manually Corrected Delivery" />
+                        <button name="%(dym_pkb_report)d" states="open,done" type="action" string="Print WO" class="oe_highlight" icon="gtk-print" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23,dym_base_security.group_dym_kasir_h1"/>
+                        <button name="%(report_work_order_picking)d" state="approved" type="action" string="Print Picking" class="oe_highlight" icon="gtk-print" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23,dym_base_security.group_dym_kasir_h1"/>
+                        <button name="%(dym_invoice_wo_report)d" states="open,done" type="action" string="Print Invoice" class="oe_highlight" icon="gtk-print" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_admin_h23,dym_base_security.group_dym_kasir_h1"/>
+                        <button name="action_cancel" states="approved,draft" string="Cancel WO" type="object" class="oe_highlight" groups="dym_base_security.group_dym_adh"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,waiting_for_approval,approved,finished,open,done" />
+                    </header>
+                    <sheet>
+                        <field name="sparepart_invoice_cancel" invisible="1" />
+                        <field name="service_invoice_cancel" invisible="1" />
+                        <div class="oe_title">
+                            <h1>
+                            <label string="Work Order"/>
+                            <field name="name" class="oe_inline" readonly="1"/> 
+                        </h1>
+                        </div>
+                        <group col="2" colspan="2">
+                            <group>
+                                <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="onchange_branch_id(branch_id,product_id,pit_id)" attrs="{'readonly': [('state','!=','draft')]}" />
+                            </group>
+                            <group>
+                                <field name="division" attrs="{'readonly': [('state','!=','draft')]}" />
+                            </group>
+                            <group>
+                                <label for="type" />
+                                <div>
+                                    <field name="type" class="oe_inline" on_change="onchange_type(type)" attrs="{'readonly': [('state','!=','draft')]}" />
+                                    <field name="kpb_ke" attrs="{'invisible': [('type','!=','KPB')], 'required': [('type','=','KPB')], 'readonly': [('state','!=','draft')]}" class="oe_inline" />
+                                    <field name="prev_work_order_id" options="{'no_show':True,'no_create':True,'no_open':True}" attrs="{'invisible': [('type','!=','WAR')],'required': [('type','=','WAR')]}" class="oe_inline" on_change="onchange_prev_work_order_id(prev_work_order_id)" />
+                                </div>
+                                <!-- <field name="lot_id" domain="[('state','in',['sold', 'paid','workshop','sold_offtr','paid_offtr','False'])]" context="{'form_view_ref':'dym_work_order.dym_serial_number_form_wizard_view'}" on_change="onchange_lot_id(lot_id)" attrs="{'required': [('type','!=','SLS')]}" /> -->
+                                <!-- <field name="lot_id" domain="[('state','in',['paid','workshop','sold_offtr','loss']), '|', ('customer_id','=?',customer_id), ('customer_stnk','=?',customer_id)]" context="{'form_view_ref':'dym_work_order.dym_serial_number_form_wizard_view'}" on_change="onchange_lot_id(lot_id)" attrs="{'required': [('type','!=','SLS')],'readonly': [('state','!=','draft')]}" /> -->
+                                <field name="lot_id" domain="[('state','in',['paid','workshop','sold_offtr','loss']), '|', ('customer_id','=?',customer_id), ('customer_stnk','=?',customer_id)]" context="{'form_view_ref':'dym_work_order.dym_serial_number_form_wizard_view'}" on_change="onchange_lot_id(lot_id)" attrs="{'required': [('type','!=','SLS')],'readonly': [('state','!=','draft')]}" />
+                                <!-- <field name="lot_id" domain="[('state','in',['paid','workshop','sold_offtr','loss']), '|', ('customer_id','=?',customer_id), ('customer_stnk','=?',customer_id)]"                                                                                 on_change="onchange_lot_id(lot_id)" attrs="{'required': [('type','!=','SLS')],'readonly': [('state','!=','draft')]}" /> -->
+                                <field name="chassis_no" on_change="chassis_onchange(chassis_no)" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="product_id" options="{'no_show':True,'no_create':True,'no_open':True}" attrs="{'required': [('type','!=','SLS')],'readonly': [('state','!=','draft')]}" domain="[('categ_id','child_of','Unit')]" />
+                                <field name="no_pol" on_change="no_pol_onchange(no_pol)" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="kode_buku" on_change="kode_buku_onchange(kode_buku)" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="nama_buku" on_change="nama_buku_onchange(nama_buku)" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="km" attrs="{'readonly': [('state','!=','draft')],'required': [('type','!=','SLS')]}" />
+                                <field name="bensin" attrs="{'required': [('type','!=','SLS')],'readonly': [('state','!=','draft')]}" />
+                                <field name="tanggal_pembelian" required="True" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="warranty" />
+                            </group>
+                            <group>
+                                <field name="date" readonly='1' />
+                                <field name="date_confirm" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="customer_id" context="{'form_view_ref':'dym_work_order.dym_customer_form_wizard_view'}" attrs="{'readonly': [('state','!=','draft')],'required': [('type','!=','SLS')]}" on_change="onchange_customer_id(customer_id,type,branch_id)" />
+                                <field name="customer_cabang" options="{'no_create': True,'no_open':True}" attrs="{'readonly': [('state','not in','draft')]}" domain="[('partner_id','=',customer_id)]" />
+                                <field name="customer_transaksi" attrs="{'readonly': [('state','!=','draft')]}" on_change="onchange_customer_transaksi(customer_transaksi)" />
+                                <field name="mobile" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="member" readonly="1" />
+                                <field name="tipe_konsumen" class="oe_inline" options="{'no_create': True,'no_open': True}" required="1" attrs="{'readonly':[('state','!=','draft')]}" domain="[('wo','=',True)]" />
+                                <field name="finco_id" options="{'no_create': True,'no_open':True}" attrs="" class="oe_inline" on_change="" invisible="1" />
+                                <field name="pit_id" options="{'no_create': True,'no_open': True}" attrs="{'required':[('state','=','draft')],'readonly':[('state','!=','draft')]}" on_change="onchange_pit_id(pit_id,mekanik_id,branch_id)" domain="[('branch_id','!=',False),('branch_id','=',branch_id),('active','=',True)]" />
+                                <field name="mekanik_id" options="{'no_create': True,'no_open': True}" attrs="{'required':[('state','=','draft')],'readonly':[('state','!=','draft')]}" domain="[('branch_id','=',branch_id),('active','=',True),('job_id.mekanik','=',True)]" on_change="onchange_mekanik_id(mekanik_id,pit_id,branch_id)"/>
+                                <field name="sa_id" attrs="{'required':[('state','=','draft')],'readonly':[('state','!=','draft')]}" options="{'no_open':True,'no_create_edit':True}" string="Service Advisor" domain="[('branch_id','=',branch_id),('active','=',True),('job_id.service_advisor','=',True)]" />
+                            </group>
+                        </group>
+                        <notebook colspan="5">
+                            <page string="Order lines">
+                                <field colspan="4" name="work_lines" nolabel="1" widget="one2many_list" attrs="{'readonly': ['|',('state_wo','=','finish'),('state','=','cancel')],'invisible': [('type','=','WAR')]}">
+                                    <tree string="">
+                                        <field name="categ_id" string="Category" on_change="category_change(categ_id,parent.type,parent.kpb_ke,parent.branch_id,parent.division,parent.product_id,categ_id_2)" />
+                                        <field name="categ_id_2" options="{'no_show':True,'no_create':True,'no_open':True}" string="Category 2" invisible="1" />
+                                        <field name="product_id" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="product_change(product_id,categ_id,parent.branch_id,parent.product_id,parent.kpb_ke,parent.type,parent.division,parent.customer_id)" />
+                                        <field name="warranty" invisible='1' on_change="create_warranty(warranty)" />
+                                        <field name="warranty_show" readonly='1' />
+                                        <field name="name" invisible='1' on_change="create_name(name)" />
+                                        <field name="name_show" readonly='1' />
+                                        <field name="location_id" attrs="{'required':[('categ_id','=','Sparepart')],'readonly': [('categ_id','=','Service')]}" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="location_change(location_id,product_id,categ_id,product_qty)" />
+                                        <field name="qty_available_show" readonly='1' />
+                                        <field name="qty_available" invisible='1' on_change="create_qty_available(qty_available)" />
+                                        <field name="product_uom" invisible='1' options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                        <field name="product_qty" on_change="product_qty_change(product_qty,qty_available, discount_persen, discount_pcs, discount, price_unit, 'product_qty', disc_persen, disc_amount, disc_sum)" />
+                                        <field name="supply_qty" invisible='1' on_change="create_supply_qty(supply_qty)" />
+                                        <field name="supply_qty_show" readonly='1' />
+                                        <field name="price_unit_show" readonly='1' />
+                                        <field name="price_unit" invisible='1' on_change="create_price(price_unit)" />
+                                        <field name="discount" />
+                                        <field name="discount_program" />
+                                        <field name="discount_bundle" />
+                                        <field name="tax_id" invisible='1' on_change="change_tax(tax_id)" options="{'no_show':True,'no_create':True,'no_open':True}" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','sale')]" />
+                                        <field name="tax_id_show" readonly="1" options="{'no_open':True,'no_create_edit':True}" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','sale')]" />
+                                        <field name="price_subtotal" />
+                                        <field name="state" invisible="1" />
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="categ_id" string="Category 1" on_change="category_change(categ_id,parent.type,parent.kpb_ke,parent.branch_id,parent.division,parent.product_id,categ_id_2)" />
+                                                <field name="warranty" invisible='1' on_change="create_warranty(warranty)" />
+                                                <field name="warranty_show" readonly='1' />
+                                                <field name="name" invisible='1' on_change="create_name(name)" />
+                                                <field name="name_show" readonly='1' />
+                                            </group>
+                                            <group>
+                                                <field name="categ_id_2" options="{'no_show':True,'no_create':True,'no_open':True}" string="Category 2" on_change="category_change(categ_id,parent.type,parent.kpb_ke,parent.branch_id,parent.division,parent.product_id,categ_id_2)" required="1" />
+                                                <field name="product_id" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="product_change(product_id,categ_id,parent.branch_id,parent.product_id,parent.kpb_ke,parent.type,parent.division,parent.customer_id)" />
+                                            </group>
+                                        </group>
+                                        <field name="is_bundle" invisible="1" />
+                                        <field name="bundle_line" attrs="{'invisible': [('is_bundle','=',False)]}">
+                                            <tree editable="top" create="false" delete="false">
+                                                <field name="type" invisible='1' />
+                                                <field name="item_id" invisible='1' />
+                                                <field name="product_id" readonly='1' required="1" />
+                                                <field name="product_uom_qty" readonly='1' required="1" />
+                                                <field name="product_uom" readonly='1' />
+                                                <field name="price_bundle" readonly='1' />
+                                                <field name="diskon" invisible="1" />
+                                                <field name="diskon" readonly='1' />
+                                                <field name="supply_qty" readonly='1' />
+                                                <field name="search_location" on_change="change_search_location(product_id,parent.branch_dummy,location_id)" attrs="{'readonly': [('type','=','service')]}" invisible="1" />
+                                                <field name="location_id" domain="[('id','=',src_loc_domain[0][2])]" on_change="onchange_location_id(product_id,parent.branch_dummy,location_id)" options="{'no_show':True,'no_create':True,'no_open':True}" attrs="{'readonly':[('type','=','service')],'required':[('type','!=','service')]}" />
+                                                <field name="qty_available" readonly='1' />
+                                                <field name="src_loc_domain" readonly="1" invisible="1" />
+                                            </tree>
+                                        </field>
+                                        <group attrs="{'invisible': [('is_bundle','!=',False)]}">
+                                            <group>
+                                                <field name="location_id" attrs="{'required':[('categ_id','=','Sparepart')],'readonly': [('categ_id','=','Service')]}" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="location_change(location_id,product_id,categ_id,product_qty)" />
+                                                <field name="state" invisible="1" />
+                                            </group>
+                                            <group>
+                                                <field name="qty_available_show" readonly='1' />
+                                                <field name="qty_available" invisible='1' on_change="create_qty_available(qty_available)" />
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <group>
+                                                <field name="product_uom" invisible='1' options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                                <field name="product_qty" on_change="product_qty_change(product_qty,qty_available, discount_persen, discount_pcs, discount, price_unit, 'product_qty', disc_persen, disc_amount, disc_sum)" />
+                                                <field name="supply_qty" invisible='1' on_change="create_supply_qty(supply_qty)" />
+                                                <field name="supply_qty_show" readonly='1' />
+                                                <field name="tax_id" invisible='1' on_change="change_tax(tax_id)" options="{'no_show':True,'no_create':True,'no_open':True}" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','sale')]" />
+                                                <field name="tax_id_show" readonly="1" options="{'no_open':True,'no_create_edit':True}" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','sale')]" />
+                                                <field name="tax_id" invisible="1" options="{'no_create': True}" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','=','sale')]" class="oe_inline" />
+                                            </group>
+                                            <group>
+                                                <label string="" />
+                                                <div name="discount_label">
+                                                    <table style="width:100%;border:1px solid #ddd;background:#efefef;" border='0'>
+                                                        <tr>
+                                                            <th style="width:33%;"><b><label string="Per Pcs (%)"/></b></th>
+                                                            <th style="width:33%;"><b><label string="Per Pcs (Amount)"/></b></th>
+                                                            <th style="width:33%;"><b><label string="Sum"/></b></th>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <label for="discount" string="Discount" />
+                                                <div name="discount_group">
+                                                    <table style="width:100%;border:1px solid #ddd;background:#efefef;" border='0'>
+                                                        <tr>
+                                                            <td style="width:5%;">
+                                                                <field name="disc_persen" on_change="change_check(disc_persen,'disc_persen',['disc_amount','disc_sum'],['discount_persen','discount_pcs','discount','discount_persen_2','discount_pcs_2','discount_2'])" />
+                                                            </td>
+                                                            <td style="width:28%;">
+                                                                <field name="discount_persen" on_change="change_discount_persen(discount_persen,discount_pcs,discount,price_unit,product_qty,'discount_persen',disc_persen,disc_amount,disc_sum)" attrs="{'invisible':[('disc_persen','=',False)]}" />
+                                                                <field name="discount_persen_2" attrs="{'invisible':[('disc_persen','=',True)]}" />
+                                                            </td>
+                                                            <td style="width:5%;">
+                                                                <field name="disc_amount" on_change="change_check(disc_amount,'disc_amount',['disc_persen','disc_sum'],['discount_persen','discount_pcs','discount','discount_persen_2','discount_pcs_2','discount_2'])" />
+                                                            </td>
+                                                            <td style="width:28%;">
+                                                                <field name="discount_pcs" on_change="change_discount_persen(discount_persen,discount_pcs,discount,price_unit,product_qty,'discount_pcs',disc_persen,disc_amount,disc_sum)" attrs="{'invisible':[('disc_amount','=',False)]}" />
+                                                                <field name="discount_pcs_2" attrs="{'invisible':[('disc_amount','=',True)]}" />
+                                                            </td>
+                                                            <td style="width:5%;">
+                                                                <field name="disc_sum" on_change="change_check(disc_sum,'disc_sum',['disc_persen','disc_amount'],['discount_persen','discount_pcs','discount','discount_persen_2','discount_pcs_2','discount_2'])" />
+                                                            </td>
+                                                            <td style="width:28%;">
+                                                                <field name="discount" on_change="change_discount_persen(discount_persen,discount_pcs,discount,price_unit,product_qty,'discount',disc_persen,disc_amount,disc_sum)" attrs="{'invisible':[('disc_sum','=',False)]}" />
+                                                                <field name="discount_2" attrs="{'invisible':[('disc_sum','=',True)]}" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <label for="lost_order_qty" />
+                                                <div>
+                                                    <field name="lost_order_qty" class="oe_inline" />
+                                                    <field name="save_lost_order" class="oe_inline" on_change="change_save_lost_order(parent.branch_id,product_id,lost_order_qty,qty_available,product_qty, price_unit, parent.customer_id)" />
+                                                    <label string=" (check to save)" class="oe_inline" />
+                                                </div>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="price_unit_show" readonly='1' />
+                                            <field name="discount_program" />
+                                            <field name="discount_bundle" />
+                                            <field name="price_subtotal" />
+                                        </group>
+                                        <group>
+                                            <field name="price_unit" invisible='1' on_change="create_price(price_unit)" />
+                                            <field name="branch_dummy" invisible='1' />
+                                            <field name="division_dummy" invisible='1' />
+                                            <field name="customer_dummy" invisible='1' />
+                                        </group>
+                                        <notebook>
+                                            <page string="Discount Line">
+                                                <field name="discount_line">
+                                                    <tree editable="top">
+                                                        <field name="program_subsidi" options="{'no_create': True}" domain="[('product_ids','=',parent.product_id),('area_id.branch_ids','=',parent.branch_dummy),('division','=',parent.division_dummy),('state','=','approved'),('active','=',True),('date_start','&lt;=',time.strftime('%Y-%m-%d %H:%M:%S')),('date_end','&gt;=',time.strftime('%Y-%m-%d %H:%M:%S')),('is_program_depo','=',False),('is_member_only','=',False)]" on_change="program_subsidi_change(parent.product_id,program_subsidi,0,0,parent.branch_dummy,parent.division_dummy,False,parent.customer_dummy)" />
+                                                        <field name="tipe_subsidi" invisible="1" />
+                                                        <field name="tipe_diskon" invisible="1" on_change="onchange_tipe_diskon(tipe_diskon)" />
+                                                        <field name="tipe_diskon_copy" readonly="1" />
+                                                        <field name="discount" on_change="program_subsidi_change(parent.product_id,program_subsidi,0,0,parent.branch_dummy,parent.division_dummy,False,parent.customer_dummy)" invisible="1" />
+                                                        <field name="discount_copy" readonly="1" />
+                                                        <field name="discount_pelanggan" on_change="onchange_discount_pelanggan(program_subsidi,tipe_subsidi,discount,discount_pelanggan)" />
+                                                        <field name="ps_ahm" invisible="1" />
+                                                        <field name="ps_md" invisible="1" />
+                                                        <field name="ps_finco" invisible="1" />
+                                                        <field name="ps_dealer" invisible="1" />
+                                                        <field name="ps_others" invisible="1" />
+                                                    </tree>
+                                                </field>
+                                            </page>
+                                            <page string="Barang Bonus Line">
+                                                <field name="barang_bonus_line">
+                                                    <tree editable="top">
+                                                        <field name="barang_subsidi_id" domain="[('area_id.branch_ids','=',parent.branch_dummy),('division','=',parent.division_dummy), ('state','=','approved'), ('active','=',True),('date_start','&lt;=',time.strftime('%Y-%m-%d %H:%M:%S')),('date_end','&gt;=',time.strftime('%Y-%m-%d %H:%M:%S'))]" options="{'no_create': True}" on_change="barang_bonus_change(parent.product_id,barang_subsidi_id)" />
+                                                        <field name="product_subsidi_id" on_change="barang_bonus_change(parent.product_id,barang_subsidi_id)" options="{'no_create': True}" />
+                                                        <field name="barang_qty" on_change="barang_bonus_change(parent.product_id,barang_subsidi_id)" />
+                                                        <field name="price_barang" on_change="barang_bonus_change(parent.product_id,barang_subsidi_id)" />
+                                                        <field name="bb_ahm" invisible="1" />
+                                                        <field name="bb_md" invisible="1" />
+                                                        <field name="bb_finco" invisible="1" />
+                                                        <field name="bb_dealer" invisible="1" />
+                                                        <field name="bb_others" invisible="1" />
+                                                    </tree>
+                                                </field>
+                                            </page>
+                                        </notebook>
+                                    </form>
+                                </field>
+                                <field colspan="4" name="work_lines2" nolabel="1" widget="one2many_list" attrs="{'readonly': ['|',('state_wo','=','finish'),('state','=','cancel')],'invisible': [('type','!=','WAR')]}">
+                                    <tree string="" editable="bottom" create="false" delete="false">
+                                        <field name="job_redo" on_change="onchange_job_redo(job_redo)" />
+                                        <field name="categ_id" string="Category" on_change="category_change(categ_id,parent.type,parent.kpb_ke,parent.branch_id,parent.division,parent.product_id,categ_id_2)" readonly="1" />
+                                        <field name="categ_id_2" options="{'no_show':True,'no_create':True,'no_open':True}" string="Category 2" invisible="1" readonly="1" />
+                                        <field name="product_id" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="product_change(product_id,categ_id,parent.branch_id,parent.product_id,parent.kpb_ke,parent.type,parent.division,parent.customer_id)" readonly="1" />
+                                        <field name="warranty" invisible='1' on_change="create_warranty(warranty)" />
+                                        <field name="warranty_show" readonly='1' />
+                                        <field name="name" invisible='1' on_change="create_name(name)" />
+                                        <field name="name_show" readonly='1' />
+                                        <field name="location_id" attrs="{'required':[('categ_id','=','Sparepart')],'readonly': [('categ_id','=','Service')]}" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="location_change(location_id,product_id,categ_id,product_qty)" readonly="1" />
+                                        <field name="qty_available_show" readonly='1' />
+                                        <field name="qty_available" invisible='1' on_change="create_qty_available(qty_available)" />
+                                        <field name="product_uom" invisible='1' options="{'no_show':True,'no_create':True,'no_open':True}" />
+                                        <field name="product_qty" on_change="product_qty_change(product_qty,qty_available, discount_persen, discount_pcs, discount, price_unit, 'product_qty', disc_persen, disc_amount, disc_sum)" readonly="1" />
+                                        <field name="supply_qty" invisible='1' on_change="create_supply_qty(supply_qty)" />
+                                        <field name="supply_qty_show" readonly='1' />
+                                        <field name="discount" readonly="1" />
+                                        <field name="discount_program" readonly="1" />
+                                        <field name="price_unit_show" readonly='1' />
+                                        <field name="price_unit" invisible='1' on_change="create_price(price_unit)" />
+                                        <field name="tax_id" invisible='1' on_change="change_tax(tax_id)" options="{'no_show':True,'no_create':True,'no_open':True}" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','sale')]" />
+                                        <field name="tax_id_show" readonly="1" options="{'no_open':True,'no_create_edit':True}" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','sale')]" />
+                                        <field name="price_subtotal" />
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="work_total">
+                                    <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                                    <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                                    <div class="oe_subtotal_footer_seperator oe_inline">
+                                        <label for="amount_total" />
+                                        <button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link" />
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                                </group>
+                                <div class="oe_clear" />
+                                <field name="note" class="oe_inline" attrs="{'required':[('type','=','WAR')]}" placeholder="Keluhan..." />
+                            </page>
+                            <page string='Faktur Pajak'>
+                                <group>
+                                    <field name="is_pedagang_eceran" invisible="1" />
+                                                                        
+                                    <field name="pajak_gunggung" on_change="onchange_gabungan_gunggung('pajak_gunggung',pajak_gabungan,pajak_gunggung,pajak_generate)" />
+                                    <field name="pajak_generate" on_change="onchange_gabungan_gunggung('pajak_generate',pajak_gabungan,pajak_gunggung,pajak_generate)" />
+                                    <field name="pajak_gabungan" on_change="onchange_gabungan_gunggung('pajak_gabungan',pajak_gabungan,pajak_gunggung,pajak_generate)" />
+                                    
+                                    <!-- 
+                                    <field name="pajak_gunggung" on_change="onchange_gabungan_gunggung('pajak_gunggung',pajak_gabungan,pajak_gunggung,pajak_generate)" attrs="{'readonly': [('is_pedagang_eceran','=',False)],'required': [('pajak_gabungan','=',False),('pajak_generate','=',False)]}" />
+                                    <field name="pajak_generate" on_change="onchange_gabungan_gunggung('pajak_generate',pajak_gabungan,pajak_gunggung,pajak_generate)" attrs="{'required': ['|',('is_pedagang_eceran','=',False),'&amp;',('pajak_gabungan','=',False),('pajak_gunggung','=',False)]}" />
+                                    <field name="pajak_gabungan" on_change="onchange_gabungan_gunggung('pajak_gabungan',pajak_gabungan,pajak_gunggung,pajak_generate)" attrs="{'readonly': [('is_pedagang_eceran','=',False)],'required': [('pajak_generate','=',False),('pajak_gunggung','=',False)]}" />
+                                     -->
+                                    <!-- 
+                                    <field name="pajak_gunggung" on_change="onchange_gabungan_gunggung('pajak_gunggung',pajak_gabungan,pajak_gunggung,pajak_generate)" attrs="{'required': [('pajak_gabungan','=',False),('pajak_generate','=',False)]}" />
+                                    <field name="pajak_generate" on_change="onchange_gabungan_gunggung('pajak_generate',pajak_gabungan,pajak_gunggung,pajak_generate)" attrs="{'required': [('pajak_gabungan','=',False),('pajak_gunggung','=',False)]}" />
+                                    <field name="pajak_gabungan" on_change="onchange_gabungan_gunggung('pajak_gabungan',pajak_gabungan,pajak_gunggung,pajak_generate)" attrs="{'required': [('pajak_generate','=',False),('pajak_gunggung','=',False)]}" />
+				    				 -->
+				    				<field name='faktur_pajak_id' readonly='1' attrs="{'invisible': ['|',('pajak_generate','=',False),('faktur_pajak_id','=',False)]}"></field>
+                                </group>
+                            </page>
+                            <page string="Other Information" position="inside">
+                                <group>
+                                    <field name="payment_term" />
+                                    <field name="shipped" groups="base.group_no_one" />
+                                    <field invisible="True" name="type_wo" groups="base.group_no_one" />
+                                </group>
+                                <group col="4">
+                                    <field name="start" />
+                                    <field name="date_break" />
+                                    <field name="finish" />
+                                    <field name="end_break" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_branch_ganti_oli_kpb">
+            <field name="name">dym.branch.form</field>
+            <field name="model">dym.branch</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_form_view" />
+            <field name="arch" type="xml">
+                <group string="Workshop" position="inside">
+                    <field name="kpb_ganti_oli_barang" />
+                    <field name="kpb_ganti_oli_barang_tax" widget="many2many_tags" />
+                </group>
+            </field>
+        </record>
+        <record id="view_account_journal_wo_reg" model="ir.ui.view">
+            <field name="name">dym.branch.config.reg</field>
+            <field name="model">dym.branch.config</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_config_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <group string="Work Order">
+                        <field name="wo_kpb_journal_id" />
+                        <field name="wo_claim_journal_id" />
+                        <field name="wo_reg_journal_id" />
+                        <field name="wo_war_journal_id" />
+                        <field name="wo_collecting_claim_journal_id" />
+                        <field name="wo_collecting_kpb_journal_id" />
+                        <field name="wo_journal_bbmd_id" domain="[('type','=','sale')]" />
+                        <field name="wo_journal_psmd_id" />
+                        <field name="wo_account_sisa_subsidi_id" />
+                        <field name="wo_account_potongan_subsidi_id" />
+                        <field name="wo_account_potongan_subsidi_external_id" />
+                        <field name="wo_account_potongan_langsung_id" />
+                        <field name="wo_account_potongan_bundle_id" />
+                        <field name="wo_collecting_kpb_kompensasi_account_id" />
+                        <field name="wo_collecting_kpb_selisih_account_id" />
+                        <field name="dym_wo_account_discount_cash_id" invisible="1" />
+                        <field name="dym_wo_account_discount_program_id" invisible="1" />
+                        <field name="dym_wo_account_discount_lainnya_id" invisible="1" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_dym_work_order_form">
+            <field name="name">Work Order</field>
+            <field name="res_model">dym.work.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_dym_work_order_tree" />
+            <field name="domain">[('state','!=',True)]</field>
+            <field name="context">{'search_default_state_in_progress': 1}</field>
+            <field name="search_view_id" ref="view_dym_work_order_search" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to create new Work Order.
+                </p>
+                <p>
+                    Odoo will help you efficiently handle the complete work order flow.
+                </p>
+            </field>
+        </record>
+        <record id="action_dym_work_order_form_tree" model="ir.actions.act_window.view">
+            <field eval="0" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_dym_work_order_tree" />
+            <field name="act_window_id" ref="action_dym_work_order_form" />
+        </record>
+        <record id="action_dym_work_order_form_form" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_dym_work_order_form" />
+            <field name="act_window_id" ref="action_dym_work_order_form" />
+        </record>
+        <record id="action_wip" model="ir.actions.act_window">
+            <field name="res_model">work_order.wip</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_work_order_wip" />
+            <field name="target">new</field>
+            <field name="name">WIP</field>
+        </record>
+        <menuitem id="dym_work_order_menu_sub" name="Workshop" parent="dym_dealer_menu.dym_dealer_top_menu" sequence="10" />
+        <menuitem id="dym_work_order_form" name="Work Order" parent="dym_dealer_menu.workshop_sales_menu" sequence="2" action="action_dym_work_order_form" />
+        <menuitem id="dym_dym_work_order_WIP" name="WIP" parent="dym_dealer_menu.workshop_report_menu" sequence="1" action="action_wip" />
+        <record id="seq_type_dym_work_order_new" model="ir.sequence.type">
+            <field name="name">Work Order</field>
+            <field name="code">dym.work.order</field>
+        </record>
+        <record id="seq_work_order_new" model="ir.sequence">
+            <field name="name">Work Order</field>
+            <field name="code">dym.work.order</field>
+            <field name="prefix">WO/%(y)s/%(month)s/</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</openerp>

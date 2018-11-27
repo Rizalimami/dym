@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Mutation Request -->
+        <record model="ir.ui.view" id="dym_mutation_request_tree_view">
+            <field name="name">dym.mutation.request.tree</field>
+            <field name="model">dym.mutation.request</field>
+            <field name="arch" type="xml">
+                <tree string="Mutation Request">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="type_id" />
+                    <field name="division" />
+                    <field name="branch_id" />
+                    <field name="branch_sender_id" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_mutation_request_search" model="ir.ui.view">
+            <field name="name">dym.mutation.request.search</field>
+            <field name="model">dym.mutation.request</field>
+            <field name="arch" type="xml">
+                <search string="Search Mutation Request">
+                    <field name='branch_id' />
+                    <field name='branch_sender_id' />
+                    <field name='division' />
+                    <field name='type_id' />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-go-month" domain="[]" context="{'group_by':'branch_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_mutation_request_form_view">
+            <field name="name">dym.mutation.request.form</field>
+            <field name="model">dym.mutation.request</field>
+            <field name="arch" type="xml">
+                <form string="Mutation Request">
+                    <header>
+                        <!-- Yordan
+                        <button name="wkf_action_cancel" states="confirm" string="Cancel" type="object" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_aftersales_div_head,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_branch_control,dym_base_security.group_dym_ceo,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_kepala_bengkel,dym_base_security.group_dym_kepala_cabang,dym_base_security.group_dym_kepala_depo,dym_base_security.group_dym_marketing_sub_div_head,dym_base_security.group_dym_operation_div_head,dym_base_security.group_dym_operation_sub_div_head,dym_base_security.group_dym_part_acc_dept_head,dym_base_security.group_dym_pic_tax,dym_base_security.group_dym_service_dept_head"/>
+                        <button name="view_picking" string="View Picking" type="object" class="oe_highlight" attrs="{'invisible':['|',('state','not in',('open','done')),('picking_ids','=',False)]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,waiting_for_approval,confirm,open,done" statusbar_colors='{"draft":"red","done":"blue"}'/>
+                        -->
+                        <button name="wkf_action_cancel" states="confirm" string="Cancel" type="object" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_aftersales_div_head,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_branch_control,dym_base_security.group_dym_ceo,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_kepala_bengkel,dym_base_security.group_dym_kepala_cabang,dym_base_security.group_dym_kepala_depo,dym_base_security.group_dym_marketing_sub_div_head,dym_base_security.group_dym_operation_div_head,dym_base_security.group_dym_operation_sub_div_head,dym_base_security.group_dym_part_acc_dept_head,dym_base_security.group_dym_pic_tax,dym_base_security.group_dym_service_dept_head" />
+                        <button name="view_picking" string="View Picking" type="object" class="oe_highlight" attrs="{'invisible':['|',('state','not in',('open','done')),('picking_ids','=',False)]}" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,waiting_for_approval,confirm,open,done" statusbar_colors='{"draft":"red","done":"blue"}' />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label string="Mutation Request"/>
+                                <field name="name" class="oe_inline" readonly="1"/> 
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}" required="True" attrs="{'readonly':[('name','!=',False)]}" />
+                                <field name="division" required="True" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="type_id" options="{'no_open':True,'no_create_edit':True}" domain="[('category','=',division)]" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="user_id" options="{'no_show':True,'no_create':True,'no_open':True}" attrs="{'readonly':[('state','!=','draft')]}" />
+                                <field name="description" attrs="{'readonly':[('state','!=','draft')]}" />
+                            </group>
+                            <group>
+                                <field name="branch_sender_id" options="{'no_show':True,'no_create':True,'no_open':True}" required="True" attrs="{'readonly':[('name','!=',False)]}" />
+                                <field name="rel_date" readonly="True" />
+                                <field name="rel_start_date" readonly="True" />
+                                <field name="rel_end_date" readonly="True" />
+                                <field name="date" invisible="True" />
+                                <field name="start_date" invisible="True" />
+                                <field name="end_date" invisible="True" />
+                                <field name="picking_ids" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Request Line">
+                                <field colspan="4" name="request_line" nolabel="1" widget="one2many_list" attrs="{'readonly':[('state','!=','draft')]}">
+                                    <tree string="Request Line" editable="bottom">
+                                        <field name="template_id" options="{'no_open':True,'no_create':True}" on_change="product_id_change(product_id,parent.branch_id,parent.branch_sender_id,parent.division, template_id)" domain="[('categ_id','child_of',parent.division)]" />
+                                        <field name="product_id" options="{'no_open':True, 'no_create':True,'always_reload': True}" string="Warna / Variant" on_change="product_id_change(product_id,parent.branch_id,parent.branch_sender_id,parent.division,template_id)" context="{'branch_id':parent.branch_sender_id,'attribute_only':True}" required="1" domain="[('product_tmpl_id','=',template_id),('categ_id','child_of',parent.division)]" />
+                                        <field name="description" on_change="product_id_change(product_id,parent.branch_id,parent.branch_sender_id,parent.division,template_id)" required="1" />
+                                        <field name="requested_qty" required="1" />
+                                        <field name="approved_qty" readonly="1" />
+                                        <field name="supply_qty" readonly="1" />
+                                        <field name="unit_price" invisible="1" />
+                                        <field name="unit_price_show" readonly="1" />
+                                        <field name="sub_total" readonly="True" />
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <div class="oe_subtotal_footer_seperator oe_inline">
+                                        <label for="amount_total" />
+                                        <button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link" />
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' />
+                                </group>
+                                <div class="oe_clear" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_mutation_request_action">
+            <field name="name">Mutation Request</field>
+            <field name="res_model">dym.mutation.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'menu': 'showroom'}</field>
+            <field name="domain">[('division','in',('Unit','Umum'))]</field>
+        </record>
+        <record id="dym_mutation_request_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_mutation_request_tree_view" />
+            <field name="act_window_id" ref="dym_mutation_request_action" />
+        </record>
+        <record id="dym_mutation_request_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_mutation_request_form_view" />
+            <field name="act_window_id" ref="dym_mutation_request_action" />
+        </record>
+        <record model="ir.actions.act_window" id="dym_mutation_request_action_workshop">
+            <field name="name">Mutation Request</field>
+            <field name="res_model">dym.mutation.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'menu': 'workshop'}</field>
+            <field name="domain">[('division','in',('Sparepart','Umum'))]</field>
+        </record>
+        <record id="dym_mutation_request_action_tree_workshop" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_mutation_request_tree_view" />
+            <field name="act_window_id" ref="dym_mutation_request_action_workshop" />
+        </record>
+        <record id="dym_mutation_request_action_form_workshop" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_mutation_request_form_view" />
+            <field name="act_window_id" ref="dym_mutation_request_action_workshop" />
+        </record>
+        <menuitem action="dym_mutation_request_action" id="dym_mutation_request_menu_showroom" parent="dym_dealer_menu.showroom_mutasi_menu" sequence="10" />
+        <menuitem action="dym_mutation_request_action_workshop" id="dym_mutation_request_menu_workshop" parent="dym_dealer_menu.workshop_mutasi_menu" sequence="10" />
+    </data>
+</openerp>

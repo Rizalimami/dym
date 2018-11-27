@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_picking_internal_form" model="ir.ui.view">
+            <field name="name">stock.picking.internal.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="dym_stock.view_picking_internal_form"/>
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="move_reason" />
+                    <field name="invoice_partner" attrs="{'invisible':[('move_reason','!=','sale_return')],'required':[('move_reason','=','sale_return')]}"/>
+                    <field name="invoice_id" attrs="{'invisible':['|',('invoice_partner','=',False),('move_reason','!=','sale_return')],'required':[('move_reason','=','sale_return')]}" />
+                </field>
+                <!--
+                <field name="picking_type_id" position="attributes">
+                    <attribute name="req"/>
+                </field>
+                -->
+            </field>
+        </record>
+
+    </data>
+</openerp>

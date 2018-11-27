@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_branch_config_proses_stnk_form_view">
+            <field name="name">dym.branch.config.proses.stnk.form.view</field>
+            <field name="model">dym.branch.config</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_config_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group" position="after">
+                    <group string="Tagihan Biro Jasa">
+                        <field name="tagihan_birojasa_progressive_journal_id" />
+                        <field name="tagihan_birojasa_progressive_account_id" />
+                        <field name="tagihan_birojasa_bbn_journal_id" />
+                        <field name="tagihan_birojasa_bbn_account_id" />
+                        <field name="biaya_jasa_pengurusan_stnk_account_id" />
+                    </group>
+                    <group string="Proses STNK" invisible="1">
+                        <field name="proses_stnk_journal_bbnbeli_id" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

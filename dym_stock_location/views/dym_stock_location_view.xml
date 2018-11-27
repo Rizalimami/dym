@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_stock_location_hierarchy_tree">
+            <field name="name">stock.location.hierarchy</field>
+            <field name="model">stock.location</field>
+            <field name="field_parent">child_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Locations" toolbar="1">
+                    <field name="name" />
+                    <field name="usage" />
+                    <field name="quantity_on_hand" />
+                    <field name="quantity_available" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_stock_location_hierarchy_tree">
+            <field name="name">Location Hierarchy</field>
+            <field name="res_model">stock.location</field>
+            <field name="view_type">tree</field>
+            <field name="domain">[('location_id','=',False),('warehouse_id','!=',False)]</field>
+            <field name="view_id" ref="view_stock_location_hierarchy_tree" />
+        </record>
+        <menuitem id="menu_stock_location_hierarchy" groups="stock.group_locations" parent="stock.menu_stock_configuration" sequence="6" action="action_stock_location_hierarchy_tree" />
+        <record model="ir.ui.view" id="dym_location">
+            <field name="name">dym.location</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_form" />
+            <field name="arch" type="xml">
+                <field name="scrap_location" position="after">
+                    <label for="start_date" string="Effective Date" />
+                    <div>
+                        <field name="start_date" class="oe_inline" /> -
+                        <field name="end_date" class="oe_inline" />
+                    </div>
+                    <field name="maximum_qty" />
+                </field>
+                <group string="Logistics" position="replace"></group>
+                <xpath expr="//group[@string='Localization']" position="after">
+                    <group string="Logistics">
+                        <field name="removal_strategy_id" />
+                        <field name="putaway_strategy_id" />
+                    </group>
+                    <group string='Address'>
+                        <div>
+                            <field name="street" placeholder="Street..." />
+                            <div>
+                                <field name="street2" placeholder="Street" style="width: 50%%" />
+                                <field name="rt" placeholder="RT" style="width: 25%%" />
+                                <field name="rw" placeholder="RW" style="width: 25%%" />
+                                <field name="state_id" class="oe_no_button" placeholder="Province" style="width: 50%%" options='{"no_open": True}' on_change="_onchange_province(state_id)" />
+                                <field name="city_id" placeholder="City" style="width: 50%%" on_change="_onchange_city(city_id)" />
+                                <field name="kecamatan_id" placeholder="Kecamatan" style="width: 50%%" on_change="_onchange_kecamatan(kecamatan_id)" />
+                                <field name="kecamatan" placeholder="Kecamatan" style="width: 50%%" />
+                                <field name="zip_id" placeholder="ZIP" style="width: 50%%" options='{"no_open": True}' on_change="_onchange_zip(zip_id)" />
+                                <field name="kelurahan" class="oe_no_button" placeholder="Kelurahan" style="width: 50%%" />
+                            </div>
+                        </div>
+                    </group>
+                </xpath>
+                <field name="location_id" position="before">
+                    <label for="branch_id" />
+                    <field name="branch_id" required="1" options="{'no_create':True}" />
+                </field>
+                <field name="partner_id" position="before">
+                    <field name="description" />
+                    <field name="jenis" />
+                </field>
+                <field name="location_id" position="attributes">
+                    <attribute name="domain">[('branch_id','=',branch_id),('branch_id','!=',False)]</attribute>
+                </field>
+                <field name="active" position="after">
+                    <field name="jarak" />
+                    <field name="biaya" />
+                    <field name="beban" />
+                    <field name="target" />
+                </field>
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <!--
+        <record model="ir.ui.view" id="view_location_search3_inherit">
+            <field name="name">stock.location.tree.inherit</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_id']" position="after">
+                    <group expand="0" string="Group By">
+                        <filter string="Company" icon="terp-go-home" domain="[]" context="{'group_by':'company_id'}" groups="base.group_multi_company" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        -->
+        <!--    
+        <record model="ir.ui.view" id="view_stock_location_tree_inherit">
+             <field name="name">stock.location.tree.inherit</field>
+             <field name="model">stock.location</field>
+             <field name="type">tree</field>
+             <field name="inherit_id" ref="stock.view_location_tree2"/>
+             <field name="arch" type="xml">
+                   <xpath expr="/tree/field[@name='usage']" position="after">
+                       <field name="quantity_on_hand" />
+                       <field name="quantity_available" />
+                   </xpath>
+             </field>
+        </record>
+        -->
+        <record id="view_tock_quant_report_filter" model="ir.ui.view">
+            <field name="name">dym.stock.quant.report.list.select</field>
+            <field name="model">dym.stock.quant.report</field>
+            <field name="arch" type="xml">
+                <search string="Stock">
+                    <field name='product_id' />
+                    <field name='categ_id' />
+                    <field name='branch_id' />
+                    <field name='warehouse_id' />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-go-month" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter string="Product" icon="terp-partner" domain="[]" context="{'group_by':'product_id'}" />
+                        <filter string="Category" icon="terp-partner" domain="[]" context="{'group_by':'categ_id'}" />
+                        <filter string="Warehouse" icon="terp-partner" domain="[]" context="{'group_by':'warehouse_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="view_stock_quant_report_tree_report" model="ir.ui.view">
+            <field name="name">dym.stock.quant.report.tree</field>
+            <field name="model">dym.stock.quant.report</field>
+            <field eval="112" name="priority" />
+            <field name="arch" type="xml">
+                <tree string="Stock" create="false">
+                    <field name="branch_id" />
+                    <field name="product_id" />
+                    <field name="warehouse_id" />
+                    <field name="cost" />
+                    <field name="current_stock" />
+                    <field name="current_valuation" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_stock_quant_report_report" model="ir.actions.act_window">
+            <field name="name">Product Cost</field>
+            <field name="res_model">dym.stock.quant.report</field>
+            <field name="view_id" ref="view_stock_quant_report_tree_report" />
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_tock_quant_report_filter" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+                <p>
+                    Report Product Cost
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_stock_quants_report" parent="stock.menu_traceability" sequence="21" action="action_stock_quant_report_report" groups="base.group_no_one" />
+        <record id="view_ppb_history_report_filter" model="ir.ui.view">
+            <field name="name">dym.ppb.history.report.list.select</field>
+            <field name="model">dym.ppb.history.report</field>
+            <field name="arch" type="xml">
+                <search string="Stock">
+                    <field name='product_id' />
+                    <field name='categ_id' />
+                    <field name='branch_id' />
+                    <field name='warehouse_id' />
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" icon="terp-go-month" domain="[]" context="{'group_by':'branch_id'}" />
+                        <filter string="Product" icon="terp-partner" domain="[]" context="{'group_by':'product_id'}" />
+                        <filter string="Category" icon="terp-partner" domain="[]" context="{'group_by':'categ_id'}" />
+                        <filter string="Warehouse" icon="terp-partner" domain="[]" context="{'group_by':'warehouse_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="view_ppb_report_tree_report" model="ir.ui.view">
+            <field name="name">dym.ppb.history.report.tree</field>
+            <field name="model">dym.ppb.history.report</field>
+            <field eval="112" name="priority" />
+            <field name="arch" type="xml">
+                <tree string="Stock" create="false">
+                    <field name="branch_id" />
+                    <field name="origin" />
+                    <field name="product_id" />
+                    <field name="warehouse_id" />
+                    <field name="date" />
+                    <field name="old_cost_price" />
+                    <field name="stock_qty" />
+                    <field name="trans_price" />
+                    <field name="trans_qty" />
+                    <field name="cost" />
+                    <field name="new_qty" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_ppb_history" model="ir.actions.act_window">
+            <field name="name">Product Cost History</field>
+            <field name="res_model">dym.ppb.history.report</field>
+            <field name="view_id" ref="view_ppb_report_tree_report" />
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_ppb_history_report_filter" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+                <p>
+                    Report Product Cost History
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_ppb_history" parent="stock.menu_traceability" sequence="22" action="action_ppb_history" groups="base.group_no_one" />
+    </data>
+</openerp>

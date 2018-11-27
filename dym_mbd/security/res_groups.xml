@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Pinjaman 2 Arah -->
+        <record id="group_dym_mbd_allocation_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">MBD Allocation Read</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_mbd_allocation_menu'))
+                                            ]" />
+        </record>
+        <record id="access_dym_mbd_allocation_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_mbd_allocation" />
+            <field name="name">dym_mbd_allocation read</field>
+            <field name="group_id" ref="group_dym_mbd_allocation_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_dym_mbd_allocation_line_all" model="ir.model.access">
+            <field name="model_id" ref="model_dym_mbd_allocation_line" />
+            <field name="name">dym_mbd_allocation all</field>
+            <field name="group_id" ref="group_dym_mbd_allocation_read" />
+            <field name="perm_read">1</field>
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+            <field name="perm_unlink">1</field>
+        </record>
+        <record id="access_move_line_read" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line" />
+            <field name="name">account_move_line read</field>
+            <field name="group_id" ref="group_dym_mbd_allocation_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="access_dym_mbd_allocation_approval_line_read" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line" />
+            <field name="name">dym_mbd_allocation_approval_line read</field>
+            <field name="group_id" ref="group_dym_mbd_allocation_read" />
+            <field name="perm_read">1</field>
+        </record>
+        <record id="group_dym_mbd_allocation_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">MBD Allocation Update</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_mbd_allocation_menu'))
+                                            ]" />
+            <field name="implied_ids" eval="[(4, ref('group_dym_mbd_allocation_read'))]" />
+        </record>
+        <record id="access_dym_mbd_allocation_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_mbd_allocation" />
+            <field name="name">dym_mbd_allocation update</field>
+            <field name="group_id" ref="group_dym_mbd_allocation_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="access_move_line_update" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line" />
+            <field name="name">account_move_line update</field>
+            <field name="group_id" ref="group_dym_mbd_allocation_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="access_dym_mbd_allocation_approval_line_update" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line" />
+            <field name="name">dym_mbd_allocation_approval_line update</field>
+            <field name="group_id" ref="group_dym_mbd_allocation_update" />
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        <record id="group_dym_mbd_allocation_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role" />
+            <field name="name">MBD Allocation Delete</field>
+            <field name="menu_access" eval="[
+                                            (4, ref('dym_mbd_allocation_menu'))
+                                            ]" />
+            <field name="implied_ids" eval="[(4, ref('group_dym_mbd_allocation_read'))]" />
+        </record>
+        <record id="access_dym_mbd_allocation_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_mbd_allocation" />
+            <field name="name">dym_mbd_allocation delete</field>
+            <field name="group_id" ref="group_dym_mbd_allocation_delete" />
+            <field name="perm_unlink">1</field>
+        </record>
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+            <field name="implied_ids" eval="[(4,ref('group_dym_mbd_allocation_read')),
+                                            (4,ref('group_dym_mbd_allocation_update')),
+                                            (4,ref('group_dym_mbd_allocation_delete'))]" />
+        </record>
+    </data>
+</openerp>

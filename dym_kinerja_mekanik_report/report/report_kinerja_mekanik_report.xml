@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="kinerja_mekanik_report_template">
+    <style type="text/css">
+    .tag_container {
+        margin: auto;
+        margin-bottom: 50px;
+        border: 1px solid black;
+    }
+    
+    .no_border {
+        border: 0px !important;
+    }
+    
+    .margin_bottom {
+        margin-bottom: 5px !important;
+        margin-top: 5px !important;
+    }
+    
+    .border_top {
+        border-top: 1px solid black !important;
+    }
+    
+    .border_bottom {
+        border-bottom: 1px solid black !important;
+    }
+                    
+    .page,
+    .header,
+    .footer,
+    .table {
+        font-size: 12px !important;
+    }
+
+    .hr {
+        border-top: 1px solid black !important;
+    }
+
+    .text_up{
+        text-transform: uppercase;
+    }
+
+    .text_bold{
+        font-weight: bold;
+    }
+
+    .text_head{
+        font-size: 16px;
+    }
+
+    .table_titikdua{
+        text-align:center;
+        width:20px;
+    }
+
+    .table_margintop{
+        margin-top: 20px !important;
+    }
+
+    .mytable>tbody>tr>td, .mytable>tbody>tr>th, .mytable>tfoot>tr>td, .mytable>tfoot>tr>th, .mytable>thead>tr>td, .mytable>thead>tr>th {
+        padding: 1px !important;
+        border-left: 0px !important;
+        border-right: 0px !important;
+    }
+
+    .mytable>tbody>tr>td, .mytable>tbody>tr>th {
+        border-top: 0px !important;
+        border-bottom: 0px !important;
+    }
+
+    .mytable>thead>tr>td, .mytable>thead>tr>th{
+        text-align: center !important;
+    }
+
+    .mytable>tfoot>tr>td, .mytable>tfoot>tr>th{
+        font-weight: bold !important;
+    }
+
+    </style>
+    <t t-call="report.html_container">    
+        <t t-call="report.internal_layout">
+            <div class="header">
+            </div>
+            <div class="page">
+                <t t-set="company" t-value="res_company"></t>
+                <t t-set="o" t-value="docs"></t>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <span class="text_up text_head"><t t-esc="company.name"/></span><br/>
+                        <t t-if="company.street"><span t-field="company.street"/> </t>
+                        <t t-if="company.street2"><span t-field="company.street2"/> </t>
+                        <t t-if="not company.street"><span t-field="company.partner_id.street"/> </t>
+                        <t t-if="company.state_id"><span t-field="company.state_id.name"/> </t>
+                        <t t-if="not company.state_id"><span t-field="company.partner_id.state_id.name"/> </t>                        
+                        <t t-if="company.phone"><span t-field="company.phone"/> </t>
+                        <t t-if="not company.phone"><span t-field="company.partner_id.phone"/> </t>
+                    </div>
+                    <div class="col-xs-1"/>
+                    <div class="col-xs-5">
+                        <span class="text_up text_head text_bold">LAPORAN PRESTASI / KINERJA MEKANIK</span><br/>
+                        <table>
+                            <tr>
+                                <td>Periode</td>
+                                <td class="table_titikdua">:</td>
+                                <td width="250">
+                                    <t t-if="o['report_type']=='Harian'">
+                                        <span t-esc="o['report_type']"/> <span t-esc="o['start_date']"/> s.d. <span t-esc="o['end_date']"/>
+                                    </t>
+                                    <t t-if="o['report_type']=='Bulanan'">
+                                        <span t-esc="o['report_type']"/> <span t-esc="o['start_month']"/>/<span t-esc="o['start_year']"/> s.d. <span t-esc="o['end_month']"/>/<span t-esc="o['end_year']"/>
+                                    </t>
+                                    <t t-if="o['report_type']=='Tahunan'">
+                                        <span t-esc="o['start_year']"/> s.d. <span t-esc="o['end_year']"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                 
+                <hr class="border_top"/>
+
+                 <div class="row">
+                    <div class="col-xs-12">
+                        <table class="table mytable table_margintop">
+                            <thead>
+                                <tr>
+                                    <th ><strong>No</strong></th>
+                                    <th ><strong>Nama Mekanik</strong></th>
+                                    <th ><strong>Claim</strong></th>
+                                    <th ><strong>KPB</strong></th>
+                                    <th ><strong>Quick Service</strong></th>
+                                    <th ><strong>Light Repair</strong></th>
+                                    <th ><strong>Heavy Repair</strong></th>
+                                    <th ><strong>Job Return</strong></th>
+                                    <th ><strong>Total</strong></th>
+                                    <th ><strong>Jam Terpakai</strong></th>
+                                    <th ><strong>Rp. Jasa</strong></th>
+                                    <th ><strong>Rp. Sparepart</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="no" t-value="0" />
+                                <t t-set="_sum_claim" t-value="0" />
+                                <t t-set="_sum_kpb" t-value="0" />
+                                <t t-set="_sum_quickserv" t-value="0" />
+                                <t t-set="_sum_lightrep" t-value="0" />
+                                <t t-set="_sum_heavyrep" t-value="0" />
+                                <t t-set="_sum_job" t-value="0" />
+                                <t t-set="_total" t-value="0" />
+                                <t t-set="_jam_terpakai" t-value="0" />
+                                <t t-set="_rp_jasa" t-value="0" />
+                                <t t-set="_rp_sparepart" t-value="0" />
+                                <t t-foreach="kinerja_mekanik[0]['datas']" t-as="line">
+                                    <t t-set="no" t-value="no+1" />
+                                    <t t-set="_sum_claim" t-value="_sum_claim+line['sum_claim']" />
+                                    <t t-set="_sum_kpb" t-value="_sum_kpb+line['sum_kpb']" />
+                                    <t t-set="_sum_quickserv" t-value="_sum_quickserv+line['sum_quickserv']" />
+                                    <t t-set="_sum_lightrep" t-value="_sum_lightrep+line['sum_lightrep']" />
+                                    <t t-set="_sum_heavyrep" t-value="_sum_heavyrep+line['sum_heavyrep']" />
+                                    <t t-set="_sum_job" t-value="_sum_job+line['sum_job']" />
+                                    <t t-set="_total" t-value="_total+line['total']" />
+                                    <t t-set="_jam_terpakai" t-value="_jam_terpakai+line['jam_terpakai']" />
+                                    <t t-set="_rp_jasa" t-value="_rp_jasa+line['rp_jasa']" />
+                                    <t t-set="_rp_sparepart" t-value="_rp_sparepart+line['rp_sparepart']" />
+                                    <tr>
+                                        <td><span t-esc="no"/></td>
+                                        <td><span t-esc="line['nama_mekanik']"/></td>
+                                        <td align="right"><span t-esc="line['sum_claim']"/></td>
+                                        <td align="right"><span t-esc="line['sum_kpb']"/></td>
+                                        <td align="right"><span t-esc="line['sum_quickserv']"/></td>
+                                        <td align="right"><span t-esc="line['sum_lightrep']"/></td>
+                                        <td align="right"><span t-esc="line['sum_heavyrep']"/></td>
+                                        <td align="right"><span t-esc="line['sum_job']"/></td>
+                                        <td align="right"><span t-esc="line['total']"/></td>
+                                        <td align="right"><span t-esc="'{0:,.2f}'.format(int(line['jam_terpakai']))"/></td>
+                                        <td align="right"><span t-esc="'{0:,.2f}'.format(int(line['rp_jasa']))"/></td>
+                                        <td align="right"><span t-esc="'{0:,.2f}'.format(int(line['rp_sparepart']))"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td  colspan="2"><strong>Total</strong></td>
+                                    <td align="right"><span t-esc="_sum_claim"/></td>
+                                    <td align="right"><span t-esc="_sum_kpb"/></td>
+                                    <td align="right"><span t-esc="_sum_quickserv"/></td>
+                                    <td align="right"><span t-esc="_sum_lightrep"/></td>
+                                    <td align="right"><span t-esc="_sum_heavyrep"/></td>
+                                    <td align="right"><span t-esc="_sum_job"/></td>
+                                    <td align="right"><span t-esc="_total"/></td>
+                                    <td align="right"><span t-esc="'{0:,.2f}'.format(int(_jam_terpakai))"/></td>
+                                    <td align="right"><span t-esc="'{0:,.2f}'.format(int(_rp_jasa))"/></td>
+                                    <td align="right"><span t-esc="'{0:,.2f}'.format(int(_rp_sparepart))"/></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row table_margintop">
+                    <div class="col-xs-6 text-center">
+                        Dibuat oleh:<br/><br/><br/><br/><br/><br/>
+                        <b>(Admin)</b>
+                    </div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-5 text-center">
+                        Diketahui Oleh:<br/><br/><br/><br/><br/><br/>
+                        <b>(Pimpinan Bengkel)</b>
+                    </div>
+                </div>
+
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

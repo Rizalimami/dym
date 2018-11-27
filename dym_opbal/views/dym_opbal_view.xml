@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_opbal_titipan_stnk_tree" model="ir.ui.view">
+            <field name="name">opbal.customer.deposit.tree</field>
+            <field name="model">opbal.customer.deposit</field>
+            <field name="arch" type="xml">
+                <tree string="Opbal Titipan STNK">
+                    <field name="engine_id" />
+                    <field name="date" />
+                    <field name="partner_id" />
+                    <field name="amount" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_opbal_titipan_stnk_form" model="ir.ui.view">
+            <field name="name">opbal.customer.deposit.form</field>
+            <field name="model">opbal.customer.deposit</field>
+            <field name="arch" type="xml">
+                <form string="Opbal Titipan STNK">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date" />
+                                <field name="engine_id" placeholder="Engine Number" />
+                            </group>
+                            <group>
+                                <field name="partner_id" />
+                                <field name="amount" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_opbal_titipan_stnk_search" model="ir.ui.view">
+            <field name="name">opbal.customer.deposit.search</field>
+            <field name="model">opbal.customer.deposit</field>
+            <field eval="10" name="priority" />
+            <field name="arch" type="xml">
+                <search string="Opbal Titipan STNK">
+                    <field name="engine_id" />
+                    <field name="date" />
+                    <field name="partner_id" />
+                    <field name="amount" />
+                    <group expand='0' string='Group by...'>
+                        <filter string='Date' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'date'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_opbal_titipan_stnk" model="ir.actions.act_window">
+            <field name="name">Opbal Titipan STNK</field>
+            <field name="res_model">opbal.customer.deposit</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_opbal_titipan_stnk_tree" />
+            <field name="search_view_id" ref="view_opbal_titipan_stnk_search" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a opbal customer deposit.
+                </p>
+            </field>
+        </record>
+        <menuitem id="ma_opbal_menu" parent="dym_dealer_menu.setting_top_menu" name="Opbal Settings" sequence="20"></menuitem>
+        <menuitem id="menu_opbal_titipan_stnk" parent="ma_opbal_menu" name="Opbal Titipan STNK" action="action_opbal_titipan_stnk" sequence="10" />
+    </data>
+</openerp>

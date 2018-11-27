@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+    	<record model="ir.ui.view" id="sipo_cost_warehouse_view">
+            <field name="name">sipo.cost.warehouse</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="dym_warehouse.dym_warehouse_form_view"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="branch_id" position="after">
+                    <field name="cost_method"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

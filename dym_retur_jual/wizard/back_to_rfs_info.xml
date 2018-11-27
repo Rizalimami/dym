@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_back_to_ready_for_sale_wizard" model="ir.ui.view">
+            <field name="name">Back To Ready for Sale</field>
+            <field name="model">back.to.rfs.info</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Back To Ready for Sale">
+                    <field name="state" invisible="1" />
+                    <p attrs="{'invisible':[('state','=','ok')]}">Tidak ada lagi nomor mesin yang perlu dikembalikan ke Ready for Sale.</p>
+                    <p attrs="{'invisible':[('state','!=','ok')]}">Nomor mesin berikut statusnya akan dikembalikan jadi Ready for Sale</p>
+                    <group>
+                        <field name="retur_id" readonly="1" attrs="{'invisible':[('state','!=','ok')]}"/>
+                    </group>
+                    <field name="line_ids" readonly="1" attrs="{'invisible':[('state','!=','ok')]}">
+                        <tree string="Lines">
+                            <field name="product_id" />
+                            <field name="lot_id" />
+                            <field name="lot_state" />
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="action_oke" string="Ok" type="object" class="oe_highlight" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_report_dealer_sale_order_wizard" model="ir.actions.act_window">
+            <field name="name">Back To Ready for Sale</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">back.to.rfs.info</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_back_to_ready_for_sale_wizard" />
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

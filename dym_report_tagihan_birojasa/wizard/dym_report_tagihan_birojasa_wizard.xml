@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+    <record id="view_report_tagihan_birojasa_wizard" model="ir.ui.view">
+		<field name="name">Print Laporan Pembelian Jasa STNK</field>
+		<field name="model">dym.report.tagihan.birojasa.wizard</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+	        <form string="Laporan Tagihan BIrojasa">
+	        	<group col="4" colspan="4">
+	   				<label for="trx_start_date" string="Transaction Date"/>	
+	   				<div>
+	   					<field name="trx_start_date" class="oe_inline"/> - <field name="trx_end_date" class="oe_inline"/>
+	   				</div>
+	          	</group>
+	          
+				<notebook colspan="5">
+		      		<page string="Branches">
+						<field name="branch_ids" colspan="4" nolabel="1"/>
+		      		</page>
+		           	<page string="Birojasa">
+		          		<field name="partner_ids" colspan="4" nolabel="1"/>
+		          	</page>
+	        	</notebook>
+	          	<footer>
+	            	<button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1}" class="oe_highlight"/>
+	            	or <button string="Cancel" class="oe_link" special="cancel"/>
+	          	</footer>
+	          	
+	        </form>
+    	</field>
+    </record>
+
+    <record id="action_report_tagihan_birojasa_wizard" model="ir.actions.act_window">
+		<field name="name">Laporan Pembelian Jasa STNK</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">dym.report.tagihan.birojasa.wizard</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_report_tagihan_birojasa_wizard"/>
+		<field name="target">new</field>
+    </record>
+
+	<menuitem id="menu_tagihan_birojasa_report" parent="dym_dealer_menu.stnk_bpkb_report_menu" sequence="2" action="action_report_tagihan_birojasa_wizard"/>
+	</data>
+</openerp>

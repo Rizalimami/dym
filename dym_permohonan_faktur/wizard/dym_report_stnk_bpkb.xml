@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="view_report_stnk_bpkb" model="ir.ui.view">
+      <field name="name">Print Report STNK BPKB</field>
+      <field name="model">report.stnk.bpkb</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Report Track STNK dan BPKB">
+          <group col="4" colspan="4">
+            <field name="lot_ids" widget="many2many_tags" options="{'no_open':True,'no_create_edit':True}"/>
+          </group>
+          
+          <notebook colspan="5">
+	          <page string="Branchs">
+	          	 <field name="branch_ids" colspan="4" nolabel="1"/>
+	          </page>
+	          <page string="Birojasa">
+	         	  <field name="birojasa_ids" colspan="4" nolabel="1"/>
+	          </page>
+	          <page string="Finco">
+	          	 <field name="finco_ids" colspan="4" nolabel="1"/>
+	          </page>                    
+	           <page string="Lokasi STNK">
+	        	  	<field name="loc_stnk_ids" colspan="4" nolabel="1"/>
+	          </page> 
+	           <page string="Lokasi BPKB">
+	          		<field name="loc_bpkb_ids" colspan="4" nolabel="1"/>
+	          </page>    
+	           <page string="Customer">
+	       		   	<field name="partner_ids" colspan="4" nolabel="1"/>
+	          </page>                    	
+        </notebook>
+          <footer>
+         
+            <button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1}" class="oe_highlight"/>
+            or <button string="Cancel" class="oe_link" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_report_stnk_bpkb_wizard" model="ir.actions.act_window">
+      <field name="name">Report Track STNK BPKB</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">report.stnk.bpkb</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_report_stnk_bpkb"/>
+      <field name="target">new</field>
+    </record>
+
+	 <menuitem id="menu_report_stnk_bpkb"  parent="dym_dealer_menu.stnk_bpkb_report_menu" sequence="1"  action="action_report_stnk_bpkb_wizard"/>	
+
+  </data>
+</openerp>

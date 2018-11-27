@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">  	
+    	
+<!-- Laporan Stock Movement -->	
+        <record id="group_laporan_stock_movement_showroom_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Stock Movement Showroom Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_movement_report'))]"/>  
+        </record> 
+        <record id="group_laporan_stock_movement_workshop_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Stock Movement Workshop Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_movement_report_workshop'))]"/>  
+        </record> 
+
+        <record id="group_laporan_stock_movement_hutang_ksu_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Stock Movement Hutang KSU Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_movement_report_hutang_ksu'))]"/>  
+        </record> 
+
+        <record id="group_laporan_stock_movement_piutang_ksu_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Stock Movement Piutang KSU Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_stock_movement_report_piutang_ksu'))]"/>  
+        </record> 
+
+        <record id="group_laporan_stock_movement_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Stock Movements Read</field> 
+        </record> 
+                              
+        <record id="group_laporan_stock_movement_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan Stock Movements Update</field> 
+			<field name="implied_ids" eval="[(4, ref('group_laporan_stock_movement_read'))]"/>            	            	
+        </record>
+
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[(4,ref('group_laporan_stock_movement_read')),
+                                            (4,ref('group_laporan_stock_movement_update')),
+                                            (4,ref('group_laporan_stock_movement_showroom_menu')),
+                                            (4,ref('group_laporan_stock_movement_workshop_menu')),
+                                            (4,ref('group_laporan_stock_movement_hutang_ksu_menu')),
+											(4,ref('group_laporan_stock_movement_piutang_ksu_menu')),
+
+											]"/> 
+		</record>                                                                                                  
+    </data>
+</openerp>

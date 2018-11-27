@@ -1,0 +1,1031 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_dealer_spk_template">
+            <style type="text/css">
+            .page,
+            .header,
+            .footer,
+            .table {
+                font-size: 11px !important;
+            }
+
+            .hr {
+                border-top: 1px solid black !important;
+            }
+
+            .text_up {
+                text-transform: uppercase;
+            }
+
+            .text_bold {
+                font-weight: bold;
+            }
+
+            .text_head {
+                font-size: 16px;
+            }
+
+            .table_titikdua {
+                text-align: center;
+                width: 20px;
+            }
+
+            .table_margintop {
+                margin-top: 20px !important;
+            }
+
+            .mytable>tbody>tr>td,
+            .mytable>tbody>tr>th,
+            .mytable>tfoot>tr>td,
+            .mytable>tfoot>tr>th,
+            .mytable>thead>tr>td,
+            .mytable>thead>tr>th {
+                padding: 1px !important;
+                border-left: 0px !important;
+                border-right: 0px !important;
+            }
+
+            .mytable>tbody>tr>td,
+            .mytable>tbody>tr>th {
+                border-top: 0px !important;
+                border-bottom: 0px !important;
+            }
+
+            .mytable>thead>tr>td,
+            .mytable>thead>tr>th {
+                text-align: center !important;
+            }
+
+            .a4 {
+                height: 297mm;
+                width: 210mm;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .text_middle {
+                text-align: center;
+                vertical-align: middle;
+                margin-top: 5%;
+            }
+
+            .text_center {
+                text-align: center;
+            }
+
+            .border_all {
+                border: 1px solid black;
+            }
+
+            .border_all_red {
+                border: 2px dotted red;
+            }
+
+            .border_lrb {
+                border-bottom: 1px solid black;
+                border-left: 1px solid black;
+                border-right: 1px solid black;
+            }
+
+            .border_lrb_dot {
+                border-bottom: 1px dotted black;
+                border-left: 1px solid black;
+                border-right: 1px solid black;
+            }
+
+            .border_l {
+                border-left: 1px solid black;
+            }
+
+            .border_r {
+                border-right: 1px solid black;
+            }
+
+            .border_b {
+                border-bottom: 1px solid black;
+            }
+
+            .border_t {
+                border-top: 1px solid black;
+            }
+
+            .margin_all {
+                margin: 10px;
+            }
+
+            .margin_l {
+                margin-left: 5px;
+            }
+
+            .margin_r {
+                margin-right: 5px;
+            }
+
+            .box {
+                width: 12px;
+                height: 12px;
+            }
+
+            .bodas {
+                color: white;
+            }
+
+            .padding_no {
+                padding: 0px !important;
+            }
+
+            .padding_item {
+                padding-left: 15px;
+                vertical-align: top !important;
+            }
+
+            .padding_item_end {
+                padding-right: 15px;
+                vertical-align: top !important;
+            }
+            </style>
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"></t>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"></t>
+                    </t>
+                    <t t-set="dso" t-value="o.dealer_sale_order_id" />
+                    <t t-foreach="dso.dealer_sale_order_line" t-as="line">
+                        <div class="page">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <t t-if="o.branch_id.company_id.name == 'PT. Daya Anugrah Mandiri'"><img src="https://dl.dropboxusercontent.com/s/6xn7774ueailkwi/daya_motor.png" height="90" /></t>
+                                    <t t-if="o.branch_id.company_id.name == 'PT. Rina Mitra Raharja'"><img src="https://dl.dropbox.com/s/vrp0a0az89lemqk/rmr.png" height="90" /></t>
+                                    <t t-if="o.branch_id.company_id.name == 'PT. Solusi Tulus Mitra'"><img src="https://dl.dropbox.com/s/cymt5vhue8r59rm/solusi.png" height="90" /></t>
+                                </div>
+                                <div class="col-xs-5 text_middle">
+                                    <span class="text_head text_bold">MEMO</span>
+                                    <br/>
+                                    <span>QSR/OPR-MK/0001-01</span>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span class="text_bold text_up"><span t-field="o.branch_id.company_id.name" /></span><br/>
+                                    <span class="text_bold text_up"><span t-field="o.branch_id.street"/> KEC. <span t-field="o.branch_id.kecamatan_id.name"/>, <span t-field="o.branch_id.city_id.name"/></span><br/>
+                                    <span>Call Center : 08211 62 70000</span><br/>
+                                    <span>e-mail : dayacare@daya-motor.com</span><br/>
+                                    <span>www.daya-motor.com</span><br/>
+                                </div>
+                            </div>
+                            <div class="row border_all table_margintop">
+                                <div class="col-xs-6">
+                                    <table>
+                                        <tr>
+                                            <td colspan="3" class="text_bold">HARAP DIISI DENGAN JELAS DAN DILAMPIRKAN COPY KTP</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="98">NAMA PEMESAN</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="dso.partner_id" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>ALAMAT</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td class="text_up">
+                                                <span t-field="line.partner_stnk_id.street" />
+                                                <span t-field="line.partner_stnk_id.street2" /> RT <span t-field="line.partner_stnk_id.rt" />/<span t-field="line.partner_stnk_id.rw" /> Kec.
+                                                <t t-if="line.partner_stnk_id.kecamatan">
+                                                    <span t-field="line.partner_stnk_id.kecamatan" />
+                                                </t>
+                                                <t t-if="not line.partner_stnk_id.kecamatan">
+                                                    <span t-field="line.partner_stnk_id.kecamatan_id.name" />
+                                                </t>
+                                                Kel. <span t-field="line.partner_stnk_id.kelurahan" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>NO. TELEPON</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td>
+                                                <span t-field="dso.partner_id.mobile" />
+                                                <t t-if="dso.partner_id.mobile and dso.partner_id.phone">/</t> <span t-field="dso.partner_id.phone" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>NPWP</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td>
+                                                <t t-if="dso.partner_id.npwp"><span t-field="dso.partner_id.npwp" /></t>
+                                                <t t-if="not dso.partner_id.npwp">-</t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>KTP</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="dso.partner_id.no_ktp" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-xs-6">
+                                    <table>
+                                        <tr>
+                                            <td>NOMOR REGISTER</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td class="text_bold"><span t-field="dso.register_spk_id" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>NOMOR DMO</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td class="text_bold"><span t-field="dso.dealer_spk_id.name" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>TANGGAL</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-esc="datetime.datetime.strptime(dso.date_order, '%Y-%m-%d').strftime('%d/%m/%Y')" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>TYPE KENDARAAN</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-esc="line.template_id.default_code" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>NO. ENGINE</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="line.lot_id" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>NO. CHASIS</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="line.lot_id.chassis_no" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>WARNA</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td>
+                                                <t t-esc="o.branch_id.get_attribute_name(line.product_id)" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>KET. PROGRAM</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td class="text_up">
+                                                <t t-foreach="line.discount_line" t-as="line_disc">
+                                                    - <span t-field="line_disc.program_subsidi" />
+                                                    <br/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row border_lrb">
+                                <div class="col-xs-6">
+                                    <table>
+                                        <tr>
+                                            <td class="text_bold" width="50">PKP</td>
+                                            <td class="border_l border_r" width="16" align="center">
+                                                <t t-if="dso.partner_id.pkp"><b>&#x2714;</b></t>
+                                            </td>
+                                            <td width="50">YA</td>
+                                            <td class="border_l border_r" width="16" align="center">
+                                                <t t-if="not dso.partner_id.pkp"><b>&#x2714;</b></t>
+                                            </td>
+                                            <td>TIDAK</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-xs-6 border_l">
+                                    <table>
+                                        <tr>
+                                            <td class="text_bold" width="200">INSTANSI PEMUNGUT PAJAK</td>
+                                            <td class="border_l border_r" width="16"></td>
+                                            <td width="50">YA</td>
+                                            <td class="border_l border_r" width="16"></td>
+                                            <td>TIDAK</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row border_lrb">
+                                <div class="col-xs-6 border_r">
+                                    <table>
+                                        <tr>
+                                            <td width="98">FAKTUR STNK A/N</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="line.partner_stnk_id.name" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>ALAMAT</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td class="text_up">
+                                                <span t-field="line.partner_stnk_id.street" />
+                                                <span t-field="line.partner_stnk_id.street2" /> RT <span t-field="line.partner_stnk_id.rt" />/<span t-field="line.partner_stnk_id.rw" /> Kec.
+                                                <t t-if="line.partner_stnk_id.kecamatan"><span t-field="line.partner_stnk_id.kecamatan" /></t>
+                                                <t t-if="not line.partner_stnk_id.kecamatan"><span t-field="line.partner_stnk_id.kecamatan_id.name" /></t>
+                                                Kel. v
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-xs-6">
+                                    <table>
+                                        <tr>
+                                            <td>STNK akan diambil sendiri oleh Customer?</td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r"></div>
+                                            </td>
+                                            <td>Ya</td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r"></div>
+                                            </td>
+                                            <td>Tidak</td>
+                                        </tr>
+                                        <tr>
+                                            <td>BPKB akan diambil sendiri oleh Customer?</td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r"></div>
+                                            </td>
+                                            <td> Ya</td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r"></div>
+                                            </td>
+                                            <td> Tidak</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row border_lrb">
+                                <div class="col-xs-12">
+                                    <span class="text_bold">KETERANGAN : </span>
+                                    <t t-if="dso.partner_komisi_id.name"><span t-field="dso.partner_komisi_id.name" /></t> -
+                                    <t t-if="line.amount_hutang_komisi"><span t-field="line.amount_hutang_komisi" /></t>
+                                </div>
+                            </div>
+                            <div class="row border_lrb">
+                                <div class="col-xs-6">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td width="120">SUMBER ORDER</td>
+                                            <td width="22">
+                                                <div class="border_all margin_l box margin_r">
+                                                    <t t-if="dso.sales_source.name=='Showroom'"><b>&#x2714;</b></t>
+                                                </div>
+                                            </td>
+                                            <td>SHOWROOM</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r">
+                                                    <t t-if="dso.sales_source.name=='POS'"><b>&#x2714;</b></t>
+                                                </div>
+                                            </td>
+                                            <td>POS</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r">
+                                                    <t t-if="dso.sales_source.name=='Event'"><b>&#x2714;</b></t>
+                                                </div>
+                                            </td>
+                                            <td>EVENT</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r">
+                                                    <t t-if="dso.sales_source.name=='Pameran'"><b>&#x2714;</b></t>
+                                                </div>
+                                            </td>
+                                            <td>PAMERAN</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="2">REPEAT ORDER</td>
+                                            <td width="22">
+                                                <div class="border_all margin_l box margin_r">
+                                                    <t t-if="dso.repeat_order=='Ya'"><b>&#x2714;</b></t>
+                                                </div>
+                                            </td>
+                                            <td>YA</td>
+                                            <td width="22">
+                                                <div class="border_all margin_l box margin_r">
+                                                    <t t-if="dso.repeat_order!='Ya'"><b>&#x2714;</b></t>
+                                                </div>
+                                            </td>
+                                            <td>TIDAK</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-xs-6 border_l padding_no">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td class="padding_item">HARGA KENDARAAN</td>
+                                            <td align="center">a</td>
+                                            <td>Rp.</td>
+                                            <td align="right" class="padding_item_end"><span t-field="line.price_unit_show" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">BIAYA PENGURUSAN SURAT-SURAT</td>
+                                            <td align="center">b</td>
+                                            <td>Rp.</td>
+                                            <td align="right" class="padding_item_end"><span t-field="line.price_bbn_show" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text_bold padding_item">SUB TOTAL</td>
+                                            <td class="text_bold" align="center">c=(a+b)</td>
+                                            <td>Rp.</td>
+                                            <td class="text_bold padding_item_end" align="right"><span t-esc="'{0:,.2f}'.format(int(line.price_unit_show+line.price_bbn_show))" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bodas" colspan="4">.</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="padding_item">DISKON :</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">- PELANGGAN</td>
+                                            <td align="center">d</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end" align="right"><span t-esc="'{0:,.2f}'.format(int(line.discount_po))" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">- PROGRAM UNIT</td>
+                                            <td align="center">e</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end" align="right"><span t-esc="'{0:,.2f}'.format(int(line.diskon_dp+line.discount_po))" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">- PROGRAM UNIT <span class="pull-right">Rp. <span t-field="line.diskon_dp_2"/></span></td>
+                                            <td align="center">f</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">- ..................</td>
+                                            <td align="center">g</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end" align="right">..................</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">- ..................</td>
+                                            <td align="center">h</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end" align="right">..................</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row border_lrb">
+                                <div class="col-xs-6"></div>
+                                <div class="col-xs-6 padding_no">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td class="text_bold padding_item">TOTAL HARGA JUAL :</td>
+                                            <td class="bodas">Rp. 000.00</td>
+                                            <td class="text_bold" align="center">i=(c-d-e-g-h)</td>
+                                            <td>Rp.</td>
+                                            <td class="text_bold padding_item_end" align="right">
+                                                <span t-esc="'{0:,.2f}'.format(int(line.price_unit_show+line.price_bbn_show-line.discount_po-line.diskon_dp-line.discount_po))" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row border_lrb">
+                                <div class="col-xs-6 border_r">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td class="text_bold" colspan="3">CATATAN :</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="120">CARA PEMBAYARAN</td>
+                                            <td width="22">
+                                                <div class="border_all margin_l box margin_r" />
+                                            </td>
+                                            <td>TUNAI</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r" />
+                                            </td>
+                                            <td>TRANSFER NO REK</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r">
+                                                    <t t-if="dso.is_credit"><b>&#x2714;</b></t>
+                                                </div>
+                                            </td>
+                                            <td>KREDIT VIA <b><span class="text_up" t-field="dso.finco_id.name"/></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="2">ANGSURAN <span t-field="line.finco_tenor" /> x @ Rp. <span t-esc="'{0:,.2f}'.format(int(line.cicilan))" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bodas" colspan="3">.</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">NO. &amp; TGL JT CEK/B.GIRO ..........</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-xs-6 padding_no">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td class="padding_item">JAMINAN PEMBELIAN (JP) PO</td>
+                                            <td align="center">j</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end" align="right"><span t-esc="'{0:,.2f}'.format(int(line.uang_muka))" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">DISKON JP 1</td>
+                                            <td align="center">k</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end" align="right"><span t-esc="'{0:,.2f}'.format(int(line.diskon_dp))" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">DISKON JP 2</td>
+                                            <td align="center">l</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end border_b" align="right"><span t-field="line.diskon_dp_2" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">TOTAL JP</td>
+                                            <td align="center">m=(j-k-l)</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end" align="right">
+                                                <span t-esc="'{0:,.2f}'.format(int(line.uang_muka-line.diskon_dp-line.diskon_dp_2))" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">TANDA JADI</td>
+                                            <td align="center">n</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end border_b" align="right">
+                                                <span t-esc="'{0:,.2f}'.format(line.tanda_jadi)" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item"><b>SISA YANG MASIH HARUS DIBAYAR</b></td>
+                                            <td align="center"><b>o=(m-n)</b></td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end" align="right"><b><span t-esc="'{0:,.2f}'.format(int(line.uang_muka-line.diskon_dp-line.diskon_dp_2-line.tanda_jadi))"/></b></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row border_lrb">
+                                <div class="col-xs-6 border_all_red padding_no" style="height: 160px">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td class="border_r border_b" style="background-color: red;color: white" width="110"><b class="padding_item">KETENTUAN 1 :</b></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%;font-size: 10px">
+                                        <tr>
+                                            <td width="35"><b class="padding_item">1.</b></td>
+                                            <td>Sales order ini bukan merupakan bukti pembayaran</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b class="padding_item">2.</b></td>
+                                            <td>Pembayaran tunai maupun cek/giro diserahkan langsung ke kasir PT. Daya Anugrah Mandiri</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b class="padding_item">3.</b></td>
+                                            <td>Harga yang tercantum di sales order tidak mengikat, harga yang berlaku sesuai dengan harga pada saat penyerahan barang</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b class="padding_item">4.</b></td>
+                                            <td>Pembayaran dengan cek/giro di atas namakan PT. Daya Anugrah Mandiri</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b class="padding_item">5.</b></td>
+                                            <td>Apabila customer memiliki kewajiban membayar pajak progresif, maka customer bersedia membayar pajak progresif tersebut sebelum pengambilan STNK</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b class="padding_item">6.</b></td>
+                                            <td>Transaksi di luar hal tersebut di atas di luar tanggung jawab PT. Daya Anugrah Mandiri</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-xs-6 padding_no" style="height: 160px">
+                                    <table style="width:100%;">
+                                        <tr style="background-color: red;color: white" class="border_b">
+                                            <td><b class="padding_item">KOLOM VERIFIKASI :</b></td>
+                                            <td class="border_l"><b>OK</b></td>
+                                            <td class="border_l"><b>NOT OK</b></td>
+                                            <td class="border_l"><b>TANGGAL</b></td>
+                                            <td class="border_l"><b>JAM</b></td>
+                                            <td class="border_l"><b>OTORISASI</b></td>
+                                        </tr>
+                                        <tr class="border_b">
+                                            <td><b class="padding_item">1. Type Motor</b></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l" style="vertical-align: top" rowspan="4">ADH:</td>
+                                        </tr>
+                                        <tr class="border_b">
+                                            <td><b class="padding_item">2. Warna Motor</b></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                        </tr>
+                                        <tr class="border_b">
+                                            <td><b class="padding_item">3. Nama Marketing</b></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                        </tr>
+                                        <tr class="border_b">
+                                            <td><b class="padding_item">4. Harga Sebelum Diskon</b></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                        </tr>
+                                        <tr class="border_b">
+                                            <td><b class="padding_item">5. Diskon</b></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l" style="vertical-align: top" rowspan="5">KACAB:</td>
+                                        </tr>
+                                        <tr class="border_b">
+                                            <td><b class="padding_item">6. Cash/Credit</b></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                        </tr>
+                                        <tr class="border_b">
+                                            <td><b class="padding_item">7. Nama Leasing</b></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                        </tr>
+                                        <tr class="border_b">
+                                            <td><b class="padding_item">8. Uang Muka</b></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                        </tr>
+                                        <tr class="border_b">
+                                            <td><b class="padding_item">9. COD</b></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                            <td class="border_l"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row border_lrb">
+                                <div class="col-xs-3 text_center">
+                                    SETUJU ATAS SELURUH ISI
+                                    <br/> DAN KETENTUAN DI ATAS,
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/> <b><span t-field="dso.partner_id.name" /></b>
+                                    <br/> PEMBELI
+                                </div>
+                                <div class="col-xs-3 text_center">
+                                    DIBUAT OLEH,
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/> <b><span t-field="dso.employee_id.name" /></b>
+                                    <br/> MARKETING/COUNTER
+                                </div>
+                                <div class="col-xs-2 text_center">
+                                    DIKETAHUI OLEH,
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/> <b><span t-field="dso.section_id.parent_id.user_id.name" /></b>
+                                    <br/> SUPERVISOR
+                                </div>
+                                <div class="col-xs-2 text_center">
+                                    DIPERIKSA OLEH,
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/> <b><span t-esc="dso.get_adh(dso.branch_id.id)" /></b>
+                                    <br/> ADH
+                                </div>
+                                <div class="col-xs-2 text_center">
+                                    DISETUJUI OLEH,
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/> <b><span t-field="dso.branch_id.pimpinan_id.name" /></b>
+                                    <br/> KACAB
+                                </div>
+                            </div>
+                            <div class="row border_lrb_dot" style="font-size: 10px">
+                                <div class="col-xs-3"><i>Lembar 1: Cabang</i></div>
+                                <div class="col-xs-3"><i>Lembar 2: Cabang/HO</i></div>
+                                <div class="col-xs-6"><span class="pull-right">AG 08/2017</span></div>
+                            </div>
+                            <div class="row table_margintop">
+                                <div class="col-xs-4">
+                                    <t t-if="o.branch_id.company_id.name == 'PT. Daya Anugrah Mandiri'"><img src="https://dl.dropboxusercontent.com/s/6xn7774ueailkwi/daya_motor.png" height="90" /></t>
+                                    <t t-if="o.branch_id.company_id.name == 'PT. Rina Mitra Raharja'"><img src="https://dl.dropbox.com/s/vrp0a0az89lemqk/rmr.png" height="90" /></t>
+                                    <t t-if="o.branch_id.company_id.name == 'PT. Solusi Tulus Mitra'"><img src="https://dl.dropbox.com/s/cymt5vhue8r59rm/solusi.png" height="90" /></t>
+                                </div>
+                                <div class="col-xs-4">
+                                    <img src="https://dl.dropboxusercontent.com/s/gq8d57z7xl8rcxx/call_center.png" height="90" />
+                                </div>
+                                <div class="col-xs-4">
+                                    <span class="text_bold text_up"><span t-field="o.branch_id.company_id.name" /></span><br/>
+                                    <span class="text_bold text_up"><span t-field="o.branch_id.street"/> KEC. <span t-field="o.branch_id.kecamatan_id.name"/>, <span t-field="o.branch_id.city_id.name"/></span><br/>
+                                    <span>Call Center : 08211 62 70000</span><br/>
+                                    <span>e-mail : dayacare@daya-motor.com</span><br/>
+                                    <span>www.daya-motor.com</span><br/>
+                                </div>
+                            </div>
+                            <div class="row border_all table_margintop">
+                                <div class="col-xs-6">
+                                    <table>
+                                        <tr>
+                                            <td width="98">NAMA PEMESAN</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="dso.partner_id" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>ALAMAT</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td class="text_up">
+                                                <span t-field="line.partner_stnk_id.street" />
+                                                <span t-field="line.partner_stnk_id.street2" /> RT <span t-field="line.partner_stnk_id.rt" />/<span t-field="line.partner_stnk_id.rw" /> Kec.
+                                                <t t-if="line.partner_stnk_id.kecamatan">
+                                                    <span t-field="line.partner_stnk_id.kecamatan" />
+                                                </t>
+                                                <t t-if="not line.partner_stnk_id.kecamatan">
+                                                    <span t-field="line.partner_stnk_id.kecamatan_id.name" />
+                                                </t>
+                                                Kel. <span t-field="line.partner_stnk_id.kelurahan" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>NO. TELEPON</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td>
+                                                <span t-field="dso.partner_id.mobile" />
+                                                <t t-if="dso.partner_id.mobile and dso.partner_id.phone">/</t> <span t-field="dso.partner_id.phone" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>NPWP</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td>
+                                                <t t-if="dso.partner_id.npwp"><span t-field="dso.partner_id.npwp" /></t>
+                                                <t t-if="not dso.partner_id.npwp">-</t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>KTP</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="dso.partner_id.no_ktp" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-xs-6">
+                                    <table>
+                                        <tr>
+                                            <td>NOMOR REGISTER</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td class="text_bold"><span t-field="dso.register_spk_id" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>NOMOR DMO</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td class="text_bold"><span t-field="dso.dealer_spk_id.name" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>TANGGAL</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-esc="datetime.datetime.strptime(dso.date_order, '%Y-%m-%d').strftime('%d/%m/%Y')" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>TYPE KENDARAAN</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-esc="line.template_id.default_code" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>NO. ENGINE</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="line.lot_id" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>NO. CHASIS</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td><span t-field="line.lot_id.chassis_no" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>WARNA</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td>
+                                                <t t-esc="o.branch_id.get_attribute_name(line.product_id)" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>KET. PROGRAM</td>
+                                            <td class="table_titikdua">:</td>
+                                            <td class="text_up">
+                                                <t t-foreach="line.discount_line" t-as="line_disc">
+                                                    - <span t-field="line_disc.program_subsidi" />
+                                                    <br/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row border_lrb">
+                                <div class="col-xs-6 border_r">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td class="text_bold" colspan="3">CATATAN :</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="120">CARA PEMBAYARAN</td>
+                                            <td width="22">
+                                                <div class="border_all margin_l box margin_r" />
+                                            </td>
+                                            <td>TUNAI</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r" />
+                                            </td>
+                                            <td>TRANSFER NO REK</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r">
+                                                    <t t-if="dso.is_credit"><b>&#x2714;</b></t>
+                                                </div>
+                                            </td>
+                                            <td>KREDIT VIA <b><span class="text_up" t-field="dso.finco_id.name"/></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="2">ANGSURAN <span t-field="line.finco_tenor" /> x @ Rp. <span t-esc="'{0:,.2f}'.format(int(line.cicilan))" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bodas" colspan="3">.</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">NO. &amp; TGL JT CEK/B.GIRO ..........</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-xs-6 padding_no">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td class="padding_item">JAMINAN PEMBELIAN (JP) PO</td>
+                                            <td align="center">j</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end" align="right"><span t-esc="'{0:,.2f}'.format(int(line.uang_muka))" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">DISKON JP 1</td>
+                                            <td align="center">k</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end" align="right"><span t-esc="'{0:,.2f}'.format(int(line.diskon_dp))" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">DISKON JP 2</td>
+                                            <td align="center">l</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end border_b" align="right"><span t-field="line.diskon_dp_2" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">TOTAL JP</td>
+                                            <td align="center">m=(j-k-l)</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end" align="right">
+                                                <span t-esc="'{0:,.2f}'.format(int(line.uang_muka-line.diskon_dp-line.diskon_dp_2))" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item">TANDA JADI</td>
+                                            <td align="center">n</td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end border_b" align="right">
+                                                <span t-esc="'{0:,.2f}'.format(line.tanda_jadi)" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding_item"><b>SISA YANG MASIH HARUS DIBAYAR</b></td>
+                                            <td align="center"><b>o=(m-n)</b></td>
+                                            <td>Rp.</td>
+                                            <td class="padding_item_end" align="right"><b><span t-esc="'{0:,.2f}'.format(int(line.uang_muka-line.diskon_dp-line.diskon_dp_2-line.tanda_jadi))"/></b></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row border_lrb">
+                                <div class="col-xs-12 border_all_red padding_no">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td class="border_r border_b" style="background-color: red;color: white" width="110"><b class="padding_item">KETENTUAN 2 :</b></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                    <table style="width:100%;font-size: 10px">
+                                        <tr>
+                                            <td width="35"><b class="padding_item">1.</b></td>
+                                            <td>Tanda terima ini bukan merupakan bukti pembayaran yang sah</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b class="padding_item">2.</b></td>
+                                            <td>Menjadi sah jika ditukarkan dengan kuitansi resmi atas nama PT. Daya Anugrah Mandiri</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row border_lrb">
+                                <div class="col-xs-6 border_r">
+                                    <div class="row">
+                                        <div class="col-xs-6 text_center">
+                                            SETUJU ATAS SELURUH ISI
+                                            <br/> DAN KETENTUAN 1 &amp; 2 DI ATAS,
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/> (<b><span t-field="dso.partner_id.name" /></b>)
+                                            <br/> PEMBELI
+                                        </div>
+                                        <div class="col-xs-6 text_center">
+                                            DITERIMA OLEH,
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/> (..................................)
+                                            <br/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <table>
+                                        <tr>
+                                            <td colspan="5"><b>PERNYATAAN CUSTOMER :</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>- STNK akan diambil sendiri oleh Customer?</td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r"></div>
+                                            </td>
+                                            <td>Ya</td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r"></div>
+                                            </td>
+                                            <td>Tidak</td>
+                                        </tr>
+                                        <tr>
+                                            <td>- BPKB akan diambil sendiri oleh Customer?</td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r"></div>
+                                            </td>
+                                            <td> Ya</td>
+                                            <td>
+                                                <div class="border_all margin_l box margin_r"></div>
+                                            </td>
+                                            <td> Tidak</td>
+                                        </tr>
+                                    </table>
+                                    <b>- Apabila Customer memiliki kewajiban membayar Pajak Progresif, maka Customer bersedia membayar Pajak Progresif tersebut sebelum pengambilan STNK.</b>
+                                </div>
+                            </div>
+                            <div class="row border_lrb_dot" style="font-size: 10px">
+                                <div class="col-xs-3"><i>Lembar 1: Customer</i></div>
+                                <div class="col-xs-3"><i>Lembar 2: Arsip Cabang</i></div>
+                                <div class="col-xs-6"><span class="pull-right">AG 08/2017</span></div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

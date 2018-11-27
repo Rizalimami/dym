@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<record id="dym_stock_production_pengurusan_stnk_bpkb_form_view" model="ir.ui.view">
+            <field name="name">dym.stock.production.pengurusan.stnk.form.view</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="dym_serial_number.master_serial_number"/>
+            <field name="arch" type="xml">
+				<field name ="tgl_terima" position="after">
+					<field name="pengurusan_stnk_bpkb_id"></field>						
+					<field name="tgl_pengurusan_stnk_bpkb"/> 
+					<field name="total_jasa"/> 
+					<field name="inv_pengurusan_stnk_bpkb_id"/> 		
+				</field>		
+            </field>
+        </record>
+        
+	</data>
+</openerp>

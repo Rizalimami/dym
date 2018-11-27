@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_ranking_master,access_dym_ranking_master,model_dym_ranking_master,,1,0,0,0
+access_dym_ranking_line,access_dym_ranking_line,model_dym_ranking_line,,1,0,0,0
+access_dym_lost_order,access_dym_lost_order,model_dym_lost_order,,1,0,0,0

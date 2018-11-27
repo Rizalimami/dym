@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Faktur Pajak Print-->
+        <record id="group_dym_faktur_pajak_out_print" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">Faktur Pajak Print</field>
+        </record>
+        <!-- Generate Faktur Pajak Post-->
+        <record id="group_dym_generate_faktur_pajak_post" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">Generate Faktur Pajak Post</field>
+        </record>
+        <!-- Faktur Pajak Other Post-->
+        <record id="group_dym_faktur_pajak_other_post" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">Faktur Pajak Others Post</field>
+        </record>
+        <!-- Faktur Pajak Gabungan Generate-->
+        <record id="group_dym_faktur_pajak_gabungan_generate" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">Faktur Pajak Gabungan Generate</field>
+        </record>
+        <record id="group_dym_faktur_pajak_gabungan_confirm" model="res.groups">
+            <field name="category_id" ref="dym_base_security.module_category_dym_extra" />
+            <field name="name">Faktur Pajak Gabungan Confirm</field>
+        </record>
+    </data>
+</openerp>

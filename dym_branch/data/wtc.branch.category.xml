@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+    
+        <record id="branch_dlr" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_A1"/>
+        </record>
+    
+        <record id="branch_dds" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_A2"/>
+        </record>
+    
+        <record id="branch_dda" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_A3"/>
+        </record>
+    
+        <record id="branch_ddc" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_A4"/>
+        </record>
+    
+        <record id="branch_dlp" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_B"/>
+        </record>
+    
+        <record id="branch_dlx" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_B"/>
+        </record>
+    
+        <record id="branch_dly" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_B"/>
+        </record>
+    
+        <record id="branch_dls" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_B"/>
+        </record>
+    
+        <record id="branch_dln" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_B"/>
+        </record>
+    
+        <record id="branch_dla" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_B"/>
+        </record>
+    
+        <record id="branch_dle" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C1"/>
+        </record>
+    
+        <record id="branch_dlm" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C1"/>
+        </record>
+    
+        <record id="branch_dll" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C1"/>
+        </record>
+    
+        <record id="branch_dld" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C1"/>
+        </record>
+    
+        <record id="branch_dlf" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C1"/>
+        </record>
+    
+        <record id="branch_dlw" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C1"/>
+        </record>
+    
+        <record id="branch_dlu" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C1"/>
+        </record>
+    
+        <record id="branch_dlt" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C1"/>
+        </record>
+    
+        <record id="branch_dlo" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C1"/>
+        </record>
+    
+        <record id="branch_dlj" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C1"/>
+        </record>
+    
+        <record id="branch_dli" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C1"/>
+        </record>
+    
+        <record id="branch_dlg" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C1"/>
+        </record>
+    
+        <record id="branch_dsr" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C2"/>
+        </record>
+    
+        <record id="branch_djj" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C2"/>
+        </record>
+    
+        <record id="branch_djb" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C2"/>
+        </record>
+    
+        <record id="branch_djs" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C2"/>
+        </record>
+    
+        <record id="branch_dsm" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C2"/>
+        </record>
+    
+        <record id="branch_dsp" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C2"/>
+        </record>
+    
+        <record id="branch_dsk" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C2"/>
+        </record>
+    
+        <record id="branch_duk" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C2"/>
+        </record>
+    
+        <record id="branch_dbl" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C2"/>
+        </record>
+    
+        <record id="branch_dbk" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C2"/>
+        </record>
+    
+        <record id="branch_dbb" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C2"/>
+        </record>
+    
+        <record id="branch_ddm" model="dym.branch">
+            <field name="workshop_category" ref="workshop_category_C2"/>
+        </record>
+    	</data>
+</openerp>
+    

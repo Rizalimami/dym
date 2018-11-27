@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+            
+       <report  
+            id="faktur_pajak" string="Faktur Pajak" 
+            model="dym.faktur.pajak.out" 
+            name="rml.faktur_pajak" 
+            rml="dym_faktur_pajak/report/dym_faktur_pajak_report.rml" 
+            auto="False" menu="False"/>         
+    </data>
+</openerp>

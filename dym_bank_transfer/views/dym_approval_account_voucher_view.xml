@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_rules_approval_account_voucher" model="ir.ui.view">
+            <field name="name">account_voucher_approval_form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="dym_account_voucher.dym_rules_approval_account_voucher" />
+            <field name="arch" type="xml">
+            	<field name="current_balance" position="before">
+                    <field name="journal_type" invisible="1" />
+                    <field name="payment_method" attrs="{'invisible':[('journal_type','!=','bank')]}"/>
+                    <field name="auto_debit_date" attrs="{'invisible':[('payment_method','!=','auto_debit')],'required':[('payment_method','=','auto_debit')]}"/>
+                    <field name="cheque_giro_number" attrs="{'required':[('payment_method','in',['giro','cheque'])],'invisible':[('payment_method','not in',['giro','cheque'])]}" domain="[('journal_id','=',journal_id),('state','=','available')]"/>
+                    <field name="cheque_giro_date" attrs="{'required':[('payment_method','in',['giro','cheque'])],'invisible':[('payment_method','not in',['giro','cheque'])]}"/>
+            	</field>
+            </field>
+        </record>
+    </data>
+</openerp>

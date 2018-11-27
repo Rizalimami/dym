@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+    <record id="view_report_registerpraso_wizard" model="ir.ui.view">
+		<field name="name">Print Laporan Jual DWH</field>
+		<field name="model">dym.report.registerpraso.wizard</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+	        <form string="Laporan Jual DWH">
+	        	<group>
+	        		 <label for="start_date" string="Date"/>
+	        		<div>
+	        			<field name="start_date" class="oe_inline"/> - <field name="end_date" class="oe_inline"/>
+	        		</div>
+	        	</group>
+	        	<notebook>
+                    <page string="Branchs">
+                        <field name="branch_ids"/>
+                    </page>
+                </notebook>
+	          	<footer>
+	            	<button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1}" class="oe_highlight"/>
+	            	or 
+	            	<button string="Cancel" class="oe_link" special="cancel"/>
+	          	</footer>
+	        </form>
+    	</field>
+    </record>
+
+    <record id="action_report_registerpraso_wizard" model="ir.actions.act_window">
+		<field name="name">Laporan Jual DWH</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">dym.report.registerpraso.wizard</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_report_registerpraso_wizard"/>
+		<field name="target">new</field>
+    </record>
+
+	<menuitem id="menu_registerpraso_report_workshop" parent="dym_dealer_menu.showroom_report_menu" sequence="9" action="action_report_registerpraso_wizard"/>
+
+	</data>
+</openerp>

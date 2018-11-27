@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_transfer_asset,access_dym_transfer_asset,model_dym_transfer_asset,,1,0,0,0
+access_dym_transfer_asset_line,access_dym_transfer_asset_line,model_dym_transfer_asset_line,,1,0,0,0
+access_dym_asset_classification,access_dym_asset_classification,model_dym_asset_classification,,1,0,0,0
+access_dym2_register_prepaid,access_dym2_register_prepaid,model_dym2_register_prepaid,,1,0,0,0
+access_dym2_register_prepaid_line,access_dym2_register_prepaid_line,model_dym2_register_prepaid_line,,1,0,0,0
+access_dym2_transfer_asset,access_dym2_transfer_asset,model_dym2_transfer_asset,,1,0,0,0
+access_dym2_transfer_asset_line,access_dym2_transfer_asset_line,model_dym2_transfer_asset_line,,1,0,0,0
+access_dym2_analisa_penyusutan,access_dym2_analisa_penyusutan,model_dym2_analisa_penyusutan,,1,0,0,0
+access_dym2_tambah_value_history,access_dym2_tambah_value_history,model_dym2_tambah_value_history,,1,0,0,0
+access_dym2_transfer_beban_history,access_dym2_transfer_beban_history,model_dym2_transfer_beban_history,,1,0,0,0

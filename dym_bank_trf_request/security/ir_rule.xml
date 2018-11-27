@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="dym_bank_bank_trf_request_rule" model="ir.rule">
+            <field name="name">dym.bank.trf.request branch rule</field>
+            <field name="model_id" ref="model_bank_trf_request"/>
+            <field name="domain_force">[('company_id','=',user.company_id.id),('branch_id','in',[b.id for b in user.area_id.branch_ids])]</field>
+        </record>
+    </data>
+</openerp>

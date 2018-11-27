@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_hpp_template">
+    <style type="text/css">
+                .tag_container {
+                    margin: auto;
+                    margin-bottom: 50px;
+                    border: 1px solid black;
+                }
+                
+                .no_border {
+                    border: 0px !important;
+                }
+                
+                .margin_bottom {
+                    margin-bottom: 5px !important;
+                    margin-top: 5px !important;
+                }
+                
+                .border_top {
+                    border-top: 1px solid black !important;
+                }
+                
+                .border_bottom {
+                    border-bottom: 1px solid black !important;
+                }
+                                
+                .page,
+                .header,
+                .footer,
+                .table {
+                    font-size: 11px !important;
+                }
+
+                .hr {
+                    border-top: 1px solid black !important;
+                }
+
+                .text_up{
+                    text-transform: uppercase;
+                }
+
+                .text_bold{
+                    font-weight: bold;
+                }
+
+                .text_head{
+                    font-size: 16px;
+                }
+
+                .table_titikdua{
+                    text-align:center;
+                    width:20px
+                }
+
+                .table_margintop{
+                    margin-top: 20px !important;
+                }*/
+    </style>
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <div class="page">
+                <div class="row">
+                    <div class="col-xs-5">
+                         <span class="text_up text_head text_bold"><span t-field="o.branch_id.company_id"/></span><br/>
+                         <span>CABANG : <span t-field="o.branch_id"/></span><br/>
+                         <span>ALAMAT : <span t-field="o.branch_id.street" /></span><br/>
+                         <span>NPWP : <span t-field="o.branch_id.npwp" /></span>
+                    </div>
+
+                    <div class="col-xs-7" align="center">
+                         <span class="text_up text_head text_bold">CONSOLIDATE INVOICE</span><br/>
+                         <span t-field="o.name"/>
+                    </div>
+
+                </div>
+
+                <hr class="border_top"/>
+
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <table>
+                        <tr>    
+                        <td>SUPPLIER</td>
+                            <td class="table_titikdua">:</td>
+                        <td><span t-field="o.partner_id.name"/></td>
+                        </tr>
+
+
+                        <tr>    
+                        <td>ALAMAT</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-field="o.partner_id.street"/></td>
+                        </tr>
+
+                        <tr>    
+                        <td>NO SJ</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-esc="o.get_sjno(o.picking_id.id)"/></td>
+                        </tr>
+
+                        <tr>    
+                        <td>TGL SJ</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-esc="o.get_sjdate(o.picking_id.id)"/></td>
+                        </tr>
+
+
+                        <tr>    
+                        <td>NO INVOICE</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-field="o.invoice_id.supplier_invoice_number"/></td>
+                        </tr>
+
+
+                        <tr>    
+                        <td>TGL INVOICE</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-field="o.invoice_id.date_invoice"/></td>
+                        </tr>
+
+                        <tr>    
+                        <td>PO NO</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-field="o.invoice_id.name"/></td>
+                        </tr>
+
+
+                    </table>
+                    </div>
+
+                    <div class="col-xs-6">
+                        <table>
+                        <tr>    
+                        <td>TGL CONSOLIDATE INVOICE</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-field="o.date"/></td>
+                        </tr>
+
+
+                        <tr>    
+                        <td>NO GRN</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-esc="o.get_grnno(o.picking_id.id)"/></td>
+                        </tr>
+                        
+                        <tr>    
+                        <td>TGL GRN</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-esc="o.get_grndate(o.picking_id.id)"/></td>
+                        </tr>
+
+                        <tr>    
+                        <td>NO REG INVOICE</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-field="o.invoice_id.number"/></td>
+                        </tr>
+
+                        <tr>    
+                        <td>TGL REG INVOICE</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-field="o.invoice_id.date_invoice"/></td>
+                        </tr>
+
+                        <tr>    
+                        <td>NO REKENING</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-esc="o.get_acc(o.partner_id.id)"/></td>
+                        </tr>
+
+                        <tr>    
+                        <td>BANK</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-esc="o.get_bank(o.partner_id.id)"/></td>
+                        </tr>
+
+                        <tr>    
+                        <td>AN SUPPLIER REKENING</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span t-esc="o.get_an(o.partner_id.id)"/></td>
+                        </tr>
+
+
+                        </table>
+                    </div>
+               
+               </div>
+
+                <hr class="no_border"/>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table class="table table-condensed" style="margin-bottom:20px !important;">
+                            <thead>
+                                <tr>
+                                    <th class="border_top"><strong>No</strong></th>
+                                    <th class="border_top"><strong>Tipe Produk</strong></th>
+                                    <th class="border_top"><strong>Nama Produk</strong></th>
+                                    <th class="border_top"><strong>Warna</strong></th>
+                                    <th class="border_top"><strong>No Mesin</strong></th>       
+                                    <th class="border_top text-center"><strong>Unit</strong></th>
+                                    <th class="border_top text-center"><strong>Harga Per Qty</strong></th>
+                                    <th class="border_top text-center"><strong>Subtotal</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="no" t-value="0"/>
+                                <t t-set="total_qty" t-value="0"/>
+                                <t t-set="total_sub_total" t-value="0"/>
+                                <t t-foreach="o.consolidate_line" t-as="line">
+                                    <t t-set="no" t-value="no+1"/>
+                                    <t t-set="total_qty" t-value="total_qty+line.product_qty"/>
+                                    <t t-set="total_sub_total" t-value="total_sub_total+(line.product_qty*line.price_unit)"/>
+                                    <tr>
+                                        <td class=""><t t-esc="no"/></td>
+                                        <td class=""><span t-field="line.product_id.name"/></td>
+                                        <td class=""><span t-field="line.product_id.product_tmpl_id.default_code"/></td>
+                                        <td class=""><t t-esc="o.branch_id.get_attribute_name(line.product_id)"/></td>
+                                        <td class=""><span t-field="line.name.name"/></td>                                     
+                                        <td class="text-center"><span t-field="line.product_qty"/></td>
+                                        <td class="text-right">
+                                            <span t-field="line.price_unit" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="line.price_unit * line.product_qty" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td class="no_border border_top text-left">TOTAL :</td>
+                                    <td class="no_border border_top text-right" colspan="4"></td>
+                                    <td class="no_border border_top text-center"><t t-esc="total_qty"/></td>
+                                    <td class="no_border border_top text-right" colspan="3">
+                                        <t t-esc="total_sub_total" t-esc-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> 
+                </div> 
+                <div class="row">
+                    <div class="col-xs-6">
+                        <table>
+                            <tr>
+                                <td width="120">Lembar ke - 1</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span>Finance</span></td>
+                            </tr>
+                            <tr>
+                                <td width="120">Lembar ke - 2</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span>Arsip Cabang</span></td>
+                            </tr>
+                            <tr>
+                                <td width="120">Reprint</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span> <t t-esc="o.branch_id.get_cetakan_no('dym.stock.packing','dym_stock.dym_bpb_report_template',o)"/></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-xs-6">
+                        <table>
+                            <tr>
+                                <td width="120">Tgl. Cetak</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span><t t-esc="o.branch_id.get_waktu_local()"/></span></td>
+                            </tr>
+                            <tr>
+                                <td width="120">Dicetak oleh</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span><t t-esc="user.name"/></span></td>
+                            </tr>
+                            <tr>
+                                <td width="120">Disetujui oleh</td>
+                                <td class="table_titikdua">:</td>
+                                <td><span><t t-esc="o.confirm_uid.name"/></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="text-right">
+                    <tr>
+                        <td>Halaman</td>
+                        <td class="table_titikdua">:</td>
+                        <td><span class="page"/> / <span class="topage"/></td>
+                    </tr>
+                </div>
+            </div>
+        </t>
+    </t>
+</template>
+<record id="paper_format_hpp" model="report.paperformat">
+    <field name="name">Consolidate Invoice Report Format</field>
+    <field name="default" eval="True" />
+    <field name="format">A4</field>
+    <field name="page_height">0</field>
+    <field name="page_width">0</field>
+    <field name="orientation">Portrait</field>
+    <field name="margin_top">24</field>
+    <field name="margin_bottom">31</field>
+    <field name="margin_left">7</field>
+    <field name="margin_right">7</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">20</field>
+    <field name="dpi">90</field>
+</record>
+<report
+    id="dym_hpp_report"
+    string="Consolidate Invoice"
+    model="consolidate.invoice"
+    report_type="qweb-pdf"
+    name="dym_hpp.report_hpp_template"
+    file="dym_hpp.report_hpp_template"
+/>
+
+<record id="dym_hpp_report" model="ir.actions.report.xml">
+    <field name="paperformat_id" ref="paper_format_hpp"/>
+</record>
+</data>
+</openerp>

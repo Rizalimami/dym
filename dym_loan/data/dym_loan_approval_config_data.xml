@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    	<record id="config_approval_loan" model="dym.approval.config">
+            <field name="name">Pinjaman 2 Arah</field>        	        	
+            <field name="form_id" ref="dym_loan.model_dym_loan"/> 
+            <field name="code"> </field>
+            <field name="type">biaya</field>
+        </record>
+    </data>
+</openerp>

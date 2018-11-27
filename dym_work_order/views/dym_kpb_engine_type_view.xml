@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_kpb_engine_type_tree_view">
+            <field name="name">dym.kpb.engine.type.tree.view</field>
+            <field name="model">dym.kpb.engine.type</field>
+            <field name="arch" type="xml">
+                <tree string="KPB Engine Type">
+                    <field name="engine_no" />
+                    <field name="name" />
+                    <field name="workshop_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="dym_kpb_engine_type_form_view" model="ir.ui.view">
+            <field name="name">dym.kpb.engine.type.form.view</field>
+            <field name="model">dym.kpb.engine.type</field>
+            <field name="arch" type="xml">
+                <form string="KPB Engine Type">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+				            <label string="KPB Engine Type"/>
+    			        </h1>
+                        </div>
+                        <group>
+                            <field name="engine_no" />
+                            <field name="name" />
+                            <field name="workshop_id" />
+                        </group>
+                        <notebook colspan="5">
+                            <page string="Nilai jasa dan Oli ">
+                                <field colspan="4" name="kategori_line" nolabel="1" widget="one2many_list">
+                                    <tree string="" editable="top">
+                                        <field name="kpb_ke" />
+                                        <field name="jasa" />
+                                        <field name="oli" />
+                                        <field name="kompensasi_oli" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_kpb_engine_type_action">
+            <field name="name">Kategori Nilai Mesin</field>
+            <field name="res_model">dym.kpb.engine.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="dym_kpb_engine_type_form" name="KPB Engine Type" parent="dym_dealer_menu.workshop_configuration_menu" sequence="2" action="dym_kpb_engine_type_action" />
+    </data>
+</openerp>

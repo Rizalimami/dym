@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_receipt_asset_form_view">
+            <field name="name">dym.receipt.asset.form.view</field>
+            <field name="model">dym.transfer.asset</field>
+            <field name="inherit_id" ref="dym_purchase_asset.dym_receipt_asset_form_view"/>
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="merge_asset" attrs="{'invisible':[('register_type','!=','cip')]}"/>
+                </field>                
+            </field>
+        </record>
+    </data>
+</openerp>

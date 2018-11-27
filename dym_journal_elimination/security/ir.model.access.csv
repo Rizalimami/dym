@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_journal_elimination_all,dym_journal_elimination all,model_dym_journal_elimination,,1,1,1,1
+access_dym_intercompany_ref_all,dym_intercompany_ref all,model_dym_intercompany_ref,,1,1,1,1

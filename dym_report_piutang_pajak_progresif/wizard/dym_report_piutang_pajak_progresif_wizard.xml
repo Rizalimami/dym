@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+    <record id="view_report_piutang_pajak_progresif_wizard" model="ir.ui.view">
+		<field name="name">Print Laporan Piutang Pajak Progresif</field>
+		<field name="model">dym.report.piutang.pajak.progresif.wizard</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+	        <form string="Laporan Piutang Pajak Progresif">
+	        	<group col="4" colspan="4">
+	            	<field name="division"/>
+	            	<field name="per_tgl" required="1"/>
+	            	<field name="status" required="1"/>
+	            	<label for="start_date" string="Tanggal Transaksi"/>
+	   				<div>
+	   					<field name="start_date" class="oe_inline"/> - <field name="end_date" class="oe_inline"/>
+	   				</div>
+		            <field name="detail_pembayaran"/>         
+		            <field name="segmen"/>         
+		            <field name="branch_status"/> 
+		            <field name="trade_non_trade" on_change="trade_non_trade_change(trade_non_trade)"/> 
+	          	</group>
+	          
+				<notebook colspan="5">
+		      		<page string="Branches">
+						<field name="branch_ids" colspan="4" nolabel="1"/>
+		      		</page>
+		           	<page string="Customer">
+		          		<field name="partner_ids" colspan="4" nolabel="1"/>
+		          	</page>
+		          	<page string="Account">
+		          		<field name="account_ids" colspan="4" nolabel="1"/>
+		          	</page>
+		          	<page string="Journal">
+		          		<field name="journal_ids" colspan="4" nolabel="1"/>
+		          	</page>
+	        	</notebook>
+	          	<footer>
+	            	<button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1}" class="oe_highlight"/>
+	            	or <button string="Cancel" class="oe_link" special="cancel"/>
+	          	</footer>
+	          	
+	        </form>
+    	</field>
+    </record>
+
+    <record id="action_report_piutang_pajak_progresif_wizard" model="ir.actions.act_window">
+		<field name="name">Laporan Piutang Pajak Progresif</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">dym.report.piutang.pajak.progresif.wizard</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_report_piutang_pajak_progresif_wizard"/>
+		<field name="target">new</field>
+    </record>
+
+	<menuitem id="menu_piutang_pajak_progresif_report" parent="dym_dealer_menu.showroom_report_menu" sequence="7" action="action_report_piutang_pajak_progresif_wizard"/>
+
+	</data>
+</openerp>

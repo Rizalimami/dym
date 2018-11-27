@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">  	
+<!-- ir.rule -->
+        
+        <record id="dym_register_kwitansi_rule" model="ir.rule">
+            <field name="name">dym.register.kwitansi branch rule</field>
+            <field name="model_id" ref="model_dym_register_kwitansi"/>
+            <field name="domain_force">[('branch_id','in',[b.id for b in user.area_id.branch_ids])]</field>
+        </record>
+        
+        <record id="dym_register_kwitansi_line_rule" model="ir.rule">
+            <field name="name">dym.register.kwitansi.line branch rule</field>
+            <field name="model_id" ref="model_dym_register_kwitansi_line"/>
+            <field name="domain_force">[('branch_id','in',[b.id for b in user.area_id.branch_ids])]</field>
+        </record>
+<!-- Generate Register Kwitansi -->	
+	
+        <record id="group_dym_generate_register_kwitansi_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Generate Register Kwitansi Read</field> 
+            <field name="menu_access" eval="[(4, ref('menu_dym_generate_kwitansi'))]"/>  
+        </record> 
+        
+        <record id="access_dym_generate_register_kwitansi_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_register_kwitansi"/>
+            <field name="name">dym_generate_register_kwitansi read</field> 
+            <field name="group_id" ref="group_dym_generate_register_kwitansi_read"/>  
+            <field name="perm_read">1</field> 
+        </record>        
+                               
+        <record id="access_dym_generate_register_kwitansi_line_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_register_kwitansi_line"/>
+            <field name="name">dym_generate_register_kwitansi_line read</field> 
+            <field name="group_id" ref="group_dym_generate_register_kwitansi_read"/>  
+            <field name="perm_read">1</field> 
+        </record> 
+                              
+        <record id="group_dym_generate_register_kwitansi_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Generate Register Kwitansi Update</field> 
+            <field name="menu_access" eval="[(4, ref('menu_dym_generate_kwitansi'))]"/>   
+			<field name="implied_ids" eval="[(4, ref('group_dym_generate_register_kwitansi_read'))]"/>            	            	
+        </record>
+                        
+        <record id="access_dym_generate_register_kwitansi_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_register_kwitansi"/>
+            <field name="name">dym_generate_register_kwitansi update</field> 
+            <field name="group_id" ref="group_dym_generate_register_kwitansi_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field> 
+        </record>    
+                  
+        <record id="access_dym_generate_register_kwitansi_line_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_register_kwitansi_line"/>
+            <field name="name">dym_generate_register_kwitansi_line update</field> 
+            <field name="group_id" ref="group_dym_generate_register_kwitansi_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field>        
+        </record> 
+
+        <record id="group_dym_generate_register_kwitansi_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Generate Register Kwitansi Delete</field> 
+            <field name="menu_access" eval="[(4, ref('menu_dym_generate_kwitansi'))]"/>  
+			<field name="implied_ids" eval="[(4, ref('group_dym_generate_register_kwitansi_read'))]"/>            	            	
+        </record>
+                        
+        <record id="access_dym_generate_register_kwitansi_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_register_kwitansi"/>
+            <field name="name">dym_generate_register_kwitansi delete</field> 
+            <field name="group_id" ref="group_dym_generate_register_kwitansi_delete"/>  
+            <field name="perm_unlink">1</field> 
+        </record>   
+        
+        <record id="access_dym_generate_register_kwitansi_line_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_register_kwitansi_line"/>
+            <field name="name">dym_generate_register_kwitansi_line delete</field> 
+            <field name="group_id" ref="group_dym_generate_register_kwitansi_delete"/>  
+            <field name="perm_unlink">1</field> 
+        </record>          
+        
+<!-- Register Kwitansi -->	
+	
+        <record id="group_dym_register_kwitansi_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Register Kwitansi Read</field> 
+            <field name="menu_access" eval="[(4, ref('menu_dym_register_kwitansi'))]"/>  
+        </record> 
+          
+        <record id="access_dym_register_kwitansi_line_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_register_kwitansi_line"/>
+            <field name="name">dym_generate_register_kwitansi_line read</field> 
+            <field name="group_id" ref="group_dym_register_kwitansi_read"/>  
+            <field name="perm_read">1</field> 
+        </record> 
+                              
+        <record id="group_dym_register_kwitansi_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Register Kwitansi Update</field> 
+            <field name="menu_access" eval="[(4, ref('menu_dym_register_kwitansi'))]"/>   
+			<field name="implied_ids" eval="[(4, ref('group_dym_register_kwitansi_read'))]"/>            	            	
+        </record>
+
+        <record id="access_dym_register_kwitansi_line_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_register_kwitansi_line"/>
+            <field name="name">dym_register_kwitansi_line update</field> 
+            <field name="group_id" ref="group_dym_register_kwitansi_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field>        
+        </record> 
+
+        <record id="group_dym_register_kwitansi_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Register Kwitansi Delete</field> 
+            <field name="menu_access" eval="[(4, ref('menu_dym_register_kwitansi'))]"/>  
+			<field name="implied_ids" eval="[(4, ref('group_dym_register_kwitansi_read'))]"/>            	            	
+        </record>
+                        
+        <record id="access_dym_generate_register_kwitansi_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_register_kwitansi"/>
+            <field name="name">dym_generate_register_kwitansi delete</field> 
+            <field name="group_id" ref="group_dym_generate_register_kwitansi_delete"/>  
+            <field name="perm_unlink">1</field> 
+        </record>   
+        
+        <record id="access_dym_generate_register_kwitansi_line_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_register_kwitansi_line"/>
+            <field name="name">dym_generate_register_kwitansi_line delete</field> 
+            <field name="group_id" ref="group_dym_generate_register_kwitansi_delete"/>  
+            <field name="perm_unlink">1</field> 
+        </record>                  
+        
+        <record id="group_register_kwitansi_hilang" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Register Kwitansi Hilang</field>
+            <field name="implied_ids" eval="[(4, ref('group_dym_register_kwitansi_read'))]"/>
+        </record>
+                
+        <record id="access" model="ir.model.access">
+            <field name="model_id" ref="dym_register_kwitansi.model_dym_register_kwitansi_line"/>
+            <field name="name">access_register_kwitansi_line write</field>
+            <field name="group_id" ref="group_register_kwitansi_hilang"/>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <record id="group_register_kwitansi_rusak" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Register Kwitansi Rusak</field>
+            <field name="implied_ids" eval="[(4, ref('group_dym_register_kwitansi_read'))]"/>
+        </record>
+                
+        <record id="access" model="ir.model.access">
+            <field name="model_id" ref="dym_register_kwitansi.model_dym_register_kwitansi_line"/>
+            <field name="name">access_register_kwitansi_line write</field>
+            <field name="group_id" ref="group_register_kwitansi_rusak"/>
+            <field name="perm_write">1</field>
+        </record>
+
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[(4,ref('group_dym_generate_register_kwitansi_read')),
+											(4,ref('group_dym_generate_register_kwitansi_update')),
+											(4,ref('group_dym_generate_register_kwitansi_delete')),
+											(4,ref('group_dym_register_kwitansi_read')),
+											(4,ref('group_dym_register_kwitansi_update')),
+											(4,ref('group_dym_register_kwitansi_delete')),
+                                            (4,ref('group_register_kwitansi_hilang')),
+                                            (4,ref('group_register_kwitansi_rusak')),
+
+											]"/> 
+		</record>                                                         
+    </data>
+</openerp>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_bb_batch_import_all,dym_dym_bb_batch_import all,model_dym_bb_batch_import,,1,1,1,1
+access_dym_bb_batch_import_line,access_dym_bb_batch_import_line,model_dym_bb_batch_import_line,,1,1,1,1

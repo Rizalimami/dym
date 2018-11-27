@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_stock_production_permohonan_form_view" model="ir.ui.view">
+            <field name="name">dym.stock.production.permohonan.form.view</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="dym_serial_number.master_serial_number" />
+            <field name="arch" type="xml">
+                <field name="tgl_terima" position="after">
+                    <field name="proses_stnk_id" />
+                    <field name="tgl_proses_stnk" />
+                    <field name="penerimaan_notice_id" />
+                    <field name="tgl_terima_notice" />
+                    <field name="penerimaan_stnk_id" />
+                    <field name="tgl_terima_stnk" />
+                    <field name="penerimaan_no_polisi_id" />
+                    <field name="tgl_terima_no_polisi" />
+                    <field name="lokasi_stnk_id" />
+                    <field name="penerimaan_bpkb_id" />
+                    <field name="tgl_terima_bpkb" />
+                    <field name="lokasi_bpkb_id" />
+                    <field name="no_urut_bpkb" />
+                    <field name="proses_biro_jasa_id" />
+                    <field name="tgl_proses_birojasa" />
+                    <field name="no_notice_copy" />
+                    <field name="tgl_notice_copy" />
+                    <field name="inv_pajak_progressive_id" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

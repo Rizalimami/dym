@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="dym_payroll_top_menu" name="Payroll" sequence="40"></menuitem>
+        <menuitem id="dym_employee_sub_menu" name="Employee" parent="dym_payroll_top_menu" sequence="10" />
+        <menuitem id="dym_payroll_sub_menu" name="Payroll" parent="dym_payroll_top_menu" sequence="20" />
+        <menuitem id="dym_payroll_reporting_menu" name="Reporting" parent="dym_payroll_top_menu" sequence="20" />
+        <menuitem id="dym_payroll_configuration_menu" name="Configuration" parent="dym_payroll_top_menu" sequence="40" />
+    </data>
+</openerp>

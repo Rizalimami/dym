@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report.-->
+<openerp>
+<data>
+ <report 
+            id="custom_report_users_logs"
+            model="res.users"
+            string="User Logs Report"
+            report_type="qweb-pdf"
+            name="user_logs.report_user_logs"
+            attachment_use="False"
+            file="user_logs.report_user_logs"
+        />
+</data>
+</openerp>

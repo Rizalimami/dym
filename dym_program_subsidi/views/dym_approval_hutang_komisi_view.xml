@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>  
+	    	
+	<record id="dym_approval_hc_form_view" model="ir.ui.view">
+		<field name="name">dym.approval.hc.form</field>
+		<field name="model">dym.hutang.komisi</field>
+		<field name="inherit_id" ref="dym_hutang_komisi_form_view"/>
+		<field name="arch" type="xml">
+			<field name="state" position="before">
+				<button name="wkf_request_approval" states="draft,editable,on_revision" string="RFA" type="object" class="oe_highlight"/>
+				<button name="wkf_approval" states="waiting_for_approval" string="Approve" type="object" class="oe_highlight"/>
+				<button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action"
+					context="{'model_name':'dym.hutang.komisi','update_value':{'approval_state':'r','state':'draft'}}"/>
+				<button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'dym.hutang.komisi','update_value':{'approval_state':'b','state':'draft'}}"/>																		
+									
+				<button name="dym_perpanjang_periode" states="approved" string="Perpanjang Periode" type="object" class="oe_highlight"/>
+				<button name="dym_revise" states="rejected" string="Revise" type="object" class="oe_highlight"/>
+ 			
+			</field>
+			<field name="keterangan" position="after">
+				<field name="approval_state"/>
+			</field>								
+			<xpath expr="//page[@string='Hutang Komisi Detail']" position="after">
+                <page string="Detail Pekerjaan">
+	            	<group>
+		                <group>
+	    					<field name="nama_pt" string="Nama Perusahaan"/>
+	                        <label for="street_pt" string="Alamat Perusahaan"/>
+	    					<div>
+								<field name="street_pt" placeholder="Street..."/>
+		                        <div>
+		                        	<field name="street2_pt" placeholder="Street" style="width: 50%%"/>
+		                        	<field name="rt_pt" placeholder="RT" style="width: 25%%" />
+									<field name="rw_pt" placeholder="RW" style="width: 25%%" />
+									<field name="state_pt_id" class="oe_no_button" placeholder="Province" style="width: 50%%" options='{"no_open": True}'/>
+									<field name="city_pt_id" placeholder="City" style="width: 50%%" />
+									<field name="kecamatan_pt_id" placeholder="Kecamatan" style="width: 50%%" />
+									<field name="kecamatan_pt" placeholder="Kecamatan" style="width: 50%%"  />
+									<field name="zip_pt_id" placeholder="ZIP" style="width: 50%%" options='{"no_open": True}' />
+		                            <field name="kelurahan_pt" class="oe_no_button" placeholder="Kelurahan" style="width: 50%%"  />
+		                        </div>                         
+		                    </div>   
+							<field name="bidang_usaha_id" options="{'no_create': True,'no_open': True}" />
+                        </group>               
+	            		<group/>
+                    </group>
+                </page>
+				<page string="Approval">
+					<field name="approval_ids">
+						<tree string="Approval" editable="bottom" create="false" edit="false" delete="false" >
+							<field name="group_id" />
+							<field name="branch_id"/>
+							<field name="division"/>
+							<field name="limit"/>
+							<field name="sts"/>
+							<field name="reason"/>
+							<field name="pelaksana_id"/>
+							<field name="tanggal"/>
+						</tree>
+					</field>
+				</page>
+					<page string="Audit Trail">
+						<group>
+							<group>
+								<field name="create_uid" readonly="1"></field>
+								<field name="create_date" readonly="1"></field>
+								<field name="confirm_uid" readonly="1"></field>
+								<field name="confirm_date" readonly="1"></field>
+							</group>
+							<group>							
+								<field name="write_uid" readonly="1"></field>
+								<field name="write_date" readonly="1"></field>
+							</group>
+						</group>
+					</page>	 				
+			</xpath>
+		</field>
+	</record>
+	  
+
+	          
+ 	</data>
+ </openerp>
+       		
+       		
+	

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_branch_tree_view">
+            <field name="name">dym.branch.tree</field>
+            <field name="model">dym.branch</field>
+            <field name="arch" type="xml">
+                <tree string="List Branch">
+                    <field name="code" />
+                    <field name="name" />
+                    <field name="branch_type" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_branch_form_view">
+            <field name="name">dym.branch.form</field>
+            <field name="model">dym.branch</field>
+            <field name="arch" type="xml">
+                <form string="Branch">
+                    <group>
+                        <group>
+                            <field name="code" string="Branch Code" />
+                            <field name="name" />
+                            <field name="company_id" />
+                            <field name="doc_code" string="Document Code" />
+                            <field name="branch_type" />
+                            <field name="branch_status" attrs="{'required':[('branch_type','=','DL')]}" />
+                            <field name="warehouse_id" />
+                            <field name="partner_id" readonly="1" />
+                            <field name="default_customer_location" invisible="1" />
+                            <field name="profit_centre" on_change='change_profit_centre(profit_centre)' invisible="1" />
+                            <field name="inter_company_account_id" />
+                            <field name="npwp" on_change="npwp_onchange(npwp)" />
+                            <field name="no_pkp" invisible="1" />
+                            <field name="tgl_kukuh" string="Tgl Pengukuhan PKP" />
+                            <label for="address" string="NPwP Address" />
+                            <div>
+                                <field name="npwp_street" placeholder="Street..." />
+                                <div>
+                                    <field name="npwp_street2" placeholder="Street" style="width: 50%%" />
+                                    <field name="npwp_rt" placeholder="RT" style="width: 25%%" />
+                                    <field name="npwp_rw" placeholder="RW" style="width: 25%%" />
+                                    <field name="npwp_state_id" class="oe_no_button" placeholder="Province" style="width: 50%%" options='{"no_open": True}' />
+                                    <field name="npwp_city_id" placeholder="City" style="width: 50%%" />
+                                    <field name="npwp_kecamatan_id" placeholder="Kecamatan" style="width: 50%%" />
+                                    <field name="npwp_kecamatan" placeholder="Kecamatan" style="width: 50%%" />
+                                    <field name="npwp_zip_code_id" placeholder="ZIP" style="width: 50%%" options='{"no_open": True}' />
+                                    <field name="npwp_kelurahan" class="oe_no_button" placeholder="Kelurahan" style="width: 50%%" />
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="address" string="Address" />
+                            <div>
+                                <field name="street" placeholder="Street..." />
+                                <div>
+                                    <field name="street2" placeholder="Street" style="width: 50%%" />
+                                    <field name="rt" placeholder="RT" style="width: 25%%" />
+                                    <field name="rw" placeholder="RW" style="width: 25%%" />
+                                    <field name="state_id" class="oe_no_button" placeholder="Province" style="width: 50%%" options='{"no_open": True}' />
+                                    <field name="city_id" placeholder="City" style="width: 50%%" />
+                                    <field name="kecamatan_id" placeholder="Kecamatan" style="width: 50%%" />
+                                    <field name="kecamatan" placeholder="Kecamatan" style="width: 50%%" />
+                                    <field name="zip_code_id" placeholder="ZIP" style="width: 50%%" options='{"no_open": True}' />
+                                    <field name="kelurahan" class="oe_no_button" placeholder="Kelurahan" style="width: 50%%" />
+                                </div>
+                            </div>
+                            <field name="phone" />
+                            <field name="mobile" />
+                            <field name="fax" />
+                            <field name="email" />
+                            <field name="pimpinan_id" />
+                            <field name="manager_id" />
+                            <field name="general_manager_id" />
+                        </group>
+                        <group string="Showroom">
+                            <field name="ahm_code" attrs="{'required':[('branch_status','in',['H1','H123'])]}" />
+                            <field name="default_supplier_id" attrs="{'required':[('branch_status','in',['H1','H123'])]}" />
+                            <field name="property_account_payable_id" invisible="1" />
+                            <field name="property_account_receivable_id" invisible="1" />
+                            <field name="pricelist_unit_sales_id" attrs="{'required':[('branch_status','in',['H1','H123'])]}" />
+                            <field name="pricelist_unit_purchase_id" attrs="{'required':[('branch_status','in',['H1','H123'])]}" />
+                            <field name="pricelist_bbn_hitam_id" attrs="{'required':[('branch_status','in',['H1','H123'])]}" />
+                            <field name="pricelist_bbn_merah_id" attrs="{'required':[('branch_status','in',['H1','H123'])]}" />
+                            <field name="blind_bonus_beli" attrs="{'invisible':[('branch_type','!=','MD'),('branch_type','!=','DL')], 'required':[('branch_status','in',['H1','H123'])]}" />
+                            <field name="blind_bonus_jual" attrs="{'invisible':[('branch_type','!=','MD')], 'required':[('branch_status','in',['H1','H123'])]}" />
+                            <field name="pajak_progressive" string="Pajak Progressive BBN" />
+                            <field name="is_mandatory_spk" />
+                        </group>
+                        <group string="Workshop">
+                            <field name="ahm_code_workshop" attrs="{'required':[('branch_status','in',['H23','H123'])]}" />
+                            <field name="default_supplier_workshop_id" attrs="{'required':[('branch_status','in',['H23','H123'])]}" />
+                            <field name="property_account_payable_workshop_id" invisible="1" />
+                            <field name="property_account_receivable_workshop_id" invisible="1" />
+                            <field name="pricelist_part_sales_id" attrs="{'required':[('branch_status','in',['H23','H123'])]}" />
+                            <field name="pricelist_part_purchase_id" attrs="{'required':[('branch_status','in',['H23','H123'])]}" />
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="view_branch2_filter" model="ir.ui.view">
+            <field name="name">dym.branch.list.select</field>
+            <field name="model">dym.branch</field>
+            <field name="arch" type="xml">
+                <search string="Search Branch">
+                    <field name="code" />
+                    <field name="name" />
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_branch_action">
+            <field name="name">Branch</field>
+            <field name="res_model">dym.branch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_branch2_filter" />
+        </record>
+        <menuitem id="dym_branch_menuitem" name="Branches" sequence="1" parent="dym_dealer_menu.ma_branches_menu" action="dym_branch_action" />
+    </data>
+</openerp>

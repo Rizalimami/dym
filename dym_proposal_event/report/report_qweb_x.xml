@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_proposal_event_template">
+    <style type="text/css">
+        .tag_container{
+            margin: auto;
+            margin-bottom:50px;
+            border: 1px solid black;
+        }
+        .no_border{
+            border: 0px !important;
+            line-height: 1 !important;
+        }
+        .margin_bottom{
+            margin-bottom: 5px !important;
+            margin-top: 5px !important;
+        }
+        .border_top{
+            border-top: 1px solid black !important;
+        }
+        .border_bottom{
+            border-bottom: 1px solid black !important;
+        }
+        .line_height{
+        }
+        .page, .header, .footer{
+            font-size:13px;
+        }
+    </style>
+    <t t-call="report.html_container">    
+		<t t-foreach="docs" t-as="o">
+        	<t t-if="o and 'company_id' in o">
+		        <t t-set="company" t-value="o.company_id"></t>
+		    </t>
+		    <t t-if="not o or not 'company_id' in o">
+		        <t t-set="company" t-value="res_company"></t>
+		    </t>
+            <div class="header">
+        		<div class="row">
+				    <div class="col-xs-6">
+                        <h4><t t-esc="company.name"/></h4>
+                        <t t-if="company.street">
+                        	<span t-field="company.street"/>
+                        </t>
+                        <t t-if="not company.street">
+                        	<span t-field="company.partner_id.street"/>
+                        </t>
+                        <br/>
+                        <t t-if="company.state_id">
+                        	<span t-field="company.state_id.name"/>
+                        </t>
+                        <t t-if="not company.state_id">
+                        	<span t-field="company.partner_id.state_id.name"/>
+                        </t>                        
+                        <t t-if="company.phone">
+                        	<span> - </span><span t-field="company.phone"/>
+                        </t>
+                        <t t-if="not company.phone">
+                        	<span> - </span><span t-field="company.partner_id.phone"/>
+                        </t>
+                        <br/>
+                        <t t-if="company.vat">
+                        	NPWP : <span t-field="company.vat"/>                	
+                        </t>
+                        <t t-if="not company.vat">
+                        	NPWP : <span t-field="company.partner_id.npwp"/>   
+                        </t>
+                    </div>
+                    <div class="col-xs-6">
+                    	<div class="pull-right">
+	                        <h4><t t-esc="o.branch_id.name"/></h4>
+	                		<t t-if="o.division=='Unit'">
+                				Divisi Unit
+	                		</t>
+	                		<t t-if="o.division=='Sparepart'">
+                				Divisi Sparepart &amp; Aksesoris
+	                		</t>	 
+	                		<t t-if="o.division=='Umum'">
+                				Divisi Umum
+	                		</t>	 
+	                        <br/>
+	                        <t t-if="o.branch_id.street">
+	                        	<span t-field="o.branch_id.street"/>
+	                        </t>
+	                        <t t-if="not o.branch_id.street">
+	                        	<span t-field="o.branch_id.partner_id.street"/>
+	                        </t>
+	                        <br/>
+	                        <t t-if="o.branch_id.state_id">
+	                        	<span t-field="o.branch_id.state_id.name"/>
+	                        </t>
+	                        <t t-if="not o.branch_id.state_id">
+	                        	<span t-field="o.branch_id.partner_id.state_id.name"/>
+	                        </t>                        
+	                        <t t-if="o.branch_id.phone">
+	                        	<span> - </span><span t-field="o.branch_id.phone"/>
+	                        </t>
+	                        <t t-if="not o.branch_id.phone">
+	                        	<span> - </span><span t-field="o.branch_id.partner_id.phone"/>
+	                        </t>
+	                    </div>
+                    </div>
+                </div>
+            	<hr style="margin-top:0px !important; border-color:black !important;"/>
+            </div>
+            <div class="page">
+        		<div class="row">
+        			<div class="col-xs-9">
+						<h5><u>FORM PEMBUKAAN POS/PAMERAN/WEEKEND SALES/KEGIATAN PROMOSI LAINNYA</u></h5>
+					</div>
+        			<div class="col-xs-3">
+						<h5><u>NO. <span t-field="o.number"/></u></h5>
+					</div>
+        			<div class="col-xs-12">
+        				<br/>
+    					<table class="table table-condensed margin_bottom">
+	                        <tr>
+	                            <td class="no_border" style="width:30%">TANGGAL PENGAJUAN</td>
+	                            <td class="no_border">
+	                                : <t t-esc="o.branch_id.formatted_date(o.create_date.split(' ')[0])"/>
+	                            </td>
+	                        </tr>       	
+	                        <tr>
+	                            <td class="no_border">TANGGAL BUKA PAMERAN</td>
+	                            <td class="no_border">
+	                                <t t-if="o.start_date">: <t t-esc="o.branch_id.formatted_date(o.start_date)"/></t>
+	                                <t t-if="not o.start_date">: SEGERA</t>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td class="no_border">EVENT</td>
+	                            <td class="no_border">
+	                                : <span t-field="o.name"/>
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">ALAMAT PAMERAN</td>
+	                            <td class="no_border">
+	                                : <span t-field="o.street"/> <span t-field="o.street2"/> <span t-field="o.street"/> RT/RW <span t-field="o.rt"/> <span t-field="o.rw"/>, Kel. <span t-field="o.kelurahan"/>, Kec. <span t-field="o.kecamatan"/>, <span t-field="o.city_id.name"/>, <span t-field="o.state_id.name"/>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td class="no_border">TELP / NO HP PIC</td>
+	                            <td class="no_border">
+	                                : <span t-field="o.pic.mobile"/> <span t-field="o.pic.mobile"/>
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">JARAK TEMPUH DARI CABANG</td>
+	                            <td class="no_border">
+	                                : <span t-field="o.km"/> KM
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">WAKTU TEMPUH DARI CABANG</td>
+	                            <td class="no_border">
+	                                : <span t-field="o.waktu_tempuh"/> MENIT
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">JUMLAH DISPLAY UNIT</td>
+	                            <td class="no_border">
+	                                : <t t-esc="o.pdi_basah+o.pdi_kering"/>
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">START DATE - END DATE</td>
+	                            <td class="no_border">
+	                                : <t t-esc="o.branch_id.formatted_date(o.start_date)"/> - <t t-esc="o.branch_id.formatted_date(o.stop_date)"/>
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">TARGET PENJUALAN/BLN</td>
+	                            <td class="no_border">
+			                    	<t t-set="target_qty" t-value="0"/>
+				                    <t t-foreach="o.target_ids" t-as="target">
+			                    		<t t-set="target_qty" t-value="target_qty+target.qty"/>
+			                    	</t>
+			                    	: <t t-esc="target_qty"/> UNIT
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">BIAYA KEGIATAN</td>
+	                            <td class="no_border">
+				                    <t t-foreach="o.biaya_ids" t-as="biaya">
+				                    	<div class="col-xs-6">
+				                    		<span t-field="biaya.name"/>
+				                    	</div>
+				                    	<div class="col-xs-6">
+				                    		<span t-field="biaya.amount_proposal" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+				                    	</div>
+			                    	</t>
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">SHARING BUDGET</td>
+	                            <td class="no_border">
+				                    <t t-foreach="o.sharing_ids" t-as="sharing">
+				                    	<div class="col-xs-6">
+				                    		<span t-field="sharing.sharing_partner.name"/>
+				                    	</div>
+				                    	<div class="col-xs-6">
+				                    		<span t-field="sharing.sharing_amount" t-field-options='{"widget": "monetary", "display_currency": "user.company_id.currency_id"}'/>
+				                    	</div>
+			                    	</t>
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">PDI</td>
+	                            <td class="no_border">
+	                                : <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><span t-field="o.pdi_basah"/> <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>BASAH <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><span t-field="o.pdi_kering"/> <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>KERING
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">PENANGGUNG JAWAB</td>
+	                            <td class="no_border">
+	                                : <span t-field="o.pic.name"/>
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">MAN POWER PLANNING</td>
+	                            <td class="no_border">
+	                                : <t t-esc="o.marketing_executive+o.marketing_trainee+o.administrasi"/> ORANG
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">MARKETING EXECUTIVE</td>
+	                            <td class="no_border">
+	                                : <t t-esc="o.marketing_executive"/> ORANG
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td class="no_border">MARKETING TRAINEE</td>
+	                            <td class="no_border">
+	                                : <t t-esc="o.marketing_trainee"/> ORANG
+	                            </td>
+	                        </tr> 
+	                        <tr>
+	                            <td class="no_border">ADMINISTRASI</td>
+	                            <td class="no_border">
+	                                : <t t-esc="o.administrasi"/> ORANG
+	                            </td>
+	                        </tr> 
+	                    </table>
+                	</div>
+	            </div>
+	            <div class="row">
+	            	<div class="col-xs-12" style="margin-bottom:10px;">
+	            		<br/>
+	            		Dibuat Oleh<br/><br/><br/><br/><span t-field="o.create_uid.name"/>
+	            	</div>
+	            	<div class="col-xs-6">
+        				<span style="font-size: 11px;">Approval oleh:</span><br/>	            				
+	            		<t t-foreach="o.approval_ids.mapped('pelaksana_id')" t-as="appr">
+	            			<span style="font-size: 11px;"><span t-field="appr.name"/></span><br/>
+	            		</t>
+	            	</div>
+	            	<div class="col-xs-6 text-right">
+	            		<span style="font-size: 11px;"><t t-esc="user.name"/> <t t-esc="o.branch_id.get_waktu_local()"/></span>
+	            	</div>
+	            </div>
+	        </div>
+	    </t>
+	</t>
+</template>
+</data>
+</openerp>

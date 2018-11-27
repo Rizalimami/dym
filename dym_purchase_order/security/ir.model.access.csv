@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_purchase_order_type_all,dym_purchase_order_type all,model_dym_purchase_order_type,,1,1,1,1
+access_dym_branch_config_po_type_all,dym_branch_config_po_type all,model_dym_branch_config_po_type,,1,1,1,1

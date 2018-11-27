@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_branch_on_customer_invoice_form_view">
+            <field name="name">dym.branch.customer.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <button name="invoice_cancel" position="after">
+                    <button name="%(update_supplier_invoice_info_action)d" states="proforma2,open,paid" string="Update Info" groups="dym_base_security.group_dym_adh" confirm="Apa anda yakin ingin mengubah nomor atau tanggal supplier invoice ?"  help="Syarat Cancel Invoice: belum ada pembayaran, belum kirim barang dan belum closing period" class="oe_highlight" type="action" context="{'default_invoice_id':active_id}"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>
+
+<!-- confirm="Apa anda yakin ingin mengubah nomor atau tanggal supplier invoice ?" -->

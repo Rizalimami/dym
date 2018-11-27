@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_asset_delivery_form_view_wiz">
+            <field name="name">dym.asset.delivery.form.view.wiz</field>
+            <field name="model">dym.asset.delivery</field>
+            <field name="arch" type="xml">
+                <form string="Deliver Asset">
+                    <div class="oe_title">
+                        <h2>
+			                <label string="Deliver Asset"/>    			
+			 				<field name="name" class="oe_inline" readonly="1"/>
+		 				</h2>
+                    </div>
+                    <group>
+                        <field name="state" invisible="1" />
+                        <field name="dispose_id" readonly="1" />
+                        <field name="date" readonly="1" />
+                        <field name="picking_type_id" readonly="1" />
+                    </group>
+                    <field colspan="4" name="delivery_line_ids" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}">
+                        <tree editable="bottom" create="false">
+                            <field name="asset_id" readonly="1" options="{'no_create': True,'no_open': True}" />
+                            <field name="description" required="1" />
+                            <field name="dispose_line_id" invisible="1" />
+                            <field name="price_unit" />
+                            <field name="location_id" />
+                            <field name="location_dest_id" />
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="deliver" string="Deliver" type="object" class="oe_highlight" /> or
+                        <button string="Discard" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="deliver_asset">
+            <field name="name">Deliver Asset</field>
+            <field name="res_model">dym.asset.delivery</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="view_deliver_asset_tree_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_asset_delivery_form_view_wiz" />
+            <field name="act_window_id" ref="deliver_asset" />
+        </record>
+        <record model="ir.ui.view" id="dispose_asset_form_view">
+            <field name="name">dym.asset.disposal.asset</field>
+            <field name="model">dym.asset.disposal</field>
+            <field name="inherit_id" ref="dym_asset_disposal.asset_disposal_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='view_invoice']" position="after">
+                    <button name="%(deliver_asset)d" string="Deliver Asset" type="action" class="oe_highlight" attrs="{'invisible': ['|','|',('asset_receive','!=',False),('state','not in',('approved','except_invoice'))]}" />
+                </xpath>
+                <xpath expr="//div[contains(@class, 'oe_title')]" position="before">
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button type="object" name="view_delivery" class="oe_stat_button" icon="fa-truck" attrs="{'invisible': [('deliver_count', '=', 0)]}">
+                            <field name="deliver_count" widget="statinfo" string="In Delivery" help="Outgoing Delivery" />
+                        </button>
+                    </div>
+                    <field name="asset_receive" invisible="1" />
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_asset_delivery_form_view">
+            <field name="name">dym.asset.delivery.form.view</field>
+            <field name="model">dym.asset.delivery</field>
+            <field name="arch" type="xml">
+                <form string="Deliver Asset">
+                    <header>
+                        <button name="deliver" states='draft' string="Deliver Asset" type="object" class="oe_highlight" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"red","posted":"blue"}' />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h2>
+				                <label string="Deliver Asset"/>    			
+				 				<field name="name" class="oe_inline" readonly="1"/>
+			 				</h2>
+                        </div>
+                        <group>
+                            <field name="dispose_id" required="1" on_change="onchange_dispose(dispose_id)" domain="[('asset_receive','=',False),('state','in',('approved','except_invoice'))]" />
+                            <field name="date" readonly="1" />
+                            <field name="picking_type_id" readonly="1" />
+                        </group>
+                        <notebook>
+                            <page string="Receive Detail">
+                                <field colspan="4" name="delivery_line_ids" nolabel="1" attrs="{'readonly': [('state','!=','draft')]}">
+                                    <tree editable="bottom" create="false">
+                                        <field name="asset_id" readonly="1" options="{'no_create': True,'no_open': True}" />
+                                        <field name="description" required="1" />
+                                        <field name="dispose_line_id" invisible="1" />
+                                        <field name="price_unit" />
+                                        <field name="location_id" />
+                                        <field name="location_dest_id" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                        <field name="confirm_uid" readonly="1"></field>
+                                        <field name="confirm_date" readonly="1"></field>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                        <field name="cancel_uid" readonly="1"></field>
+                                        <field name="cancel_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_asset_delivery_tree">
+            <field name="name">dym.asset.delivery.tree</field>
+            <field name="model">dym.asset.delivery</field>
+            <field name="arch" type="xml">
+                <tree string="Deliver Asset">
+                    <field name="name" />
+                    <field name="dispose_id" />
+                    <field name="date" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_deliver_asset_filter" model="ir.ui.view">
+            <field name="name">dym.asset.delivery.form.search</field>
+            <field name="model">dym.asset.delivery</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name='dispose_id' />
+                    <field name="name" />
+                    <field name="date" />
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="deliver_asset_action">
+            <field name="name">Deliver Asset</field>
+            <field name="res_model">dym.asset.delivery</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_deliver_asset_filter" />
+        </record>
+        <record id="view_asset_tree_form" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dym_asset_delivery_tree" />
+            <field name="act_window_id" ref="deliver_asset_action" />
+        </record>
+        <record id="view_asset_form_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dym_asset_delivery_form_view" />
+            <field name="act_window_id" ref="deliver_asset_action" />
+        </record>
+        <menuitem id="dym_asset_delivery_submenu_ga" parent="dym_dealer_menu.ga_asset_menu" action="deliver_asset_action" sequence="11" />
+    </data>
+</openerp>

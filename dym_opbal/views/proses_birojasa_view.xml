@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="proses_birojasa_form_view">
+            <field name="name">proses.birojasa.form</field>
+            <field name="model">dym.proses.birojasa</field>
+            <field name="inherit_id" ref="dym_proses_stnk.proses_birojasa_form_view" />
+            <field name="arch" type="xml">
+                <field name="total_approval_koreksi" position="after">
+                    <field name="is_opbal" />
+                </field>
+                <xpath expr="//field[@name='proses_birojasa_line']/tree/field[@name='total_tagihan']" position="replace">
+                    <field name="titipan" />
+                    <field name="is_opbal" />
+                    <field name="total_tagihan" sum="Total Tagihan" required="1" on_change="onchange_total_tagihan(name,total_tagihan,total_estimasi,pajak_progressive,is_opbal)" />
+                </xpath>
+                <xpath expr="//field[@name='proses_birojasa_line']/tree/field[@name='pajak_progressive']" position="replace">
+                    <field name="pajak_progressive" sum="Total Pajak Progressive" attrs="{'readonly': [('pajak_progressive_branch','=',False)]}" on_change="onchange_total_tagihan(name,total_tagihan,total_estimasi,pajak_progressive,is_opbal)" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

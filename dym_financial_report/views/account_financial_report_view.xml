@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_report_tree_hierarchy" model="ir.ui.view">
+            <field name="name">account.report.hierarchy</field>
+            <field name="model">account.financial.report</field>
+            <field name="inherit_id" ref="account.view_account_report_tree_hierarchy" />
+            <field name="arch" type="xml">
+                <field name="account_report_id" position="after">
+                    <field name="analytic4_ids" />
+                    <field name="analytic2_ids"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_financial_report_analytic" model="ir.ui.view">
+            <field name="name">account.financial.report</field>
+            <field name="model">account.financial.report</field>
+            <field name="inherit_id" ref="account.view_account_financial_report_form" />
+            <field name="arch" type="xml">
+                <field name="style_overwrite" position="after">
+                    <field name="analytic4_ids" on_change='onchange_analytic4_ids(analytic4_ids)' />
+                    <field name="analytic2_ids"/>
+                    
+                    <!--
+                        <div>
+                            <label for="analytic_1" string="Analytic Company"/>
+                            <field name="analytic_1" domain="[('segmen','=',1)]" options="{'no_create': True,'no_open':True}" />
+                        </div>
+                        <div>
+                            <label for="analytic_2" string="Analytic Business Unit"/>
+                            <field name="analytic_2" domain="[('segmen','=',2),('type','=','normal'),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                        </div>
+                        <div>
+                            <label for="analytic_3" string="Analytic Branch"/>
+                            <field name="analytic_3" domain="[('segmen','=',3),('type','=','normal'),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                        </div>
+                        <div>
+                            <label for="analytic_4" string="Analytic Cost Center"/>
+                            <field name="analytic_4" domain="[('segmen','=',4),('type','=','normal'),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" string="Account Analytic Cost Center" />
+                        </div>
+                    </group>
+                    <hr/>
+                    <group class="oe_subtotal_footer oe_right">
+                        <group attrs="{'invisible': [('type','not in',['accounts','account_type', 'account_report'])]}">
+                            <field name="balance_analytic" />
+                        </group>                        
+                    </group>
+                    -->
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

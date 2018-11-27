@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_account_invoice_form_view" model="ir.ui.view">
+            <field name="name">dym.account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <!-- Yordan -->
+                <xpath expr="//header/button[@name='invoice_open']" position="replace">
+                    <button name="invoice_open" states="draft,proforma2" string="Validate" class="oe_highlight" groups="dym_base_security.group_dym_pic_purchasing,dym_base_security.group_dym_adh"/>
+                </xpath>
+                <xpath expr="//header/button[@name='%(account.action_account_invoice_refund)d']" position="replace">
+                    <button name="%(account.action_account_invoice_refund)d" type='action' string='Ask Refund' states='open,paid' groups="dym_base_security.group_dym_adh"/>
+                </xpath>
+                <xpath expr="//header/button[@name='invoice_cancel']" position="replace">
+                    <button name="invoice_cancel" states="draft,proforma2" string="Cancel Invoice" groups="dym_base_security.group_dym_accounting_inventory"/>
+                </xpath>
+                <xpath expr="//header/button[@name='action_cancel_draft']" position="replace">
+                    <button name="action_cancel_draft" states="cancel" string="Set to Draft" type="object" groups="dym_base_security.group_dym_adh"/>
+                </xpath>
+                <xpath expr="//header/button[@name='%(account.action_account_state_open)d']" position="replace">
+                    <button name='%(account.action_account_state_open)d' type='action' string='Re-Open' groups="account.group_account_invoice" attrs="{'invisible':['|', ('state','&lt;&gt;','paid'), ('reconciled', '=', True)]}" help="This button only appears when the state of the invoice is 'paid' (showing that it has been fully reconciled) and auto-computed boolean 'reconciled' is False (depicting that it's not the case anymore). In other words, the invoice has been dereconciled and it does not fit anymore the 'paid' state. You should press this button to re-open it and let it continue its normal process after having resolved the eventual exceptions it may have created."/>
+                </xpath>
+                <!-- Yordan -->
+                <xpath expr="//form/header/field[@name='state']" position="before"> 
+                    <button name="%(dym_purchase_order.action_purchase_discount_distribute)d" string="Distribute Discount" states="draft" type="action" class="oe_highlight" />
+                </xpath>
+                <xpath expr="//field[@name='tax_line']/tree[@string='Taxes']/field[@name='account_analytic_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <page string="Other Info" position="before">
+                    <page string="Account Analytic">
+                        <group>
+                            <group width="50%">
+                                <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                                <field name="analytic_2" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                                <field name="analytic_3" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                                <field name="analytic_4" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" string="Account Analytic Cost Center" required="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                            </group>
+                            <group/>
+                        </group>
+                    </page>
+                </page>
+                <xpath expr="//field[@name='product_id']" position="before">
+                    <field name="template_id" options="{'no_open':True,'no_create':True}" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='product_id']" position="after">
+                    <field name="division" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='product_id']" position="attributes">
+                    <attribute name="context">{'branch_id': parent.branch_id, 'division': parent.division}</attribute>
+                    <attribute name="attrs">{'readonly': [('division','=','Unit')]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='invoice_cancel']" position="after">
+                    <button name="renew_price" states="draft" string="Renew Price" groups="dym_base_security.group_dym_app_finance_ap,dym_base_security.group_dym_app_finance_stnk,dym_base_security.group_dym_app_incentive,dym_base_security.group_dym_app_opex,dym_base_security.group_dym_area_supervisor,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_ga_administrasi,dym_base_security.group_dym_ga_purchasing,dym_base_security.group_dym_hrga_dept_head,dym_base_security.group_dym_marketing_analyst_unit,dym_base_security.group_dym_pic_ap,dym_base_security.group_dym_pic_incentive,dym_base_security.group_dym_pic_opex,dym_base_security.group_dym_pic_stnk,dym_base_security.group_dym_treasury_staff,dym_base_security.group_dym_adh" type="object" class="oe_highlight" />
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']" position="attributes">
+                    <attribute name="context">{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']/tree/field[@name='discount']" position="after">
+                    <field name="discount_amount" groups="sale.group_discount_per_so_line" sum="Discount Amount" />
+                    <field name="discount_cash" groups="sale.group_discount_per_so_line" sum="Discount Cash" />
+                    <field name="discount_program" groups="sale.group_discount_per_so_line" sum="Discount Program" />
+                    <field name="discount_lain" groups="sale.group_discount_per_so_line" sum="Discount Lain" />
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='account_analytic_id']" position="replace">
+                    <field name="product_category" invisible="1" />
+                    <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" />
+                    <field name="analytic_2" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" />
+                    <field name="analytic_3" domain="[('segmen','=',3),('branch_id','=',parent.branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" />
+                    <field name="account_analytic_id" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" string="AA-Cost Center" required="1" />
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="after">
+                    <field name="discount_cash" groups="sale.group_discount_per_so_line" invisible="1" />
+                    <field name="discount_program" groups="sale.group_discount_per_so_line" invisible="1" />
+                    <field name="discount_lain" groups="sale.group_discount_per_so_line" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='price_unit']" position="replace">
+                    <!-- <field name="price_unit" invisible="1"/>
+                        <field name="price_unit_show" readonly="1"/> -->
+                    <field name="create_manual_dummy" invisible="1" />
+                    <field name="price_unit" invisible="1" on_change="price_unit_change(price_unit, parent.create_manual)" />
+                    <field name="price_unit_show" attrs="{'readonly': [('create_manual_dummy','=',False)],'required': [('create_manual_dummy','=',True)]}" on_change="price_unit_change(price_unit_show, parent.create_manual)" />
+                </xpath>
+            </field>
+        </record>
+        <record id="customer_account_invoice_form_view" model="ir.ui.view">
+            <field name="name">customer.account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <page string="Other Info" position="after">
+                    <page string="Account Analytic">
+                        <group>
+                            <group width="50%">
+                                <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                                <field name="analytic_2" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                                <field name="analytic_3" domain="[('segmen','=',3),('branch_id','=',branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                                <field name="analytic_4" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" string="Account Analytic Cost Center" required="1" attrs="{'readonly':[('state','not in','draft')]}" />
+                            </group>
+                            <group/>
+                        </group>
+                    </page>
+                </page>
+                <xpath expr="//field[@name='product_id']" position="before">
+                    <field name="template_id" options="{'no_open':True,'no_create':True}" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']/tree[@string='Invoice Lines']/field[@name='product_id']" position="attributes">
+                    <attribute name="context">{'branch_id': parent.branch_id, 'division': parent.division}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']/tree[@string='Invoice Lines']/field[@name='account_analytic_id']" position="replace">
+                    <field name="product_category" invisible="1" />
+                    <field name="analytic_1" options="{'no_create': True,'no_open':True}" invisible="1" />
+                    <field name="analytic_2" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_1)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" />
+                    <field name="analytic_3" domain="[('segmen','=',3),('branch_id','=',parent.branch_id),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_2)]" options="{'no_show':True,'no_create':True,'no_open':True}" required="1" />
+                    <field name="account_analytic_id" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_3)]" options="{'no_show':True,'no_create':True,'no_open':True}" string="Account Analytic Cost Center" required="1" />
+                </xpath>
+                <field name="account_id" position="after">
+                    <field name="account_dp" invisible="1" />
+                    <field name="amount_dp" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly':['|',('account_dp','!=',False),('state','not in','draft')]}" />
+                </field>
+                <xpath expr="//field[@name='invoice_line']" position="attributes">
+                    <attribute name="context">{'type': type}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='discount']" position="after">
+                    <field name="biro_jasa" invisible="0" />
+                    <field name="discount_amount" groups="sale.group_discount_per_so_line" sum="Discount Amount" />
+                    <field name="discount_cash" groups="sale.group_discount_per_so_line" sum="Discount Cash" />
+                    <field name="discount_program" groups="sale.group_discount_per_so_line" sum="Discount Program" />
+                    <field name="discount_lain" groups="sale.group_discount_per_so_line" sum="Discount Lain" />
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="after">
+                    <field name="discount_cash" groups="sale.group_discount_per_so_line" attrs="{'readonly':[('state','not in','draft')]}" invisible="1" />
+                    <field name="discount_program" groups="sale.group_discount_per_so_line" attrs="{'readonly':[('state','not in','draft')]}" invisible="1" />
+                    <field name="discount_lain" groups="sale.group_discount_per_so_line" attrs="{'readonly':[('state','not in','draft')]}" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='amount_tax']" position="after">
+                    <field name="account_bbn" invisible="1" />
+                    <field name="amount_bbn" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly':['|',('account_bbn','!=',False),('state','not in','draft')],'invisible':[('amount_bbn','&lt;=',0)]}" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

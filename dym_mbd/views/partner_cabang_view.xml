@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="res_partner_with_cabang_partner" model="ir.ui.view">
+            <field name="name">dym.res.partner.with.cabang.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="dym_res_partner_cddb.res_partner_with_cabang_partner" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='cabang_partner_line']/tree/field[@name='name']" position="after">
+                    <field name="code" />
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_cabang_partner_tree">
+            <field name="name">dym.cabang.partner.tree</field>
+            <field name="model">dym.cabang.partner</field>
+            <field name="inherit_id" ref="dym_res_partner_cddb.dym_cabang_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="code" />
+                </field>
+            </field>
+        </record>
+        <record id="dym_cabang_partner_form" model="ir.ui.view">
+            <field name="name">dym.cabang.partner.form</field>
+            <field name="model">dym.cabang.partner</field>
+            <field name="inherit_id" ref="dym_res_partner_cddb.dym_cabang_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="code" />
+                </field>
+            </field>
+        </record>
+        <menuitem id="ma_partners_menu" parent="dym_dealer_menu.master_top_menu" name="Partner" sequence="20"></menuitem>
+        <menuitem id="menu_customer_form" parent="ma_partners_menu" action="base.action_partner_form" sequence="2" />
+        <menuitem id="menu_supplier_form" parent="ma_partners_menu" action="base.action_partner_supplier_form" sequence="3" />
+        <menuitem id="menu_cabang_partner_action" parent="ma_partners_menu" action="dym_res_partner_cddb.cabang_partner_action_view" sequence="4" />
+    </data>
+</openerp>

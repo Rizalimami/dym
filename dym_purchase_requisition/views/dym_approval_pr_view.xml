@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_rules_approval_pr" model="ir.ui.view">
+            <field name="name">dym_master_approval_form</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form" />
+            <field name="arch" type="xml">
+                <button name="cancel_requisition" position="replace" />
+                <button name="sent_suppliers" position="replace">
+	                <!--
+					<button name="approval_request" states="draft" string="RFA" type="workflow" class="oe_highlight"/>	
+					<button name="approval_approve" states="waiting_for_approval" string="Approve" type="workflow" class="oe_highlight"/>
+					<button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action" context="{'model_name':'purchase.requisition','next_workflow':'approval_reject'}"/>
+					<button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'purchase.requisition','next_workflow':'approval_cancel'}"/>
+	            	<button name="cancel_requisition" states="draft,in_progress" string="Cancel Call" confirm="Apa anda yakin ingin membatalkan transaksi ini ?"/>
+					-->
+                    <button name="approval_request" states="draft" string="RFA" type="workflow" class="oe_highlight" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_pic_dept" />
+                    <button name="approval_approve" states="waiting_for_approval" string="Approve" type="workflow" class="oe_highlight" groups="dym_base_security.group_dym_kepala_cabang,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_hrga_dept_head,dym_base_security.group_dym_it_dept_head,dym_base_security.group_dym_part_acc_dept_head,dym_base_security.group_dym_service_dept_head,dym_base_security.group_dym_tax_dept_head,dym_base_security.group_dym_operation_div_head,dym_base_security.group_dym_marketing_sub_div_head" />
+                    <button name="%(dym_approval.dym_approval_reject_wizard_action)d" states="waiting_for_approval" string="Revise" type="action" context="{'model_name':'purchase.requisition','next_workflow':'approval_reject'}" groups="dym_base_security.group_dym_adh" />
+                    <button name="%(dym_approval.dym_approval_cancel_wizard_action)d" states="waiting_for_approval" string="Cancel Approval" type="action" context="{'model_name':'purchase.requisition','next_workflow':'approval_cancel'}" groups="dym_base_security.group_dym_kepala_cabang,dym_base_security.group_dym_area_manager,dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_hrga_dept_head,dym_base_security.group_dym_it_dept_head,dym_base_security.group_dym_part_acc_dept_head,dym_base_security.group_dym_service_dept_head,dym_base_security.group_dym_tax_dept_head,dym_base_security.group_dym_operation_div_head,dym_base_security.group_dym_marketing_sub_div_head" />
+                    <button name="cancel_requisition" states="draft,in_progress" string="Cancel Call" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" />
+                </button>
+                <field name="picking_type_id" position="after">
+                    <field name="approval_state" />
+                </field>
+                <xpath expr="//page[@string='Products']" position="after">
+                    <page string="Approval">
+                        <field name="approval_ids">
+                            <tree string="Approval" editable="bottom" create="false" edit="false" delete="false">
+                                <field name="group_id" />
+                                <field name="branch_id" />
+                                <field name="division" />
+                                <field name="limit" />
+                                <field name="sts" />
+                                <field name="reason" />
+                                <field name="pelaksana_id" />
+                                <field name="tanggal" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                                <field name="confirm_uid" readonly="1"></field>
+                                <field name="confirm_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                                <field name="cancel_uid" readonly="1"></field>
+                                <field name="cancel_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

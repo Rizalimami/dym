@@ -1,0 +1,5 @@
+import dym_sales_team
+import dym_res_partner_cddb
+import dym_questionnaire
+import dym_cabang_partner
+import dym_res_partner_wizard

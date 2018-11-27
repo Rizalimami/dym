@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paper_format_inventory_tag" model="report.paperformat">
+            <field name="name">Inventory Tag Format</field>
+            <field name="default" eval="True"/>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+            id="inventory_tag_report"
+            string="Inventory Tag"
+            model="dym.inventory.summary"
+            report_type="qweb-pdf"
+            name="dym_stock_taking.inventory_tag_template"
+            file="dym_stock_taking.inventory_tag_template"
+        />
+
+        <record id="inventory_tag_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_stock_taking.paper_format_inventory_tag"/>
+        </record>
+
+        <report
+            id="blank_tag_report"
+            string="Blank Tag"
+            model="dym.inventory.summary"
+            report_type="qweb-pdf"
+            name="dym_stock_taking.blank_tag_template"
+            file="dym_stock_taking.blank_tag_template"
+        />
+
+        <record id="blank_tag_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="dym_stock_taking.paper_format_inventory_tag"/>
+        </record>
+    </data>
+</openerp>

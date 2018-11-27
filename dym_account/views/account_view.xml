@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_accounting_report_custom" model="ir.ui.view">
+            <field name="name">Accounting Report Custom</field>
+            <field name="model">accounting.report</field>
+            <field name="inherit_id" ref="account.accounting_report_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Journals" name="journal_ids">
+                        <field name="journal_ids" />
+                    </page>
+                    <page string="Accounts" name="account_ids">
+                        <field name="account_ids" />
+                    </page>
+                    <page string="Analytics" name="analytic_ids">
+                        <group>
+                            <label for="analytic_co_dari" string="Analytic Company" />
+                            <div>
+                                <field name="analytic_co_dari" class="oe_inline" domain="[('segmen','=',1),('type','=','normal'),('state','not in',('close','cancelled'))]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="onchange_analytic_dari_sampai(analytic_co_dari, analytic_co_sampai, analytic_bb_dari, analytic_bb_sampai, analytic_br_dari, analytic_br_sampai, analytic_cc_dari, analytic_cc_sampai, context)" /> -
+                                <field name="analytic_co_sampai" class="oe_inline" domain="[('segmen','=',1),('type','=','normal'),('state','not in',('close','cancelled'))]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="onchange_analytic_dari_sampai(analytic_co_dari, analytic_co_sampai, analytic_bb_dari, analytic_bb_sampai, analytic_br_dari, analytic_br_sampai, analytic_cc_dari, analytic_cc_sampai, context)" />
+                            </div>
+                            <label for="analytic_bb_dari" string="Analytic Bisnis Unit" />
+                            <div>
+                                <field name="analytic_bb_dari" class="oe_inline" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_co_dari)]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="onchange_analytic_dari_sampai(analytic_co_dari, analytic_co_sampai, analytic_bb_dari, analytic_bb_sampai, analytic_br_dari, analytic_br_sampai, analytic_cc_dari, analytic_cc_sampai, context)" /> -
+                                <field name="analytic_bb_sampai" class="oe_inline" domain="[('segmen','=',2),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_co_sampai)]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="onchange_analytic_dari_sampai(analytic_co_dari, analytic_co_sampai, analytic_bb_dari, analytic_bb_sampai, analytic_br_dari, analytic_br_sampai, analytic_cc_dari, analytic_cc_sampai, context)" />
+                            </div>
+                            <label for="analytic_br_dari" string="Analytic Branch" />
+                            <div>
+                                <field name="analytic_br_dari" class="oe_inline" domain="[('segmen','=',3),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_bb_dari)]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="onchange_analytic_dari_sampai(analytic_co_dari, analytic_co_sampai, analytic_bb_dari, analytic_bb_sampai, analytic_br_dari, analytic_br_sampai, analytic_cc_dari, analytic_cc_sampai, context)" /> -
+                                <field name="analytic_br_sampai" class="oe_inline" domain="[('segmen','=',3),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_bb_sampai)]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="onchange_analytic_dari_sampai(analytic_co_dari, analytic_co_sampai, analytic_bb_dari, analytic_bb_sampai, analytic_br_dari, analytic_br_sampai, analytic_cc_dari, analytic_cc_sampai, context)" />
+                            </div>
+                            <label for="analytic_cc_dari" string="Analytic Cost Center" />
+                            <div>
+                                <field name="analytic_cc_dari" class="oe_inline" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_br_dari)]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="onchange_analytic_dari_sampai(analytic_co_dari, analytic_co_sampai, analytic_bb_dari, analytic_bb_sampai, analytic_br_dari, analytic_br_sampai, analytic_cc_dari, analytic_cc_sampai, context)" /> -
+                                <field name="analytic_cc_sampai" class="oe_inline" domain="[('segmen','=',4),('type','=','normal'),('state','not in',('close','cancelled')),('parent_id','child_of',analytic_br_sampai)]" options="{'no_show':True,'no_create':True,'no_open':True}" on_change="onchange_analytic_dari_sampai(analytic_co_dari, analytic_co_sampai, analytic_bb_dari, analytic_bb_sampai, analytic_br_dari, analytic_br_sampai, analytic_cc_dari, analytic_cc_sampai, context)" />
+                            </div>
+                        </group>
+                    </page>
+                </xpath>
+                <field name="target_move" position="after">
+                    <field name="konsolidasi" />
+                </field>
+            </field>
+        </record>
+        <record id="account_report_balance_view_inherit" model="ir.ui.view">
+            <field name="name">Trial Balance Account Analytic</field>
+            <field name="model">account.balance.report</field>
+            <field name="inherit_id" ref="account.account_report_balance_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Filters']" position="after">
+                    <page string="Journals" name="journal_ids">
+                        <field name="journal_ids" />
+                    </page>
+                    <page string="Accounts" name="account_ids">
+                        <field name="account_ids" />
+                    </page>
+                    <page string="Analytics" name="analytic_ids">
+                        <group>
+                            <label for="analytic_co_dari" string="Analytic Company" />
+                            <div>
+                                <field name="analytic_co_dari" class="oe_inline" /> -
+                                <field name="analytic_co_sampai" class="oe_inline" />
+                            </div>
+                            <label for="analytic_bb_dari" string="Analytic Bisnis Unit" />
+                            <div>
+                                <field name="analytic_bb_dari" class="oe_inline" /> -
+                                <field name="analytic_bb_sampai" class="oe_inline" />
+                            </div>
+                            <label for="analytic_br_dari" string="Analytic Branch" />
+                            <div>
+                                <field name="analytic_br_dari" class="oe_inline" /> -
+                                <field name="analytic_br_sampai" class="oe_inline" />
+                            </div>
+                            <label for="analytic_cc_dari" string="Analytic Cost Center" />
+                            <div>
+                                <field name="analytic_cc_dari" class="oe_inline" /> -
+                                <field name="analytic_cc_sampai" class="oe_inline" />
+                            </div>
+                        </group>
+                    </page>
+                </xpath>
+                <field name="target_move" position="after">
+                    <field name="konsolidasi" />
+                </field>
+            </field>
+        </record>
+        <record id="account_report_general_ledger_account_and_analytic_inherit" model="ir.ui.view">
+            <field name="name">General Ledger Account Analytic</field>
+            <field name="model">account.report.general.ledger</field>
+            <field name="inherit_id" ref="account.account_report_general_ledger_view" />
+            <field name="arch" type="xml">
+                <page name="journal_ids" position="after">
+                    <page string="Accounts" name="account_ids">
+                        <field name="account_ids" />
+                    </page>
+                    <page string="Analytics" name="analytic_ids">
+                        <group>
+                            <label for="analytic_co_dari" string="Analytic Company" />
+                            <div>
+                                <field name="analytic_co_dari" class="oe_inline" /> -
+                                <field name="analytic_co_sampai" class="oe_inline" />
+                            </div>
+                            <label for="analytic_bb_dari" string="Analytic Bisnis Unit" />
+                            <div>
+                                <field name="analytic_bb_dari" class="oe_inline" /> -
+                                <field name="analytic_bb_sampai" class="oe_inline" />
+                            </div>
+                            <label for="analytic_br_dari" string="Analytic Branch" />
+                            <div>
+                                <field name="analytic_br_dari" class="oe_inline" /> -
+                                <field name="analytic_br_sampai" class="oe_inline" />
+                            </div>
+                            <label for="analytic_cc_dari" string="Analytic Cost Center" />
+                            <div>
+                                <field name="analytic_cc_dari" class="oe_inline" /> -
+                                <field name="analytic_cc_sampai" class="oe_inline" />
+                            </div>
+                        </group>
+                    </page>
+                </page>
+                <field name="target_move" position="after">
+                    <field name="konsolidasi" />
+                </field>
+            </field>
+        </record>
+        <record id="account_account_search_v2" model="ir.ui.view">
+            <field name="name">account.search.view.v2</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_search" />
+            <field name="arch" type="xml">
+                <field name="name" position='after'>
+                    <field name="code" string="Code" />
+                </field>
+            </field>
+        </record>
+        <record id="dym_partner_type_tree" model="ir.ui.view">
+            <field name="name">dym.partner.type.tree</field>
+            <field name="model">dym.partner.type</field>
+            <field name="arch" type="xml">
+                <tree string="Partner Type" editable="top">
+                    <field name="name" string="Field Name" required="1" />
+                    <field name="value" required="1" />
+                    <field name="field_type" required="1" />
+                    <field name="selection_name" attrs="{'required': [('field_type','=','selection')],'readonly': [('field_type','!=','selection')]}" />
+                    <field name="unit" />
+                    <field name="sparepart" />
+                    <field name="umum" />
+                    <field name="finance" />
+                </tree>
+            </field>
+        </record>
+        <record id="dym_partner_type_form" model="ir.ui.view">
+            <field name="name">dym.partner.type.form</field>
+            <field name="model">dym.partner.type</field>
+            <field name="arch" type="xml">
+                <form string="Partner Type">
+                    <group>
+                        <group>
+                            <field name="name" string="Field Name" required="1" />
+                            <field name="value" required="1" />
+                            <field name="field_type" required="1" />
+                            <field name="selection_name" attrs="{'required': [('field_type','=','selection')],'invisible': [('field_type','!=','selection')]}" />
+                        </group>
+                        <group>
+                            <field name="unit" />
+                            <field name="sparepart" />
+                            <field name="umum" />
+                            <field name="finance" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_partner_type_action">
+            <field name="name">Partner Type</field>
+            <field name="res_model">dym.partner.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="dym_partner_type_menuitem" name="Partner Type" parent="dym_dealer_menu.ma_purchase_menu" action="dym_partner_type_action" sequence="10" />
+        <record id="product_category_form_view_2" model="ir.ui.view">
+            <field name="name">product.category.2</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view" />
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="bisnis_unit" />
+                </field>
+            </field>
+        </record>
+        <record id="view_account_analytic_account_list_2" model="ir.ui.view">
+            <field name="name">account.analytic.account.list.2</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account.view_account_analytic_account_list" />
+            <field eval="8" name="priority" />
+            <field name="arch" type="xml">
+                <field name="complete_name" position="replace">
+                    <field name="name" />
+                    <field name="analytic_combination" />
+                </field>
+                <field name="date_start" position="replace" />
+                <field name="date" position="replace" />
+                <field name="partner_id" position="replace" />
+            </field>
+        </record>
+        <record id="view_tax_tree_2" model="ir.ui.view">
+            <field name="name">account.tax.tree.2</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_tree" />
+            <field name="arch" type="xml">
+                <field name="type_tax_use" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+            </field>
+        </record>
+        <record id="view_partner_bank_form_inherit_2" model="ir.ui.view">
+            <field name="name">Partner Bank Accounts - Journal</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="account.view_partner_bank_form_inherit" />
+            <field name="arch" type="xml">
+                <group name="accounting" position="replace">
+                    <group name="accounting" col="2" colspan="2">
+                        <separator string="Accounting Information" colspan="2" />
+                        <field name="is_companys_bank_account" />
+                        <field name="journal_id" attrs="{'required':[('is_companys_bank_account','=',True)]}" />
+                        <field name="currency_id" groups="base.group_multi_currency" />
+                    </group>
+                </group>
+            </field>
+        </record>
+        <record id="view_account_type_tree_2" model="ir.ui.view">
+            <field name="name">account.account.type.tree</field>
+            <field name="model">account.account.type</field>
+            <field name="inherit_id" ref="account.view_account_type_tree" />
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="report_type" />
+                    <field name="close_method" />
+                </field>
+            </field>
+        </record>
+        <record id="view_account_financial_report_tree_2" model="ir.ui.view">
+            <field name="name">account.financial.report.tree</field>
+            <field name="model">account.financial.report</field>
+            <field name="inherit_id" ref="account.view_account_financial_report_tree" />
+            <field name="arch" type="xml">
+                <field name="account_report_id" position="after">
+                    <field name="sign" />
+                    <field name="style_overwrite" />
+                </field>
+            </field>
+        </record>
+        <record id="view_account_analytic_account_tree_2" model="ir.ui.view">
+            <field name="name">account.analytic.account.tree</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="account.view_account_analytic_account_tree" />
+            <field name="arch" type="xml">
+                <field name="name" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+        <record id="view_account_account_branch_form" model="ir.ui.view">
+            <field name="name">account.account.form.branch</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form" />
+            <field name="arch" type="xml">
+                <field name="active" position="after">
+                    <field name="branch_id" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                </field>
+                <xpath expr="//group/group/field[@name='balance']" position="after">
+                    <field name="consolidate_amount" />
+                    <field name="consolidate_balance" />
+                </xpath>
+                <field name="child_consol_ids" position="before">
+                    <field name="group_account" attrs="{'invisible':[('type','!=','consolidation')], 'required':[('type','=','consolidation')]}" />
+                </field>
+                <xpath expr="//field[@name='note']" position="after">
+                    <notebook>
+                        <page string="Analytical Account Mapping" attrs="{'invisible': [('type','=','view')]}">
+                            <field name="analytical_account_ids" attrs="{'invisible': [('type','=','view')]}">
+                                <tree>
+                                    <field name="complete_name" />
+                                    <field name="code" />
+                                    <field name="debit" />
+                                    <field name="credit" />
+                                    <field name="balance" />
+                                    <field name="type" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Analytical Account" attrs="{'invisible': [('type','=','view')]}">
+                            <field name="analytical_account" attrs="{'invisible': [('type','=','view')]}">
+                                <tree>
+                                    <field name="complete_name" />
+                                    <field name="code" />
+                                    <field name="debit" />
+                                    <field name="credit" />
+                                    <field name="balance" />
+                                    <field name="type" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Eliminate Lines" attrs="{'invisible': [('consolidate_amount','=',0)]}">
+                            <field name="eliminate_line_ids" attrs="{'invisible': [('consolidate_amount','=',0)]}" readonly="1" />
+                        </page>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_account_payment_term_form" model="ir.ui.view">
+            <field name="name">dym.account.payment.term</field>
+            <field name="model">account.payment.term</field>
+            <field name="inherit_id" ref="account.view_payment_term_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_account_fiscalyear_form" model="ir.ui.view">
+            <field name="name">dym.account.fiscalyear</field>
+            <field name="model">account.fiscalyear</field>
+            <field name="inherit_id" ref="account.view_account_fiscalyear_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_period_form" model="ir.ui.view">
+            <field name="name">dym.account.period</field>
+            <field name="model">account.period</field>
+            <field name="inherit_id" ref="account.view_account_period_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_account_branch_list" model="ir.ui.view">
+            <field name="name">account.account.list.branch</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="branch_id" />
+                </field>
+            </field>
+        </record>
+        <record id="view_account_account_template" model="ir.ui.view">
+            <field name="name">account.account.template</field>
+            <field name="model">account.account.template</field>
+            <field name="inherit_id" ref="account.view_account_template_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_fiscal_position_template" model="ir.ui.view">
+            <field name="name">dym.account.fiscal.position.template</field>
+            <field name="model">account.fiscal.position.template</field>
+            <field name="inherit_id" ref="account.view_account_position_template_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_tax_code" model="ir.ui.view">
+            <field name="name">dym.account.tax.code</field>
+            <field name="model">account.tax.code</field>
+            <field name="inherit_id" ref="account.view_tax_code_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_tax_code_template" model="ir.ui.view">
+            <field name="name">dym.account.tax.code.template</field>
+            <field name="model">account.tax.code.template</field>
+            <field name="inherit_id" ref="account.view_tax_code_template_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_tax_template" model="ir.ui.view">
+            <field name="name">dym.account.tax.template</field>
+            <field name="model">account.tax.template</field>
+            <field name="inherit_id" ref="account.view_account_tax_template_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_tax2" model="ir.ui.view">
+            <field name="name">dym.account.tax</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Special Computation']" position="after">
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_fiscal_position" model="ir.ui.view">
+            <field name="name">dym.account.fiscal.position</field>
+            <field name="model">account.fiscal.position</field>
+            <field name="inherit_id" ref="account.view_account_position_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_branch_on_customer_invoice_tree_view">
+            <field name="name">dym.branch.customer.invoice.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree" />
+            <field name="arch" type="xml">
+                <tree string="Invoice" position="attributes">
+                    <attribute name="create">false</attribute>
+                </tree>
+                <field name="company_id" position="after">
+                    <field name="qq_id" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_branch_on_customer_invoice_form_view">
+            <field name="name">dym.branch.customer.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <form string="Invoice" position="attributes">
+                    <attribute name="create">false</attribute>
+                </form>
+                <field name="residual" position="attributes">
+                    <attribute name="groups">account.group_account_user,dym_base_security.group_dym_adh</attribute>
+                </field>
+                <xpath expr="//form/sheet" position="attributes">
+                    <attribute name="class">remove_sheet</attribute>
+                </xpath>
+                <button name="invoice_cancel" position="replace">
+                    <button name="invoice_cancel" states="draft,proforma2,open" string="Cancel Invoice" groups="dym_base_security.group_dym_accounting_dept_head" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" help="Syarat Cancel Invoice: belum ada pembayaran, belum kirim barang dan belum closing period" />
+                </button>
+                <!--
+                <button name="%(account.action_account_invoice_refund)d" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                -->
+                <xpath expr="/form/sheet/group" position="before">
+                    <group>
+                        <group>
+                            <field name="branch_id" required='1' attrs="{'readonly': [('state','!=','draft')]}" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                        </group>
+                        <group>
+                            <field name="division" required='1' attrs="{'readonly': [('state','!=','draft')]}" />
+                        </group>
+                    </group>
+                </xpath>
+                <field name="date_invoice" position="replace" />
+                <xpath expr="//field[@name='journal_id']" position="before">
+                    <field name="date_invoice" readonly='1' />
+                    <field name="document_date" attrs="{'readonly': [('state','!=','draft')]}" on_change='onchange_document_date(document_date,payment_term)' invisible="1" />
+                </xpath>
+                <xpath expr="/form/sheet/group/group/field[@name='partner_id']" position="after">
+                    <field name="qq_id" attrs="{'invisible':[('tipe','=','customer')]}" invisible="1" />
+                    <field name="qq2_id" attrs="{'invisible':[('tipe','=','customer')]}" widget="many2many_tags" readonly="1" />
+                    <field name="tipe" invisible="1" />
+                    <field name="create_manual" invisible="1" on_change="change_create_manual(create_manual)" />
+                </xpath>
+                <xpath expr="//page[@string='Payments']" position="after">
+                    <page string="Faktur Pajak" attrs="{'invisible': ['|',('amount_tax','=',0),'&amp;',('create_manual','=',False),('type','=','out_invoice')]}">
+                        <group>
+                            <field name="is_pedagang_eceran" invisible="1" />
+                            <field name="pajak_gunggung" on_change="onchange_gabungan_gunggung('pajak_gunggung',pajak_gabungan,pajak_gunggung)" attrs="{'readonly': [('faktur_pajak_id','!=',False)],'invisible': [('type','!=','out_invoice')]}" />
+                            <field name="pajak_gabungan" on_change="onchange_gabungan_gunggung('pajak_gabungan',pajak_gabungan,pajak_gunggung)" attrs="{'readonly': [('faktur_pajak_id','!=',False)]}" string="Faktur Pajak Gabungan / Belum Diterima" />
+                            <field name="no_faktur_pajak" on_change="faktur_pajak_change(no_faktur_pajak)" attrs="{'required': [('pajak_gabungan','=',False),('pajak_gunggung','=',False),('amount_tax','!=',0),('type','!=','out_invoice')],'readonly': ['|',('pajak_gabungan','!=',False),('pajak_gunggung','!=',False)],'invisible': ['|',('type','=','out_invoice'),('faktur_pajak_id','!=',False)]}" />
+                            <field name="tgl_faktur_pajak" attrs="{'required': [('pajak_gabungan','=',False),('pajak_gunggung','=',False),('amount_tax','!=',0),('type','!=','out_invoice')],'readonly': ['|',('pajak_gabungan','!=',False),('pajak_gunggung','!=',False)],'invisible': ['|',('type','=','out_invoice'),('faktur_pajak_id','!=',False)]}" />
+                            <field name="faktur_pajak_id" attrs="{'invisible': [('type','!=','out_invoice'),('faktur_pajak_id','=',False)]}" readonly="1" />
+                            <field name="faktur_pajak_tgl" attrs="{'invisible': [('type','!=','out_invoice'),('faktur_pajak_id','=',False)]}" readonly="1" />
+                        </group>
+                    </page>
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                                <field name="confirm_uid" readonly="1"></field>
+                                <field name="confirm_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                                <field name="cancel_uid" readonly="1"></field>
+                                <field name="cancel_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']/tree[@string='Invoice Lines']/field[@name='account_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']/tree[@string='Invoice Lines']/field[@name='quantity']" position="attributes">
+                    <attribute name="sum">quantity</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tax_line']/tree[@string='Taxes']/field[@name='account_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="origin" position="attributes">
+                    <attribute name="attrs">{'readonly':['|',('state','!=','draft'),('tipe','!=',False)]}</attribute>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_branch_on_supplier_invoice_form_view">
+            <field name="name">dym.branch.supplier.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <form string="Supplier Invoice" position="attributes">
+                    <attribute name="create">false</attribute>
+                </form>
+                <button name="invoice_cancel" position="replace">
+                    <button name="invoice_cancel" states="draft,proforma2,open" string="Cancel Invoice" groups="dym_base_security.group_accounting_inventory" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" />
+                </button>
+                <field name="date_invoice" position="replace" />
+                <field name="origin" position="before">
+                    <field name="division" />
+                </field>
+                <field name="supplier_invoice_number" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                    <!-- <attribute name="required">True</attribute> -->
+                </field>
+                <field name="fiscal_position" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="period_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="date_due" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <xpath expr="//field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='account_id']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="options">{'no_open':True,'no_create_edit':True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='quantity']" position="attributes">
+                    <attribute name="sum">quantity</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tax_line']/tree[@string='Taxes']/field[@name='account_id']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="options">{'no_open':True,'no_create_edit':True}</attribute>
+                </xpath>
+                <field name="reference" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','!=','draft')]}</attribute>
+                </field>
+                <field name="payment_term" position="replace" />
+                <field name="account_id" position="replace" />
+                <field name="journal_id" position="replace" />
+                <field name="origin" position="replace" />
+                <xpath expr="/form/sheet/group/group" position="inside">
+                    <field domain="[('company_id', '=', company_id), ('type', '=', 'payable')]" name="account_id" groups="account.group_account_user" options="{'no_open':True,'no_create_edit':True}" readonly="0" />
+                    <field name="journal_id" groups="account.group_account_user" on_change="onchange_journal_id(journal_id)" options="{'no_open':True,'no_create_edit':True}" attrs="{'readonly':[('internal_number','!=',False)]}" readonly="1" />
+                </xpath>
+                <xpath expr="/form/sheet/group/group/field[@name='partner_id']" position="before">
+                    <field name="branch_id" required='1' attrs="{'readonly': [('state','!=','draft')]}" options="{'no_open':True,'no_create_edit':True}" />
+                    <field name="division" required='1' attrs="{'readonly': [('state','!=','draft')]}" invisible="1" />
+                    <field name="date_invoice" readonly='1' />
+                    <field name="origin" attrs="{'readonly':['|',('state','!=','draft'),('tipe','!=',False)]}" />
+                </xpath>
+                <field name="partner_id" position="replace" />
+                <xpath expr="//field[@name='date_due']" position="before">
+                    <field name='partner_type' on_change='onchange_partner_type(partner_type)' context="{'partner_type':partner_type}" attrs="{'readonly': [('state','!=','draft')]}" required="0" options="{'no_open':True,'no_create_edit':True}" />
+                    <field string="Supplier" name="partner_id" on_change="onchange_partner_id(type, partner_id, date_invoice, payment_term, partner_bank_id, company_id, context)" context="{'default_customer': 0, 'search_default_supplier': 1, 'default_supplier': 1}" options="{'no_open':True,'no_create_edit':True}" domain="[('supplier', '=', True)]" />
+                    <field name="tipe" invisible="1" />
+                    <field name="qq_id" attrs="{'invisible':[('tipe','!=','bbn')]}" options="{'no_open':True,'no_create_edit':True}" invisible="1" />
+                    <field name="qq2_id" attrs="{'invisible':[('tipe','!=','bbn')]}" options="{'no_open':True,'no_create_edit':True}" />
+                    <field name="supplier_invoice_number" required='1' />
+                    <field name="document_date" required='1' attrs="{'readonly': [('state','!=','draft')]}" on_change='onchange_document_date(document_date,payment_term)' />
+                    <field name="bast_jasa" attrs="{'readonly': [('state','!=','draft')],'required': [('product_jasa','=',True)]}" />
+                    <field name="product_jasa" invisible="1" />
+                    <field name="payment_term" options="{'no_open':True,'no_create_edit':True}" on_change="onchange_document_date(document_date,payment_term)" attrs="{'readonly': [('state','!=','draft')]}" />
+                    <field name="lot_id" options="{'no_open':True,'no_create_edit':True}" attrs="{'invisible':[('tipe','!=','bbn')]}" />
+                    <field name="create_manual" invisible="1" on_change="change_create_manual(create_manual)" />
+                </xpath>
+                <xpath expr="//page[@string='Invoice']" position="after">
+                    <page string="Faktur Pajak" attrs="{'invisible': ['|',('amount_tax','=',0),'&amp;',('create_manual','=',False),('type','=','out_invoice')]}">
+                        <group>
+                            <field name="is_pedagang_eceran" invisible="1" />
+                            <field name="pajak_gunggung" on_change="onchange_gabungan_gunggung('pajak_gunggung',pajak_gabungan,pajak_gunggung)" attrs="{'readonly': [('faktur_pajak_id','!=',False)],'invisible': [('type','!=','in_refund')]}" />
+                            <field name="pajak_gabungan" on_change="onchange_gabungan_gunggung('pajak_gabungan',pajak_gabungan,pajak_gunggung)" attrs="{'readonly': [('faktur_pajak_id','!=',False)]}" string="Faktur Pajak Gabungan / Belum Diterima" />
+                            <field name="no_faktur_pajak" on_change="faktur_pajak_change(no_faktur_pajak)" attrs="{'required': [('pajak_gabungan','=',False),('pajak_gunggung','=',False),('amount_tax','!=',0),('type','!=','out_invoice')],'readonly': ['|',('pajak_gabungan','!=',False),('pajak_gunggung','!=',False)],'invisible': ['|',('type','=','out_invoice'),('faktur_pajak_id','!=',False)]}" />
+                            <field name="tgl_faktur_pajak" attrs="{'required': [('pajak_gabungan','=',False),('pajak_gunggung','=',False),('amount_tax','!=',0),('type','!=','out_invoice')],'readonly': ['|',('pajak_gabungan','!=',False),('pajak_gunggung','!=',False)],'invisible': ['|',('type','=','out_invoice'),('faktur_pajak_id','!=',False)]}" />
+                            <field name="faktur_pajak_id" attrs="{'invisible': [('type','!=','out_invoice'),('faktur_pajak_id','=',False)]}" readonly="1" />
+                            <field name="faktur_pajak_tgl" attrs="{'invisible': [('type','!=','out_invoice'),('faktur_pajak_id','=',False)]}" readonly="1" />
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@string='Payments']" position="after">
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                                <field name="confirm_uid" readonly="1"></field>
+                                <field name="confirm_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                                <field name="cancel_uid" readonly="1"></field>
+                                <field name="cancel_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='product_id']" position="attributes">
+                    <attribute name="domain">[('purchase_ok','=',True),('product_tmpl_id','=',template_id)]</attribute>
+                    <attribute name="options">{'no_open':True,'no_create_edit':True}</attribute>
+                </xpath>
+                <button string='Ask Refund' position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+            </field>
+        </record>
+        <record id="view_account_financial_report_add" model="ir.ui.view">
+            <field name="name">account.financial.report</field>
+            <field name="model">account.financial.report</field>
+            <field name="inherit_id" ref="account.view_account_financial_report_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_dym_customer_invoice" model="ir.ui.view">
+            <field name="name">dym.customer.invoice.search.view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter" />
+            <field name="arch" type="xml">
+                <field name="number" position='after'>
+                    <field name='branch_id' />
+                    <field name="division" />
+                </field>
+            </field>
+        </record>
+        <record id="view_account_account_type_add" model="ir.ui.view">
+            <field name="name">account.account.type</field>
+            <field name="model">account.account.type</field>
+            <field name="inherit_id" ref="account.view_account_type_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_analytic_account_add" model="ir.ui.view">
+            <field name="name">account.analytic.account</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form" />
+            <field name="arch" type="xml">
+                <field name="company_id" position="replace" />
+                <field name="manager_id" position="after">
+                    <field name="natural_account" attrs="{'invisible': [('type','!=','normal')]}" />
+                    <field name="segmen" required="1" on_change="onchange_segmen(segmen)" />
+                    <field name="company_id" attrs="{'invisible': ['|',('segmen','!=',1),('type','=','view')],'required': [('segmen','=',1),('type','=','normal')]}" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                    <field name="bisnis_unit" attrs="{'invisible': ['|',('segmen','!=',2),('type','=','view')],'required': [('segmen','=',2),('type','=','normal')]}" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                    <field name="branch_id" attrs="{'invisible': ['|',('segmen','!=',3),('type','=','view')],'required': [('segmen','=',3),('type','=','normal')]}" options="{'no_show':True,'no_create':True,'no_open':True}" />
+                    <field name="cost_center" attrs="{'invisible': ['|',('segmen','!=',4),('type','=','view')],'required': [('segmen','=',4),('type','=','normal')]}" />
+                </field>
+                <field name="parent_id" position="replace">
+                    <field name="parent_id" on_change="on_change_parent(parent_id)" context="{'params_model':'account.analytic.account'}" />
+                    <field name="parent_segmen" invisible="1" />
+                    <field name="parent_ids" widget="many2many_tags" domain="[('segmen','=',parent_segmen)]" options="{'no_create': True}" invisible="1" />
+                </field>
+                <xpath expr="//notebook/page" position="after">
+                    <page string="Analytic Konsolidasi" attrs="{'invisible': [('is_group','=',False)]}">
+                        <field name="analytic_konsolidasi_ids" domain="[('company_id','!=',company_id),('company_id.parent_id','!=',False)]" />
+                        <field name="is_group" invisible="1" />
+                    </page>
+                    <page string="Audit Trail">
+                        <group>
+                            <group>
+                                <field name="create_uid" readonly="1"></field>
+                                <field name="create_date" readonly="1"></field>
+                            </group>
+                            <group>
+                                <field name="write_uid" readonly="1"></field>
+                                <field name="write_date" readonly="1"></field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_chart_template_add" model="ir.ui.view">
+            <field name="name">account.chart.template</field>
+            <field name="model">account.chart.template</field>
+            <field name="inherit_id" ref="account.view_account_chart_template_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_form" model="ir.ui.view">
+            <field name="name">account.account.form.branch</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="dym_account.view_account_account_branch_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[1]" position="before">
+                    <page name="analytic_filter" string="Analytical Filter" attrs="{'invisible': [('type','=','view')]}" sequence="0">
+                        <field name="analytic_filter_ids" attrs="{'invisible': [('type','=','view')]}">
+                            <tree editable="top" string="Analytical Filter">
+                                <field name="account_id" invisible="1" />
+                                <field name="branch_type" />
+                                <field name="bisnis_unit" />
+                                <field name="cost_center" />
+                            </tree>
+                            <form string="Account Filter">
+                                <group>
+                                    <group>
+                                        <field name="account_id" invisible="1" />
+                                        <field name="branch_type" />
+                                    </group>
+                                    <group>
+                                        <field name="bisnis_unit" />
+                                        <field name="cost_center" />
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

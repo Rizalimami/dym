@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    
+    	<!-- Stock Picking Packing -->
+
+		<record id="group_stock_picking_packing" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Picking Packing</field>
+            <field name="implied_ids" eval="[(4, ref('group_stock_picking_read'))]"/>
+        </record>
+        
+        <record id="access_stock_picking_packing_update" model="ir.model.access">
+            <field name="model_id" ref="dym_stock.model_dym_stock_packing"/>
+            <field name="name">stock_picking_packing update</field>
+            <field name="group_id" ref="group_stock_picking_packing"/>
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <!-- Stock Picking Print Picking List -->
+
+		<record id="group_stock_picking_print" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Picking Print Picking List</field>
+            <field name="implied_ids" eval="[(4, ref('group_stock_picking_read'))]"/>
+        </record>
+        
+        <record id="access_stock_picking_print_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="name">stock_picking_print update</field>
+            <field name="group_id" ref="group_stock_picking_print"/>
+            <field name="perm_write">1</field>
+        </record>
+        
+        
+        
+        <!-- Stock Picking INternal Transfer Print Picking List -->
+
+		<record id="group_stock_picking_internal_transfer_print" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Picking Print Picking Internal Transfer</field>
+            <field name="implied_ids" eval="[(4, ref('group_stock_picking_read'))]"/>
+        </record>
+        
+        <record id="access_stock_picking_internal_transfer_print_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="name">stock_picking__internal_transfer_print update</field>
+            <field name="group_id" ref="group_stock_picking_internal_transfer_print"/>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <!-- Stock Picking Reverse Transfer -->
+
+		<record id="group_stock_picking_reverse" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Picking Reverse Transfer</field>
+            <field name="implied_ids" eval="[(4, ref('group_stock_picking_read'))]"/>
+        </record>
+        
+        <record id="access_stock_picking_reverse_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_return_picking"/>
+            <field name="name">stock_picking_reverse update</field>
+            <field name="group_id" ref="group_stock_picking_reverse"/>
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <record id="access_stock_picking_reverse_line_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_return_picking_line"/>
+            <field name="name">stock_picking_reverse_line update</field>
+            <field name="group_id" ref="group_stock_picking_reverse"/>
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <record id="access_stock_picking_reverse_picking_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="name">stock_picking_reverse_picking update</field>
+            <field name="group_id" ref="group_stock_picking_reverse"/>
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <record id="access_stock_picking_reverse_spick_smove_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_move"/>
+            <field name="name">stock_picking_reverse_spick_smove update</field>
+            <field name="group_id" ref="group_stock_picking_reverse"/>
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+    	
+    	<!-- Stock Packing Post -->
+    	
+    	<record id="group_stock_packing_post" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Packing Post</field>
+            <field name="implied_ids" eval="[(4, ref('group_good_receipt_note_read')),
+            	(4, ref('group_delivery_note_read'))]"/>
+        </record>
+        
+        <record id="access_stock_packing_post_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing"/>
+            <field name="name">stock_packing_post update</field>
+            <field name="group_id" ref="group_stock_packing_post"/>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <record id="access_stock_packing_stock_move_operation_link_update" model="ir.model.access">
+            <field name="model_id" ref="model_stock_move_operation_link"/>
+            <field name="name">stock_packing_op_link update</field>
+            <field name="group_id" ref="group_stock_packing_post"/>
+            <field name="perm_unlink">1</field>
+            <field name="perm_read">1</field>
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field>
+        </record>
+
+        <record id="access_stock_packing_line_cancel_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing"/>
+            <field name="name">stock_packing_line_post update</field>
+            <field name="group_id" ref="group_stock_packing_post"/>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <record id="access_stock_packing_stock_picking_post_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="name">stock_packing_stock_picking_post update</field>
+            <field name="group_id" ref="group_stock_packing_post"/>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <record id="access_stock_packing_quant_post_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_quant"/>
+            <field name="name">stock_packing_stock_quant_post update</field>
+            <field name="group_id" ref="group_stock_packing_post"/>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <record id="access_stock_packing_lot_post_update" model="ir.model.access">
+            <field name="model_id" ref="stock.model_stock_production_lot"/>
+            <field name="name">stock_packing_lot_post update</field>
+            <field name="group_id" ref="group_stock_packing_post"/>
+            <field name="perm_create">1</field>
+            <field name="perm_write">1</field>
+        </record>
+    	
+    	<!-- Cancel -->
+
+		<record id="group_stock_packing_cancel" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Packing Cancel</field>
+            <field name="implied_ids" eval="[(4, ref('group_good_receipt_note_read')),
+            	(4, ref('group_delivery_note_read'))]"/>
+        </record>
+        
+        <record id="access_stock_packing_cancel_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing"/>
+            <field name="name">stock_packing_cancel update</field>
+            <field name="group_id" ref="group_stock_packing_cancel"/>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <!-- Renew Stock -->
+
+		<record id="group_stock_packing_renew_stock" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Packing Renew Stock</field>
+            <field name="implied_ids" eval="[(4, ref('group_good_receipt_note_read')),
+            	(4, ref('group_delivery_note_read'))]"/>
+        </record>
+        
+        <record id="access_stock_packing_renew_stock_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing"/>
+            <field name="name">stock_packing_renew_stock update</field>
+            <field name="group_id" ref="group_stock_packing_renew_stock"/>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <!-- Print Wizard -->
+
+		<record id="group_stock_packing_print_wizard" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Packing Print Wizard</field>
+            <field name="implied_ids" eval="[(4, ref('group_good_receipt_note_read')),
+            	(4, ref('group_delivery_note_read'))]"/>
+        </record>
+        
+        <record id="access_stock_packing_print_wizard_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing"/>
+            <field name="name">stock_packing_print_wizard update</field>
+            <field name="group_id" ref="group_stock_packing_print_wizard"/>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <!-- Print Lot -->
+
+		<record id="group_stock_packing_print_lot" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Stock Packing Print Serial Number</field>
+            <field name="implied_ids" eval="[(4, ref('group_good_receipt_note_read')),
+            	(4, ref('group_delivery_note_read'))]"/>
+        </record>
+        
+        <record id="access_stock_packing_print_lot_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_stock_packing"/>
+            <field name="name">stock_packing_print_lot update</field>
+            <field name="group_id" ref="group_stock_packing_print_lot"/>
+            <field name="perm_write">1</field>
+        </record>
+        
+        
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[(4,ref('group_stock_picking_packing')),
+				(4,ref('group_stock_picking_print')),
+				(4,ref('group_stock_picking_reverse')),
+				(4,ref('group_stock_packing_post')),
+				(4,ref('group_stock_packing_cancel')),
+				(4,ref('group_stock_packing_renew_stock')),
+				(4,ref('group_stock_packing_print_wizard')),
+				(4,ref('group_stock_packing_print_lot')),
+				]">
+			</field>
+		</record>
+    
+    </data>
+</openerp>

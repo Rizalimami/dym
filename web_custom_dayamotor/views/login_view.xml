@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--
+		<template id="website.layout" name="Main layout">
+			&lt;!DOCTYPE html&gt;
+			<html t-att-lang="lang and lang.replace('_', '-')" t-att-data-website-id="website.id if editable and website else None" t-att-data-editable="'1' if editable else None"
+				t-att-data-translatable="'1' if translatable else None" t-att-data-view-xmlid="xmlid if editable else None" t-att-data-main-object="repr(main_object) if editable else None"
+				t-att-data-oe-company-name="res_company.name">
+				<head>
+					<meta charset="utf-8" />
+					<t t-if="main_object and 'website_meta_title' in main_object and not title">
+						<t t-set="title" t-value="main_object.website_meta_title" />
+					</t>
+					<t t-if="main_object and 'name' in main_object and not title and not additional_title">
+						<t t-set="additional_title" t-value="main_object.name" />
+					</t>
+					<t t-if="not title">
+						<t t-set="title">
+							<t t-if="additional_title">
+								<t t-raw="additional_title" />
+								|
+							</t>
+							<t t-esc="(website or res_company).name" />
+						</t>
+					</t>
+					<meta name="viewport" content="initial-scale=1" />
+					<meta name="description" t-att-content="main_object and 'website_meta_description' in main_object
+	                and main_object.website_meta_description or website_meta_description" />
+					<meta name="keywords" t-att-content="main_object and 'website_meta_keywords' in main_object
+	                and main_object.website_meta_keywords or website_meta_keywords" />
+					<meta name="generator" content="Odoo" />
+					<title>
+						<t t-esc="title" />
+					</title>
+					<t t-set="languages" t-value="website.get_languages() if website else None" />
+					<t t-if="request and request.website_multilang and website">
+						<t t-foreach="website.get_alternate_languages(request.httprequest)" t-as="lg">
+							<link rel="alternate" t-att-hreflang="lg['hreflang']" t-att-href="lg['href']" />
+						</t>
+					</t>
+					<t t-call-assets="web.assets_common" t-js="false" />
+					<t t-call-assets="website.assets_frontend" t-js="false" />
+					<t t-raw="head or ''" name='layout_head' />
+				</head>
+				<body>
+					<div id="wrapwrap">
+						<header class="head">
+		                    <div class="navbar navbar-default navbar-static-top" style="display:none;">
+		                        <div class="container">
+		                            <div class="navbar-header">
+		                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-collapse">
+		                                    <span class="sr-only">Toggle navigation</span>
+		                                    <span class="icon-bar"></span>
+		                                    <span class="icon-bar"></span>
+		                                    <span class="icon-bar"></span>
+		                                </button>
+		                                <a class="navbar-brand" href="/" t-field="res_company.name"/>
+		                            </div>
+		                            <div class="collapse navbar-collapse navbar-top-collapse">
+		                                <ul class="nav navbar-nav navbar-right" id="top_menu">
+		                                    <t t-foreach="website.menu_id.child_id" t-as="submenu">
+		                                        <t t-call="website.submenu"/>
+		                                    </t>
+		                                    <li class="divider" t-ignore="true" t-if="website.user_id != user_id"/>
+		                                    <li class="dropdown" t-ignore="true" t-if="website.user_id != user_id">
+		                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                                            <b>
+		                                                <span t-esc="user_id.name"/>
+		                                                <span class="caret"></span>
+		                                            </b>
+		                                        </a>
+		                                        <ul class="dropdown-menu js_usermenu" role="menu">
+		                                            <li><a href="/web" role="menuitem">My Account</a></li>
+		                                            <li class="divider"/>
+		                                            <li><a t-attf-href="/web/session/logout?redirect=/" role="menuitem">Logout</a></li>
+		                                        </ul>
+		                                    </li>
+		                                </ul>
+		                            </div>
+		                        </div>
+		                    </div>
+						</header>
+		                <main>
+		                    <t t-raw="0"/>
+		                </main>
+						<footer class="footer-info">
+		                    <div id="footer_container" style="display:none;"/>
+						</footer>
+						<t t-call-assets="web.assets_common" t-css="false" />
+						<t t-call-assets="website.assets_frontend" t-css="false" />
+						<script t-if="website and website.google_analytics_key">
+							(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+							m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+							ga('create', _.str.trim('
+							<t t-esc="website.google_analytics_key" />
+							'), 'auto'); ga('send','pageview');
+						</script>
+					</div>
+				</body>
+			</html>
+		</template>
+		-->
+        <template id="website.login_layout" inherit_id="web.login_layout" name="Website Login Layout">
+            <xpath expr="t" position="replace">
+                <t t-call="website.layout">
+                    <div class="oe_website_login_container" t-raw="0" />
+                </t>
+            </xpath>
+        </template>
+        <template id="logo-social" name="Logo Social">
+            <div class="row">
+                <div class="col-md-6 col-xs-6 logo">
+                    <a href="/" class="navbar-brand">
+                        <img class="img img-responsive logo-navbar-brand" src="/web_custom_dayamotor/static/src/img/dayamotordoang-logo.png" alt="Logo" />
+                    </a>
+                </div>
+            </div>
+        </template>
+        <template id="info" name="info">
+            <div class="col-md-6 col-sm-12 main-content mb64">
+                <h1 class="funnytext">Daya Motor System</h1>
+                <p>Selamat datang di Daya Motor Management System.</p>
+                <!-- <a href="/page/contactus">
+                    <button type="button" class="btn btn-default home-btn">Contact Us</button>
+                </a> -->
+                <a href="/web/login" t-if="website.user_id == user_id">
+                    <button type="button" class="btn btn-default home-btn">Login</button>
+                </a>
+                <a href="/web" t-if="website.user_id != user_id">
+                    <button type="button" class="btn btn-default home-btn">My Account</button>
+                </a>
+            </div>
+        </template>
+        <template id="website.homepage" name="Homepage" page="True" priority="29">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty" style="background-color:#ffffff;">
+                    <div class="container">
+                        <t t-call="web_custom_dayamotor.logo-social" />
+                        <div class="row mb64">
+                            <t t-call="web_custom_dayamotor.info" />
+                            <!-- <div class="col-md-6 col-sm-12 mt16">
+                                <img class="img img-responsive" src="/web_custom_dayamotor/static/src/img/yellow-cbr.jpg" alt="Phone" />
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="website.login_layout" inherit_id="web.login_layout" name="Website Login Layout">
+            <xpath expr="t" position="replace">
+                <t t-call="website.layout">
+                    <div class="container">
+                        <t t-call="web_custom_dayamotor.logo-social" />
+                        <div class="row">
+                            <t t-call="web_custom_dayamotor.info" />
+                            <div class="col-md-6 col-sm-12 mt32 mb48 phone-mockup">
+                                <div class="oe_website_login_container" t-raw="0" />
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+        <template id="footer_default_adsoft" name="footer_default_adsoft" inherit_id="website.footer_default">
+            <xpath expr="//div[@class='col-md-3']" position="attributes">
+                <attribute name="class">col-lg-3 col-md-3 col-sm-6 col-xs-12</attribute>
+            </xpath>
+            <xpath expr="//div[@id='info']" position="attributes">
+                <attribute name="class">col-lg-3 col-md-3 col-sm-6 col-xs-12</attribute>
+            </xpath>
+            <xpath expr="//div[@class='col-md-5 col-lg-offset-1']" position="replace">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <h4>Customer Area</h4>
+                    <ul class="list-unstyled" id="layanan_pelanggan">
+                        <li><a href="/page/contactus">Contact Us</a></li>
+                        <li><a href="/">Our Office</a></li>
+                        <li><a href="/page/tems-conditions">Terms &amp; Conditions</a></li>
+                        <li><a href="/page/privacy-policy">Privacy Policy</a></li>
+                        <li><a href="/">Site Map</a></li>
+                        <li><a href="/">Help</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div>
+                        <h4>
+				        <span t-field="res_company.name" />
+				        <small> - <a href="/page/website.aboutus">About us</a></small>
+				    </h4>
+                        <p>
+                            We are a team of passionate people whose goal is to improve everyone's life through disruptive products. We build great products to solve your business problems.
+                        </p>
+                        <p>
+                            Our products are designed for small to medium size companies willing to optimize their performance.
+                        </p>
+                    </div>
+                    <ul class="list-inline js_language_selector mt16" t-if="(request.website_multilang and len(languages) &gt; 1) or editable">
+                        <li t-foreach="languages" t-as="lg">
+                            <a t-att-href="url_for(request.httprequest.path + '?' + keep_query(), lang=lg[0])" t-att-data-default-lang="editable and 'true' if lg[0] == website.default_lang_code else None">
+                                <t t-esc="lg[1].split('/').pop()" />
+                            </a>
+                        </li>
+                        <li groups="base.group_website_publisher">
+                            <t t-set="url_return" t-value="url_for('', '[lang]') + '?' + keep_query()" />
+                            <a t-attf-href="/web#action=base.action_view_base_language_install&amp;website_id=#{website.id}&amp;url_return=#{url_return}">
+                                <i class="fa fa-plus-circle" /> Add a language...
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </xpath>
+        </template>
+        <template id="website.footer_custom" inherit_id="website.layout" name="Footer">
+            <xpath expr="//div[@id='footer_container']" position="replace">
+                <div class="oe_structure" id="footer">
+                    <section id="footer-address">
+                        <div class="container">
+                            <div class="row">
+                                <!-- <div class="icon-address col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-5 col-xs-12 ">
+                                            <a class="navbar-brand" href="/" t-field="res_company.name" />
+                                        </div>
+                                        <div class="col-md-7">
+                                            <h3>
+					                            <span t-field="res_company.name" />
+								                <small t-field="res_company.partner_id" t-field-options='{"widget": "contact","fields": ["address"]}'/>
+											</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="icon-address col-md-3">
+                                    <i class="fa fa-fax"></i>
+                                    <h3>
+										<span t-field="res_company.phone" />
+										<small t-field="res_company.fax" />
+									</h3>
+                                </div> -->
+                                <!-- <div class="icon-address col-md-3">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <h3>
+										Technical Support
+										<small t-field="res_company.email" />
+									</h3>
+                                </div> -->
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </xpath>
+        </template>
+        <template id="website.layout_footer_copyright" inherit_id="website.layout" name="Footer Copyright">
+            <xpath expr="//footer" position="inside">
+                <div class="container mt16 mb8">
+                    <div class="pull-left text-muted" itemscope="itemscope" itemtype="http://schema.org/Organization">
+                        COPYRIGHT &amp;copy; DAYA ANUGRAH MANDIRI
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,72 @@
+id,name,code,branch_id:id
+wh_branch_dsr,Cabang Riau,DSR,dym_branch.branch_dsr
+wh_branch_djj,Cabang Jambi,DJJ,dym_branch.branch_djj
+wh_branch_djb,Cabang Bangko,DJB,dym_branch.branch_djb
+wh_branch_djs,Cabang Muara Sabak,DJS,dym_branch.branch_djs
+wh_branch_djm,Cabang Merlung,DJM,dym_branch.branch_djm
+wh_branch_dju,Cabang Muarabungo,DJU,dym_branch.branch_dju
+wh_branch_dsm,Cabang Martapura,DSM,dym_branch.branch_dsm
+wh_branch_dsg,Cabang Gelumbang,DSG,dym_branch.branch_dsg
+wh_branch_dsb,Cabang Pangkalan Balai,DSB,dym_branch.branch_dsb
+wh_branch_dsp,Cabang Palembang,DSP,dym_branch.branch_dsp
+wh_branch_dsk,Cabang Kayu Agung,DSK,dym_branch.branch_dsk
+wh_branch_dup,Cabang Putri Hijau,DUP,dym_branch.branch_dup
+wh_branch_duk,Cabang Kepahyang,DUK,dym_branch.branch_duk
+wh_branch_dle,Cabang Way Sekampung,DLE,dym_branch.branch_dle
+wh_branch_dlp,Cabang Pahoman,DLP,dym_branch.branch_dlp
+wh_branch_dlm,Cabang Simpang Pematang,DLM,dym_branch.branch_dlm
+wh_branch_dlh,Cabang Seputih Mataram,DLH,dym_branch.branch_dlh
+wh_branch_dlx,Cabang Kalianda,DLX,dym_branch.branch_dlx
+wh_branch_dll,Cabang Kemiling,DLL,dym_branch.branch_dll
+wh_branch_dld,Cabang Tulang Bawang Barat,DLD,dym_branch.branch_dld
+wh_branch_dlf,Cabang Trimurjo,DLF,dym_branch.branch_dlf
+wh_branch_dlv,Cabang Purbolinggo,DLV,dym_branch.branch_dlv
+wh_branch_dlq,Cabang Tirtayasa,DLQ,dym_branch.branch_dlq
+wh_branch_dlc,Cabang Rawajitu,DLC,dym_branch.branch_dlc
+wh_branch_dly,Cabang Yos Sudarso,DLY,dym_branch.branch_dly
+wh_branch_dlw,Cabang Way Kanan,DLW,dym_branch.branch_dlw
+wh_branch_dlu,Cabang Kota Bumi,DLU,dym_branch.branch_dlu
+wh_branch_dlt,Cabang Tulang Bawang,DLT,dym_branch.branch_dlt
+wh_branch_dls,Cabang Sidomulyo,DLS,dym_branch.branch_dls
+wh_branch_dlo,Cabang Kota Gajah,DLO,dym_branch.branch_dlo
+wh_branch_dln,Cabang Kota Agung,DLN,dym_branch.branch_dln
+wh_branch_dlk,Cabang Krui,DLK,dym_branch.branch_dlk
+wh_branch_dlj,Cabang Way Jepara,DLJ,dym_branch.branch_dlj
+wh_branch_dli,Cabang Tanjung Bintang,DLI,dym_branch.branch_dli
+wh_branch_dlg,Cabang Gading Rejo,DLG,dym_branch.branch_dlg
+wh_branch_dlb,Cabang Bakauheni,DLB,dym_branch.branch_dlb
+wh_branch_dla,Cabang Antasari,DLA,dym_branch.branch_dla
+wh_branch_dlr,Cabang Raden Intan,DLR,dym_branch.branch_dlr
+wh_branch_mml,MD Lampung,MML,dym_branch.branch_mml
+wh_branch_dbl,Cabang Belitung,DBL,dym_branch.branch_dbl
+wh_branch_dbk,Cabang Kelapa,DBK,dym_branch.branch_dbk
+wh_branch_dbb,Cabang Bangka,DBB,dym_branch.branch_dbb
+wh_branch_dbs,Cabang Sungai Liat,DBS,dym_branch.branch_dbs
+wh_branch_dbt,Cabang Toboali,DBT,dym_branch.branch_dbt
+wh_branch_dds,Cabang Saharjo,DDS,dym_branch.branch_dds
+wh_branch_ddc,Cabang Cimareme,DDC,dym_branch.branch_ddc
+wh_branch_ddb,Cabang Bekasi,DDB,dym_branch.branch_ddb
+wh_branch_dda,Cabang Caman,DDA,dym_branch.branch_dda
+wh_branch_ddd,Cabang Depok,DDD,dym_branch.branch_ddd
+wh_branch_dde,Cabang Temanggung,DDE,dym_branch.branch_dde
+wh_branch_ddg,Cabang Godean,DDG,dym_branch.branch_ddg
+wh_branch_ddm,Cabang Mojosari,DDM,dym_branch.branch_ddm
+wh_branch_ddj,Cabang Jombang,DDJ,dym_branch.branch_ddj
+wh_branch_ddt,Cabang Tabanan,DDT,dym_branch.branch_ddt
+wh_branch_ddi,Cabang Bima,DDI,dym_branch.branch_ddi
+wh_branch_dxk,Cabang Ketapang,DXK,dym_branch.branch_dxk
+wh_branch_dxt,Cabang Tenggarong,DXT,dym_branch.branch_dxt
+wh_branch_dxs,Cabang Samarinda,DXS,dym_branch.branch_dxs
+wh_branch_dxg,Cabang Tanah Grogot,DXG,dym_branch.branch_dxg
+wh_branch_dxb,Cabang Balikpapan,DXB,dym_branch.branch_dxb
+wh_branch_dxn,Cabang Nanga Pinoh,DXN,dym_branch.branch_dxn
+wh_branch_dwt,Cabang Tuminting,DWT,dym_branch.branch_dwt
+wh_branch_dwr,Cabang Pare-Pare,DWR,dym_branch.branch_dwr
+wh_branch_dwp,Cabang Pinrang,DWP,dym_branch.branch_dwp
+wh_branch_dwo,Cabang Palopo,DWO,dym_branch.branch_dwo
+wh_branch_dwk,Cabang Kendari,DWK,dym_branch.branch_dwk
+wh_branch_dws,Cabang Sengkang,DWS,dym_branch.branch_dws
+wh_branch_dwg,Cabang Pangkep,DWG,dym_branch.branch_dwg
+wh_branch_dwm,Cabang Tomoni,DWM,dym_branch.branch_dwm
+wh_branch_dwn,Cabang Gorontalo,DWN,dym_branch.branch_dwn
+wh_branch_ddu,Cabang Sukabumi,DDU,dym_branch.branch_ddu

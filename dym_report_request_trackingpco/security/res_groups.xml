@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">  	
+    	
+<!-- Laporan Payment Request -->	
+        <record id="group_laporan_request_trackingpco_finance_menu" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Laporan User Request Tracking Finance Menu</field> 
+            <field name="menu_access" eval="[(4, ref('menu_request_trackingpco_report'))]"/>  
+        </record>         
+   
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[(4,ref('group_laporan_request_trackingpco_finance_menu')),
+                                            ]"/> 
+		</record>                                                                                           
+    </data>
+</openerp>

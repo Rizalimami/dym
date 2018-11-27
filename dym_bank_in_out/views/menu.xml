@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="dym_bank_transaction_in_out_menu" name="Bank In/Out" parent="dym_dealer_menu.backoffice_bankandcash_menu" sequence="60" />
+    </data>
+</openerp>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="dym_insurance_menu" name="Insurance" parent="dym_dealer_menu.general_affair_top_menu" sequence="20"/>
+        <record id="dym_insurance_batch_import_filter" model="ir.ui.view">
+            <field name="name">dym.insurance.batch.import.search</field>
+            <field name="model">dym.insurance.batch.import</field>
+            <field name="arch" type="xml">
+                <search string="Search Insurance Batch Import">
+                    <field name="name" string="Insurance Batch Import" />
+                    <field name="value_date" />
+                    <field name="date" />
+                    <filter string="Draft" domain="[('state','=','draft')]" help="Draft Insurance Batch Import" />
+                    <filter name="done_filter" string="Done" domain="[('state','=','close')]" help="Done Insurance Batch Import" />
+                </search>
+            </field>
+        </record>
+        <record id="dym_insurance_batch_import_tree" model="ir.ui.view">
+            <field name="name">dym.insurance.batch.import.tree</field>
+            <field name="model">dym.insurance.batch.import</field>
+            <field name="arch" type="xml">
+                <tree string="Insurance Batch Import">
+                    <field name="name" />
+                    <field name="value_date" />
+                    <field name="date" />
+                    <field name="total_amount" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="dym_insurance_batch_import_form" model="ir.ui.view">
+            <field name="name">dym.insurance.batch.import.form</field>
+            <field name="model">dym.insurance.batch.import</field>
+            <field name="arch" type="xml">
+                <form string="Insurance Batch Import">
+                    <header>
+                        <button name="compute_insurance_batch_import" type="object" string="Compute" states="draft" class="oe_highlight" invisible="1" />
+                        <button string="Set to Draft" name="action_set_to_draft" type="object" states="close" />                        
+                        <button name="view_purchase_order" string="View PO" type="object" class="oe_highlight" states="approved,done" />
+                        <button name="%(action_import_insurance)d" string="Load File" attrs="{'invisible':[('state', '!=',('draft'))]}" class="oe_highlight" type="action" />
+                        <!-- <button name="action_confirm_payment" string="Confirm Payment" attrs="{'invisible':[('state', 'not in',('approved'))]}" class="oe_highlight" type="object" /> -->
+                        <field name="state" widget="statusbar" statusbar_visible="draft,waiting_for_approval,approved,done" statusbar_colors='{"draft":"red","done":"blue"}' />
+                    </header>
+                    <sheet>
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="branch_id" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                                <field name="division" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                                <field name="partner_id" attrs="{'readonly':[('state','!=',('draft'))]}" />
+                                <field name="type" />
+                                <field name="total_amount" readonly="1"/>
+                                <field name="po_ids" widget="many2many_tags" invisible="1" />
+                            </group>
+                            <group>
+                                <field name="company_id" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                                <field name="date" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                                <field name="value_date" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                                <label for="date_start" string="Insurance Period"/>
+                                <div>
+                                    <field name="date_start" class="oe_inline" />
+                                    <field name="date_end" class="oe_inline" />
+                                </div>
+                                <field name="memo" attrs="{'readonly':[('state','!=',('draft'))]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="batch_import" string="Batch Import">
+                                <field name="line_ids">
+                                    <tree string="Lines" create="false">
+                                        <field name="name" />
+                                        <field name="inter_branch_id" />
+                                        <field name="inter_division" />
+                                        <field name="type" />
+                                        <field name="price_unit" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_dym_insurance_batch_import_tree" model="ir.actions.act_window">
+            <field name="name">Insurance Import</field>
+            <field name="res_model">dym.insurance.batch.import</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="dym_insurance_batch_import_tree" />
+            <field name="search_view_id" ref="dym_insurance_batch_import_filter" />
+        </record>
+        <menuitem action="action_dym_insurance_batch_import_tree" id="menu_dym_insurance_batch_import" parent="dym_insurance_menu" sequence="11" />
+    </data>
+</openerp>

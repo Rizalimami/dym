@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--  Compute Stock Minimum Rules Only -->
+
+        <record id="view_procurement_compute_wizard" model="ir.ui.view">
+            <field name="name">Close Expired Purchase</field>
+            <field name="model">close.purchase.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Parameters">
+                    <group>
+                        <label string="Wizard checks all expired Purchase Order and close them all."/>
+                    </group>
+                    <footer>
+                        <button name="close_purchase_order" string="Close Expired Purchase Order" type="object"  class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Close Expired Purchase"
+            res_model="close.purchase.wizard"
+            src_model="purchase.order"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="action_close_purchase"/>
+            
+
+    </data>
+</openerp>

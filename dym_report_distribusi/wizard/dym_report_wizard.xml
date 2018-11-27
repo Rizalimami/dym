@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+    <record id="view_report_distribusi_wizard" model="ir.ui.view">
+		<field name="name">Print Laporan Distribusi Sparepart</field>
+		<field name="model">dym.report.distrbusi.wizard</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+	        <form string="Laporan Distribusi Sparepart">
+	        	<group>
+	        		<group>
+                    	<field name="division" required="1"/>
+                    	<field name="type_po" required="1"/>
+		            	<label for="start_date_po" string="Tanggal PO"/>
+		   				<div>
+		   					<field name="start_date_po" class="oe_inline"/> - <field name="end_date_po" class="oe_inline"/>
+		   				</div>
+	          		</group>
+	        		<group/>
+	          	</group>
+	          
+				<notebook colspan="5">
+                    <page string="Purchase Order">
+                        <field name="po_ids"/>
+                    </page>
+		      		<page string="Branches">
+						<field name="branch_ids" colspan="4" nolabel="1"/>
+		      		</page>
+	        	</notebook>
+	          	<footer>
+	            	<button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1}" class="oe_highlight"/>
+	            	or <button string="Cancel" class="oe_link" special="cancel"/>
+	          	</footer>
+	          	
+	        </form>
+    	</field>
+    </record>
+
+    <record id="action_report_distribusi_wizard" model="ir.actions.act_window">
+		<field name="name">Laporan Distribusi Sparepart</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">dym.report.distrbusi.wizard</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_report_distribusi_wizard"/>
+		<field name="target">new</field>
+    </record>
+
+	<menuitem id="menu_distribusi_workshop_report" parent="dym_dealer_menu.workshop_report_menu" sequence="9" action="action_report_distribusi_wizard"/>
+	</data>
+</openerp>

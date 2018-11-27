@@ -1,0 +1,41 @@
+{
+    "name":"Purchase Order for Asset",
+    "version":"0.1",
+    "author":"ADSOFT",
+    "category":"Custom Module for DYMS",
+    "description": """
+        Purchase Order for Asset With Depreciation.
+    """,
+    "depends":[
+        "base",
+        "dym_purchase_requisition",
+        "dym_account_voucher",
+        "purchase",
+        "account",
+        "account_asset",
+        "dym_dealer_menu",
+        "dym_account",
+    ],
+    "data":[
+        "data/dym2_asset_approval_config_data.xml",
+        "report/register_asset_report.xml",
+        "data/account_journal.xml",
+        "data/dp.xml",
+        "views/register_asset_stock.xml",
+        "views/asset_view.xml",
+        "views/prepaid_view.xml",
+        "views/register_prepaid.xml",
+        "views/purchase_order_view.xml",
+        "views/transfer_asset.xml",
+        "views/transfer_asset_approval.xml",
+        "views/call_for_bids_view.xml",
+        "views/account_view.xml",
+        "views/analisa_penyusutan.xml",
+        "security/ir.model.access.csv",
+        "security/ir_rule.xml",
+        "security/res_groups.xml", 
+        "security/res_groups_button.xml",
+    ],
+    "active":False,
+    "installable":True
+}

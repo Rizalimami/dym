@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_report_control_bank_book_wizard" model="ir.ui.view">
+            <field name="name">Print Laporan Kontrol Kas dan Bank</field>
+            <field name="model">dym.report.control.bank.book.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Laporan Kontrol Kas dan Bank">
+                    <group>
+                        <field name="company_id" required="1" groups="base.group_multi_company" />
+                        <field name="period_id" domain="[('company_id','=',company_id)]" options="{'no_create': True,'no_open': True}" />
+                    </group>
+                    <notebook colspan="5">
+                        <page string="Branch">
+                            <field name="branch_ids" colspan="4" nolabel="1" domain="[('company_id','=',company_id)]" />
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="xls_export" string="Export" type="object" icon="gtk-execute" context="{'xls_export':1}" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_report_control_bank_book_wizard" model="ir.actions.act_window">
+            <field name="name">Laporan Kontrol Kas dan Bank</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dym.report.control.bank.book.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_report_control_bank_book_wizard" />
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_control_bank_book_report_workshop" parent="dym_dealer_menu.backoffice_report_menu" sequence="0" action="action_report_control_bank_book_wizard" />
+    </data>
+</openerp>

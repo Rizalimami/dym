@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="register_asset_stock_branch_config" model="ir.ui.view">
+            <field name="name">register.asset.stock.branch.config</field>
+            <field name="model">dym.branch.config</field>
+            <field name="inherit_id" ref="dym_purchase_asset.register_asset_prepaid_branch_config" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@string='Register Asset &amp; Prepaid']" position="inside">
+                    <field name="account_register_asset_persediaan" />
+                    <field name="account_register_asset_ppn_keluaran" />
+                    <field name="account_register_discount_subsidi_external" />
+                </xpath>
+            </field>
+        </record>
+        <record id="dym_receipt_asset_stock_form_view" model="ir.ui.view">
+            <field name="name">dym.receipt.asset.stock.form.view</field>
+            <field name="model">dym.transfer.asset</field>
+            <field name="inherit_id" ref="dym_purchase_asset.dym_receipt_asset_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='create_asset']" position="before">
+                    <button name="cetak_register_asset_stock" attrs="{'invisible':[('register_type','!=','stock','state','!=','done')]}" type="object" string="Print" class="oe_highlight" icon="gtk-print" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

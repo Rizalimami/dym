@@ -1,0 +1,14 @@
+import dym_proses_stnk
+import dym_penerimaan_stnk
+import dym_penerimaan_bpkb
+import dym_lokasi_bpkb
+import dym_proses_birojasa
+import dym_approval_proses_birojasa
+import dym_lokasi_stnk
+import dym_mutasi_bpkb
+import dym_mutasi_stnk
+import dym_serial_number_pf
+import dym_branch_config
+import dym_birojasa_withholding_tax
+import dym_account_invoice_withholding_tax
+import dym_batal_birojasa

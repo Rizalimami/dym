@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_quant_hpp_tree" model="ir.ui.view">
+            <field name="name">stock.quant.tree</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree" />
+            <field name="arch" type="xml">
+                <field name="in_date" position="after">
+                    <field name="consolidated_date" />
+                </field>
+                <field name="inventory_value" position="replace">
+                    <field name="warehouse_id" />
+                    <field name="state" />
+                </field>
+            </field>
+        </record>
+        <record id="view_quant_hpp_form" model="ir.ui.view">
+            <field name="name">stock.quant.form</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_form" />
+            <field name="arch" type="xml">
+                <field name="in_date" position="after">
+                    <field name="consolidated_date" />
+                </field>
+                <!--
+                <field name="inventory_value" position="replace">
+                    <field name="warehouse_id" readonly="1" />
+                    <field name="state" readonly="1" />
+                </field>
+                -->
+            </field>
+        </record>
+        <record id="view_production_lot_hpp_form" model="ir.ui.view">
+            <field name="name">stock.production.lot.hpp.form</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form" />
+            <field name="arch" type="xml">
+                <field name="ref" position="after">
+                    <field name="hpp" readonly="1" />
+                    <field name="performance_hpp" readonly="1" />
+                    <field name="consolidate_id" readonly="1" />
+                </field>
+            </field>
+        </record>
+        <record id="dym_hpp_account_invoice_form_view" model="ir.ui.view">
+            <field name="name">dym.hpp.account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <field name="move_id" position="after">
+                    <field name="consolidated" readonly="True" />
+                </field>
+                <xpath expr="//field[@name='quantity']" position="after">
+                    <field name="consolidated_qty" readonly="1" />
+                </xpath>
+            </field>
+        </record>
+        <record id="dym_hpp_search_view" model="ir.ui.view">
+            <field name="name">dym.hpp.search</field>
+            <field name="model">consolidate.invoice</field>
+            <field name="arch" type="xml">
+                <search string="Search Consolidate">
+                    <field name="name" />
+                    <field name="branch_id" />
+                    <field name='division' />
+                    <field name="invoice_id" />
+                    <field name="partner_id" />
+                    <field name='picking_id' string="Incoming Shipment" />
+                    <field name="receive_id" string="Receive Asset / Prepaid" />
+                </search>
+            </field>
+        </record>
+        <record id="view_consolidate_invoice_tree" model="ir.ui.view">
+            <field name="name">consolidate.invoice.tree</field>
+            <field name="model">consolidate.invoice</field>
+            <field name="arch" type="xml">
+                <tree string="Consolidate Invoice">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="invoice_id" />
+                    <field name='partner_id' />
+                    <field name='picking_id' string="Incoming Shipment" />
+                    <field name="receive_id" string="Receive Asset / Prepaid" />
+                    <field name="state" />
+                    <field name="branch_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_consolidate_invoice_form" model="ir.ui.view">
+            <field name="name">consolidate.invoice.form</field>
+            <field name="model">consolidate.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Consolidate Invoice">
+                    <header>
+                        <!-- Yordan
+                        <button name="consolidate_cancel" type="object" states="draft" string="Cancel" icon="terp-stock_effects-object-colorize" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" groups="dym_base_security.group_dym_accounting_dept_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_operation_div_head,dym_base_security.group_dym_operation_support_div_head" />
+                        <button name="consolidate_draft" type="object" states="cancel" string="Set to Draft" icon="terp-stock_effects-object-colorize" groups="dym_base_security.group_dym_accounting_sec_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_accounting_sub_dept_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_app_finance_ap,dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_ga_administrasi,dym_base_security.group_dym_ga_purchasing,dym_base_security.group_dym_hrga_dept_head,dym_base_security.group_dym_operation_div_head,dym_base_security.group_dym_operation_sub_div_head,dym_base_security.group_dym_operation_support_div_head,dym_base_security.group_dym_part_acc_dept_head,dym_base_security.group_dym_pic_ap,dym_base_security.group_dym_service_dept_head,dym_base_security.group_dym_treasury_sec_head,dym_base_security.group_dym_treasury_staff" />
+                        <button name="consolidate_confirm" type="object" states="draft" string="Post" icon="gtk-apply" groups="dym_base_security.group_dym_fatb_div_head,dym_base_security.group_dym_adh,dym_base_security.group_dym_finance_dept_head,dym_base_security.group_dym_finance_sec_head,dym_base_security.group_dym_finance_sub_dept_head,dym_base_security.group_dym_ga_administrasi,dym_base_security.group_dym_ga_purchasing,dym_base_security.group_dym_hrga_dept_head,dym_base_security.group_dym_operation_div_head,dym_base_security.group_dym_operation_sub_div_head,dym_base_security.group_dym_operation_support_div_head,dym_base_security.group_dym_part_acc_dept_head,dym_base_security.group_dym_pic_ap,dym_base_security.group_dym_service_dept_head,dym_base_security.group_dym_treasury_sec_head,dym_base_security.group_dym_treasury_staff" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"red","done":"blue"}' />
+                        -->
+                        <button name="consolidate_cancel" type="object" states="draft" string="Cancel" icon="terp-stock_effects-object-colorize" confirm="Apa anda yakin ingin membatalkan transaksi ini ?" groups="dym_base_security.group_dym_adh" />
+                        <button name="consolidate_draft" type="object" states="cancel" string="Set to Draft" icon="terp-stock_effects-object-colorize" groups="dym_base_security.group_dym_adh" />
+                        <button name="consolidate_confirm" type="object" states="draft" string="Post" icon="gtk-apply" groups="dym_base_security.group_dym_adh,dym_base_security.group_dym_ga_purchasing" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"red","done":"blue"}' />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                            <label string="Consolidate Invoice"/>
+                            <field name="name" class="oe_inline" readonly="1"/> 
+                        </h1>
+                        </div>
+                        <field name="asset" invisible="1" />
+                        <group>
+                            <group>
+                                <field name="branch_id" options='{"no_open": True, "no_create": True}' attrs="{'readonly':[('name','!=','/')]}" />
+                                <field name="partner_id" domain="['|','|',('principle','=',True),('supplier','=',True),('partner_type','=','Konsolidasi')]" required="True" options='{"no_open": True, "no_create": True}' />
+                                <field name="invoice_id" domain="[('type','=','in_invoice'),('branch_id','=',branch_id),('division','=',division),('state','=','open'),('partner_id','=',partner_id),('consolidated','=',False)]" options='{"no_open": True, "no_create": True}' on_change="invoice_id_change(invoice_id, partner_id, branch_id, division)" />
+                            </group>
+                            <group>
+                                <field name="division" attrs="{'readonly':[('name','!=','/')]}" />
+                                <field name="date" />
+                                <field name="picking_id" attrs="{'invisible':[('asset','=',True)],'required':[('asset','=',False)]}" domain="[('picking_type_code','=','incoming'),('branch_id','=',branch_id),('division','=',division),('state','=','done'),('partner_id','=',partner_id),('consolidated','=',False)]" options='{"no_open": True, "no_create": True}' on_change="picking_id_change(picking_id, receive_id, asset, branch_id, division, invoice_id, partner_id)" />
+                                <field name="receive_id" attrs="{'invisible':[('asset','=',False)],'required':[('asset','=',True)]}" domain="[('purchase_id.branch_id','=',branch_id),('purchase_id.division','=',division),('state','=','done'),('purchase_id.partner_id','=',partner_id),('consolidated','=',False)]" options='{"no_open": True, "no_create": True}' on_change="picking_id_change(picking_id, receive_id, asset, branch_id, division, invoice_id, partner_id)" />
+                            </group>
+                        </group>
+                        <notebook colspan="5">
+                            <page string="Consolidate Lines">
+                                <field colspan="4" name="consolidate_line" nolabel="1" widget="one2many_list">
+                                    <tree string="" editable="bottom">
+                                        <field name="name" domain="[('consolidate_id', '=', False),('picking_id', '=', parent.picking_id),('picking_id', '!=', False),('state', '=', 'intransit')]" on_change="lot_change(parent.branch_id,parent.division,name,product_id,parent.invoice_id,parent.partner_id,parent.picking_id,parent.receive_id,template_id)" options='{"no_open": True, "no_create": True}' string="Engine Number" />
+                                        <field name="template_id" on_change="lot_change(parent.branch_id,parent.division,name,product_id,parent.invoice_id,parent.partner_id,parent.picking_id,parent.receive_id, template_id)" options="{'no_open':True,'no_create':True}" domain="[('id', '=', 0)]" />
+                                        <field name="product_id" on_change="lot_change(parent.branch_id,parent.division,name,product_id,parent.invoice_id,parent.partner_id,parent.picking_id,parent.receive_id,template_id)" options='{"no_open": True, "no_create": True,"always_reload": True}' string="Variant" context="{'branch_id':parent.branch_id,'attribute_only':True}" domain="[('id', '=', 0)]" />
+                                        <field name="product_qty" on_change="product_qty_change(product_qty,move_qty)" sum="qty" />
+                                        <field name="move_qty" invisible="1" />
+                                        <field name="move_qty_show" readonly="1" />
+                                        <field name="move_id" invisible="1" />
+                                        <field name="receive_line_id" invisible="1" />
+                                        <field name="purchase_line_id" invisible="1" />
+                                        <field name="product_uom" on_change="lot_change(parent.branch_id,parent.division,name,product_id,parent.invoice_id,parent.partner_id,parent.picking_id,parent.receive_id,template_id)" />
+                                        <field name="price_unit" on_change="lot_change(parent.branch_id,parent.division,name,product_id,parent.invoice_id,parent.partner_id,parent.picking_id,parent.receive_id,template_id)" />
+                                        <field name="price_subtotal" readonly="1" sum="subtotal" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                        <field name="confirm_uid" readonly="1"></field>
+                                        <field name="confirm_date" readonly="1"></field>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="seq_type_consolidate_invoice_new" model="ir.sequence.type">
+            <field name="name">Consolidate Invoice</field>
+            <field name="code">consolidate.invoice</field>
+        </record>
+        <record id="seq_consolidate_invoice_new" model="ir.sequence">
+            <field name="name">Consolidate Invoice</field>
+            <field name="code">consolidate.invoice</field>
+            <field name="prefix">CI/%(y)s%(month)s/</field>
+            <field name="padding">4</field>
+        </record>
+        <record model="ir.actions.act_window" id="action_consolidate_invoice_form_showroom">
+            <field name="name">Consolidate Invoice</field>
+            <field name="res_model">consolidate.invoice</field>
+            <field name="domain">[('division','in',('Unit','Umum'))]</field>
+            <field name="context">{'menu': 'showroom'}</field>
+            <field name="search_view_id" ref="dym_hpp_search_view" />
+        </record>
+        <record model="ir.actions.act_window" id="action_consolidate_invoice_form_workshop">
+            <field name="name">Consolidate Invoice</field>
+            <field name="res_model">consolidate.invoice</field>
+            <field name="domain">[('division','in',('Sparepart','Umum'))]</field>
+            <field name="context">{'menu': 'workshop'}</field>
+            <field name="search_view_id" ref="dym_hpp_search_view" />
+        </record>
+        <record model="ir.actions.act_window" id="action_consolidate_invoice_form_general_affair">
+            <field name="name">Consolidate Invoice</field>
+            <field name="res_model">consolidate.invoice</field>
+            <field name="domain">[('division','in',('Unit','Sparepart','Umum'))]</field>
+            <field name="context">{'menu': 'general_affair'}</field>
+            <field name="search_view_id" ref="dym_hpp_search_view" />
+        </record>
+        <menuitem id="consolidate_invoice_1" parent="dym_dealer_menu.showroom_purchase_menu" sequence="8" name="Consolidate Invoice" action="action_consolidate_invoice_form_showroom" />
+        <menuitem id="consolidate_invoice_2" parent="dym_dealer_menu.workshop_purchase_menu" sequence="8" name="Consolidate Invoice" action="action_consolidate_invoice_form_workshop" />
+        <menuitem id="consolidate_invoice_3" parent="dym_dealer_menu.ga_purchase_menu" sequence="80" name="Consolidate Invoice" action="action_consolidate_invoice_form_general_affair" />
+    </data>
+</openerp>

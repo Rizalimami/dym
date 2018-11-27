@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+		<record model="ir.ui.view" id="journal_eliminasi_tree_view">
+		    <field name="name">dym.journal.elimination.tree.view</field>
+		    <field name="model">dym.journal.elimination</field>
+		    <field name="arch" type="xml">
+		        <tree string="List Journal Eliminasi">
+		        	<field name="name"/>
+					<field name="periode_id"/>	
+		            <field name="date"/>
+		            <field name='state'/>            
+		        </tree>
+		     </field>
+		</record>
+
+        <record id="view_account_move_line_consol_filter" model="ir.ui.view">
+            <field name="name">Journal Items</field>
+            <field name="model">account.move.line.consol</field>
+            <field name="arch" type="xml">
+                <search string="Search Journal Items">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('ref','ilike',self)]" string="Move"/>
+                    <field name="date"/>
+                    <filter icon="terp-document-new" string="Unbalanced" domain="[('state','=','draft')]" help="Unbalanced Journal Items"/>
+                    <separator/>
+                    <filter icon="terp-document-new" string="Unposted" domain="[('move_id.state','=','draft')]" help="Unposted Journal Items"/>
+                    <filter name="posted" icon="terp-camera_test" string="Posted" domain="[('move_id.state','=','posted')]" help="Posted Journal Items"/>
+                    <separator/>
+                    <filter icon="terp-dolar_ok!" string="Unreconciled" domain="[('reconcile_id','=',False), ('account_id.reconcile','=',True)]" help="Unreconciled Journal Items" name="unreconciled"/>
+                    <separator/>
+                    <filter string="Next Partner to Reconcile" help="Next Partner Entries to reconcile" name="next_partner" context="{'next_partner_only': 1}" icon="terp-gtk-jump-to-ltr" domain="[('account_id.reconcile','=',True),('reconcile_id','=',False)]"/>
+                    <field name="move_id" string="Number (Move)"/>
+                    <field name="account_id"/>
+                    <field name="partner_id"/>
+                    <field name="journal_id" context="{'journal_id':self}" widget="selection"/> <!-- it's important to keep widget='selection' in this filter viewbecause without that the value passed in the context is not the ID but the textual value (name) of the selected journal -->
+                    <field name="period_id" context="{'period_id':self}" widget="selection"/> <!-- it's important to keep the widget='selection' in this field, for the same reason as explained above -->
+                    <group expand="0" string="Group By">
+                        <filter string="Entry" icon="terp-folder-orange" domain="[]" context="{'group_by':'consol_entry'}"/>
+                        <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Account"  icon="terp-folder-green" context="{'group_by':'account_id'}"/>
+                        <filter string="Period" icon="terp-go-month" domain="[]" context="{'group_by':'period_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record model="ir.ui.view" id="account_move_line_consol_search_tree_view">
+		    <field name="name">account.move.line.consol.search.tree.view</field>
+		    <field name="model">account.move.line.consol</field>
+		    <field name="arch" type="xml">
+				<!-- <tree string="List Journal Consolidasi" colors="red:partner_type != 'Konsolidasi';"> -->
+				<tree string="List Journal Consolidasi" colors="red:is_intercom != True;">
+				<field name="partner_type" invisible="1"/>
+				<field name="is_intercom" invisible="1"/>
+				<field name="consol_entry"/>
+				<field name="branch_id"/>
+				<field name="division"/>
+				<field name="name"/>
+				<field name="partner_id"/>
+				<field name="account_id" />
+				<field name="credit" string="Debit" sum="Total Debit"/>
+				<field name="debit" string="Credit" sum="Total Credit"/>
+				<field name="analytic_1"/>
+				<field name="analytic_2"/>
+				<field name="analytic_3"/>
+				<field name="analytic_account_id" />
+				<field name="state"/>
+					<button name="view_entry"
+						    type="object"
+						    help="View Entry"
+						    icon="gtk-index"
+						    string="View Entry"
+						    attrs="{'invisible':[('consol_entry','=',False)]}"/>
+				</tree>
+		    </field>
+		</record>
+		<record model="ir.ui.view" id="journal_eliminasi_form_view">
+		    <field name="name">dym.journal.elimination.form.view</field>
+		    <field name="model">dym.journal.elimination</field>
+		    <field name="arch" type="xml">		       	        	
+				<form>
+					<header>
+                        <button name="generate_elimination" states="draft" string="Generate" type="object" class="oe_highlight"/>
+                        <button name="eksport_excel" states="draft" string="Export Diff Report " type="object" class="oe_highlight"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>	
+	           		</header>
+	        			<div class="oe_title">
+			        		<h2>
+				                <label string="Journal Eliminasi (ALL COMPANY)"/>    			
+				 				<field name="name" class="oe_inline" readonly='1'/>
+			 				</h2>
+	 					</div>			        							        	 
+						<group col="2" colspan="2">
+							<group>
+							    <field name="periode_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly': [('state','!=','draft')]}" domain="[('state','=','draft'),('company_id.parent_id','=',False)]"/>
+							</group>  
+							<group/>
+							<group>
+								<field name="branch_id" options="{'no_create': True,'no_open': True}" attrs="{'readonly': ['|',('state','!=','draft'),('name','!=',False)]}" />
+								<field name="division" readonly="1"/>
+							</group> 
+							<group>
+								<field name="date" readonly="1"/>
+							</group>
+							<group>
+								<field name="datafile" filename="filename"/>
+								<field name="filename" invisible="1"/>
+							</group>        														
+						</group>
+	                    <notebook colspan="5">
+	                        <page string="Journal Items" name="jurnal_consol" attrs="{'invisible': [('state','=','confirm')]}">
+	                        	<field name="move_consol_ids" attrs="{'readonly': [('state','!=','draft')]}" options="{'no_create_edit': True,'no_open': True}" context="{'tree_view_ref': 'account_move_line_consol_search_tree_view'}">
+	                               <!-- <tree string="Journal Items" colors="red:partner_type != 'Konsolidasi';"> -->
+		    						<tree string="Journal Items" colors="red:is_intercom != True;">
+		    						<field name="partner_type" invisible="1"/>
+		    						<field name="is_intercom" invisible="1"/>
+		    						<field name="consol_entry"/>
+		    						<field name="branch_id"/>
+		            				<field name="division"/>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="account_id" />
+                                    <field name="credit" string="Debit" sum="Total Debit"/>
+                                    <field name="debit" string="Credit" sum="Total Credit"/>
+				                    <field name="analytic_1"/>
+				                    <field name="analytic_2"/>
+				                    <field name="analytic_3"/>
+                                    <field name="analytic_account_id" />
+                                    <field name="state"/>
+                                    <button name="view_entry"
+				                            type="object"
+				                            help="View Entry"
+				                            icon="gtk-index"
+				                            string="View Entry"
+				                            attrs="{'invisible':[('consol_entry','=',False)]}"/>
+	                               </tree>
+	                            </field>         
+	                        </page>  
+	                        <page string="Journal Items" name="jurnal_elim" attrs="{'invisible': [('state','!=','confirm')]}">
+	                        	<field name="move_ids" readonly="1" options="{'no_create_edit': True,'no_open': True}">
+	                               <tree string="Journal Items" colors="red:partner_type != 'Konsolidasi';">
+		    						<field name="partner_type" invisible="1"/>
+		    						<field name="elim_entry"/>
+		    						<field name="branch_id"/>
+		            				<field name="division"/>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="account_id" />
+                                    <field name="debit" sum="Total Debit"/>
+                                    <field name="credit" sum="Total Credit"/>
+				                    <field name="analytic_1"/>
+				                    <field name="analytic_2"/>
+				                    <field name="analytic_3"/>
+                                    <field name="analytic_account_id" />
+                                    <field name="state"/>
+                                    <button name="view_entry"
+				                            type="object"
+				                            help="View Entry"
+				                            icon="gtk-index"
+				                            string="View Entry"
+				                            attrs="{'invisible':[('elim_entry','=',False)]}"/>
+	                               </tree>
+	                            </field>         
+	                        </page>
+	                        <page string="Journal Items Sales Diff." name="jurnal_diff" attrs="{'invisible': [('datafile','=',False)]}">
+	                        	<field name="move_diff_ids" attrs="{'readonly': [('state','!=','draft')]}" options="{'no_create_edit': True,'no_open': True}">
+	                               <!-- <tree string="Journal Items" colors="red:partner_type != 'Konsolidasi';"> -->
+		    						<tree string="Journal Items">
+		    						<field name="partner_type" invisible="1"/>
+		    						<field name="is_intercom" invisible="1"/>
+		    						<field name="consol_entry"/>
+		    						<field name="branch_id"/>
+		            				<field name="division"/>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="account_id" />
+                                    <field name="credit" string="Debit" sum="Total Debit"/>
+                                    <field name="debit" string="Credit" sum="Total Credit"/>
+				                    <field name="analytic_1"/>
+				                    <field name="analytic_2"/>
+				                    <field name="analytic_3"/>
+                                    <field name="analytic_account_id" />
+                                    <field name="state"/>
+                                    <button name="view_entry"
+				                            type="object"
+				                            help="View Entry"
+				                            icon="gtk-index"
+				                            string="View Entry"
+				                            attrs="{'invisible':[('consol_entry','=',False)]}"/>
+	                               </tree>
+	                            </field>         
+	                        </page>    
+							<page string="Audit Trail">
+								<group>
+									<group>
+										<field name="create_uid" readonly="1"></field>
+										<field name="create_date" readonly="1"></field>
+									</group>
+									<group>							
+										<field name="write_uid" readonly="1"></field>
+										<field name="write_date" readonly="1"></field>
+									</group>
+								</group>
+							</page>	                                              
+	                    </notebook>
+				</form>	
+		    </field>
+		</record>
+		
+ 		<record id="view_journal_eliminasi" model="ir.ui.view">
+            <field name="name">dym.journal.elimination.list.select</field>
+            <field name="model">dym.journal.elimination</field>
+            <field name="arch" type="xml">
+                <search string="Search Journal Eliminasi">
+                    <field name="name" string="Reference"/>
+                    <field name='periode_id'/>
+                </search>
+            </field>
+        </record>		
+		<record model="ir.actions.act_window" id="journal_eliminasi_action">
+		    <field name="name">Journal Eliminasi</field>
+		    <field name="res_model">dym.journal.elimination</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		    <field name="search_view_id" ref="view_journal_eliminasi"/>
+		</record>
+					
+		<menuitem id="journal_eliminasi_submenu" name="Journal Eliminasi" parent="dym_journal_consolidation.dym_multi_company_master_menu"  action="journal_eliminasi_action" sequence="2"/> 		
+        	        		
+	</data>
+</openerp>
+															

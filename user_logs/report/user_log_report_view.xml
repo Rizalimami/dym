@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report-->
+<openerp>
+<data>
+<template id="report_users_logs_document">
+    <t t-call="report.external_layout">
+        <div class="page">
+        	 <h2>User Logs Details</h2>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th style="width:35%;">User Name</th>
+                        <th style="width:15%;">Log-in Time</th>
+                        <th style="width:15%;">Log-Out Time</th>
+                    </tr>
+                </thead>
+                <tbody class="invoice_tbody">
+                    <tr t-foreach="o.user_log_ids" t-as="l">
+                        <td style="width:25%;"><span t-field="l.user_id.name"/></td>
+                        <td style="width:15%;"><span t-field="l.sign_in"/></td>
+                        <td style="width:15%;"><span t-field="l.sign_out"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </t>
+</template>
+
+<template id="report_user_logs">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'user_logs.report_users_logs_document')"/>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

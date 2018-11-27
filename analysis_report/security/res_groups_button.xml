@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    
+<!-- Customer Invoice Validate  -->
+		
+        <record id="group_customer_invoice_validate" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Customer Invoice Validate</field>
+            <field name="implied_ids" eval="[(4, ref('group_customer_invoice_read'))]"/>
+        </record>     
+        
+        <record id="access_customer_invoice_validate" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="name">access_customer_invoice_validate read</field>
+            <field name="group_id" ref="group_customer_invoice_validate"/>
+            <field name="perm_write">1</field>
+        </record>
+               
+        <record id="access_customer_invoice_validate_purchase_order" model="ir.model.access">
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="name">access_customer_invoice_validate_po read</field>
+            <field name="group_id" ref="group_customer_invoice_validate"/>
+            <field name="perm_read">1</field>
+        </record>
+                
+        <record id="access_customer_invoice_validate_tax" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_invoice_tax"/>
+            <field name="name">access_customer_invoice_validate_tax read</field>
+            <field name="group_id" ref="group_customer_invoice_validate"/>
+            <field name="perm_write">1</field>
+        </record>
+                
+        <record id="access_customer_invoice_line_validate" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_invoice_line"/>
+            <field name="name">access_customer_invoice_line_validate read</field>
+            <field name="group_id" ref="group_customer_invoice_validate"/>
+            <field name="perm_write">1</field>
+        </record>
+                 
+        <record id="access_customer_invoice_product_template_validate" model="ir.model.access">
+            <field name="model_id" ref="product.model_product_template"/>
+            <field name="name">access_customer_invoice_product_template_validate read</field>
+            <field name="group_id" ref="group_customer_invoice_validate"/>
+            <field name="perm_write">1</field>
+            <field name="perm_read">1</field>
+        </record>
+                
+        <record id="access_customer_invoice_product_product_validate" model="ir.model.access">
+            <field name="model_id" ref="product.model_product_product"/>
+            <field name="name">access_customer_invoice_product_product_validate read</field>
+            <field name="group_id" ref="group_customer_invoice_validate"/>
+            <field name="perm_write">1</field>
+            <field name="perm_read">1</field>
+        </record>
+                
+        <record id="access_customer_invoice_move_validate" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="name">access_customer_invoice_move_validate read</field>
+            <field name="group_id" ref="group_customer_invoice_validate"/>
+            <field name="perm_write">1</field>
+            <field name="perm_create">1</field>
+            <field name="perm_read">1</field>
+        </record>
+        
+        <record id="access_customer_invoice_move_line_validate" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_move_line"/>
+            <field name="name">access_customer_invoice_move_line_validate read</field>
+            <field name="group_id" ref="group_customer_invoice_validate"/>
+            <field name="perm_write">1</field>
+            <field name="perm_create">1</field>
+            <field name="perm_read">1</field>
+        </record>
+        
+<!-- Customer Invoice Cancel  -->
+		
+        <record id="group_customer_invoice_cancel" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Customer Invoice Cancel</field>
+            <field name="implied_ids" eval="[(4, ref('group_customer_invoice_read'))]"/>
+        </record>
+                
+        <record id="access_customer_invoice_cancel_write" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="name">access_customer_invoice_cancel write</field>
+            <field name="group_id" ref="group_customer_invoice_cancel"/>
+            <field name="perm_write">1</field>
+        </record>
+                     
+<!-- Customer Invoice Reset to Draft  -->
+		
+        <record id="group_customer_invoice_to_draft" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Customer Invoice Reset to Draft</field>
+            <field name="implied_ids" eval="[(4, ref('group_customer_invoice_read'))]"/>
+        </record>
+                
+        <record id="access_customer_invoice_to_draft_write" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="name">access_customer_invoice_to_draft write</field>
+            <field name="group_id" ref="group_customer_invoice_to_draft"/>
+            <field name="perm_write">1</field>
+        </record>
+                   
+<!-- Customer Invoice Register Payment  -->
+		
+        <record id="group_customer_invoice_register_payment" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Customer Invoice Register Payment</field>
+            <field name="implied_ids" eval="[(4, ref('group_customer_invoice_read'))]"/>
+        </record>
+                
+        <record id="access_customer_invoice_register_payment_write" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="name">access_customer_invoice_register_payment write</field>
+            <field name="group_id" ref="group_customer_invoice_register_payment"/>
+            <field name="perm_write">1</field>
+        </record>     
+        
+        <record id="access_customer_invoice_register_payment_voucher_create" model="ir.model.access">
+            <field name="model_id" ref="account_voucher.model_account_voucher"/>
+            <field name="name">access_customer_register_invoice_account_voucher create</field>
+            <field name="group_id" ref="group_customer_invoice_register_payment"/>
+            <field name="perm_create">1</field>
+        </record>
+        
+        <record id="access_customer_invoice_register_payment_voucher_line_create" model="ir.model.access">
+            <field name="model_id" ref="account_voucher.model_account_voucher_line"/>
+            <field name="name">access_customer_register_invoice_account_voucher_line create</field>
+            <field name="group_id" ref="group_customer_invoice_register_payment"/>
+            <field name="perm_create">1</field>
+        </record>
+        
+<!-- Customer Invoice Refund Invoice  -->
+		
+        <record id="group_customer_invoice_refund_invoice" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Customer Invoice Refund Invoice</field>
+            <field name="implied_ids" eval="[(4, ref('group_customer_invoice_read'))]"/>
+        </record>
+                
+        <record id="access_customer_invoice_refund_write" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="name">access_customer_invoice_refund write</field>
+            <field name="group_id" ref="group_customer_invoice_refund_invoice"/>
+            <field name="perm_write">1</field>
+        </record>        	
+                   
+<!-- Customer Invoice Pro-Forma  -->
+		
+        <record id="group_customer_invoice_proforma_voucher" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Customer Invoice Pro-Forma</field>
+            <field name="implied_ids" eval="[(4, ref('group_customer_invoice_read'))]"/>
+        </record>
+                
+        <record id="access_customer_invoice_proforma_write" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="name">access_customer_invoice_proforma write</field>
+            <field name="group_id" ref="group_customer_invoice_proforma_voucher"/>
+            <field name="perm_write">1</field>
+        </record>
+                              
+<!-- Dealer Register SPK Hilang/Rusak  -->
+        
+        <record id="group_dealer_register_spk_kembalikan" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Dealer Register Memo Kembalikan</field>
+            <field name="implied_ids" eval="[(4, ref('group_dealer_spk_read'))]"/>
+        </record>
+                
+        <record id="access_dealer_register_spk_line_kembalikan_write" model="ir.model.access">
+            <field name="model_id" ref="dealer_sale_order.model_dealer_register_spk_line"/>
+            <field name="name">access_dealer_register_spk_line_kembalikan write</field>
+            <field name="group_id" ref="group_dealer_register_spk_kembalikan"/>
+            <field name="perm_write">1</field>
+        </record>
+
+        <record id="group_dealer_register_spk_hilang" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Dealer Register Memo Hilang</field>
+            <field name="implied_ids" eval="[(4, ref('group_dealer_spk_read'))]"/>
+        </record>
+                
+        <record id="access_dealer_register_spk_line_hilang_write" model="ir.model.access">
+            <field name="model_id" ref="dealer_sale_order.model_dealer_register_spk_line"/>
+            <field name="name">access_dealer_register_spk_line_hilang write</field>
+            <field name="group_id" ref="group_dealer_register_spk_hilang"/>
+            <field name="perm_write">1</field>
+        </record>
+        
+        <record id="group_dealer_register_spk_rusak" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Dealer Register Memo Rusak</field>
+            <field name="implied_ids" eval="[(4, ref('group_dealer_spk_read'))]"/>
+        </record>
+                
+        <record id="access_dealer_register_spk_line_hilang_rusak_write" model="ir.model.access">
+            <field name="model_id" ref="dealer_sale_order.model_dealer_register_spk_line"/>
+            <field name="name">access_dealer_register_spk_line_rusak write</field>
+            <field name="group_id" ref="group_dealer_register_spk_rusak"/>
+            <field name="perm_write">1</field>
+        </record>
+
+        <record id="dym_branch.group_sys_admin" model="res.groups">
+			<field name="implied_ids" eval="[(4,ref('group_customer_invoice_validate')),
+				                             (4,ref('group_customer_invoice_cancel')),
+				                             (4,ref('group_customer_invoice_to_draft')),
+											 (4,ref('group_customer_invoice_register_payment')),
+											 (4,ref('group_customer_invoice_refund_invoice')),
+											 (4,ref('group_customer_invoice_proforma_voucher')),	
+                                             (4,ref('group_dealer_register_spk_kembalikan')),    
+                                             (4,ref('group_dealer_register_spk_hilang')),    
+                                             (4,ref('group_dealer_register_spk_rusak')),    						
+				                              ]">
+			</field> 
+		</record>                           
+    </data>
+</openerp>

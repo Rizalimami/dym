@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dealer_sale_order_intercompany_ref_form_inherit">
+            <field name="name">dealer.sale.order.intercompany</field>
+            <field name="model">dealer.sale.order</field>
+            <field name="inherit_id" ref="dealer_sale_order.sale_order_dealer_form"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                     <field name="intercom_ref_id" options="{'no_create': True,'no_open':True}" attrs="{'invisible': [('intercom_ref_id','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="spk_dealer_form_intercompany_ref_form_inherit">
+            <field name="name">dealer.spk.intercompany</field>
+            <field name="model">dealer.spk</field>
+            <field name="inherit_id" ref="dealer_sale_order.spk_dealer_form"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                     <field name="intercom_ref_id" options="{'no_create': True,'no_open':True}" attrs="{'invisible': [('is_pic','=',False)], 'required': [('is_pic','!=',False)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_advance_payment_all,dym_advance_payment all,model_dym_advance_payment,,1,1,1,1
+access_dym_advance_payment_line_all,dym_advance_payment_line all,model_dym_advance_payment_line,,1,1,1,1
+access_dym_settlement_all,dym_settlement all,model_dym_settlement,,1,1,1,1
+access_dym_settlement_line_all,dym_settlement_line all,model_dym_settlement_line,,1,1,1,1
+access_dym_reimbursed_ho_all,dym_reimbursed_ho all,model_dym_reimbursed_ho,,1,1,1,1
+access_dym_reimbursed_ho_line_all,dym_reimbursed_ho_line all,model_dym_reimbursed_ho_line,,1,1,1,1
+access_dym_transaction_withholding,dym_transaction_withholding all,model_dym_transaction_withholding,,1,1,1,1

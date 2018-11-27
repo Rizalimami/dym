@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_advance_payment_ib_form_view" model="ir.ui.view">
+            <field name="name">dym.advance.payment.detail.form</field>
+            <field name="model">dym.advance.payment</field>
+            <field name="inherit_id" ref="dym_advance_payment.dym_approval_avp_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Analytical Account']" position="before">
+                    <page String="Advance Payment Detail" attrs="{'invisible': ['|',('journal_is_bank','!=',True),('state','not in',('confirmed','done'))]}">
+                        <field name="advance_payment_line" attrs="{'readonly':[('state','!=','draft')]}">
+                            <tree colors="blue:state=='draft';black:state=='posted';grey:state=='cancel'" string="List Bank Transfer">
+                                <field name="state" invisible="1" />
+                                <field name="amount" />
+                                <field name="state" />
+                                <field name="voucher_id" />
+                                <button name="create_voucher" type="object" help="Create Voucher" icon="gtk-execute" string="Create Voucher" attrs="{'invisible':[('voucher_id','!=',False)]}" />
+                                <button name="view_voucher" type="object" help="View Voucher" icon="gtk-go-forward" string="View Voucher" attrs="{'invisible':[('voucher_id','=',False)]}" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_questionnaire_all,dym_questionnaire all,model_dym_questionnaire,,1,1,1,1
+access_dym_cddb_all,dym_cddb all,model_dym_cddb,,1,1,1,1
+access_dym_cabang_partner_all,dym_cabang_partner all,model_dym_cabang_partner,,1,1,1,1
+access_dym_kartu_keluarga_all,dym_kartu_keluarga all,model_dym_kartu_keluarga,,1,1,1,1

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_res_company_journal_elimination_form_view">
+            <field name="name">dym.res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <field name="company_registry" position="after">
+                    <field name="id" invisible="1" />
+                    <field name="journal_consolidate_multi_company_id" domain="[('company_id','=',id)]" attrs="{'invisible':[('parent_id','!=',False)]}" />
+                    <field name="journal_eliminate_multi_company_id" domain="[('company_id','=',id)]" attrs="{'invisible':[('parent_id','!=',False)]}" />
+                </field>
+                <page string="General Information" position="after">
+                    <page string="Journal Elimination Config" attrs="{'invisible':[('parent_id','!=',False)]}">
+                        <group>
+                            <field name="account_elimination_line">
+                                <tree string="Account Elimination Line" editable="bottom">
+                                    <field name='account_id' domain="[('company_id','=',parent.id)]"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <field name="account_fields_report_line">
+                                <tree string="Account Elimination Fields Report Line" editable="bottom">
+                                    <field name='account_id' domain="[('company_id','=',parent.id)]"/>
+                                    <field name='credit'/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <field name="account_report_intercom_line">
+                                <tree string="Account Report Intercom. Line" editable="bottom">
+                                    <field name='account_left_id' domain="[('company_id','=',parent.id)]"/>
+                                    <field name='account_right_id' domain="[('company_id','=',parent.id)]"/>                              
+                                    <!-- <field name='credit'/> -->
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </page>
+                <field name="journal_eliminate_multi_company_id" position="after">
+                    <field name="account_elimination_diff_id" domain="[('company_id','=',parent.id)]"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_rules_approval_account_voucher" model="ir.ui.view">
+            <field name="name">account_voucher_approval_form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="dym_account_voucher.dym_rules_approval_account_voucher" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='inter_branch_id']" position="replace">
+                    <field name="branch_type" />
+                    <field name="inter_branch_id" on_change="inter_branch_payment_change(branch_id,inter_branch_id)" attrs="{'required':[('payment_multi','=',False)],'readonly': [('state','!=','draft')],'invisible':[('payment_multi','=',True)]}" string="Bayar Untuk Cabang" options="{'no_open':True,'no_create':True}" />
+                </xpath>
+                <xpath expr="//field[@name='inter_branch_id']" position="before">
+                    <field name="payment_multi" attrs="{'invisible':[('branch_type','!=','HO')],'readonly': [('state','!=','draft')]}" />
+                </xpath>
+                <xpath expr="//label[@for='line_dr_ids']" position="before">
+                    <field name="branch_type" invisible="1" />
+                    <button name="%(action_account_invoice_import)s" type="action" string="Import Invoices" attrs="{'invisible':['|',('branch_type','!=','HO'),('state','!=','draft')]}" />
+                </xpath>
+                <xpath expr="//notebook/page/field[@name='line_dr_ids']/tree/field[@name='move_line_id']" position="after">
+                    <field name="branch_dest_id" />
+                    <field name="payment_multi" />
+                </xpath>
+                <xpath expr="//notebook/page/field[@name='line_dr_ids']" position="attributes">
+                    <attribute name="context">{'branch_id':branch_id,'voucher_id':id,'payment_multi':payment_multi,'journal_id':journal_id, 'partner_id':partner_id, 'branch_id':inter_branch_id, 'division':division,'line_ids':line_dr_ids}</attribute>
+                </xpath>
+                <xpath expr="//notebook/page/field[@name='line_dr_ids']/tree/field[@name='move_line_id']" position="attributes">
+                    <attribute name="on_change">onchange_move_line_id(move_line_id,parent.amount,parent.currency_id,parent.journal_id, parent.partner_id, parent.division, parent.inter_branch_id, parent.due_date_payment, True, False, False, False, parent.branch_id, parent.payment_multi)</attribute>
+                </xpath>
+                <xpath expr="//notebook/page/field[@name='line_dr_ids']/tree/field[@name='move_line_id']" position="attributes">
+                    <attribute name="domain">[]</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

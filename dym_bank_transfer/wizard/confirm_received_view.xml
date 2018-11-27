@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_confirm_received_form" model="ir.ui.view">
+            <field name="name">dym_bank_transfer.confirm.received.wizard.form</field>
+            <field name="model">dym_bank_transfer.confirm.received.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Post Tranfer">
+                    <group>
+                        <p>Anda akan memposting dokumen bank transfer berikut:</p>
+                    </group>
+                    <field name="line_ids" />
+                    <footer>
+                        <button string="Post Tranfer" name="post_transfer" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_post_transfer" res_model="dym_bank_transfer.confirm.received.wizard" src_model="dym.bank.transfer" target="new" multi="True" key2="client_action_multi" view_mode="form" name="Post Transfer" />
+    </data>
+</openerp>

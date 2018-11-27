@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dym_kas_besar_all,dym_kas_besar all,model_dym_kas_besar,,1,1,1,1

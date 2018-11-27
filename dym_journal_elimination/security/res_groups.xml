@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">  	   
+        
+        <record id="access_approval_portal_dym_journal_elimination_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_journal_elimination"/>
+            <field name="name">approval_portal_model_dym_journal_elimination read</field> 
+            <field name="group_id" ref="dym_approval.group_approval_portal_read"/>  
+            <field name="perm_read">1</field> 
+        </record>
+         
+<!-- Journal Elimination Read -->	
+	
+        <record id="group_journal_elimination_read" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Journal Elimination Read</field> 
+            <field name="menu_access" eval="[(4, ref('journal_eliminasi_submenu'))]"/>  
+        </record> 
+        
+        <record id="access_journal_elimination_read" model="ir.model.access">
+            <field name="model_id" ref="model_dym_journal_elimination"/>
+            <field name="name">journal_elimination read</field> 
+            <field name="group_id" ref="group_journal_elimination_read"/>  
+            <field name="perm_read">1</field> 
+        </record> 
+                
+             
+        <record id="access_journal_elimination_journal_read" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_journal"/>
+            <field name="name">journal_elimination_journal read</field> 
+            <field name="group_id" ref="group_journal_elimination_read"/>  
+            <field name="perm_read">1</field> 
+        </record>
+        
+        <record id="access_journal_elimination_account_read" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_account"/>
+            <field name="name">journal_elimination_account read</field> 
+            <field name="group_id" ref="group_journal_elimination_read"/>  
+            <field name="perm_read">1</field> 
+        </record>
+                
+        <record id="access_journal_elimination_period_read" model="ir.model.access">
+            <field name="model_id" ref="account.model_account_period"/>
+            <field name="name">journal_elimination_period read</field> 
+            <field name="group_id" ref="group_journal_elimination_read"/>  
+            <field name="perm_read">1</field> 
+        </record>
+                
+        <record id="access_journal_elimination_approval_line_read" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line"/>
+            <field name="name">journal_elimination_approval_line read</field> 
+            <field name="group_id" ref="group_journal_elimination_read"/>  
+            <field name="perm_read">1</field> 
+        </record>
+                
+<!-- Journal Elimination update -->	
+	
+        <record id="group_journal_elimination_update" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Journal Elimination Update</field> 
+            <field name="menu_access" eval="[(4, ref('journal_eliminasi_submenu'))]"/>  
+            <field name="implied_ids" eval="[(4, ref('group_journal_elimination_read'))]"/> 
+        </record>
+                
+       <record id="access_journal_elimination_update" model="ir.model.access">
+            <field name="model_id" ref="model_dym_journal_elimination"/>
+            <field name="name">journal_elimination update</field> 
+            <field name="group_id" ref="group_journal_elimination_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field> 
+        </record>                
+
+        <record id="access_journal_elimination_approval_line_update" model="ir.model.access">
+            <field name="model_id" ref="dym_approval.model_dym_approval_line"/>
+            <field name="name">journal_elimination_approval_line update</field> 
+            <field name="group_id" ref="group_journal_elimination_update"/>  
+            <field name="perm_create">1</field> 
+            <field name="perm_write">1</field> 
+        </record> 
+        
+<!-- Journal Elimination Delete -->        
+	
+        <record id="group_journal_elimination_delete" model="res.groups">
+            <field name="category_id" ref="dym_branch.tdm_role"/>
+            <field name="name">Journal Elimination Delete</field> 
+            <field name="menu_access" eval="[(4, ref('journal_eliminasi_submenu'))]"/>   
+			<field name="implied_ids" eval="[(4, ref('group_journal_elimination_read'))]"/>            	            	
+        </record>
+                        
+        <record id="access_journal_elimination_delete" model="ir.model.access">
+            <field name="model_id" ref="model_dym_journal_elimination"/>
+            <field name="name">journal_elimination delete</field> 
+            <field name="group_id" ref="group_journal_elimination_delete"/>  
+            <field name="perm_unlink">1</field> 
+        </record>                                          
+    </data>
+</openerp>

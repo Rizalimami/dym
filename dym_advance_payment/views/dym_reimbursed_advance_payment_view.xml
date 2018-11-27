@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_reimbursed_avp_form_view">
+            <field name="name">dym.reimbursed.ho.avp.form.view</field>
+            <field name="model">dym.reimbursed.ho</field>
+            <field name="inherit_id" ref="dym_reimbursed_ho_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Reimburse Details']" position="before">
+                    <page string="Settlement">
+                        <field name="settle_ids" domain="[('branch_id','=',branch_id),('division','=',division),('state','=','done'),('amount_total','>',0)]" attrs="{'invisible':[('settle_ids','=',False)]}">
+                            <tree colors="blue:state=='draft';black:state=='posted';grey:state=='cancel'" string="List Petty Cash">
+                                <field name="name" />
+                                <field name="date" />
+                                <field name="branch_id" />
+                                <field name="division" />
+                                <field name="total_net" sum="Total"/>
+                                <field name="state" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="dym_reimbursed_advance_payment">
+            <field name="name">Reimburse Advance Payment</field>
+            <field name="res_model">dym.reimbursed.ho</field>
+            <field name="view_type">form</field>
+            <field name="view_id" eval="False" />
+            <field name="domain">[('name','=like','RAP%')]</field>
+            <field name="context">{'transaction_type':'avp'}</field>
+        </record>
+		<menuitem id="dym_reimburse_advance_payment_menuitem" name="Reimburse Advance Payment" parent="dym_advance_payment_master_menu" action="dym_reimbursed_advance_payment" sequence="30" />
+    </data>
+</openerp>

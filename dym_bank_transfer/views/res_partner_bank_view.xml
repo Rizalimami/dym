@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_partner_bank_form_inherit" model="ir.ui.view">
+            <field name="name">Partner Bank Accounts - Journal</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="dym_account.view_partner_bank_form_inherit_2" />
+            <field name="arch" type="xml">
+                <xpath expr="//group/group/field[@name='currency_id']" position="after">
+                    <field name="transaction_type" />
+                </xpath>
+                <xpath expr="//field[@name='bank_bic']" position="after">
+                    <field name="code_supplier" />
+                </xpath>
+            </field>
+        </record>
+        <record id="view_partner_bank_tree" model="ir.ui.view">
+            <field name="name">res.partner.bank.tree</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_tree" />
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="transaction_type" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

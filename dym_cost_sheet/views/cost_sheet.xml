@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="dym_biaya_lain_tree">
+            <field name="name">dym.biaya.lain.tree</field>
+            <field name="model">dym.biaya.lain</field>
+            <field eval="1" name="priority" />
+            <field name="arch" type="xml">
+                <tree string="Costsheet - Biaya Lain-Lain" editable="top">
+                    <field name="name" required="1" />
+                    <field name="value" required="1" sum="Total Biaya Lain-lain" />
+                    <field name="account_id" options="{'no_create': True,'no_open': True}" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_biaya_lain_form">
+            <field name="name">dym.biaya.lain.form</field>
+            <field name="model">dym.biaya.lain</field>
+            <field name="arch" type="xml">
+                <form string="Costsheet - Biaya Lain-Lain">
+                    <group>
+                        <group>
+                            <field name="name" required="1" />
+                            <field name="value" required="1" />
+                            <field name="account_id" options="{'no_create': True,'no_open': True}" />
+                        </group>
+                        <group/>
+                    </group>
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_dym_biaya_lain">
+            <field name="name">Config Costsheet - Biaya Lain-lain</field>
+            <field name="res_model">dym.biaya.lain</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Config Biaya Lain-Lain" parent="dym_dealer_menu.showroom_configuration_menu" id="dym_biaya_lain_menuitem" action="action_dym_biaya_lain" />
+        <record id="dym_spk_dealer_form" model="ir.ui.view">
+            <field name="name">dealer.spk.cost.sheet.form</field>
+            <field name="model">dealer.spk</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="dealer_sale_order.spk_dealer_form" />
+            <field name="arch" type="xml">
+                <page name="delaer_memo_detail" position="after">
+                    <page string="Cost Sheet">
+                        <group>
+                            <group>
+                                <field name="nomor_faktur_jual" readonly="1" />
+                                <field name="tanggal_faktur_jual" readonly="1" />
+                                <field name="nama_konsumen" readonly="1" />
+                                <field name="alamat" />
+                            </group>
+                            <group>
+                                <field name="tipe_motor" />
+                                <field name="tunai_kredit" />
+                                <field name="marketing_counter" readonly="1" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Harga Jual Motor">
+                                <field name="harga_jual_motor" />
+                                <field name="discount_konsumen" />
+                                <field name="discount_prog_intern" />
+                                <field name="discount_prog_extern" />
+                                <field name="netto_jual" />
+                                <field name="ppn_keluaran" />
+                            </group>
+                            <group string="Harga Beli Motor (DPP)">
+                                <field name="harga_standar" />
+                                <field name="ppn_masukan" />
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="selisih_penjualan" />
+                                <field name="selisih_ppn" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="STNK">
+                                <field name="harga_stnk_md" />
+                                <field name="harga_stnk_birojasa" />
+                                <field name="tambahan_pendapatan_bbn" />
+                                <field name="tambahan_biaya_bbn" />
+                                <field name="selisih_stnk" />
+                            </group>
+                            <group string="Broker">
+                                <field name="biaya_broker" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Profit">
+                                <field name="profit_penjualan" />
+                                <field name="subsidi_leasing_oi" />
+                                <field name="insentif_leasing" />
+                            </group>
+                            <group string="Biaya Lain-lain (Rincian)">
+                                <field name="dym_biaya_lain" nolabel="1">
+                                    <tree>
+                                        <field name="name" />
+                                        <field name="value" sum="Total Biaya Lain-lain" />
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="biaya_lain" />
+                                <field name="profit_lain" />
+                                <field name="net_profit" />
+                            </group>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+        <record id="dym_sale_order_dealer_form" model="ir.ui.view">
+            <field name="name">dealer.sale.order.cost.sheet.form</field>
+            <field name="model">dealer.sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="dealer_sale_order.sale_order_dealer_form" />
+            <field name="arch" type="xml">
+                <page string="Other Info" position="after">
+                    <page string="Cost Sheet">
+                        <group>
+                            <group>
+                                <field name="nomor_faktur_jual" readonly="1" />
+                                <field name="tanggal_faktur_jual" readonly="1" />
+                                <field name="nomor_mesin" />
+                                <field name="nomor_rangka" />
+                                <field name="nama_konsumen" readonly="1" />
+                                <field name="alamat" />
+                            </group>
+                            <group>
+                                <field name="nomor_faktur_beli" />
+                                <field name="tanggal_faktur_beli" />
+                                <field name="sistem_pembelian" />
+                                <field name="tipe_motor" />
+                                <field name="tunai_kredit" />
+                                <field name="marketing_counter" readonly="1" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Harga Jual Motor">
+                                <field name="harga_jual_motor" />
+                                <field name="discount_konsumen" />
+                                <field name="discount_prog_intern" />
+                                <field name="discount_prog_extern" />
+                                <field name="netto_jual" />
+                                <field name="ppn_keluaran" />
+                            </group>
+                            <group string="Harga Beli Motor (DPP)">
+                                <field name="harga_standar" />
+                                <field name="ppn_masukan" />
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="selisih_penjualan" />
+                                <field name="selisih_ppn" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="STNK">
+                                <field name="harga_stnk_md" />
+                                <field name="harga_stnk_birojasa" />
+                                <field name="tambahan_pendapatan_bbn" />
+                                <field name="tambahan_biaya_bbn" />
+                                <field name="selisih_stnk" />
+                            </group>
+                            <group string="Broker">
+                                <field name="biaya_broker" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Profit">
+                                <field name="profit_penjualan" />
+                                <field name="subsidi_leasing_oi" />
+                                <field name="insentif_leasing" />
+                                <field name="subsidi_barang" />
+                            </group>
+                            <group string="Biaya Lain-lain (Rincian)">
+                                <field name="dym_biaya_lain" nolabel="1">
+                                    <tree>
+                                        <field name="name" />
+                                        <field name="value" sum="Total Biaya Lain-lain" />
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="biaya_lain" />
+                                <field name="profit_lain" />
+                                <field name="net_profit" />
+                            </group>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>

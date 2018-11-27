@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_ibanking_done_form" model="ir.ui.view">
+            <field name="name">dym.ibanking.done.form</field>
+            <field name="model">dym.ibanking.done</field>
+            <field name="arch" type="xml">
+                <form string="iBanking Process Done">
+                    <group>
+                        <field name="ibanking_id" readonly="1" />
+                        <field name="date" />
+                    </group>
+                    <footer>
+                        <button string="Process Done" name="action_done" type="object" class="oe_highlight" context="{'ibanking':'done'}" confirm="Pastikan Anda telah mencentang Success jika transaksi telah berhasil disetujui oleh bank." /> <span>or</span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                    <field name="line_ids">
+                        <tree string="Lines" create="false" editable="1">
+                            <field name="ibanking_done_id" invisible="1" />
+                            <field name="name" readonly="1" />
+                            <field name="obj" readonly="1" groups="base.group_no_one" invisible="1"/>
+                            <field name="res_id" readonly="1" groups="base.group_no_one" invisible="1"/>
+                            <field name="amount" readonly="1" />
+                            <field name="success" />
+                            <field name="reason" attrs="{'readonly':[('success','!=',False)]}" />
+                        </tree>
+                    </field>
+                </form>
+            </field>
+        </record>
+        <record id="dym_ibanking_done_action" model="ir.actions.act_window">
+            <field name="name">iBanking Process Done</field>
+            <field name="res_model">dym.ibanking.done</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

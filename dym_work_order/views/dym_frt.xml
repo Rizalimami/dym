@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_check_frt_form_view">
+            <field name="name">dym.check.frt.form</field>
+            <field name="model">dym.check.frt</field>
+            <field name="arch" type="xml">
+                <form string="Check Flat Rate Time" create="false">
+                    <sheet>
+                        <group col="4">
+                            <field name="branch_id" options="{'no_open':True,'no_create':True}" />
+                            <field name="frt_id" options="{'no_open':True,'no_create':True}" />
+                            <field name="date_start" />
+                            <field name="date_end" />
+                        </group>
+                        <field name="frt_history_line_dummy" readonly="True" options="{'no_open':True,'no_create':True}">
+                            <tree string="FRT History">
+                                <field name="date" />
+                                <field name="time" />
+                                <field name="rate" />
+                                <field name="price" string="FRT Price" />
+                                <field name="adjust" string="Adjusted" />
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_check_frt_action">
+            <field name="name">Check FRT</field>
+            <field name="res_model">dym.check.frt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <!-- <field name="context" eval="{'default_categ_id': ref('dym_product.categ_sparepart')}"/> -->
+        </record>
+        <menuitem name="Check FRT" parent="dym_dealer_menu.workshop_sales_menu" sequence="1" id="dym_check_frt_menu" action="dym_check_frt_action" />
+        <record model="ir.ui.view" id="dym_frt_tree">
+            <field name="name">dym.frt.tree</field>
+            <field name="model">dym.frt</field>
+            <field eval="1" name="priority" />
+            <field name="arch" type="xml">
+                <tree string="Flat Rate Time">
+                    <field name="product_id_jasa" />
+                    <field name="category_product_id" />
+                    <field name="time" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_frt_view">
+            <field name="name">dym.frt.form</field>
+            <field name="model">dym.frt</field>
+            <field name="arch" type="xml">
+                <form string="Flat Rate Time">
+                    <header>
+                        <!-- Yordan
+                        <button name="%(action_adjust_price)d" string="Adjust Price" type="action" groups="dym_base_security.group_dym_aftersales_div_head,dym_base_security.group_dym_service_dept_head,dym_base_security.group_dym_service_sub_dept_head,dym_base_security.group_dym_workshop_analyst" />
+                        <button name="reset_price" string="Reset To FRT" type="object" groups="dym_base_security.group_dym_aftersales_div_head,dym_base_security.group_dym_service_dept_head" class="oe_highlight" />
+                        -->
+                        <button name="%(action_adjust_price)d" string="Adjust Price" type="action" groups="dym_base_security.group_dym_aftersales_div_head,dym_base_security.group_dym_service_dept_head,dym_base_security.group_dym_service_sub_dept_head,dym_base_security.group_dym_workshop_analyst" />
+                        <button name="reset_price" string="Reset To FRT" type="object" groups="dym_base_security.group_dym_aftersales_div_head,dym_base_security.group_dym_service_dept_head" class="oe_highlight" />
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="product_id_jasa" attrs="{'readonly': [('frt_history_exist','!=',False)]}" />
+                            <field name="category_product_id" attrs="{'readonly': [('frt_history_exist','!=',False)]}" />
+                            <field name="time" />
+                            <field name="frt_history_exist" invisible="1" />
+                        </group>
+                        <notebook>
+                            <page string="Check FRT">
+                                <field name="frt_history_line_dummy" readonly="True" options="{'no_open':True,'no_create':True}">
+                                    <tree string="FRT History">
+                                        <field name="date" />
+                                        <field name="branch_id" />
+                                        <field name="time" />
+                                        <field name="rate" />
+                                        <field name="price" string="FRT Price" />
+                                        <field name="adjust" string="Adjusted" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Audit Trail">
+                                <group>
+                                    <group>
+                                        <field name="create_uid" readonly="1"></field>
+                                        <field name="create_date" readonly="1"></field>
+                                    </group>
+                                    <group>
+                                        <field name="write_uid" readonly="1"></field>
+                                        <field name="write_date" readonly="1"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_dym_frt">
+            <field name="name">Flat Rate Time</field>
+            <field name="res_model">dym.frt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Flat Rate Time" parent="dym_dealer_menu.workshop_configuration_menu" sequence="8" id="menu_dym_frt" action="action_dym_frt" />
+        <record id="dym_branch_form_view_rate" model="ir.ui.view">
+            <field name="name">dym.branch.config.reg</field>
+            <field name="model">dym.branch</field>
+            <field name="inherit_id" ref="dym_branch.dym_branch_form_view" />
+            <field name="arch" type="xml">
+                <field name="pricelist_part_purchase_id" position="after">
+                    <field name="rate" string="FRT Rate / Menit" attrs="{'required':[('branch_status','in',['H23','H123'])]}" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_product_template_form_view_frt">
+            <field name="name">dym.product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="arch" type="xml">
+                <div name="options" position="inside">
+                    <div>
+                        <field name="use_frt" />
+                        <label for="use_frt" />
+                    </div>
+                </div>
+            </field>
+        </record>
+    </data>
+</openerp>

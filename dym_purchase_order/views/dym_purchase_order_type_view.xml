@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="dym_purchase_order_type_tree_view">
+            <field name="name">dym.purchase.order.type.tree</field>
+            <field name="model">dym.purchase.order.type</field>
+            <field name="arch" type="xml">
+                <tree string="List Branch">
+                    <field name="category" />
+                    <field name="name" />
+                    <field name="date_start" />
+                    <field name="date_end" />
+                    <field name="invoice_method" />
+                    <field name="mandatory_so_wo" />
+                    <field name="mandatory_hutang_lain" />
+                    <field name="editable_price" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dym_purchase_order_type_form_view">
+            <field name="name">dym.purchase.order.type.form</field>
+            <field name="model">dym.purchase.order.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order Type">
+                    <group>
+                        <field name="category" />
+                        <field name="name" />
+                        <field name="date_start" />
+                        <field name="date_end" />
+                        <field name="invoice_method" />
+                        <field name="mandatory_so_wo" />
+                        <field name="mandatory_hutang_lain" />
+                        <field name="editable_price" />
+                    </group>
+                    <notebook>
+                        <page string="Audit Trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"></field>
+                                    <field name="create_date" readonly="1"></field>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"></field>
+                                    <field name="write_date" readonly="1"></field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="dym_purchase_order_type_action">
+            <field name="name">Purchase Order Type</field>
+            <field name="res_model">dym.purchase.order.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="dym_purchase_order_type_menuitem" name="Purchase Order Types" parent="dym_dealer_menu.ma_purchase_menu" action="dym_purchase_order_type_action" />
+    </data>
+</openerp>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="dym_res_partner_incentive_form_view">
+    		<field name="name">dym.res.partner.incentive.form</field>            
+    		<field name="model">res.partner</field>            
+    		<field name="inherit_id" ref="dym_res_partner.dym_res_partner_form_view"/>
+    		<field name="arch" type="xml">
+    			<field name="incentive_finco_ids" position="before">
+    				<group>
+    					<group string="Incentive">
+    						<field name="incentive_date_type" />
+                            <field name="use_withholding" />
+                            <field name="use_ppn" />
+    					</group>
+    					<group>
+    						<field name="incentive_payment_type" />
+    					</group>
+    				</group>
+    			</field>
+       		</field>
+       	</record>
+	</data>
+</openerp>

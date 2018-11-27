@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_branch_on_purchase_order_form_view" model="ir.ui.view">
+            <field name="name">purchase.order.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="dym_purchase_order.dym_branch_on_purchase_order_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="context">{'branch_id':branch_id}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

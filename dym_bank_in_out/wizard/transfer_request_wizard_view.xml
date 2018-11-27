@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="dym_bank_transfer_from_bank_in_out" model="ir.ui.view">
+            <field name="name">dym.bank.transfer.request.wizard.form</field>
+            <field name="model">dym.bank.transfer.request.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Import Vouchers">
+                    <p>Anda akan mengajukan penggantian uang kepada HO dari selisih Bank In dan Bank Out</p>
+                    <group>
+                        <group>
+                            <field name="branch_id" />
+                            <field name="acc_number" />
+                            <field name="line_in_ids" invisible="1"/>
+                            <field name="line_out_ids" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="amount" string="Total Selisih" readonly="1"/>
+                            <field name="amount_request" string="Total to Request" readonly="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Submit" name="submit_bank_transfer" type="object" class="oe_highlight" /> or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_view_bank_transfer_from_bank_in_out" model="ir.actions.act_window">
+            <field name="name">Import Vouchers</field>
+            <field name="res_model">dym.bank.transfer.request.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="dym_bank_transfer_from_bank_in_out" />
+            <field name="target">new</field>
+            <field name="context">{}</field>
+        </record>
+        <!--
+        <menuitem
+            name="Transfer Request"
+            action="action_view_bank_transfer_from_bank_in_out"
+            id="menu_action_bank_transfer_from_bank_in_out"
+            parent="dym_bank_transaction_in_out_menu" sequence="3" groups="base.group_no_one" />
+        -->
+    </data>
+</openerp>
